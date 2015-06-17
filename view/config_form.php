@@ -34,7 +34,20 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             <col>
         </colgroup>
         <tbody>
-
+        <tr>
+            <th scope="row">현재버젼</th>
+            <td colspan="3">
+                <?php echo $g5_options['version']; ?>
+            </td>
+        </tr>
+        <!--
+        <tr>
+            <th scope="row">파일 최적화 시간</th>
+            <td colspan="3">
+                <?php echo $g5_options['optimize_date']; ?>
+            </td>
+        </tr>
+        -->
         <tr>
             <th scope="row"><label for="cf_use_point">포인트 사용</label></th>
             <td colspan="3"><input type="checkbox" name="cf_use_point" value="1" id="cf_use_point" <?php echo $config['cf_use_point']?'checked':''; ?>> 사용</td>

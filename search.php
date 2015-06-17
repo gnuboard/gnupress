@@ -8,7 +8,7 @@ if( !function_exists('g5_pre_get_posts') ){
         global $gnupress;
         
         //워드프레스 전체 검색시 게시판 내용을 포함 설정이 되어 있다면
-        if( $gnupress->config['cf_use_search_include'] && $q->is_main_query() && $q->is_search() )
+        if( isset($gnupress->config['cf_use_search_include']) && $gnupress->config['cf_use_search_include'] && $q->is_main_query() && $q->is_search() )
         {
             $q->set( 'nopaging', true );
             $c = new G5_Add_Search_Data;

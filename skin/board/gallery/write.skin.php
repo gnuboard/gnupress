@@ -1,5 +1,7 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한다면
+    wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/write.tag.it.js' );
 ?>
 
 <section id="bo_w">
@@ -161,7 +163,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <div class="inside">
             <div class="tagsdiv" id="post_tag">
                 <div class="jaxtag">
-                    <label class="screen-reader-text" for="newtag"><?php _e('Tags'); ?></label>
+                    <label class="screen-reader-text" for="wr_tag_input"><?php _e('Tags'); ?></label>
                     <input type="text" name="wr_tag[post_tag]" class="the-tags" id="wr_tag_input" value="<?php echo $string_wr_tags ?>" />
                     <ul id="g5_singleFieldTags" class="qa_tag_el"></ul>
                 </div>
@@ -265,24 +267,42 @@ jQuery(function($){
     }
 });
 
-jQuery(document).ready(function( $ ) {
-	<?php echo 'gnupress.wr_tags = '.g5_useskin_js_array(array()).';'.PHP_EOL; ?>
-    $("#wr_tag_input").hide();
-    var $tag_field_wrap = $('#g5_singleFieldTags');
-    $tag_field_wrap.tagit({
-        availableTags: gnupress.wr_tags,
-        placeholderText : "태그를 입력해주세요.",
-        autocomplete: {delay: 0, minLength: 1},
-        singleField: true,
-        singleFieldNode: $('#wr_tag_input'),
-        allowSpaces : true,
-        onTagLimitExceeded : function(e, ui){}
-    }).on("keypress keydown keyup change", "input", function(e){
-        if(e.keyCode == 13) { // Enter 방지
-            e.preventDefault();
-            return false;
-        }
-    });
-});
+/*
+(function( $ ) {
+    <?php echo 'gnupress.wr_tags = '.g5_useskin_js_array(array()).';'.PHP_EOL; ?>
+    if( typeof tagit != 'undefined' ){
+        tagit_load();
+    } else {
+        $.when(
+            $.getScript("<?php echo site_url(  '/wp-includes/js/jquery/ui/core.min.js' );?>"),
+            $.getScript("<?php echo site_url(  '/wp-includes/js/jquery/ui/widget.min.js' );?>"),
+            $.getScript("<?php echo site_url(  '/wp-includes/js/jquery/ui/autocomplete.min.js' );?>"),
+            $.getScript("<?php echo $board_skin_url.'/js/tag-it.js';?>"),
+            $.Deferred(function( deferred ){
+                $( deferred.resolve );
+            })
+        ).done(function(){
+            tagit_load();
+        });
+    }
+    function tagit_load(){
+        $("#wr_tag_input").hide();
+        $('#g5_singleFieldTags').tagit({
+            availableTags: gnupress.wr_tags,
+            placeholderText : "태그를 입력해주세요.",
+            autocomplete: {delay: 0, minLength: 1},
+            singleField: true,
+            singleFieldNode: $('#wr_tag_input'),
+            allowSpaces : true,
+            onTagLimitExceeded : function(e, ui){}
+        }).on("keypress keydown keyup change", "input", function(e){
+            if(e.keyCode == 13) { // Enter 방지
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+})(jQuery);
+*/
 
 </script>

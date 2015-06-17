@@ -254,10 +254,13 @@ if ($w == '') {
     }
 }
 
-if( isset($_REQUEST['bo_table']) )
-    g5_set_session('ss_bo_table', $_REQUEST['bo_table']);
-if( isset($_REQUEST['wr_id']) )
-    g5_set_session('ss_wr_id', $_REQUEST['wr_id']);
+/*  //되도록이면 nonce로 대체할 예정
+if( isset($bo_table) )
+    g5_set_session('ss_bo_table', $bo_table);
+
+if( isset($wr_id) )
+    g5_set_session('ss_wr_id', $wr_id);
+*/
 
 $subject = "";
 if (isset($write['wr_subject'])) {

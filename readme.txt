@@ -45,6 +45,11 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
 
 == Changelog ==
 
+= 0.0.3 =
+code correct quite unsafe for wordpress standards
+code corrected on the rss error
+theme conflict code modifify
+
 = 0.0.2 =
 php 5.2 correct grammar
 code correct quite unsafe for wordpress standards

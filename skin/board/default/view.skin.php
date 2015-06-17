@@ -1,5 +1,6 @@
 <?php
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js' );
 ?>
 
 <!-- 게시물 읽기 시작 { -->
@@ -45,7 +46,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             if (isset($view['file'][$i]['source']) && $view['file'][$i]['source'] && !$view['file'][$i]['view']) {
          ?>
             <li>
-                <a href="<?php echo esc_url( $view['file'][$i]['href'] ); ?>" class="view_file_download">
+                <a href="<?php echo esc_url( $view['file'][$i]['href'] ); ?>" class="view_file_download no-ajaxy">
                     <img src="<?php echo $board_skin_url ?>/img/icon_file.gif" alt="첨부">
                     <strong><?php echo $view['file'][$i]['source'] ?></strong>
                     <?php echo $view['file'][$i]['content'] ?> (<?php echo $view['file'][$i]['size'] ?>)
@@ -108,8 +109,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <ul class="bo_v_com">
             <?php if ($update_href) { ?><li><a href="<?php echo esc_url( $update_href ); ?>" class="btn_b01">수정</a></li><?php } ?>
             <?php if ($delete_href) { ?><li><a href="<?php echo esc_url( $delete_href ); ?>" class="btn_b01" onclick="gnupress.del(this.href); return false;">삭제</a></li><?php } ?>
-            <?php if ($copy_href) { ?><li><a href="<?php echo esc_url( $copy_href ); ?>" class="btn_admin" onclick="board_move(this.href); return false;">복사</a></li><?php } ?>
-            <?php if ($move_href) { ?><li><a href="<?php echo esc_url( $move_href ); ?>" class="btn_admin" onclick="board_move(this.href); return false;">이동</a></li><?php } ?>
+            <?php if ($copy_href) { ?><li><a href="<?php echo esc_url( $copy_href ); ?>" class="btn_admin no-ajaxy" onclick="board_move(this.href); return false;">복사</a></li><?php } ?>
+            <?php if ($move_href) { ?><li><a href="<?php echo esc_url( $move_href ); ?>" class="btn_admin no-ajaxy" onclick="board_move(this.href); return false;">이동</a></li><?php } ?>
             <?php if ($search_href) { ?><li><a href="<?php echo esc_url( $search_href ); ?>" class="btn_b01">검색</a></li><?php } ?>
             <li><a href="<?php echo $list_href ?>" class="btn_b01">목록</a></li>
             <?php if ($reply_href) { ?><li><a href="<?php echo esc_url( $reply_href ); ?>" class="btn_b01">답변</a></li><?php } ?>
@@ -156,13 +157,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             <?php if ($scrap_href) { ?><a href="<?php echo esc_url( $scrap_href ); ?>" target="_blank" class="btn_b01" onclick="gnupress.win_scrap(this.href); return false;">스크랩</a><?php } ?>
             <?php if ($good_href) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php echo esc_url( $good_href ) ?>" id="good_button" class="btn_b01">추천 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
+                <a href="<?php echo esc_url( $good_href ) ?>" id="good_button" class="btn_b01" target="_blank">추천 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
                 <b id="bo_v_act_good"></b>
             </span>
             <?php } ?>
             <?php if ($nogood_href) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php echo esc_url( $nogood_href ) ?>" id="nogood_button" class="btn_b01">비추천  <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
+                <a href="<?php echo esc_url( $nogood_href ) ?>" id="nogood_button" class="btn_b01" target="_blank">비추천  <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
                 <b id="bo_v_act_nogood"></b>
             </span>
             <?php } ?>
@@ -210,9 +211,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <script>
 <?php if ($board['bo_download_point'] < 0) { ?>
-(function($) {
-    $("a.view_file_download").click(function() {
-        if(!g5_is_member) {
+function view_file_download(){
+    var othis = this;
+    (function($){
+        if(!gnupress.is_member) {
             alert("다운로드 권한이 없습니다.\n회원이시라면 로그인 후 이용해 보십시오.");
             return false;
         }
@@ -220,41 +222,20 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         var msg = "파일을 다운로드 하시면 포인트가 차감(<?php echo number_format($board['bo_download_point']) ?>점)됩니다.\n\n포인트는 게시물당 한번만 차감되며 다음에 다시 다운로드 하셔도 중복하여 차감하지 않습니다.\n\n그래도 다운로드 하시겠습니까?";
 
         if(confirm(msg)) {
-            var href = $(this).attr("href")+"&js=on";
+            var href = $(othis).attr("href")+"&js=on";
             $(this).attr("href", href);
-
-            return true;
-        } else {
-            return false;
+            window.open( href );
         }
-    });
-})(jQuery);
+
+        return false;
+    })(jQuery);
+}
 <?php } ?>
 
 function board_move(href)
 {
     window.open(href, "boardmove", "left=50, top=50, width=500, height=550, scrollbars=1");
 }
-</script>
-
-<script>
-(function($) {
-
-    // 추천, 비추천
-    $("#good_button, #nogood_button").click(function() {
-        var $tx;
-        if(this.id == "good_button")
-            $tx = $("#bo_v_act_good");
-        else
-            $tx = $("#bo_v_act_nogood");
-
-        excute_good($(this), $tx);
-        return false;
-    });
-
-    // 이미지 리사이즈
-    //$("#bo_v_atc").viewimageresize();
-})(jQuery);
 
 function excute_good($el, $tx)
 {

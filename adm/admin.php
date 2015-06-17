@@ -135,6 +135,7 @@ function g5_board_admin(){
     
     $config = $gnupress->config;
     $add_err_msg = $gnupress->add_err_msg;
+    $g5_options = get_option(G5_OPTION_KEY);
 
     if( isset($_POST['_wpnonce']) && (isset($_POST['g5_config_form']) && 'update' == $_POST['g5_config_form'] ) ){
         g5_config_form_update();

@@ -25,7 +25,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 
     <article id="c_<?php echo $comment_id ?>" <?php if ($cmt_depth) { ?>style="margin-left:<?php echo $cmt_depth ?>px;border-top-color:#e0e0e0"<?php } ?>>
         <header style="z-index:<?php echo $cmt_sv; ?>">
-            <h1><?php echo g5_get_text($list[$i]['user_name']); ?>님의 댓글</h1>
+            <h1><?php echo g5_get_text($list[$i]['user_display_name']); ?>님의 댓글</h1>
             <?php echo $list[$i]['name'] ?>
             <?php if ($cmt_depth) { ?><img src="<?php echo $board_skin_url ?>/img/icon_reply.gif" class="icon_reply" alt="댓글의 댓글"><?php } ?>
             <?php if ($is_ip_view) { ?>
@@ -61,9 +61,9 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
          ?>
         <footer>
             <ul class="bo_vc_act">
-                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo esc_url( $c_reply_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;">답변</a></li><?php } ?>
-                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo esc_url( $c_edit_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;">수정</a></li><?php } ?>
-                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo esc_url( $list[$i]['del_link'] ); ?>" onclick="return g5_view_cm.comment_delete();">삭제</a></li><?php } ?>
+                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo esc_url( $c_reply_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;" class="no-ajaxy">답변</a></li><?php } ?>
+                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo esc_url( $c_edit_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;" class="no-ajaxy">수정</a></li><?php } ?>
+                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo esc_url( $list[$i]['del_link'] ); ?>" onclick="return g5_view_cm.comment_delete();" class="no-ajaxy">삭제</a></li><?php } ?>
             </ul>
         </footer>
         <?php } ?>
@@ -101,7 +101,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
         <?php if ($is_guest) { ?>
         <tr>
             <th scope="row"><label for="user_name">이름<strong class="sound_only"> 필수</strong></label></th>
-            <td><input type="text" name="user_name" value="<?php echo esc_attr( g5_get_cookie("ck_sns_name") ); ?>" id="user_name" required class="frm_input required" size="5" maxLength="20"></td>
+            <td><input type="text" name="user_name" value="<?php echo esc_attr( g5_get_cookie("ck_sns_name") ); ?>" id="user_name" required class="frm_input required" size="10" maxLength="20"></td>
         </tr>
         <tr>
             <th scope="row"><label for="user_pass">비밀번호<strong class="sound_only"> 필수</strong></label></th>

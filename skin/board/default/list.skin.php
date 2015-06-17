@@ -56,8 +56,8 @@ if (!$is_show_field['wdate']) $colspan--;
 
         <?php if ($rss_href || $write_href) { ?>
         <ul class="btn_bo_user">
-            <?php if ($rss_href) { ?><li><a href="<?php echo esc_url( $rss_href ); ?>" class="btn_b01">RSS</a></li><?php } ?>
-            <?php if ($admin_href) { ?><li><a href="<?php echo esc_url( $admin_href ); ?>" class="btn_admin">관리자</a></li><?php } ?>
+            <?php if ($rss_href) { ?><li><a href="<?php echo esc_url( $rss_href ); ?>" class="btn_b01" target="_blank">RSS</a></li><?php } ?>
+            <?php if ($admin_href) { ?><li><a href="<?php echo esc_url( $admin_href ); ?>" class="btn_admin" target="_blank">관리자</a></li><?php } ?>
             <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02">글쓰기</a></li><?php } ?>
         </ul>
         <?php } ?>
@@ -242,11 +242,12 @@ if (!$is_show_field['wdate']) $colspan--;
 <!-- } 게시판 검색 끝 -->
 
 <?php if ($is_checkbox) { ?>
-<script>
+
+<script type='text/javascript'>
 function all_checked(sw) {
     var f = document.fboardlist;
 
-    for (var i=0; i<f.length; i++) {
+    for (var i=0; i < f.length; i++) {
         if (f.elements[i].name == "chk_wr_id[]")
             f.elements[i].checked = sw;
     }
@@ -255,7 +256,7 @@ function all_checked(sw) {
 function fboardlist_submit(f) {
     var chk_count = 0;
 
-    for (var i=0; i<f.length; i++) {
+    for (var i=0; i < f.length; i++) {
         if (f.elements[i].name == "chk_wr_id[]" && f.elements[i].checked)
             chk_count++;
     }
@@ -303,6 +304,7 @@ function select_copy(sw) {
     f.submit();
 }
 </script>
+
 <?php } ?>
 <!-- } 게시판 목록 끝 -->
 

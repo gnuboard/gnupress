@@ -236,6 +236,10 @@ class KCAPTCHA{
 // 캡챠 HTML 코드 출력
 function g5_captcha_html($class="captcha")
 {
+    if( $get_html = apply_filters('g5_captcha_get_html', '') ){
+        return $get_html;
+    }
+
     $html = "\n".'<div class="g5_captchar_wrap">';
     $html .= "\n".'<fieldset id="captcha" class="'.$class.'">';
     $html .= "\n".'<legend><label for="captcha_key">자동등록방지</label></legend>';
@@ -258,6 +262,10 @@ function g5_captcha_html($class="captcha")
 // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함
 function g5_chk_captcha_js()
 {
+    if( $get_script = apply_filters('g5_captcha_javascript', '') ){
+        return $get_script;
+    }
+
     return "if (!gnupress.chk_captcha()) return false;\n";
 }
 
@@ -265,6 +273,10 @@ function g5_chk_captcha_js()
 // 세션에 저장된 캡챠값과 $_POST 로 넘어온 캡챠값을 비교
 function g5_chk_captcha()
 {
+    if( $get_check = apply_filters('g5_captcha_action_check', '') ){
+        return true;
+    }
+
     $captcha_count = (int)g5_get_session('ss_captcha_count');
     if ($captcha_count > 5) {
         return false;

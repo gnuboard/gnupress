@@ -37,7 +37,7 @@ $wpdb->query($sql);
 $sql = "DROP TABLE IF EXISTS ".$g5['scrap_table'];
 $wpdb->query($sql);
 
-$sql = "DROP TABLE IF EXISTS ".$g5['g5_board_good'];
+$sql = "DROP TABLE IF EXISTS ".$g5['board_good_table'];
 $wpdb->query($sql);
 
 delete_post_meta_by_key(G5_META_KEY);

@@ -1,6 +1,6 @@
 <?php
-$page_path = explode(DIRECTORY_SEPARATOR.'wp-content'.DIRECTORY_SEPARATOR, dirname(__FILE__));
-include_once(str_replace('wp-content/' , '', $page_path[0] . '/wp-load.php'));
+$page_path = explode('wp-content', $_SERVER['SCRIPT_FILENAME']);
+include_once($page_path[0].'wp-load.php');
 
 unset($page_path);
 

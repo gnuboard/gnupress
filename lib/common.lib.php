@@ -233,11 +233,11 @@ function g5_insert_point($user_id, $point, $content='', $rel_table='', $rel_id='
     // 이미 등록된 내역이라면 건너뜀
     if ($rel_table || $rel_id || $rel_action)
     {
-        $sql = " select count(*) as cnt from {$g5['point_table']}
-                  where user_id = '$user_id'
-                    and po_rel_table = '$rel_table'
-                    and po_rel_id = '$rel_id'
-                    and po_rel_action = '$rel_action' ";
+        $sql = $wpdb->prepare(" select count(*) as cnt from {$g5['point_table']}
+                  where user_id = %d
+                    and po_rel_table = '%s'
+                    and po_rel_id = '%s'
+                    and po_rel_action = '%s' ", $user_id, $rel_table, $rel_id, $rel_action );
 
         $row_count = $wpdb->get_var($sql);
         if ($row_count)
@@ -621,9 +621,11 @@ function g5_delete_point($user_id, $rel_table, $rel_id, $rel_action)
 // 검색 구문을 얻는다.
 function g5_get_sql_search($search_ca_name, $search_field, $search_text, $search_operator='and', $tag='')
 {
+    global $wpdb;
+
     $str = "";
     if ($search_ca_name)
-        $str = " ca_name = '$search_ca_name' ";
+        $str = $wpdb->prepare(" ca_name = '%s' ", $search_ca_name);
 
     $search_text = strip_tags(($search_text));
     $search_text = trim(stripslashes($search_text));
@@ -685,12 +687,12 @@ function g5_get_sql_search($search_ca_name, $search_field, $search_text, $search
                         $s[$i] = ( isset($get_user['user_id']) && "" != $get_user['user_id'] ) ? $get_user['user_id'] : $s[$i];
                     }
                 case "user_display_name" :
-                    $str .= " $field[$k] = '$s[$i]' ";
+                    $str .= $wpdb->prepare(" $field[$k] = '%s' ", $s[$i]);
                     break;
                 case "wr_hit" :
                 case "wr_good" :
                 case "wr_nogood" :
-                    $str .= " $field[$k] >= '$s[$i]' ";
+                    $str .= $wpdb->prepare(" $field[$k] >= %d ", intval($s[$i]) );
                     break;
                 // 번호는 해당 검색어에 -1 을 곱함
                 case "wr_num" :
@@ -703,9 +705,9 @@ function g5_get_sql_search($search_ca_name, $search_field, $search_text, $search
                 // LIKE 보다 INSTR 속도가 빠름
                 default :
                     if (preg_match("/[a-zA-Z]/", $search_str))
-                        $str .= "INSTR(LOWER($field[$k]), LOWER('$search_str'))";
+                        $str .= $wpdb->prepare("INSTR(LOWER($field[$k]), LOWER('%s'))", $search_str);
                     else
-                        $str .= "INSTR($field[$k], '$search_str')";
+                        $str .= $wpdb->prepare("INSTR($field[$k], '%s')", $search_str);
                     break;
             }
             $op2 = " or ";

@@ -31,13 +31,13 @@ class G5_Board extends G5_common {
 
         $load_skin_js = array();
         $load_skin_js[] = array('handle'=>'g5-common-js', 'src'=>G5_DIR_URL.'js/common.js', 'deps'=>'', 'ver'=>G5_VERSION);
-
-        if( $this->request_action == 'write' ){
+        
+        if( $this->request_action == 'write' && $this->board['bo_use_tag'] ){
             wp_enqueue_style ( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css', '', G5_VERSION );
             wp_enqueue_style ( 'jquery-tagit-css' , $board_skin_url.'/js/jquery.tagit.css', '', G5_VERSION );
-            wp_enqueue_script( 'jquery-ui-core', site_url(  '/wp-includes/js/jquery/ui/jquery.ui.core.min.js' ), array('jquery') );
-            wp_enqueue_script( 'jquery-ui-widget', site_url(  '/wp-includes/js/jquery/ui/jquery.ui.widget.min.js' ), array('jquery-ui-core') );
-            wp_enqueue_script( 'jquery-ui-autocomplete', site_url(  '/wp-includes/js/jquery/ui/jquery.ui.autocomplete.min.js' ), array('jquery') );
+            wp_enqueue_script( 'jquery-ui-core', site_url(  '/wp-includes/js/jquery/ui/core.min.js' ), array('jquery') );
+            wp_enqueue_script( 'jquery-ui-widget', site_url(  '/wp-includes/js/jquery/ui/widget.min.js' ), array('jquery-ui-core') );
+            wp_enqueue_script( 'jquery-ui-autocomplete', site_url(  '/wp-includes/js/jquery/ui/autocomplete.min.js' ), array('jquery-ui-widget') );
 
             $load_skin_js[] = array(
                     'handle'=>'g5-board-'.$this->board['bo_table'].'_tagjs',

@@ -59,7 +59,7 @@ if ($sca || $stx || count($search_tag)) {
 
     if (!$spt) $spt = $min_spt;
     
-    $sql_search .= " and bo_table = '$bo_table' and (wr_num between {$spt} and ({$spt} + {$config['cf_search_part']})) ";
+    $sql_search .= $wpdb->prepare(" and bo_table = '%s' and (wr_num between %d and (%d + %d)) ", $bo_table, $spt, $spt, $config['cf_search_part']);
 
     $sql = " select count(wr_id) as cnt from {$write_table} where {$sql_search} ";
 

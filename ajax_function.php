@@ -159,4 +159,35 @@ function g5_ajax_kcaptcha_result(){
     die();
 }
 
+//태그 관련 ajax
+add_action("wp_ajax_g5_get_tags", "g5_ajax_get_tags");
+add_action("wp_ajax_nopriv_g5_get_tags", "g5_ajax_get_tags");
+function g5_ajax_get_tags(){
+    global $wpdb, $gnupress;
+
+    check_ajax_referer( 'g5_write', 'security' );
+
+    $bo_table = $gnupress->bo_table;
+
+    if( !$bo_table ){ wp_die( -1 ); }
+    
+    g5_wp_taxonomies($gnupress->bo_table);
+
+    include_once( G5_DIR_PATH.'lib/g5_var.class.php' );
+    include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );
+
+	$board_tag_lists = g5_get_terms( g5_get_taxonomy($bo_table) , apply_filters('g5_list_get_tag_where', array( 'orderby' => 'count', 'order' => 'DESC' )) );
+
+    $tags = array();
+
+    foreach( $board_tag_lists as $v ){
+        if( !isset($v->name) && empty($v->name) ) continue;
+        $tags[] = $v->name;
+    }
+
+    wp_send_json($tags);
+
+    die();
+}
+
 ?>

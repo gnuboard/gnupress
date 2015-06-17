@@ -1,5 +1,7 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한다면
+    wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/write.tag.it.js' );
 ?>
 
 <section id="bo_w">
@@ -264,25 +266,4 @@ jQuery(function($){
             return true;
     }
 });
-
-jQuery(document).ready(function( $ ) {
-	<?php echo 'gnupress.wr_tags = '.g5_useskin_js_array(array()).';'.PHP_EOL; ?>
-    $("#wr_tag_input").hide();
-    var $tag_field_wrap = $('#g5_singleFieldTags');
-    $tag_field_wrap.tagit({
-        availableTags: gnupress.wr_tags,
-        placeholderText : "태그를 입력해주세요.",
-        autocomplete: {delay: 0, minLength: 1},
-        singleField: true,
-        singleFieldNode: $('#wr_tag_input'),
-        allowSpaces : true,
-        onTagLimitExceeded : function(e, ui){}
-    }).on("keypress keydown keyup change", "input", function(e){
-        if(e.keyCode == 13) { // Enter 방지
-            e.preventDefault();
-            return false;
-        }
-    });
-});
-
 </script>

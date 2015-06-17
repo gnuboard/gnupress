@@ -4,7 +4,7 @@
  *  Description: 워드프레스 게시판 플러그인
  *  Author: SIR Soft
  *  Author URI: http://sir.co.kr
- *  Version: 0.0.2
+ *  Version: 0.0.3
  *  Text Domain: SIR Soft
  */
 
@@ -74,8 +74,6 @@ Class GnuPress {
             $this->board_redirect($redirect_id);
         }
         
-
-
         add_action('the_posts', array( $this, 'check_g5_page') );
         add_shortcode( G5_NAME, array( $this, 'g5_shortcode' ) );
         add_shortcode( G5_NAME.'_latest', array( $this, 'g5_latest_shortcode' ) );
@@ -83,6 +81,7 @@ Class GnuPress {
 
         add_action( 'admin_init', array( $this, 'g5_chk_admin' ) );
         add_action( 'admin_menu', array( $this, 'g5_admin_menu' ) );
+        add_action('wp_head', array( $this, 'g5_initialize_head') );
 
         add_action( 'admin_bar_menu', array( $this, 'g5_custom_menu' ) );
         add_action( 'wp_login', array( $this, 'g5_login_check' ), 10, 2 );
@@ -127,7 +126,7 @@ Class GnuPress {
         include_once( G5_DIR_PATH.'lib/g5_common.class.php' );
         include_once( G5_DIR_PATH.'lib/g5_board.class.php' );
 
-        add_action('wp_head', array( $this, 'g5_initialize_head') );
+        //add_action('wp_head', array( $this, 'g5_initialize_head') );
 
         $this->instances = new G5_Board($attr);
         
@@ -263,6 +262,9 @@ Class GnuPress {
             return $posts;
 
         $g5_options = get_option(G5_OPTION_KEY);
+        if( isset($g5_options['version']) && $g5_options['version'] != G5_VERSION ){
+            include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
+        }
         $board_page_exists = isset( $g5_options['board_page'] ) ? 1 : 0;
 
         foreach ($posts as $post) {
@@ -513,6 +515,7 @@ Class GnuPress {
                 //textarea를 사용할 경우 처리
                 include_once( G5_DIR_PATH.'lib/editor.lib.php' );
             }
+            include_once( G5_DIR_PATH.'bbs/db_table.optimize.php' );
             include_once( G5_DIR_PATH.'adm/admin.lib.php' );
             include_once( G5_DIR_PATH.'adm/admin.php' );
         }

@@ -17,8 +17,10 @@ if($captcha_mp3 && is_array($captcha_mp3)) {
 }
 
 // 실행일 기록
-if(isset($config['cf_optimize_date'])) {
-    sql_query(" update {$g5['config_table']} set cf_optimize_date = '".G5_TIME_YMD."' ");
+if(!isset($config['cf_optimize_date'])) {
+    $g5_options = get_option(G5_OPTION_KEY);
+    $g5_options['optimize_date'] = G5_TIME_YMD;
+    update_option( G5_OPTION_KEY, $g5_options );
 }
 
 ?>

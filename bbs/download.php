@@ -1,6 +1,11 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
+//wp-super-cache 사용시 이 페이지는 cache하지 않음
+if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+    define( 'DONOTCACHEPAGE', true );
+}
+
 ob_end_clean();
 
 $no = isset($_REQUEST['no']) ? (int) $_REQUEST['no'] : 0;
@@ -27,12 +32,12 @@ $file = $file_meta_data[$no];
 /*
 if($js != 'on' && $board['bo_download_point'] < 0) {
     $msg = $file['bf_source'].' 파일을 다운로드 하시면 포인트가 차감('.number_format($board['bo_download_point']).'점)됩니다.\\n포인트는 게시물당 한번만 차감되며 다음에 다시 다운로드 하셔도 중복하여 차감하지 않습니다.\\n그래도 다운로드 하시겠습니까?';
-    $url1 = G5_BBS_URL.'/download.php?'.$_SERVER['QUERY_STRING'].'&amp;js=on';
-    $url2 = $_SERVER['HTTP_REFERER'];
+    $url1 = add_query_arg( array('js'=>'on') );
+    $url2 = wp_get_referer();
 
     //$url1 = 확인link, $url2=취소link
     // 특정주소로 이동시키려면 $url3 이용
-    confirm($msg, $url1, $url2);
+    g5_confirm($msg, $url1, $url2);
 }
 */
 
@@ -56,20 +61,20 @@ if (!is_file($filepath) || !file_exists($filepath))
 // 이미 다운로드 받은 파일인지를 검사한 후 게시물당 한번만 포인트를 차감하도록 수정
 $ss_name = 'ss_down_'.$bo_table.'_'.$wr_id;
 
-if (!g5_get_session($ss_name))
+if (g5_get_session($ss_name))
 {
     // 자신의 글이라면 통과
     // 관리자인 경우 통과
     if (($write['user_id'] && $write['user_id'] == $member['user_id']) || $is_admin)
         ;
-    else if ($board['bo_download_level'] >= 1) // 회원이상 다운로드가 가능하다면
+    else if ($board['bo_download_level'] >= 0) // 회원이상 다운로드가 가능하다면
     {
         // 다운로드 포인트가 음수이고 회원의 포인트가 0 이거나 작다면
         if ($member['mb_point'] + $board['bo_download_point'] < 0)
             g5_alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 다운로드('.number_format($board['bo_download_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 다운로드 해 주십시오.');
 
         // 게시물당 한번만 차감하도록 수정
-        //g5_insert_point($member['mb_id'], $board['bo_download_point'], "{$board['bo_subject']} $wr_id 파일 다운로드", $bo_table, $wr_id, "다운로드");
+        g5_insert_point($member['user_id'], $board['bo_download_point'], "{$board['bo_subject']} $wr_id 파일 다운로드", $bo_table, $wr_id, "다운로드");
     }
 
     // 다운로드 카운트 증가
