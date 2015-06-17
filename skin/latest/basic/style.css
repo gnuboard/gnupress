@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+.g5_latest_lt {position:relative}
+.g5_latest_lt .msg_sound_only, .g5_latest_lt .sound_only {display:inline-block !important;position:absolute;top:0;left:0;margin:0 !important;padding:0 !important;font-size:0;line-height:0;border:0 !important;overflow:hidden !important}
+
+.g5_latest_lt ul {margin:0 0 10px;padding:0;list-style:none}
+.g5_latest_lt li {padding:3px 0}
+.g5_latest_lt li img{vertical-align:middle;margin:0}
+.g5_latest_lt .lt_title {display:none}
+.g5_latest_lt .lt_more {position:absolute;top:-20px;right:0}
+.g5_latest_lt .cnt_cmt {display:inline-block;margin:0 0 0 3px;font-weight:bold}

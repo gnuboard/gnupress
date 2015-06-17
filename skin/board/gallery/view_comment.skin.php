@@ -1,0 +1,337 @@
+<?php
+if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+$cm_content='';
+?>
+
+<script>
+// 글자수 제한
+var char_min = parseInt(<?php echo $comment_min ?>); // 최소
+var char_max = parseInt(<?php echo $comment_max ?>); // 최대
+</script>
+
+<!-- 댓글 시작 { -->
+<section id="bo_vc">
+    <h2>댓글목록</h2>
+    <?php
+    $cmt_amt = count($list);
+    for ($i=0; $i<$cmt_amt; $i++) {
+        $comment_id = $list[$i]['cm_id'];
+        $cmt_depth = (int) $list[$i]['cm_parent'] > 0 ? 1 : 0; // 댓글단계
+        $cmt_depth = $cmt_depth * 20;
+        $comment = $list[$i]['content'];
+        $comment = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp|mms)\:\/\/([^[:space:]]+)\.(mp3|wma|wmv|asf|asx|mpg|mpeg)\".*\<\/a\>\]/i", "<script>doc_write(obj_movie('$1://$2.$3'));</script>", $comment);
+        $cmt_sv = $cmt_amt - $i + 1; // 댓글 헤더 z-index 재설정 ie8 이하 사이드뷰 겹침 문제 해결
+     ?>
+
+    <article id="c_<?php echo $comment_id ?>" <?php if ($cmt_depth) { ?>style="margin-left:<?php echo $cmt_depth ?>px;border-top-color:#e0e0e0"<?php } ?>>
+        <header style="z-index:<?php echo $cmt_sv; ?>">
+            <h1><?php echo g5_get_text($list[$i]['user_name']); ?>님의 댓글</h1>
+            <?php echo $list[$i]['name'] ?>
+            <?php if ($cmt_depth) { ?><img src="<?php echo $board_skin_url ?>/img/icon_reply.gif" class="icon_reply" alt="댓글의 댓글"><?php } ?>
+            <?php if ($is_ip_view) { ?>
+            아이피
+            <span class="bo_vc_hdinfo"><?php echo $list[$i]['ip']; ?></span>
+            <?php } ?>
+            작성일
+            <span class="bo_vc_hdinfo"><time datetime="<?php echo date('Y-m-d\TH:i:s+09:00', strtotime($list[$i]['datetime'])) ?>"><?php echo $list[$i]['datetime'] ?></time></span>
+            <?php
+            //include(G5_SNS_PATH.'/view_comment_list.sns.skin.php');
+            ?>
+        </header>
+
+        <!-- 댓글 출력 -->
+        <p>
+            <?php if (strstr($list[$i]['cm_option'], "secret")) { ?><img src="<?php echo $board_skin_url; ?>/img/icon_secret.gif" alt="비밀글"><?php } ?>
+            <?php echo $comment ?>
+        </p>
+
+        <span id="edit_<?php echo $comment_id ?>"></span><!-- 수정 -->
+        <span id="reply_<?php echo $comment_id ?>"></span><!-- 답변 -->
+
+        <input type="hidden" value="<?php echo strstr($list[$i]['cm_option'],"secret") ?>" id="secret_comment_<?php echo $comment_id ?>">
+        <textarea id="save_comment_<?php echo $comment_id ?>" style="display:none"><?php echo g5_get_text($list[$i]['content1'], 0) ?></textarea>
+
+        <?php if($list[$i]['is_reply'] || $list[$i]['is_edit'] || $list[$i]['is_del']) {
+            $query_string = add_query_arg(array());
+
+            if($w == 'cu') {
+                $sql = " select cm_id, cm_content from `{$g5['comment_table']}` where cm_id = '$c_id' ";
+                $cmt = g5_sql_fetch($sql);
+                $cm_content = $cmt['cm_content'];
+            }
+
+            $c_reply_href = add_query_arg( array('c_id'=>$comment_id, 'w'=>'c'),$query_string ).'#bo_vc_w';
+            $c_edit_href = add_query_arg( array('c_id'=>$comment_id, 'w'=>'cu'),$query_string ).'#bo_vc_w';
+         ?>
+        <footer>
+            <ul class="bo_vc_act">
+                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo $c_reply_href;  ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;">답변</a></li><?php } ?>
+                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo $c_edit_href;  ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;">수정</a></li><?php } ?>
+                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo $list[$i]['del_link'];  ?>" onclick="return g5_view_cm.comment_delete();">삭제</a></li><?php } ?>
+            </ul>
+        </footer>
+        <?php } ?>
+    </article>
+    <?php } ?>
+    <?php if ($i == 0) { //댓글이 없다면 ?><p id="bo_vc_empty">등록된 댓글이 없습니다.</p><?php } ?>
+
+</section>
+<!-- } 댓글 끝 -->
+
+<?php if ($is_comment_write) {
+    if($w == '')
+        $w = 'c';
+?>
+<!-- 댓글 쓰기 시작 { -->
+<aside id="bo_vc_w">
+    <h2>댓글쓰기</h2>
+    <form name="fviewcomment" action="<?php $comment_action_url; ?>" onsubmit="return g5_view_cm.fviewcomment_submit(this);" method="post" autocomplete="off">
+    <?php wp_nonce_field( 'g5_comment_write', 'g5_nonce_field' ); ?>
+    <input type="hidden" name="g5_rq" value="g5">
+    <input type="hidden" name="action" value="write_comment_update">
+    <input type="hidden" name="w" value="<?php echo $w ?>" id="w">
+    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+    <input type="hidden" name="cm_id" value="<?php echo $cm_id ?>" id="cm_id">
+    <input type="hidden" name="sca" value="<?php echo $sca ?>">
+    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
+    <input type="hidden" name="stx" value="<?php echo $stx ?>">
+    <input type="hidden" name="spt" value="<?php echo $spt ?>">
+    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="is_good" value="">
+
+    <div class="tbl_frm01 tbl_wrap">
+        <table>
+        <tbody>
+        <?php if ($is_guest) { ?>
+        <tr>
+            <th scope="row"><label for="user_name">이름<strong class="sound_only"> 필수</strong></label></th>
+            <td><input type="text" name="user_name" value="<?php echo g5_get_cookie("ck_sns_name"); ?>" id="user_name" required class="frm_input required" size="5" maxLength="20"></td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="user_pass">비밀번호<strong class="sound_only"> 필수</strong></label></th>
+            <td><input type="password" name="user_pass" id="user_pass" required class="frm_input required" size="10" maxLength="20"></td>
+        </tr>
+        <?php } ?>
+        <tr>
+            <th scope="row"><label for="cm_secret">비밀글사용</label></th>
+            <td><input type="checkbox" name="cm_secret" value="secret" id="cm_secret"></td>
+        </tr>
+        <?php if ($is_guest) { ?>
+        <tr>
+            <th scope="row">자동등록방지</th>
+            <td><?php echo $captcha_html; ?></td>
+        </tr>
+        <?php } ?>
+        <?php
+        if($board['bo_use_sns'] && ($config['cf_facebook_appid'] || $config['cf_twitter_key'])) {
+        ?>
+        <tr>
+            <th scope="row">SNS 동시등록</th>
+            <td id="bo_vc_send_sns"></td>
+        </tr>
+        <?php
+        }
+        ?>
+        <tr>
+            <th scope="row">내용</th>
+            <td>
+                <?php if ($comment_min || $comment_max) { ?><strong id="char_cnt"><span id="char_count"></span>글자</strong><?php } ?>
+                <textarea id="cm_content" name="cm_content" maxlength="10000" required class="required" title="내용"
+                <?php if ($comment_min || $comment_max) { ?>onkeyup="check_byte('cm_content', 'char_count');"<?php } ?>><?php echo $cm_content;  ?></textarea>
+                <?php if ($comment_min || $comment_max) { ?><script> check_byte('cm_content', 'char_count'); </script><?php } ?>
+                <script>
+                (function($){
+                    $("form[name=fviewcomment]").on("textarea#cm_content[maxlength]", "keyup change", function() {
+                        var str = $(this).val()
+                        var mx = parseInt($(this).attr("maxlength"))
+                        if (str.length > mx) {
+                            $(this).val(str.substr(0, mx));
+                            return false;
+                        }
+                    });
+                })(jQuery);
+                </script>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <div class="btn_confirm">
+        <input type="submit" id="btn_submit" class="btn_submit" value="댓글등록">
+    </div>
+
+    </form>
+</aside>
+
+<script>
+var g5_view_cm = {
+    save_before : '',
+    save_html : document.getElementById('bo_vc_w').innerHTML
+};
+
+(function($){
+    g5_view_cm.good_and_write = function()
+    {
+        var f = document.fviewcomment;
+        if (this.fviewcomment_submit(f)) {
+            f.is_good.value = 1;
+            f.submit();
+        } else {
+            f.is_good.value = 0;
+        }
+    }
+
+    g5_view_cm.fviewcomment_submit = function(f)
+    {
+        var pattern = /(^\s*)|(\s*$)/g; // \s 공백 문자
+
+        f.is_good.value = 0;
+
+        var subject = "";
+        var content = "";
+
+        $.ajax({
+            url: gnupress.ajax_url,
+            type: "POST",
+            data: {
+                "action": "g5_bss_filter",
+                "subject": "",
+                "content": f.cm_content.value
+            },
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function(data, textStatus) {
+                subject = data.subject;
+                content = data.content;
+            }
+        });
+
+        if (content) {
+            alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
+            f.cm_content.focus();
+            return false;
+        }
+
+        // 양쪽 공백 없애기
+        var pattern = /(^\s*)|(\s*$)/g; // \s 공백 문자
+        document.getElementById('cm_content').value = document.getElementById('cm_content').value.replace(pattern, "");
+        if (char_min > 0 || char_max > 0)
+        {
+            check_byte('cm_content', 'char_count');
+            var cnt = parseInt(document.getElementById('char_count').innerHTML);
+            if (char_min > 0 && char_min > cnt)
+            {
+                alert("댓글은 "+char_min+"글자 이상 쓰셔야 합니다.");
+                return false;
+            } else if (char_max > 0 && char_max < cnt)
+            {
+                alert("댓글은 "+char_max+"글자 이하로 쓰셔야 합니다.");
+                return false;
+            }
+        }
+        else if (!document.getElementById('cm_content').value)
+        {
+            alert("댓글을 입력하여 주십시오.");
+            return false;
+        }
+
+        if (typeof(f.user_name) != 'undefined')
+        {
+            f.user_name.value = f.user_name.value.replace(pattern, "");
+            if (f.user_name.value == '')
+            {
+                alert('이름이 입력되지 않았습니다.');
+                f.user_name.focus();
+                return false;
+            }
+        }
+
+        if (typeof(f.user_pass) != 'undefined')
+        {
+            f.user_pass.value = f.user_pass.value.replace(pattern, "");
+            if (f.user_pass.value == '')
+            {
+                alert('비밀번호가 입력되지 않았습니다.');
+                f.user_pass.focus();
+                return false;
+            }
+        }
+
+        <?php if($is_guest) echo g5_chk_captcha_js();  ?>
+
+        document.getElementById("btn_submit").disabled = "disabled";
+
+        return true;
+    }
+
+    g5_view_cm.comment_box = function(comment_id, work)
+    {
+        var el_id,
+            othis = this;
+        // 댓글 아이디가 넘어오면 답변, 수정
+        if (comment_id)
+        {
+            if (work == 'c')
+                el_id = 'reply_' + comment_id;
+            else
+                el_id = 'edit_' + comment_id;
+        }
+        else
+            el_id = 'bo_vc_w';
+
+        if (othis.save_before != el_id)
+        {
+            if (othis.save_before)
+            {
+                document.getElementById(othis.save_before).style.display = 'none';
+                document.getElementById(othis.save_before).innerHTML = '';
+            }
+
+            document.getElementById(el_id).style.display = '';
+            document.getElementById(el_id).innerHTML = othis.save_html;
+            // 댓글 수정
+            if (work == 'cu')
+            {
+                document.getElementById('cm_content').value = document.getElementById('save_comment_' + comment_id).value;
+                if (typeof char_count != 'undefined')
+                    check_byte('cm_content', 'char_count');
+                if (document.getElementById('secret_comment_'+comment_id).value)
+                    document.getElementById('cm_secret').checked = true;
+                else
+                    document.getElementById('cm_secret').checked = false;
+            }
+
+            document.getElementById('cm_id').value = comment_id;
+            document.getElementById('w').value = work;
+
+            if(othis.save_before)
+                $("#captcha_reload").trigger("click");
+
+            othis.save_before = el_id;
+        }
+    }
+
+    g5_view_cm.comment_delete = function()
+    {
+        return confirm("이 댓글을 삭제하시겠습니까?");
+    }
+
+    g5_view_cm.comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 추가 (root님)
+
+    <?php if($board['bo_use_sns'] && ($config['cf_facebook_appid'] || $config['cf_twitter_key'])) { ?>
+    // sns 등록
+    $(function() {
+        $("#bo_vc_send_sns").load(
+            "<?php echo G5_SNS_URL; ?>/view_comment_write.sns.skin.php?bo_table=<?php echo $bo_table; ?>",
+            function() {
+                g5_view_cm.save_html = document.getElementById('bo_vc_w').innerHTML;
+            }
+        );
+    });
+    <?php } ?>
+})(jQuery);
+</script>
+<?php } ?>
+<!-- } 댓글 쓰기 끝 -->
