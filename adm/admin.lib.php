@@ -174,7 +174,7 @@ function g5_rm_rf($file)
 
 function g5_adm_post_check($value){
     if( isset($_POST[$value]) && !empty($_POST[$value]) ){
-        return " , $value = '$_POST[$value]' ";
+        return " , $value = '".sanitize_text_field($_POST[$value])."' ";
     }
     return '';
 }

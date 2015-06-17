@@ -4,7 +4,7 @@
  *  Description: 워드프레스 게시판 플러그인
  *  Author: SIR Soft
  *  Author URI: http://sir.co.kr
- *  Version: 0.0.3
+ *  Version: 0.0.4
  *  Text Domain: SIR Soft
  */
 
@@ -12,9 +12,6 @@ if ( !class_exists( 'GnuPress' ) ) :
 
 //설정 파일을 불러옴
 include_once( plugin_dir_path( __FILE__ ).'config.php' );
-
-if (!session_id())
-    session_start();
 
 // 이 플러그인이 활성화 될때 설치
 register_activation_hook( __FILE__, 'gnupress_install' );
@@ -45,9 +42,10 @@ Class GnuPress {
     public $board_list = array();
     public $qstr;
     public $add_err_msg;
-    public $new_url;    //새창 url
+    public $new_url = '';    //새창 url
     public $member_page_array = array();
     public $wr_id = null;
+    public $member_page_action = '';
 
     private $config;
     private $g5;
@@ -62,6 +60,16 @@ Class GnuPress {
 
     public function __construct() {
 
+        if (!headers_sent())
+            @session_start();
+
+        define( 'G5_IS_MOBILE', wp_is_mobile() );
+
+        define('G5_SERVER_TIME',    current_time( 'timestamp' ) );
+        define('G5_TIME_YMDHIS',    date('Y-m-d H:i:s', G5_SERVER_TIME));
+        define('G5_TIME_YMD',       substr(G5_TIME_YMDHIS, 0, 10));
+        define('G5_TIME_HIS',       substr(G5_TIME_YMDHIS, 11, 8));
+
         //extend 폴더에서 파일들을 include한다.
         $this->load_extend_file();
 
@@ -74,6 +82,17 @@ Class GnuPress {
             $this->board_redirect($redirect_id);
         }
         
+        $this->member_page_array = apply_filters('g5_get_member_page', array('point', 'scrap', 'scrap_popin', 'formmail'));
+
+        $check_arr = array('g5_new', 'action');
+        foreach($check_arr as $v){
+            $$v = isset($_REQUEST[$v]) ? sanitize_text_field($_REQUEST[$v]) : '';
+        }
+
+        if( in_array($action, $this->member_page_array) ){
+            $this->member_page_action = $action;
+        }
+
         add_action('the_posts', array( $this, 'check_g5_page') );
         add_shortcode( G5_NAME, array( $this, 'g5_shortcode' ) );
         add_shortcode( G5_NAME.'_latest', array( $this, 'g5_latest_shortcode' ) );
@@ -91,9 +110,12 @@ Class GnuPress {
 
         $this->bo_table = isset($_REQUEST['bo_table']) ? esc_attr( wp_unslash($_REQUEST['bo_table']) ) : '';
         $this->is_admin = current_user_can( 'administrator' ) ? 'super' : '';
-        $this->new_url = apply_filters('g5_new_open_url', G5_DIR_URL.'g5_new.php');
         
-        $this->member_page_array = apply_filters('g5_get_member_page', array('point', 'scrap', 'scrap_popin', 'formmail'));
+        $g5_options = get_option(G5_OPTION_KEY);
+
+        if(isset($g5_options['cf_new_page_id'])){
+            $this->new_url = get_permalink($g5_options['cf_new_page_id']);
+        }
     }
 
     public function __get($property) {
@@ -158,7 +180,7 @@ Class GnuPress {
             add_action( 'load-'.$v, 'g5_load_admin_js' ); // enqueues javascript for admin
         }
 
-        $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+        $page = isset($_REQUEST['page']) ? sanitize_text_field( $_REQUEST['page'] ) : '';
 
         if( $page == 'g5_tag_form'){  // 태그 사용시 설정
             add_action( 'load-'.strtolower(G5_NAME).'_page_g5_tag_form', array( $this, '_page_g5_tag_form') );
@@ -256,37 +278,46 @@ Class GnuPress {
 
     public function check_g5_page($posts){
 
-        // is_page() 또는 is_singular() 또는 is_single() 를 잘 구분하자
-
-        if ( empty($posts) || $this->is_g5_page || !is_singular() )
-            return $posts;
-
         $g5_options = get_option(G5_OPTION_KEY);
+
         if( isset($g5_options['version']) && $g5_options['version'] != G5_VERSION ){
             include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
         }
-        $board_page_exists = isset( $g5_options['board_page'] ) ? 1 : 0;
 
-        foreach ($posts as $post) {
+        $is_g5_page = false;
 
-            if( $post->post_type != 'page' ) continue;
+        if( $is_g5_page = $this->g5_member_page_check($posts) ){
+            $this->is_g5_page = true;
+            return $posts;
+        } else {
+            // is_page() 또는 is_singular() 또는 is_single() 를 잘 구분하자
 
-            if( $board_page_exists ){
-                $bo_table = array_search( $post->ID, $g5_options['board_page'] );
-                if( $bo_table !== false ){
-                   $this->is_g5_page = true;
-                   $this->attr = $attr = array('bo_table'=>$bo_table);
+            if ( empty($posts) || $this->is_g5_page || !is_singular() )
+                return $posts;
 
-                   add_filter('the_content', array( $this, 'filter_the_content') );   //내용 관리 필터
+            $board_page_exists = isset( $g5_options['board_page'] ) ? 1 : 0;
 
-                   break;break;break;
+            foreach ($posts as $post) {
+
+                if( $post->post_type != 'page' ) continue;
+
+                if( $board_page_exists ){
+                    $bo_table = array_search( $post->ID, $g5_options['board_page'] );
+                    if( $bo_table !== false ){
+                       $this->is_g5_page = true;
+                       $this->attr = $attr = array('bo_table'=>$bo_table);
+
+                       add_filter('the_content', array( $this, 'filter_the_content') );   //내용 관리 필터
+
+                       break;break;break;
+                    }
                 }
-            }
 
-            if( !empty($post->post_content) && has_shortcode( $post->post_content, G5_NAME ) ){
-                $attr = $this->check_attr($post->post_content);
-                $this->is_g5_page = true;
-                break;break;
+                if( !empty($post->post_content) && has_shortcode( $post->post_content, G5_NAME ) ){
+                    $attr = $this->check_attr($post->post_content);
+                    $this->is_g5_page = true;
+                    break;break;
+                }
             }
         }
 
@@ -312,6 +343,48 @@ Class GnuPress {
 
     public function filter_the_content($content=''){
         return $content.$this->g5_shortcode($this->attr);
+    }
+
+    public function g5_member_page_check($posts){
+        global $post;
+
+        /*
+        if( !$this->member_page_action ){
+            return false;
+        }
+        */
+
+        if ( empty($posts) || $this->is_g5_page || !is_singular() )
+            return false;
+
+        $g5_options = get_option(G5_OPTION_KEY);
+
+        foreach ($posts as $post) {
+
+            if( $post->post_type != 'page' ) continue;
+
+            if( isset($post->ID) && isset($g5_options['cf_new_page_id']) && $post->ID === $g5_options['cf_new_page_id'] ){
+                if( !$this->member_page_action ){
+                    $this->member_page_action = 'point';
+                } else {
+                    add_action( 'template_redirect', array( $this, 'g5_member_pageload' ) );
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function g5_member_pageload(){
+
+        $g5_options = get_option(G5_OPTION_KEY);
+        $page_mode = $action = $this->member_page_action;
+
+        //if( $g5_new && in_array($action, $this->member_page_array) && is_user_logged_in() ){
+            include_once( G5_DIR_PATH.'bbs/member.php' );
+        //}
+
     }
 
     // 게시판 관련 숏코드 실행
@@ -365,9 +438,11 @@ Class GnuPress {
         
         $use_latest_cache = $this->config['cf_use_latest_cache'];
 
+        $cache_file_path = g5_get_upload_path();
+
         $cache_fwrite = false;
-        if( $use_latest_cache ){
-            $cache_file = g5_get_upload_path()."/cache/latest-{$bo_table}-{$skin_dir}-{$rows}-{$subject_len}.php";
+        if( $use_latest_cache && $cache_file_path ){
+            $cache_file = $cache_file_path."/cache/latest-{$bo_table}-{$skin_dir}-{$rows}-{$subject_len}.php";
 
             if(!file_exists($cache_file)) {
                 $cache_fwrite = true;
@@ -395,6 +470,7 @@ Class GnuPress {
 
                 $this->latest = new G5_Board($attr);
             }
+
             $board = g5_get_board_config($bo_table);
 
             if( !isset($board['bo_table']) || empty($board['bo_table']) ){

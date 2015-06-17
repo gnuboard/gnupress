@@ -8,7 +8,9 @@ if ( !isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'g5_
 // 4.1
 @include_once($board_skin_path.'/delete_comment.head.skin.php');
 
-$comment_write = $wpdb->get_row($wpdb->prepare(" select * from `{$g5['comment_table']}` where cm_id = %d ", $cm_id), ARRAY_A);
+$comment_write = $wpdb->get_row(
+                            $wpdb->prepare(" select * from `{$g5['comment_table']}` where cm_id = %d ", $cm_id)
+                    , ARRAY_A);
 
 if (!$comment_write['cm_id'])
     g5_alert(__('등록된 코멘트가 없거나 코멘트 글이 아닙니다.', G5_NAME));
@@ -32,9 +34,10 @@ else if ($is_admin == 'board') { // 게시판관리자이면
         g5_alert('비밀번호가 틀립니다.');
 }
 
-$sql = $wpdb->prepare(" select count(*) as cnt from `{$g5['comment_table']}` where cm_parent = %d ", $cm_id);
+$row_cnt = $wpdb->get_var(
+                        $wpdb->prepare(" select count(*) as cnt from `{$g5['comment_table']}` where cm_parent = %d ", $cm_id)
+            );
 
-$row_cnt = $wpdb->get_var($sql);
 if ($row_cnt && !$is_admin)
     g5_alert(__('이 코멘트와 관련된 답변코멘트가 존재하므로 삭제 할 수 없습니다.', G5_NAME));
 
@@ -43,18 +46,24 @@ if (!g5_delete_point($comment_write['user_id'], $bo_table, $cm_id, '댓글'))
     g5_insert_point($comment_write['user_id'], $board['bo_comment_point'] * (-1), "{$board['bo_subject']} {$comment_write['cm_id']}-{$cm_id} 댓글삭제");
 
 // 코멘트 삭제
-g5_sql_query(" delete from `{$g5['comment_table']}` where cm_id = '$cm_id' ");
+$result = $wpdb->query(
+                $wpdb->prepare(" delete from `{$g5['comment_table']}` where cm_id = %d ", $cm_id);
+            );
 
 // 코멘트가 삭제되므로 해당 게시물에 대한 최근 시간을 다시 얻는다.
-$sql = " select max(cm_datetime) as wr_last from `{$g5['comment_table']}` where wr_id = '{$comment_write['wr_id']}' ";
-$row = g5_sql_fetch($sql);
+$wr_last = $wpdb->get_var(
+                        $wpdb->prepare(" select max(cm_datetime) as wr_last from `{$g5['comment_table']}` where wr_id = %d ", $comment_write['wr_id'])
+            );
 
 // 원글의 코멘트 숫자를 감소
-
-g5_sql_query(" update `{$write_table}` set wr_comment = case wr_comment when 0 then 0 else wr_comment - 1 end, wr_last = '{$row['wr_last']}' where wr_id = '{$comment_write['wr_id']}' ");
+$result = $wpdb->query(
+                $wpdb->prepare(" update `{$write_table}` set wr_comment = case wr_comment when 0 then 0 else wr_comment - 1 end, wr_last = '%s' where wr_id = %d ", $wr_last, $comment_write['wr_id']);
+            );
 
 // 코멘트 숫자 감소
-g5_sql_query(" update `{$g5['board_table']}` set bo_count_comment = case bo_count_comment when 0 then 0 else bo_count_comment - 1 end where bo_table = '{$bo_table}' ");
+$result = $wpdb->query(
+                $wpdb->prepare(" update `{$g5['board_table']}` set bo_count_comment = case bo_count_comment when 0 then 0 else bo_count_comment - 1 end where bo_table = '%s ", $bo_table);
+            );
 
 // 사용자 코드 실행
 @include_once($board_skin_path.'/delete_comment.skin.php');

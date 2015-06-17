@@ -282,9 +282,11 @@ function g5_chk_captcha()
         return false;
     }
 
-    if (!isset($_POST['captcha_key'])) return false;
-    if (!trim($_POST['captcha_key'])) return false;
-    if ($_POST['captcha_key'] != g5_get_session('ss_captcha_key')) {
+    $captcha_key = isset($_POST['captcha_key']) ? sanitize_key($_POST['captcha_key']) : '';
+
+    if (!isset($captcha_key)) return false;
+
+    if ($captcha_key != g5_get_session('ss_captcha_key')) {
         $_SESSION['ss_captcha_count'] = $captcha_count + 1;
         return false;
     }

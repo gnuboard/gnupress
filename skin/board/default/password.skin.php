@@ -35,6 +35,7 @@ else $g5['title'] = $g5['title'];
     <input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
     <input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
     <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
+    <input type="hidden" name="page_id" value="<?php echo get_the_ID(); ?>">
 
     <fieldset>
         <label for="pw_wr_password">비밀번호<strong class="sound_only">필수</strong></label>

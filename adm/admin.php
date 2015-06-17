@@ -34,7 +34,7 @@ function g5_point_list(){
     $is_admin = $gnupress->is_admin;
 
     if( isset($_POST['point_action']) && !empty( $_POST['point_action']) ){
-        g5_point_action($_POST['point_action'], $g5, $config);
+        g5_point_action(sanitize_key($_POST['point_action']), $g5, $config);
     }
 
     include_once( G5_DIR_PATH.'view/point_list.php' );
@@ -57,7 +57,7 @@ if ( ! function_exists('g5_point_action'))
                 $request_arr = array('user_login', 'po_point', 'po_content', 'po_expire_term');
 
                 foreach( $request_arr as $v ){
-                    $$v = isset( $_POST[$v] ) ? $_POST[$v] : '';
+                    $$v = isset( $_POST[$v] ) ? sanitize_text_field($_POST[$v]) : '';
                 }
 
                 $expire = preg_replace('/[^0-9]/', '', $po_expire_term);
@@ -80,15 +80,23 @@ if ( ! function_exists('g5_point_action'))
 
                 $count = count($_POST['chk']);
                 if(!$count)
-                    g5_alert($_POST['act_button'].' 하실 항목을 하나 이상 체크하세요.');
+                    g5_alert(sanitize_title($_POST['act_button']).' 하실 항목을 하나 이상 체크하세요.');
 
                 for ($i=0; $i<$count; $i++)
                 {
                     // 실제 번호를 넘김
-                    $k = $_POST['chk'][$i];
+                    $k = intval($_POST['chk'][$i]);
+                    $po_id = intval($_POST['po_id'][$k]);
+                    $user_id = intval($_POST['user_id'][$k]);
 
                     // 포인트 내역정보
-                    $sql = $wpdb->prepare("select * from {$g5['point_table']} where po_id = %d", (int) $_POST['po_id'][$k]);
+                    $sql = $wpdb->prepare(
+                                "
+                                select * from {$g5['point_table']} where po_id = %d
+                                ",
+                                $po_id
+                            );
+
                     $row = $wpdb->get_row($sql, ARRAY_A);
 
                     if(!$row['po_id'])
@@ -109,19 +117,26 @@ if ( ! function_exists('g5_point_action'))
                     }
 
                     // 포인트 내역삭제
-                    $sql = " delete from {$g5['point_table']} where po_id = ".(int) $_POST['po_id'][$k]." ";
+                    $sql = $wpdb->prepare(
+                                "
+                                delete from {$g5['point_table']} where po_id = %d
+                                ",
+                                $po_id
+                            );
                     $result = $wpdb->query($sql);
 
                     // po_mb_point에 반영
 
-                    $sql = " update {$g5['point_table']}
-                                set po_mb_point = po_mb_point - '{$row['po_point']}'
-                                where user_id = ".(int) $_POST['user_id'][$k]. "
-                                  and po_id > ".(int) $_POST['po_id'][$k] ." ";
+                    $sql = $wpdb->prepare(" update {$g5['point_table']}
+                                    set po_mb_point = po_mb_point - '{$row['po_point']}'
+                                    where user_id = %d
+                                    and po_id > %d ",
+                                    $user_id, $po_id
+                                  );
                     $result = $wpdb->query($sql);
 
                     // 회원 메타 테이블에 포인트 UPDATE
-                    update_user_meta( $_POST['user_id'][$k], 'mb_point', g5_get_point_sum($_POST['user_id'][$k]) );
+                    update_user_meta( $user_id, 'mb_point', g5_get_point_sum($user_id) );
                 }
 
                 break;
@@ -137,7 +152,7 @@ function g5_board_admin(){
     $add_err_msg = $gnupress->add_err_msg;
     $g5_options = get_option(G5_OPTION_KEY);
 
-    if( isset($_POST['_wpnonce']) && (isset($_POST['g5_config_form']) && 'update' == $_POST['g5_config_form'] ) ){
+    if( isset($_POST['_wpnonce']) && (isset($_POST['g5_config_form']) && 'update' == sanitize_key($_POST['g5_config_form']) ) ){
         g5_config_form_update();
     }
     
@@ -158,13 +173,14 @@ function g5_config_form_update(){
 
     foreach( $_POST as $key=>$v ){
         if( in_array($key, array('_wp_http_referer', '_wpnonce')) ) continue;
-        $tmp_config[$key] = $v;
+        $tmp_config[$key] = sanitize_text_field($v);
     }
 
     $checkbox_array = array('cf_use_point', 'cf_use_copy_log', 'cf_use_search_include', 'cf_email_use', 'cf_formmail_is_member', 'cf_email_wr_super_admin', 'cf_email_wr_board_admin', 'cf_email_wr_write', 'cf_email_wr_comment_all');
 
     foreach( $checkbox_array as $key=>$v ){
         if( !isset($_POST[$v]) ){
+            $v = sanitize_key($v);
             $tmp_config[$v] = 0;
         }
     }
@@ -199,7 +215,7 @@ function g5_board_form(){
     $add_err_msg = $gnupress->add_err_msg;
     $is_admin = g5_is_admin();
 
-    $check_post_msg = ( isset( $_POST['g5_admin_post'] ) ) ? g5_admin_post( $_POST['g5_admin_post'] ) : false;
+    $check_post_msg = ( isset( $_POST['g5_admin_post'] ) ) ? g5_admin_post( sanitize_title($_POST['g5_admin_post']) ) : false;
     
     $bbs_direct_url = '';
 
@@ -210,7 +226,7 @@ function g5_board_form(){
     //파라미터
     $param_arr = array('w', 'stx', 'sfl', 'sst', 'sod', 'page', 'bo_table', 'g5_rq');
     foreach( $param_arr as $v ){
-        $$v = isset($_REQUEST[$v]) ? $_REQUEST[$v] : '';
+        $$v = isset($_REQUEST[$v]) ? sanitize_text_field($_REQUEST[$v]) : '';
 
         if($v == 'bo_table' && $$v != null ){
             $bo_table = preg_replace('/[^a-z0-9_]/i', '', trim($_REQUEST[$v]));
@@ -276,6 +292,9 @@ function g5_board_form(){
         $check_arr = array('bo_subject', 'bo_table', 'bo_mobile_subject', 'bo_device', 'bo_category_list', 'bo_use_category', 'bo_admin', 'bo_list_level', 'bo_read_level', 'bo_write_level', 'bo_reply_level', 'bo_comment_level', 'bo_link_level', 'bo_upload_level', 'bo_download_level', 'bo_html_level', 'bo_use_sideview', 'bo_use_dhtml_editor', 'bo_use_rss_view', 'bo_use_good', 'bo_use_nogood', 'bo_use_name', 'bo_use_signature', 'bo_use_ip_view', 'bo_use_list_content', 'bo_use_list_file', 'bo_use_list_view', 'bo_use_email', 'bo_use_file_content', 'bo_use_sns', 'bo_use_cert', 'cf_cert_use', 'bo_write_min', 'bo_write_max', 'bo_comment_min', 'bo_comment_max', 'bo_order', 'bo_content_head', 'bo_content_tail', 'bo_mobile_content_head', 'bo_mobile_content_tail', 'bo_insert_content', 'bo_sort_field', 'bo_1_subj', 'bo_1', 'bo_2_subj', 'bo_2', 'bo_3_subj', 'bo_3', 'bo_4_subj', 'bo_4', 'bo_5_subj', 'bo_5', 'bo_6_subj', 'bo_6', 'bo_7_subj', 'bo_7', 'bo_8_subj', 'bo_8', 'bo_9_subj', 'bo_9', 'bo_10_subj', 'bo_10', 'bo_skin', 'bo_use_tag' );
 
         foreach( $check_arr as $v){
+
+            $v = sanitize_key($v);
+
             if( !isset( $board[$v] ))
                 $board[$v] = '';
 
@@ -292,6 +311,8 @@ function g5_board_form(){
             $gnupress->add_err_msg = __( '존재하지 않는 게시판입니다.', G5_NAME );
 
         $readonly = 'readonly';
+
+        wp_cache_delete( 'g5_bo_table_'.$board['bo_table'] );
 
         if( $g5_get_page_id = g5_get_page_id( g5_page_get_by($board['bo_table'],'name') )){     //게시판이 적용된 페이지가 존재한다면
             $bbs_direct_url = add_query_arg( array(), get_permalink($g5_get_page_id) );
@@ -336,7 +357,7 @@ function g5_board_list(){
     //파라미터
     $param_arr = array('stx', 'sfl', 'sst', 'sod', 'page');
     foreach( $param_arr as $v ){
-        $$v = isset($_REQUEST[$v]) ? $_REQUEST[$v] : '';
+        $$v = isset($_REQUEST[$v]) ? sanitize_text_field($_REQUEST[$v]) : '';
     }
     
     $sql_common = " from {$g5['board_table']} a ";

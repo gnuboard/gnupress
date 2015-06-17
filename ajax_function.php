@@ -8,8 +8,8 @@ add_action("wp_ajax_nopriv_g5_bss_filter", "g5_bbs_filter");
 function g5_bbs_filter(){
 
     include_once( G5_DIR_PATH.'lib/g5_var.class.php' );
-    $subject = strtolower($_POST['subject']);
-    $content = strtolower(strip_tags($_POST['content']));
+    $subject = strtolower(sanitize_title($_POST['subject']));
+    $content = strtolower(strip_tags(wp_kses_post($_POST['content'])));
     $config = G5_var::getInstance()->get_options('config');
     $filter = explode(",", trim($config['cf_filter']));
     for ($i=0; $i<count($filter); $i++) {
@@ -52,7 +52,7 @@ function g5_ajax_add_tag(){
     include_once( G5_DIR_PATH.'lib/g5_var.class.php' );
     include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );
 
-	$taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : 'post_tag';
+	$taxonomy = !empty($_POST['taxonomy']) ? sanitize_text_field($_POST['taxonomy']) : 'post_tag';
 	$tax = get_taxonomy($taxonomy);
 
 	if ( !current_user_can( $tax->cap->edit_terms ) )
@@ -60,7 +60,7 @@ function g5_ajax_add_tag(){
 
 	$x = new WP_Ajax_Response();
 
-	$tag = g5_insert_term($_POST['tag-name'], $taxonomy, $_POST );
+	$tag = g5_insert_term(sanitize_text_field($_POST['tag-name']), $taxonomy, $_POST );
 
 	if ( !$tag || is_wp_error($tag) || (!$tag = g5_get_term( $tag['term_id'], $taxonomy )) ) {
 		$message = __('An error has occurred. Please reload the page and try again.');
@@ -74,7 +74,7 @@ function g5_ajax_add_tag(){
 		$x->send();
 	}
 
-	$wp_list_table = _g5_get_list_table( 'G5_Terms_List_Table', $taxonomy, $gnupress->bo_table, array( 'screen' => $_POST['screen'] ) );
+	$wp_list_table = _g5_get_list_table( 'G5_Terms_List_Table', $taxonomy, $gnupress->bo_table, array( 'screen' => sanitize_text_field($_POST['screen']) ) );
 
 	$level = 0;
 	if ( is_taxonomy_hierarchical($taxonomy) ) {
@@ -114,9 +114,9 @@ function g5_ajax_delete_tag() {
 
     g5_wp_taxonomies($bo_table);
 
-	$tag_id = (int) $_POST['tag_ID'];	
+	$tag_id = intval($_POST['tag_ID']);	
 
-	$taxonomy = !empty($_POST['taxonomy']) ? $_POST['taxonomy'] : 'post_tag';
+	$taxonomy = !empty($_POST['taxonomy']) ? sanitize_text_field($_POST['taxonomy']) : 'post_tag';
 	$tax = get_taxonomy($taxonomy);
 
 	if ( !current_user_can( $tax->cap->delete_terms ) )

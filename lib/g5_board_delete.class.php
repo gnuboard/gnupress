@@ -71,7 +71,7 @@ class G5_Board_delete extends G5_Board {
             $file_meta_data = get_metadata(G5_META_TYPE, $row['wr_id'], G5_FILE_META_KEY , true);
 
             // metadata에 있으면 삭제
-            if( count($file_meta_data) ){
+            if( count($file_meta_data) && g5_get_upload_path() ){
                 foreach((array) $file_meta_data as $row2 ){
                     if( !isset($row2['bf_file']) ) continue;
                     @unlink(g5_get_upload_path().'/file/'.$board['bo_table'].'/'.$row2['bf_file']);
@@ -89,7 +89,9 @@ class G5_Board_delete extends G5_Board {
             delete_metadata(G5_META_TYPE, $row['wr_id'], G5_FILE_META_KEY);
 
             // 스크랩 삭제
-            $wpdb->query(" delete from {$g5['scrap_table']} where bo_table = '{$board['bo_table']}' and wr_id = '{$row['wr_id']}' ");
+            $wpdb->query( 
+                $wpdb->prepare("delete from {$g5['scrap_table']} where bo_table = '%s' and wr_id = %d ", $board['bo_table'], $row['wr_id'])
+                );
 
             //태그 기록 삭제
             g5_delete_object_term_relationships($row['wr_id'], g5_get_taxonomy($board['bo_table']));
@@ -105,7 +107,8 @@ class G5_Board_delete extends G5_Board {
     //글 삭제
     public function sql_delete($wr_id, $table){
         global $wpdb;
-        $sql = apply_filters('g5_reply_delete_sql', " delete from `$table` where wr_id = '$wr_id' " , $wr_id, $table, $this );
+        $sql_str = $wpdb->prepare(" delete from `$table` where wr_id = %d ", (int) $wr_id);
+        $sql = apply_filters('g5_reply_delete_sql', $sql_str, $wr_id, $table, $this );
 
         if( $sql ){
             $wpdb->query($sql);
@@ -120,7 +123,9 @@ class G5_Board_delete extends G5_Board {
         
         if( !$wr_id ) return;
 
-        $result = $wpdb->query(" delete from `{$g5['comment_table']}` where wr_id = '$wr_id' ");
+        $result = $wpdb->query(
+                        $wpdb->prepare(" delete from `{$g5['comment_table']}` where wr_id = %d ", (int) $wr_id)
+                    );
     }
 }
 

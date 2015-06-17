@@ -4,14 +4,14 @@ function g5_get_qstr(){
 
     $qstr = array();
     if (isset($_REQUEST['sca']))  {
-        $sca = g5_clean_xss_tags(trim($_REQUEST['sca']));
+        $sca = sanitize_text_field(trim($_REQUEST['sca']));
         if( $sca ){
             $qstr['sca'] = urlencode($sca);
         }
     }
 
     if (isset($_REQUEST['sfl']))  {
-        $sfl = trim($_REQUEST['sfl']);
+        $sfl = sanitize_text_field(trim($_REQUEST['sfl']));
         $sfl = preg_replace("/[\<\>\'\"\%\=\(\)\s]/", "", $sfl);
         if( $sfl ){
             $qstr['sfl'] = urlencode($sfl); // search field (검색 필드)
@@ -19,14 +19,14 @@ function g5_get_qstr(){
     }
 
     if (isset($_REQUEST['stx']))  { // search text (검색어)
-        $stx = g5_get_search_string(trim($_REQUEST['stx']));
+        $stx = g5_get_search_string(sanitize_text_field(trim($_REQUEST['stx'])));
         if( $stx ){
             $qstr['stx'] = urlencode($stx);
         }
     }
 
     if (isset($_REQUEST['sst']))  {
-        $sst = trim($_REQUEST['sst']);
+        $sst = sanitize_text_field(trim($_REQUEST['sst']));
         $sst = preg_replace("/[\<\>\'\"\%\=\(\)\s]/", "", $sst);
         if( $sst ){
             $qstr['sst'] = urlencode($sst); // search sort (검색 정렬 필드)
@@ -34,14 +34,14 @@ function g5_get_qstr(){
     }
 
     if (isset($_REQUEST['sod']))  { // search order (검색 오름, 내림차순)
-        $sod = preg_match("/^(asc|desc)$/i", $_REQUEST['sod']) ? $_REQUEST['sod'] : '';
+        $sod = preg_match("/^(asc|desc)$/i", $_REQUEST['sod']) ? sanitize_text_field($_REQUEST['sod']) : '';
         if ($sod){
             $qstr['sod'] = urlencode($sod);
         }
     }
 
     if (isset($_REQUEST['sop']))  { // search operator (검색 or, and 오퍼레이터)
-        $sop = preg_match("/^(or|and)$/i", $_REQUEST['sop']) ? $_REQUEST['sop'] : '';
+        $sop = preg_match("/^(or|and)$/i", $_REQUEST['sop']) ? sanitize_text_field($_REQUEST['sop']) : '';
         if ($sop){
             $qstr['sop'] = urlencode($sop);
         }
@@ -66,20 +66,13 @@ function g5_get_qstr(){
     }
 
     if (isset($_REQUEST['tag'])) { // tag 검색
-        if ( $tag = g5_clean_xss_tags(trim($_REQUEST['tag'])) )
+        if ( $tag = sanitize_text_field(trim($_REQUEST['tag'])) )
             $qstr['tag'] = urlencode($tag);
     }
 
     $gnupress->qstr = apply_filters('g5_get_qstr_filter' , $qstr);
 
     return $gnupress->qstr;
-}
-
-function g5_request_check($value, $key=''){
-    if( $value ){
-        $value = apply_filters('g5_request_check', wp_filter_kses($value), $key );
-    }
-    return $value;
 }
 
 function g5_get_selected($field, $value)
@@ -92,6 +85,20 @@ function g5_get_checked($field, $value)
     return ($field==$value) ? ' checked="checked"' : '';
 }
 
+function g5_request_param_keys($add_array=array()){
+
+    $params = array('w', 'sop', 'stx', 'sca', 'sst', 'sca', 'sfl', 'spt', 'sod', 'sw', 'board_page_id', 'tag');
+    if( $add_array ){
+        $params = array_merge($add_array, $params);
+    }
+    $tmps = array();
+    foreach($params as $v){
+        $tmps[$v] = isset($_REQUEST[$v]) ? sanitize_text_field(trim($_REQUEST[$v])) : '';
+    }
+
+    $tmps = apply_filters('g5_request_param_filters', $tmps, $params);
+    return $tmps;
+}
 
 function g5_get_category_option($board, $is_admin, $ca_name='')
 {
@@ -274,7 +281,20 @@ function g5_insert_point($user_id, $point, $content='', $rel_table='', $rel_id='
             'po_rel_action' => $rel_action
         );
 
-    $result = $wpdb->insert( $g5['point_table'], $data );
+    $formats = array(
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%s'
+        );
+    $result = $wpdb->insert( $g5['point_table'], $data, $formats);
 
     // db insert에 실패한 경우
     if ( $result === false ){
@@ -335,8 +355,22 @@ function g5_get_point_sum($user_id)
                             'po_rel_action' => $rel_action
                             );
 
+            $formats = array(
+                '%s',
+                '%s',
+                '%s',
+                '%d',
+                '%d',
+                '%d',
+                '%d',
+                '%s',
+                '%s',
+                '%s',
+                '%s'
+                );
+
             // insert
-            $result = $wpdb->insert($g5['point_table'], $data);
+            $result = $wpdb->insert($g5['point_table'], $data, $formats);
 
             // db insert에 실패한 경우
             if ( $result === false ){
@@ -351,7 +385,8 @@ function g5_get_point_sum($user_id)
 
         $data = array( 'po_expired' => 1 );
 
-        $where = " user_id = '$user_id' and po_expired <> '1' and po_expire_date <> '9999-12-31' and po_expire_date < '".G5_TIME_YMD."' ";
+        $where = $wpdb->prepare(" user_id = '%s' and po_expired <> '1' and po_expire_date <> '9999-12-31' and po_expire_date < '%s' ", $user_id, G5_TIME_YMD);
+
         // 유효기간이 있을 때 기간이 지난 포인트 expired 체크
 
         $result = $wpdb->update($g5['point_table'], $data, $where);
@@ -404,9 +439,11 @@ function g5_insert_use_point($user_id, $point, $po_id='')
         if(($point2 - $point3) > $point1) {
             
             $data = array( 'po_use_point' => "po_use_point + $point1" );
+            $formats = array( '%d' );
             $where = array( 'po_id' => (int) $row['po_id'] );
+            $where_format = array( '%d' );
 
-            $result = $wpdb->update( $g5['point_table'], $data, $where );
+            $result = $wpdb->update( $g5['point_table'], $data, $where, $formats, $where_format);
 
             // db update에 실패한 경우
             if ( $result === false ){
@@ -417,9 +454,11 @@ function g5_insert_use_point($user_id, $point, $po_id='')
             $point4 = $point2 - $point3;
 
             $data = array( 'po_use_point' => "po_use_point + $point4", 'po_expired' => '100' );
+            $formats = array( '%d', '%d' );
             $where = array( 'po_id' => (int) $row['po_id'] );
+            $where_format = array( '%d' );
 
-            $result = $wpdb->update( $g5['point_table'], $data, $where );
+            $result = $wpdb->update( $g5['point_table'], $data, $where, $formats, $where_format);
             // db update에 실패한 경우
             if ( $result === false ){
                 g5_show_db_error();
@@ -463,10 +502,11 @@ function g5_delete_use_point($user_id, $point)
             $po_expired = 0;
 
         if($point2 > $point1) {
-            $sql = " update {$g5['point_table']}
-                        set po_use_point = po_use_point - '$point1',
-                            po_expired = '$po_expired'
-                        where po_id = ".(int) $row['po_id']."' ";
+            $sql = $wpdb->prepare(" update {$g5['point_table']}
+                        set po_use_point = po_use_point - %d,
+                            po_expired = %d
+                        where po_id = %d ", (int) $point1, (int) $po_expired, (int) $row['po_id']);
+
             $result = $wpdb->query($sql);
             // db insert에 실패한 경우
             if ( $result === false ){
@@ -474,10 +514,11 @@ function g5_delete_use_point($user_id, $point)
             }
             break;
         } else {
-            $sql = " update {$g5['point_table']}
-                        set po_use_point = '0',
-                            po_expired = '$po_expired'
-                        where po_id = ".(int) $row['po_id'] ."' ";
+            $sql = $wpdb->prepare(" update {$g5['point_table']}
+                        set po_use_point = 0,
+                            po_expired = %d
+                        where po_id = %d ", (int) $po_expired, (int) $row['po_id']);
+
             $result = $wpdb->query($sql);
             // db insert에 실패한 경우
             if ( $result === false ){
@@ -539,11 +580,12 @@ function g5_delete_expire_point($user_id, $point)
             $po_expire_date = date('Y-m-d', strtotime('+'.($config['cf_point_term'] - 1).' days', G5_SERVER_TIME));
 
         if($point2 > $point1) {
-            $sql = " update {$g5['point_table']}
-                        set po_use_point = po_use_point - '$point1',
-                            po_expired = '$po_expired',
-                            po_expire_date = '$po_expire_date'
-                        where po_id = '{$row['po_id']}' ";
+            $sql = $wpdb->prepare(" update {$g5['point_table']}
+                        set po_use_point = po_use_point - %d,
+                            po_expired = %d,
+                            po_expire_date = '%s'
+                        where po_id = %d ", (int) $point1, (int) $po_expired, $po_expire_date, (int) $row['po_id']);
+
             $result = $wpdb->query($sql);
             // db insert에 실패한 경우
             if ( $result === false ){
@@ -551,11 +593,12 @@ function g5_delete_expire_point($user_id, $point)
             }
             break;
         } else {
-            $sql = " update {$g5['point_table']}
+            $sql = $wpdb->prepare(" update {$g5['point_table']}
                         set po_use_point = '0',
-                            po_expired = '$po_expired',
-                            po_expire_date = '$po_expire_date'
-                        where po_id = '{$row['po_id']}' ";
+                            po_expired = %d,
+                            po_expire_date = '%s'
+                        where po_id = %d ", (int) $po_expired, $po_expire_date, $row['po_id']);
+
             $result = $wpdb->query($sql);
             // db insert에 실패한 경우
             if ( $result === false ){
@@ -593,17 +636,18 @@ function g5_delete_point($user_id, $rel_table, $rel_id, $rel_action)
             }
         }
 
-        $result = $wpdb->query(" delete from {$g5['point_table']}
-                     where user_id = '$user_id'
-                       and po_rel_table = '$rel_table'
-                       and po_rel_id = '$rel_id'
-                       and po_rel_action = '$rel_action' ");
+        $result = $wpdb->query(
+                        $wpdb->prepare(" delete from {$g5['point_table']} where user_id = '%s'
+                                           and po_rel_table = '%s'
+                                           and po_rel_id = '%s'
+                                           and po_rel_action = '%s' ", $user_id, $rel_table, $rel_id, $rel_action)
+                        );
 
         // po_mb_point에 반영
-        $sql = " update {$g5['point_table']}
-                    set po_mb_point = po_mb_point - '{$row['po_point']}'
-                    where user_id = '$user_id'
-                      and po_id > '{$row['po_id']}' ";
+        $sql = $wpdb->prepare(" update {$g5['point_table']}
+                    set po_mb_point = po_mb_point - %d
+                    where user_id = '%s'
+                      and po_id > %d ", (int) $row['po_point'], $user_id, (int) $row['po_id']);
         $wpdb->query($sql);
 
         // 포인트 내역의 합을 구하고
@@ -768,7 +812,7 @@ function g5_get_paging($write_pages, $cur_page, $total_page, $url, $add='', $nam
         }
     }
 
-    if ($total_page > $end_page) $str .= '<a href="'.$url.($end_page+1).$add.'" class="pg_page pg_next">다음</a>'.PHP_EOL;
+    if ($total_page > $end_page) $str .= '<a href="'.add_query_arg( array( $naming => $end_page+1), $url).'" class="pg_page pg_next">다음</a>'.PHP_EOL;
 
     if ($cur_page < $total_page) {
         $str .= '<a href="'.add_query_arg( array( $naming => $total_page), $url).'" class="pg_page pg_end">맨끝</a>'.PHP_EOL;
@@ -1004,6 +1048,8 @@ function g5_get_member($mb_id, $slug='')
             $member_meta = array_diff( (array) $member_meta, $key_array);
             if( isset($member_meta[$wpdb->prefix.'user_level']) ){
                 $member_meta['user_level'] = $member_meta[$wpdb->prefix.'user_level'];
+            } else {
+                $member_meta['user_level'] = 0;
             }
             $member_array = apply_filters( 'g5_get_member', wp_parse_args($member_meta, $member_array) );
         }
@@ -1170,7 +1216,7 @@ function g5_hook_conv_wp($content, $wr_content){
 }
 
 //게시판의 설정을 읽어온다.
-function g5_get_board_config($bo_table, $cache=''){
+function g5_get_board_config($bo_table, $group=''){
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
@@ -1178,7 +1224,7 @@ function g5_get_board_config($bo_table, $cache=''){
     $bo_table = preg_replace('/[^a-z0-9_]/i', '', trim($bo_table));
     $bo_table = substr($bo_table, 0, 20);
 
-    $board = wp_cache_get( 'g5_bo_table_'.$bo_table.$cache );
+    $board = wp_cache_get( 'g5_bo_table_'.$bo_table, $group );
     if ( false === $board ) {
         $board = $wpdb->get_row($wpdb->prepare(" select * from {$g5['board_table']} where bo_table = '%s' ", $bo_table), ARRAY_A);
         $g5_page_url = g5_page_get_by($bo_table, 'url' );
@@ -1188,11 +1234,11 @@ function g5_get_board_config($bo_table, $cache=''){
         if( isset($board['bo_use_tag']) && $board['bo_use_tag'] ){
             g5_wp_taxonomies($bo_table);
         }
-        wp_cache_set( 'g5_bo_table_'.$bo_table.$cache, $board );
+        wp_cache_set( 'g5_bo_table_'.$bo_table, $board, $group );
     }
 
     if( isset( $board['bo_table'] ) ){
-        $board = apply_filters( 'get_board_'.$bo_table, $board, $cache );
+        $board = apply_filters( 'get_board_'.$bo_table, $board, $group );
     }
     return $board;
 }
@@ -1328,6 +1374,9 @@ function g5_get_file_data($bo_table, $wr_id, $i, $upload, $bf_content){
 // 게시글에 첨부된 파일을 얻는다. (배열로 반환)
 function g5_get_file($board, $wr_id, $qstr=array(), $default_href='')
 {
+    if( !g5_get_upload_path() ){
+        return array();
+    }
     $bo_table = $board['bo_table'];
     $file = array('count'=>0);
     $file_meta_data = get_metadata(G5_META_TYPE, $wr_id, G5_FILE_META_KEY, true );
@@ -1361,6 +1410,8 @@ function g5_get_file($board, $wr_id, $qstr=array(), $default_href='')
 // 파일을 보이게 하는 링크 (이미지, 플래쉬, 동영상)
 function g5_view_file_link($board, $file, $width, $height, $content='')
 {
+    if( !g5_get_upload_path() ) return;
+
     global $gnupress;
 
     $config = $gnupress->config;
@@ -1395,11 +1446,16 @@ function g5_view_file_link($board, $file, $width, $height, $content='')
 
 //file 업로드 폴더 경로를 가져온다.
 function g5_get_upload_path($type='dir'){
-
-    $upload_dir = wp_upload_dir();
-    $path = apply_filters('g5_get_upload_'.$type, $upload_dir['base'.$type].'/'.G5_NAME);
+    $upload_dir = array('error'=>'error');
+    try{
+        $upload_dir = wp_upload_dir();
+    } catch (Exception $e) {
+    }
+    $path = '';
+    if( empty($upload_dir['error']) ){
+        $path = apply_filters('g5_get_upload_'.$type, $upload_dir['base'.$type].'/'.G5_NAME, $upload_dir);
+    }
     return $path;
-
 }
 
 // view_file_link() 함수에서 넘겨진 이미지를 보이게 합니다.
@@ -1650,6 +1706,9 @@ if ( !function_exists('g5_useskin_js_array'))
 if ( !function_exists('g5_attach_file'))
 {
     function g5_attach_file($filename, $tmp_name){
+
+        if( !g5_get_upload_path() ) return '';
+
         $dir_path = g5_get_upload_path().'/tmp/';
         if( !file_exists($dir_path) ){
             @mkdir($dir_path, G5_DIR_PERMISSION);
@@ -1678,6 +1737,9 @@ if ( !function_exists('g5_attach_file'))
 // Open  : HTML Purifier is open-source and highly customizable
 function g5_html_purifier($html)
 {
+    if( !g5_get_upload_path() ){
+        return $html;
+    }
     $f = file(G5_PLUGIN_PATH.'/htmlpurifier/safeiframe.txt');
     $domains = array();
     foreach($f as $domain){
@@ -1692,7 +1754,9 @@ function g5_html_purifier($html)
     array_push($domains, $_SERVER['HTTP_HOST'].'/');
     $safeiframe = implode('|', $domains);
 
-    include_once(G5_PLUGIN_PATH.'/htmlpurifier/HTMLPurifier.standalone.php');
+    if( ! class_exists('HTMLPurifier') ){
+        include_once(G5_PLUGIN_PATH.'/htmlpurifier/HTMLPurifier.standalone.php');
+    }
     $config = HTMLPurifier_Config::createDefault();
     // data/cache 디렉토리에 CSS, HTML, URI 디렉토리 등을 만든다.
     $config->set('Cache.SerializerPath', g5_get_upload_path().'/cache');
@@ -1805,10 +1869,12 @@ function g5_board_tail_print($board, $wr_id=0){
 }
 
 function g5_delete_cache_latest($bo_table){
-    $files = glob(g5_get_upload_path().'/cache/latest-'.$bo_table.'-*');
-    if (is_array($files)) {
-        foreach ($files as $filename)
-            unlink($filename);
+    if( $datapath = g5_get_upload_path() ){
+        $files = glob($datapath.'/cache/latest-'.$bo_table.'-*');
+        if (is_array($files)) {
+            foreach ($files as $filename)
+                @unlink($filename);
+        }
     }
 }
 
@@ -1908,7 +1974,8 @@ function g5_get_link_by( $by='point' ){
 // $_POST 형식에서 checkbox 엘리먼트의 checked 속성에서 checked 가 되어 넘어 왔는지를 검사
 function g5_is_checked($field)
 {
-    return !empty($_POST[$field]);
+    $checked = ( isset($_POST[$field]) && !empty($_POST[$field]) ) ? true : false;
+    return $checked;
 }
 
 //글쓰기 메타 데이터 복사
@@ -1916,13 +1983,13 @@ function g5_writemeta_copy( $new_wr_id, $before_wr_id ){
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
-    $sql = "select * from {$g5['meta_table']} where g5_wr_id = ".(int) $before_wr_id;
+    $sql = $wpdb->prepare( "select * from {$g5['meta_table']} where g5_wr_id = %d", (int) $before_wr_id);
+
     if( $rows = $wpdb->get_results($sql, ARRAY_A) ){
-        
         foreach( $rows as $row ){
             unset($row['meta_id']);
-            $row['g5_wr_id'] = $new_wr_id;
-
+            $row['g5_wr_id'] = (int) $new_wr_id;
+            
             $result = $wpdb->insert( $g5['meta_table'], $row );
         }
     }
@@ -1994,7 +2061,7 @@ function g5_form_action_url($action_url){
 
 //게시판 thumbnail 삭제
 function g5_delete_board_thumbnail($bo_table, $file){
-    if(!$bo_table || !$file)
+    if(!$bo_table || !$file || !g5_get_upload_path() )
         return;
 
     $fn = preg_replace("/\.[^\.]+$/i", "", basename($file));
@@ -2037,6 +2104,51 @@ function g5_pre( $msg ){
         echo "<pre>";
         print_r($msg);
         echo "</pre>";
+    }
+}
+
+function g5_new_html_header($page_mode=''){
+?>
+<!DOCTYPE html>
+<!--[if IE 8]>
+    <html xmlns="http://www.w3.org/1999/xhtml" class="ie8" <?php language_attributes(); ?>>
+<![endif]-->
+<!--[if !(IE 8) ]><!-->
+    <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
+<!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+<title><?php bloginfo('name'); ?> &rsaquo; <?php echo G5_NAME; ?></title>
+<?php do_action( 'wp_head' ); ?>
+<?php do_action( 'g5_head_new_'.$page_mode ); ?>
+</head>
+<div class="g5_new_shortcode">
+<?php
+}
+
+function g5_new_html_footer($page_mode=''){
+?>
+</div>
+<?php do_action( 'g5_footer_new_'.$page_mode ); ?>
+<?php do_action( 'wp_footer' ); ?>
+</body>
+</html>
+<?php
+}
+
+if( !function_exists('g5_new_style_script') ){
+    function g5_new_style_script(){
+        wp_enqueue_style ( 'g5-board-new-style' , G5_DIR_URL.'view/css/g5_new.css', '', G5_VERSION );
+    }
+}
+
+if( !function_exists('g5_remove_admin_bar_style') ){
+    function g5_remove_admin_bar_style() {
+        echo '<style type="text/css" media="screen">
+        html { margin-top: 0px !important; }
+        * html body { margin-top: 0px !important; }
+        </style>';
     }
 }
 ?>

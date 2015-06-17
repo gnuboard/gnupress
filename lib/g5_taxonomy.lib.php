@@ -1535,8 +1535,10 @@ function g5_delete_object_term_relationships( $object_id, $taxonomies ) {
 
 	foreach ( (array) $taxonomies as $taxonomy ) {
 		$term_ids = g5_get_object_terms( $object_id, $taxonomy, array( 'fields' => 'ids' ) );
-		$term_ids = array_map( 'intval', $term_ids );
-		g5_remove_object_terms( $object_id, $term_ids, $taxonomy );
+        if( empty($term_ids->errors) ){
+            $term_ids = array_map( 'intval', $term_ids );
+            g5_remove_object_terms( $object_id, $term_ids, $taxonomy );
+        }
 	}
 }
 

@@ -40,13 +40,9 @@ include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );
                 $is_owner = false;
                 if ($write['wr_parent'] && $member['user_id'])
                 {
-                    $sql = " select user_id from `{$write_table}`
-                                where wr_id = '{$write['wr_parent']}'";
+                    $sql = $wpdb->prepare(" select user_id from `{$write_table}`
+                                where wr_id = %d ", $write['wr_parent']);
 
-                                /*
-                                and wr_reply = ''
-                                and wr_is_comment = 0 ";
-                                */
 
                     $row = $wpdb->get_row($sql, ARRAY_A);
                     if ($row['user_id'] == $member['user_id']){
@@ -76,7 +72,7 @@ include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );
 
         if (!g5_get_session($ss_name))
         {
-            $sql = " update {$write_table} set wr_hit = IFNULL(wr_hit, 0) + 1 where wr_id = '{$wr_id}' ";
+            $sql = $wpdb->prepare("update {$write_table} set wr_hit = IFNULL(wr_hit, 0) + 1 where wr_id = %d ", $wr_id);
 
             $wpdb->query($sql);
 

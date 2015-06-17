@@ -80,8 +80,12 @@ class G5_Move_update extends G5_Board {
         $g5 = $gnupress->g5;
         $bo_table = $this->board['bo_table'];
 
-        $src_dir = g5_get_upload_path().'/file/'.$bo_table; // 원본 디렉토리
-        $dst_dir = g5_get_upload_path().'/file/'.$move_bo_table; // 복사본 디렉토리
+        $src_dir = $dst_dir = '';
+
+        if( $g5_data_path = g5_get_upload_path() ){
+            $src_dir = $g5_data_path.'/file/'.$bo_table; // 원본 디렉토리
+            $dst_dir = $g5_data_path.'/file/'.$move_bo_table; // 복사본 디렉토리
+        }
 
         static $kk = 0;
 
@@ -112,6 +116,7 @@ class G5_Move_update extends G5_Board {
             'wr_num'=>$next_wr_num,
             'bo_table'=>$move_bo_table,
             'wr_comment'=>$row['wr_comment'],
+            'ca_name'=>$row['ca_name'],
             'wr_option'=>$row['wr_option'],
             'wr_subject'=>$row['wr_subject'],
             'wr_content'=>$row['wr_content'],
@@ -134,8 +139,35 @@ class G5_Move_update extends G5_Board {
             'wr_tag' => $row['wr_tag'],
             'wr_page_id' => g5_page_get_by($move_bo_table, 'page_id')
         );
-
-        $result = $wpdb->insert($move_write_table, $g5_data);
+        
+        $formats = array(
+                '%d',
+                '%s',
+                '%d',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%d',
+                '%d',
+                '%d',
+                '%d',   //wr_good
+                '%d',
+                '%s',
+                '%s',   //user_pass
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%s',
+                '%d'    //wr_page_id
+            );
+        $result = $wpdb->insert($move_write_table, $g5_data, $formats);
 
         if( $insert_id = $wpdb->insert_id ){
 
@@ -149,14 +181,16 @@ class G5_Move_update extends G5_Board {
             //파일 이동 처리
             if( $file_meta_data = get_metadata(G5_META_TYPE, $row['wr_id'], G5_FILE_META_KEY, true ) ){
 
-                foreach((array) $file_meta_data as $key=>$f){
-                    if( empty($f) ) continue;
+                if( $src_dir && $dst_dir ){
+                    foreach((array) $file_meta_data as $key=>$f){
+                        if( empty($f) ) continue;
 
-                    if ( isset($f['bf_file']) && !empty($f['bf_file']) )
-                    {
-                        // 원본파일을 복사하고 퍼미션을 변경
-                        @copy($src_dir.'/'.$f['bf_file'], $dst_dir.'/'.$f['bf_file']);
-                        @chmod($dst_dir/$f['bf_file'], G5_FILE_PERMISSION);
+                        if ( isset($f['bf_file']) && !empty($f['bf_file']) )
+                        {
+                            // 원본파일을 복사하고 퍼미션을 변경
+                            @copy($src_dir.'/'.$f['bf_file'], $dst_dir.'/'.$f['bf_file']);
+                            @chmod($dst_dir/$f['bf_file'], G5_FILE_PERMISSION);
+                        }
                     }
                 }
             }
@@ -166,10 +200,14 @@ class G5_Move_update extends G5_Board {
             if ($sw == 'move')
             {
                 // 스크랩 이동
-                $wpdb->query(" update {$g5['scrap_table']} set bo_table = '$move_bo_table', wr_id = '$insert_id' where bo_table = '$bo_table' and wr_id = '{$row['wr_id']}' ");
+                $result = $wpdb->query(
+                    $wpdb->prepare(" update {$g5['scrap_table']} set bo_table = '%s', wr_id = %d where bo_table = '%s' and wr_id = '%d' ", $move_bo_table, $insert_id, $bo_table, (int) $row['wr_id'])
+                    );
 
                 // 추천데이터 이동
-                $wpdb->query(" update {$g5['board_good_table']} set bo_table = '$move_bo_table', wr_id = '$insert_id' where bo_table = '$bo_table' and wr_id = '{$row['wr_id']}' ");
+                $result = $wpdb->query(
+                    $wpdb->prepare(" update {$g5['board_good_table']} set bo_table = '%s', wr_id = %d where bo_table = '%s' and wr_id = %d ", $move_bo_table, $insert_id, $bo_table, (int) $row['wr_id'])
+                );
             }
 
         }
@@ -183,12 +221,13 @@ class G5_Move_update extends G5_Board {
     //원글 삭제
     public function sql_delete($wr_id, $table){
         global $wpdb;
-        $wpdb->query(" delete from `$table` where wr_id = '".esc_sql($wr_id)."' ");
+        $wpdb->query(
+            $wpdb->prepare(" delete from `$table` where wr_id = %d ", (int) $wr_id)
+            );
     }
 
     public function sql_comment_delete($wr_id){
-        global $wpdb;
-        //$wpdb->query(" delete from `$write_table` where wr_id = '$wr_id' ");
+
     }
 }
 

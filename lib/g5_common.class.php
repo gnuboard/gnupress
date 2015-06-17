@@ -111,7 +111,7 @@ class G5_common {
         }
 
         if( $bo_table ){
-            $this->board = g5_get_board_config( $bo_table, $g5['board_table'] );
+            $this->board = g5_get_board_config( $bo_table );
         }
     }
 

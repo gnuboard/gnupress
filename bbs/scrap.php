@@ -6,7 +6,7 @@ if (!$is_member)
 
 $g5['title'] = $member['user_display_name'].'님의 스크랩';
 
-$sql_common = " from {$g5['scrap_table']} where user_id = '{$member['user_id']}' ";
+$sql_common = " from {$g5['scrap_table']} where user_id = '".esc_sql($member['user_id'])."' ";
 $sql_order = " order by ms_id desc ";
 
 $sql = " select count(*) as cnt $sql_common ";

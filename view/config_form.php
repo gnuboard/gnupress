@@ -114,6 +114,21 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
         </tr>
 
         <tr>
+            <th scope="row"><label for="cf_new_page_id">스크랩 및 포인트 적용페이지(새창)<strong class="sound_only">필수</strong></label></th>
+            <td colspan="3">
+                <?php echo g5_help('스크랩 및 포인트 등을 새창으로 적용할 페이지를 선택해 주세요.'); ?>
+                <select name="cf_new_page_id" id="cf_new_page_id" >
+                  <?php
+                    $wp_pages = get_pages(array('post_status'=>'publish,private'));
+                    foreach($wp_pages as $wp_page)
+                       echo '<option value="'.$wp_page->ID.'"'. ($wp_page->ID==$g5_options['cf_new_page_id']?' selected':'').'>'.$wp_page->post_title.'</option>'."\n";
+                  ?>
+                </select>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
             <th scope="row"><label for="cf_use_copy_log">복사, 이동시 로그</label></th>
             <td colspan="3">
                 <?php echo g5_help('게시물 아래에 누구로 부터 복사, 이동됨 표시') ?>

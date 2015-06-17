@@ -21,6 +21,7 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
     <input type="hidden" name="sst" value="<?php echo esc_attr( $sst ); ?>">
     <input type="hidden" name="sod" value="<?php echo esc_attr( $sod ); ?>">
     <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
+    <input type="hidden" name="page_id" value="<?php echo get_the_ID(); ?>">
     <?php
     $option = '';
     $option_hidden = '';

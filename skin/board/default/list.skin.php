@@ -12,6 +12,7 @@ if (!$is_show_field['writer']) $colspan--;
 if (!$is_show_field['visit']) $colspan--;
 if (!$is_show_field['wdate']) $colspan--;
 ?>
+
 <div class="gp_skin_list">
 
 <h2 id="container_title"><?php echo $board['bo_subject'] ?><span class="sound_only"> 목록</span></h2>
@@ -299,7 +300,7 @@ function select_copy(sw) {
     var sub_win = window.open("", "move", "left=50, top=50, width=500, height=550, scrollbars=1");
 
     f.sw.value = sw;
-    f.target = "move";
+    f.target = f.action.value = "move";
     f.action = "<?php echo $new_move_url; ?>";
     f.submit();
 }

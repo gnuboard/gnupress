@@ -49,7 +49,7 @@ case 'g5_add-tag':
 	if ( !current_user_can( $tax->cap->edit_terms ) )
 		wp_die( __( 'Cheatin&#8217; uh?' ) );
 
-	$ret = g5_insert_term( $_POST['tag-name'], $taxonomy, $_POST );
+	$ret = g5_insert_term( sanitize_text_field($_POST['tag-name']), $taxonomy, $_POST );
 	$location = $current_url;
 
 	if ( $referer = wp_get_original_referer() ) {

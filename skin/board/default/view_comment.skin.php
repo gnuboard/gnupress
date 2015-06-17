@@ -93,6 +93,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
     <input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
     <input type="hidden" name="spt" value="<?php echo esc_attr( $spt ); ?>">
     <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
+    <input type="hidden" name="page_id" value="<?php echo get_the_ID(); ?>">
     <input type="hidden" name="is_good" value="">
 
     <div class="tbl_frm01 tbl_wrap">

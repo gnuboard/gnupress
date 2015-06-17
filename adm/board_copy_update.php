@@ -12,7 +12,7 @@ if( ! isset($board) )
 
 $check_param = array('copy_case', 'target_table', 'target_subject', 'copy_case');
 foreach($check_param as $v){
-    $$v = isset($_POST[$v]) ? trim($_POST[$v]) : '';
+    $$v = isset($_POST[$v]) ? sanitize_text_field(trim($_POST[$v])) : '';
 }
 
 if (!preg_match('/[A-Za-z0-9_]{1,20}/', $target_table)) {
@@ -91,53 +91,116 @@ $data = array(
     'bo_count_comment' => $board['bo_count_comment']
 );
 
-$result = $wpdb->insert($g5['board_table'], $data);
+$formats = array(
+    '%s',
+    '%s',
+    '%s',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%s',
+    '%s',
+    '%s',
+    '%s',
+    '%d',
+    '%d',
+    '%s',
+    '%s',
+    '%s',
+    '%s',
+    '%s',
+    '%s',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%s',
+    '%s',
+    '%s',
+    '%s',
+    '%s',
+    '%d',
+    '%d',
+    '%s',
+    '%d',
+    '%s',
+    '%s',
+    '%d',
+    '%d',
+    '%d',
+    '%d',
+    '%s',
+    '%d',
+    '%d'
+);
+
+$result = $wpdb->insert($g5['board_table'], $data, $formats);
 if ( $result === false ){
     g5_show_db_error();
 }
 
 $g5_data_path = g5_get_upload_path();
 
-// 게시판 폴더 생성
-@mkdir($g5_data_path.'/file/'.$target_table, G5_DIR_PERMISSION);
-@chmod($g5_data_path.'/file/'.$target_table, G5_DIR_PERMISSION);
+//업로드 폴더 경로를 얻어온 경우에만
+if( $g5_data_path ){
+    // 게시판 폴더 생성
+    @mkdir($g5_data_path.'/file/'.$target_table, G5_DIR_PERMISSION);
+    @chmod($g5_data_path.'/file/'.$target_table, G5_DIR_PERMISSION);
 
-// 디렉토리에 있는 파일의 목록을 보이지 않게 한다.
-$board_path = $g5_data_path.'/file/'.$target_table;
-$file = $board_path . '/index.php';
-$f = @fopen($file, 'w');
-@fwrite($f, '');
-@fclose($f);
-@chmod($file, G5_FILE_PERMISSION);
+    // 디렉토리에 있는 파일의 목록을 보이지 않게 한다.
+    $board_path = $g5_data_path.'/file/'.$target_table;
+    $file = $board_path . '/index.php';
+    $f = @fopen($file, 'w');
+    @fwrite($f, '');
+    @fclose($f);
+    @chmod($file, G5_FILE_PERMISSION);
+}
 
 $copy_file = 0;
 if ($copy_case == 'schema_data_both') {
 
-    $d = dir($g5_data_path.'/file/'.$bo_table);
+    //업로드 폴더 경로를 얻어온 경우에만
+    if( $g5_data_path ){
+        $d = dir($g5_data_path.'/file/'.$bo_table);
 
-    while ($entry = $d->read()) {
-        if ($entry == '.' || $entry == '..') continue;
+        while ($entry = $d->read()) {
+            if ($entry == '.' || $entry == '..') continue;
 
-        if(is_dir($g5_data_path.'/file/'.$bo_table.'/'.$entry)){
-            $dd = dir($g5_data_path.'/file/'.$bo_table.'/'.$entry);
-            @mkdir($g5_data_path.'/file/'.$target_table.'/'.$entry, G5_DIR_PERMISSION);
-            @chmod($g5_data_path.'/file/'.$target_table.'/'.$entry, G5_DIR_PERMISSION);
-            while ($entry2 = $dd->read()) {
-                if ($entry2 == '.' || $entry2 == '..') continue;
-                @copy($g5_data_path.'/file/'.$bo_table.'/'.$entry.'/'.$entry2, $g5_data_path.'/file/'.$target_table.'/'.$entry.'/'.$entry2);
-                @chmod($g5_data_path.'/file/'.$target_table.'/'.$entry.'/'.$entry2, G5_DIR_PERMISSION);
+            if(is_dir($g5_data_path.'/file/'.$bo_table.'/'.$entry)){
+                $dd = dir($g5_data_path.'/file/'.$bo_table.'/'.$entry);
+                @mkdir($g5_data_path.'/file/'.$target_table.'/'.$entry, G5_DIR_PERMISSION);
+                @chmod($g5_data_path.'/file/'.$target_table.'/'.$entry, G5_DIR_PERMISSION);
+                while ($entry2 = $dd->read()) {
+                    if ($entry2 == '.' || $entry2 == '..') continue;
+                    @copy($g5_data_path.'/file/'.$bo_table.'/'.$entry.'/'.$entry2, $g5_data_path.'/file/'.$target_table.'/'.$entry.'/'.$entry2);
+                    @chmod($g5_data_path.'/file/'.$target_table.'/'.$entry.'/'.$entry2, G5_DIR_PERMISSION);
+                    $copy_file++;
+                }
+                $dd->close();
+            }
+            else {
+                @copy($g5_data_path.'/file/'.$bo_table.'/'.$entry, $g5_data_path.'/file/'.$target_table.'/'.$entry);
+                @chmod($g5_data_path.'/file/'.$target_table.'/'.$entry, G5_DIR_PERMISSION);
                 $copy_file++;
             }
-            $dd->close();
         }
-        else {
-            @copy($g5_data_path.'/file/'.$bo_table.'/'.$entry, $g5_data_path.'/file/'.$target_table.'/'.$entry);
-            @chmod($g5_data_path.'/file/'.$target_table.'/'.$entry, G5_DIR_PERMISSION);
-            $copy_file++;
-        }
+        $d->close();
     }
-    $d->close();
-
     // 글복사
     $sql = $wpdb->prepare("select * from {$g5['write_table']} where bo_table = '%s' order by wr_num, wr_parent", $bo_table);
     if( $rows = $wpdb->get_results( $sql, ARRAY_A ) ){

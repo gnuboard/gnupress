@@ -228,24 +228,51 @@ function g5_install_do() {
 
     $tmp_option = array('version'=> G5_VERSION);
 
-    $upload_dir = wp_upload_dir();
-    
-    // 디렉토리 생성
-    $dir_arr = array (
-        $upload_dir['basedir'].'/'.G5_NAME,
-        $upload_dir['basedir'].'/'.G5_NAME.'/cache',
-        $upload_dir['basedir'].'/'.G5_NAME.'/editor',
-        $upload_dir['basedir'].'/'.G5_NAME.'/tmp',
-        $upload_dir['basedir'].'/'.G5_NAME.'/file'
-    );
+    $upload_dir = array('error'=>'error');
+    try{
+        $upload_dir = wp_upload_dir();
+    } catch (Exception $e) {
+    }
 
-    foreach($dir_arr as $dir_name){
-        @mkdir($dir_name, G5_DIR_PERMISSION);
-        @chmod($dir_name, G5_DIR_PERMISSION);
+    if( empty($upload_dir['error']) ){
+        // 디렉토리 생성
+        $dir_arr = array (
+            $upload_dir['basedir'].'/'.G5_NAME,
+            $upload_dir['basedir'].'/'.G5_NAME.'/cache',
+            $upload_dir['basedir'].'/'.G5_NAME.'/editor',
+            $upload_dir['basedir'].'/'.G5_NAME.'/tmp',
+            $upload_dir['basedir'].'/'.G5_NAME.'/file'
+        );
+
+        foreach($dir_arr as $dir_name){
+            @mkdir($dir_name, G5_DIR_PERMISSION);
+            @chmod($dir_name, G5_DIR_PERMISSION);
+        }
+    }
+
+    $config = G5_var::getInstance()->get_options('config');
+    
+    //point, scrap 등등 새창으로 여는 페이지 생성
+    if( isset($config['cf_new_page_name']) ){
+        $page_name = $config['cf_new_page_name'];
+        $exists = get_page_by_path( $page_name );
+
+		if ( ! empty( $exists ) ) {
+			$page_id = $exists->ID;
+		} else {
+			$page_id = wp_insert_post( array(
+				'comment_status' => 'closed',
+				'ping_status'    => 'closed',
+				'post_status'    => 'publish',
+				'post_title'     => $page_name,
+				'post_type'      => 'page',
+			) );
+		}
+
+        $tmp_option['cf_new_page_id'] = $page_id;
     }
 
     // 테이블 구조 버전 넘버를 저장한다.
     add_option(G5_OPTION_KEY, $tmp_option);
 }
-
 ?>

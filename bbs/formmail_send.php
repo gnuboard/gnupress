@@ -23,11 +23,9 @@ $to = base64_decode($_POST['to']);
 if (substr_count($to, "@") > 1)
     g5_alert_close('한번에 한사람에게만 메일을 발송할 수 있습니다.');
 
-/*
 if (!g5_chk_captcha()) {
     g5_alert('자동등록방지 숫자가 틀렸습니다.');
 }
-*/
 
 $attachments = $file = array();
 for ($i=1; $i<=$attach; $i++) {

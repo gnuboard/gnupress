@@ -318,9 +318,9 @@ if( isset($board['bo_sh_fields']) && !empty($board['bo_sh_fields']) ){   //ë²ˆí˜
 
 $stx = g5_get_text(stripslashes($stx));
 
-$fboardlist_action_url = apply_filters('g5_form_url', $default_href , 'list' );
+$fboardlist_action_url = apply_filters('g5_form_url', $default_href , 'list');
 
-$new_move_url = apply_filters('g5_new_move_url', G5_DIR_URL.'g5_new.php');
+$new_move_url = apply_filters('g5_new_move_url', get_permalink() );
 
 $search_form_var = $GLOBALS['wp_query']->query;
 

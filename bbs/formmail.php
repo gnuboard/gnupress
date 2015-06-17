@@ -10,7 +10,7 @@ if (!$is_member && $config['cf_formmail_is_member'])
 
 if (isset($_REQUEST['user_id']))
 {
-    $user_id = $_REQUEST['user_id'];
+    $user_id = sanitize_text_field($_REQUEST['user_id']);
     $mb = g5_get_member($user_id);
     if (!$mb['user_id'])
         g5_alert_close('회원정보가 존재하지 않습니다.');
@@ -24,10 +24,10 @@ if ($sendmail_count > 3)
 $g5['title'] = '메일 쓰기';
 
 $name = isset($_REQUEST['name']) ? esc_attr($_REQUEST['name']) : '';
-$email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
+$email = isset($_REQUEST['email']) ? sanitize_email($_REQUEST['email']) : '';
 
 if (! isset($_REQUEST['name']) )
-    $name = base64_decode($_REQUEST['email']);
+    $name = base64_decode($email);
 
 if (!isset($type))
     $type = 0;

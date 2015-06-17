@@ -11,6 +11,9 @@ if(!function_exists('g5_make_mp3')){
         if ($number == "") return;
         if ($number == g5_get_session("ss_captcha_save")) return;
 
+        if( !g5_get_upload_path() )
+            return;
+
         $mp3s = array();
         for($i=0;$i<strlen($number);$i++){
             $file = G5_PLUGIN_PATH.'/kcaptcha/mp3/'.$config['cf_captcha_mp3'].'/'.$number[$i].'.mp3';

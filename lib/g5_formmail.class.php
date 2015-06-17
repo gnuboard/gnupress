@@ -48,19 +48,9 @@ class G5_formmail extends G5_common {
         
         add_action('g5_error_display' , array( & $this, 'g5_error_display'));
 
-        $check_key_array = apply_filters('g5_formmail_request_check', array('w', 'sop', 'stx', 'sca', 'sst', 'sca', 'sfl', 'spt', 'sod', 'sw', 'board_page_id', 'tag') );
-        
-        $g5_param_array = array();
-
-        foreach( $check_key_array as &$v ){
-            $g5_param_array[$v] = isset($_REQUEST[$v]) ? g5_request_check($_REQUEST[$v]) : '';
-        }
-
-        $g5_param_array = wp_parse_args( $this->g5_global_value(), $g5_param_array );
+        $g5_param_array = wp_parse_args( $this->g5_global_value(), g5_request_param_keys() );
         
         extract( $g5_param_array );
-
-        unset( $check_key_array );
 
         $member_skin_path = $this->skin_path;
 

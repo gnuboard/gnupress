@@ -30,18 +30,20 @@ else if ($is_admin == 'board') { // 게시판관리자이면
 }
 
 // 답변이 있는글인지 체크한다.
-$sql = " select count(*) as cnt from `{$write_table}` where wr_parent = '{$write['wr_id']}' ";
-$row = g5_sql_fetch($sql);
+$row_cnt = $wpdb->get_var( 
+                $wpdb->prepare(" select count(*) as cnt from `{$write_table}` where wr_parent = %d ", $write['wr_id'])
+            );
 
-if ($row['cnt'] && !$is_admin){
+if ($row_cnt && !$is_admin){
     g5_alert('이 글과 관련된 답변글이 존재하므로 삭제 할 수 없습니다.\\n\\n우선 답변글부터 삭제하여 주십시오.');
 }
 
 // 코멘트 달린 원글의 삭제 여부
-$sql = " select count(*) as cnt from `{$g5['comment_table']}` where wr_id = '{$write['wr_id']}' and user_id <> '{$member['user_id']}' ";
-$row = g5_sql_fetch($sql);
+$row_cnt = $wpdb->get_var( 
+                    $wpdb->prepare(" select count(*) as cnt from `{$g5['comment_table']}` where wr_id = %d and user_id <> %d ", $write['wr_id'], $member['user_id'])
+                );
 
-if ($row['cnt'] >= $board['bo_count_delete'] && !$is_admin)
+if ($row_cnt >= $board['bo_count_delete'] && !$is_admin)
     g5_alert('이 글과 관련된 코멘트가 존재하므로 삭제 할 수 없습니다.\\n\\n코멘트가 '.$board['bo_count_delete'].'건 이상 달린 원글은 삭제할 수 없습니다.');
 
 
@@ -60,7 +62,8 @@ $count_write = isset($check_delete_array['count_write']) ? $check_delete_array['
 $count_comment = isset($check_delete_array['count_comment']) ? $check_delete_array['count_comment'] : 0;
 
 // 게시글 삭제
-$sql = apply_filters('g5_document_delete_sql', "delete from `$write_table` where wr_id = '{$write['wr_id']}'" , $write , $write_table , $member );
+$sql_str = $wpdb->prepare(" delete from `$write_table` where wr_id = %d ", $write['wr_id']);
+$sql = apply_filters('g5_document_delete_sql', $sql_str, $write, $write_table, $member);
 
 if( $sql ){
     if( $result = $wpdb->query($sql) ){
@@ -74,7 +77,9 @@ if( $sql ){
 }
 
 $bo_notice = g5_board_notice($board['bo_notice'], $write['wr_id']);
-$wpdb->query(" update `{$g5['board_table']}` set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+$result = $wpdb->query(
+    $wpdb->prepare(" update `{$g5['board_table']}` set bo_notice = '%s' where bo_table = '%s' ", $bo_notice, $bo_table)
+    );
 
 // 글숫자 감소
 if ($count_write > 0 || $count_comment > 0){
@@ -82,7 +87,9 @@ if ($count_write > 0 || $count_comment > 0){
     if( $count_write ){
         $count_write = $wpdb->get_var($wpdb->prepare("select count(wr_id) from `{$g5['write_table']}` where bo_table = '%s' ", $bo_table));
     }
-    $result = $wpdb->query(" update `{$g5['board_table']}` set bo_count_write = '$count_write', bo_count_comment = bo_count_comment - '$count_comment' where bo_table = '$bo_table' ");
+    $result = $wpdb->query(
+        $wpdb->prepare(" update `{$g5['board_table']}` set bo_count_write = %d, bo_count_comment = bo_count_comment - %d where bo_table = '%s' ", $count_write, $count_comment, $bo_table)
+        );
 
     /*
     if( !$result ){
@@ -94,6 +101,8 @@ if ($count_write > 0 || $count_comment > 0){
 
 @include_once($board_skin_path.'/delete.tail.skin.php');
 
+wp_cache_delete( 'g5_bo_table_'.$board['bo_table'] );
+wp_cache_delete( 'g5_'.$g5['write_table'].'_'.$write['wr_id'] );
 g5_delete_cache_latest($board['bo_table']);
 
 do_action('g5_document_delete', $write, $board );

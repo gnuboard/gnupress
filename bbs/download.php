@@ -50,6 +50,9 @@ if ($member['user_level'] < $board['bo_download_level']) {
     }
 }
 
+if( !g5_get_upload_path() ) 
+    g5_alert('파일이 존재하지 않습니다.');
+
 $filepath = g5_get_upload_path().'/file/'.$bo_table.'/'.$file['bf_file'];
 $filepath = addslashes($filepath);
 if (!is_file($filepath) || !file_exists($filepath))

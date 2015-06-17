@@ -5,6 +5,12 @@ if( !isset($bo_table) ){
     wp_die( __('bo_table값이 없습니다.', G5_NAME) );
 }
 
+add_filter('show_admin_bar', '__return_false');
+//show_admin_bar(false);
+
+add_action('wp_enqueue_scripts', 'g5_new_style_script', 99);
+add_filter('wp_head','g5_remove_admin_bar_style', 99);
+
 if ($sw == 'move')
     $act = '이동';
 else if ($sw == 'copy')
@@ -33,29 +39,29 @@ else {
 $sql = "select * from {$g5['board_table']} a ";
 
 if ($is_admin == 'board'){
-    $sql .= " and a.bo_admin = '{$member['user_id']}' ";
+    $sql .= $wpdb->prepare(" and a.bo_admin = '%s' ", $member['user_id']);
 }
 
 $rows = $wpdb->get_results($sql, ARRAY_A);
-$move_action_url = apply_filters('move_action_url', G5_DIR_URL.'g5_new.php');
+$move_action_url = apply_filters('move_action_url', get_permalink() );
 ?>
-
+<?php echo g5_new_html_header(); ?>
 <div id="copymove" class="new_win">
     <h1 id="win_title"><?php echo $g5['title'] ?></h1>
 
-    <form name="fboardmoveall" method="post" action="<?php echo $move_action_url; ?>" onsubmit="return fboardmoveall_submit(this);">
+    <form name="fboardmoveall" method="post" action="<?php echo esc_url($move_action_url); ?>" onsubmit="return fboardmoveall_submit(this);">
     <?php wp_nonce_field( 'g5_move', 'g5_nonce_field' ); ?>
-    <input type="hidden" name="sw" value="<?php echo $sw ?>">
-    <input type="hidden" name="board_page_id" value="<?php echo $board_page_id ?>">
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
-    <input type="hidden" name="wr_id_list" value="<?php echo $wr_id_list ?>">
-    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-    <input type="hidden" name="stx" value="<?php echo $stx ?>">
-    <input type="hidden" name="spt" value="<?php echo $spt ?>">
-    <input type="hidden" name="page" value="<?php echo $page ?>">
-    <input type="hidden" name="act" value="<?php echo $act ?>">
+    <input type="hidden" name="sw" value="<?php echo esc_attr($sw); ?>">
+    <input type="hidden" name="board_page_id" value="<?php echo esc_attr($board_page_id); ?>">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr($bo_table); ?>">
+    <input type="hidden" name="wr_id_list" value="<?php echo esc_attr($wr_id_list); ?>">
+    <input type="hidden" name="sfl" value="<?php echo esc_attr($sfl); ?>">
+    <input type="hidden" name="stx" value="<?php echo esc_attr($stx); ?>">
+    <input type="hidden" name="spt" value="<?php echo esc_attr($spt); ?>">
+    <input type="hidden" name="page" value="<?php echo esc_attr($page); ?>">
+    <input type="hidden" name="act" value="<?php echo esc_attr($act); ?>">
     <input type="hidden" name="action" value="move_update" >
-    <input type="hidden" name="url" value="<?php echo $_SERVER['HTTP_REFERER'] ?>">
+    <input type="hidden" name="url" value="<?php echo esc_url($_SERVER['HTTP_REFERER']) ?>">
 
     <div class="tbl_head01 tbl_wrap">
         <table>
@@ -155,3 +161,7 @@ function fboardmoveall_submit(f)
     return true;
 }
 </script>
+<?php echo g5_new_html_footer(); ?>
+<?php
+exit;
+?>

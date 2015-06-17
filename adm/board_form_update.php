@@ -18,11 +18,14 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             //파라미터
             $param_arr = array('w', 'chk', 'bo_subject', 'bo_device', 'bo_skin', 'bo_read_point', 'bo_write_point', 'bo_comment_point', 'bo_download_point', 'bo_use_search', 'bo_use_sns', 'bo_order', 'board_table');
 
+            //post 형식이 배열인지 체크
             foreach( $param_arr as $v ){
-                $$v = isset($_POST[$v]) ? ( is_string($_POST[$v]) ? stripslashes(trim($_POST[$v])) : $_POST[$v] ) : null;
+                $$v = isset($_POST[$v]) ? ( is_array($_POST[$v]) ? array_map('sanitize_text_field', $_POST[$v]) : sanitize_text_field(trim($_POST[$v])) ) : null;
             }
 
-            if ($_POST['act_button'] == "선택수정") {
+            $act_buttion_title = sanitize_text_field($_POST['act_button']);
+
+            if ($act_buttion_title == "선택수정") {
 
                 for ($i=0, $post_count = count($chk); $i<$post_count; $i++) {
                     // 실제 번호를 넘김
@@ -36,16 +39,25 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                             'bo_download_point' => $bo_download_point[$k]
                         );
 
+                    $formats = array(
+                            '%s',
+                            '%s',
+                            '%d',
+                            '%d',
+                            '%d',
+                            '%d'
+                        );
                     $where = array('bo_table' => $board_table[$k]);
+                    $where_format = array( '%s' );
 
-                    $result = $wpdb->update( $g5['board_table'], $data, $where );
+                    $result = $wpdb->update($g5['board_table'], $data, $where, $formats, $where_format);
 
                     if ( $result === false ){
                         g5_show_db_error();
                     }
                 }
 
-            } else if ($_POST['act_button'] == "선택삭제") {
+            } else if ($act_buttion_title == "선택삭제") {
                 if ($is_admin != 'super')
                     g5_alert(__('게시판 삭제는 최고관리자만 가능합니다.', G5_NAME));
 
@@ -56,25 +68,35 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     $k = $chk[$i];
 
                     // $bo_table 값을 반드시 넘겨야 함
-                    $tmp_bo_table = trim($_POST['board_table'][$k]);
+                    $tmp_bo_table = sanitize_text_field(trim($_POST['board_table'][$k]));
                     if (!$tmp_bo_table) { continue; }
                     // 게시판 설정 삭제
-                    g5_sql_query(" delete from `{$g5['board_table']}` where bo_table = '{$tmp_bo_table}' ");
+                    $result = $wpdb->query(
+                        $wpdb->prepare(" delete from `{$g5['board_table']}` where bo_table = '%s' ", $tmp_bo_table)
+                        );
 
                     // 게시판 태그 데이터 삭제
-                    $sql = " delete relation from `{$g5['relation_table']}` as relation inner join `{$g5['write_table']}` as wr on wr.wr_id = relation.object_id where wr.bo_table = '{$tmp_bo_table}' ";
-                    g5_sql_query($sql);
+                    $result = $wpdb->query(
+                        $wpdb->prepare(" delete relation from `{$g5['relation_table']}` as relation inner join `{$g5['write_table']}` as wr on wr.wr_id = relation.object_id where wr.bo_table = '%s' ", $tmp_bo_table)
+                        );
                     
-                    g5_sql_query(" delete from `{$g5['comment_table']}` where bo_table = '".$tmp_bo_table."' ");
+                    $result = $wpdb->query(
+                        $wpdb->prepare(" delete from `{$g5['comment_table']}` where bo_table = '%s' ", $tmp_bo_table)
+                        );
 
-                    g5_sql_query(" delete from `{$g5['taxonomy_table']}` where taxonomy = '".g5_get_taxonomy($tmp_bo_table)."' ");
+                    $result = $wpdb->query(
+                        $wpdb->prepare(" delete from `{$g5['taxonomy_table']}` where taxonomy = '%s' ", g5_get_taxonomy($tmp_bo_table))
+                        );
 
                     // 게시판 메타 데이터 삭제
-                    $sql = " delete meta from `{$g5['meta_table']}` as meta inner join `{$g5['write_table']}` as wr on wr.wr_id = meta.g5_wr_id where wr.bo_table = '{$tmp_bo_table}' ";
-                    g5_sql_query($sql);
+                    $result = $wpdb->query(
+                        $wpdb->prepare(" delete meta from `{$g5['meta_table']}` as meta inner join `{$g5['write_table']}` as wr on wr.wr_id = meta.g5_wr_id where wr.bo_table = '%s' ", $tmp_bo_table)
+                        );
 
                     // 게시판 테이블에서 데이터 삭제
-                    g5_sql_query(" delete from `{$g5['write_table']}` where bo_table = '{$tmp_bo_table}' ");
+                    $result = $wpdb->query(
+                        $wpdb->prepare(" delete from `{$g5['write_table']}` where bo_table = '%s' ", $tmp_bo_table)
+                        );
 
                     g5_delete_cache_latest($tmp_bo_table);
 
@@ -84,8 +106,10 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                         wp_cache_delete( $page_action, 'g5_page_id');
                     }
 
-                    // 게시판 폴더 전체 삭제
-                    g5_rm_rf(g5_get_upload_path().'/file/'.$tmp_bo_table);
+                    if( $g5_data_path = g5_get_upload_path() ){
+                        // 게시판 폴더 전체 삭제
+                        g5_rm_rf($g5_data_path.'/file/'.$tmp_bo_table);
+                    }
 
                     if( isset( $g5_options['board_page'][$tmp_bo_table] ) ){
                         $is_chage_option = true;
@@ -112,7 +136,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             $param_arr = array('w', 'stx', 'sfl', 'sst', 'sod', 'page', 'bo_table');
             
             foreach( $param_arr as $v ){
-                $$v = isset($_POST[$v]) ? $_POST[$v] : null;
+                $$v = isset($_POST[$v]) ? sanitize_text_field($_POST[$v]) : null;
             }
 
             if( !$bo_table ){
@@ -121,15 +145,10 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             }
 
             $chk_arr = array('bo_subject', 
-                            //'bo_mobile_subject', 
-                            //'bo_device',
-                            //'bo_admin',
                             'bo_list_level',
                             'bo_read_level',
                             'bo_write_level',
-                            //'bo_reply_level',
                             'bo_comment_level',
-                            //'bo_html_level',
                             'bo_link_level',
                             'bo_count_modify',
                             'bo_count_delete',
@@ -182,8 +201,6 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                             'bo_upload_count',
                             'bo_upload_size',
                             'bo_reply_order',
-                            //'bo_use_search',
-                            //'bo_order',
                             'bo_write_min',
                             'bo_write_max',
                             'bo_comment_min',
@@ -192,11 +209,75 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                             'bo_use_tag'
             );
 
+            $formats = array(
+                    '%s',   //bo_subject
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%d',
+                    '%d',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%s',
+                    '%d',   //bo_gallery_cols
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',   //bo_reply_order
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%d',
+                    '%s',   //bo_sort_field
+                    '%s'
+                );
             $data = array();
 
             foreach( $chk_arr as $v ){
-                if ( empty( $v )) continue;
-                $data[$v] = isset($_POST[$v]) ? stripslashes(trim($_POST[$v])) : '';
+                $data[$v] = isset($_POST[$v]) ? sanitize_text_field(trim($_POST[$v])) : '';
             }
 
             $chk_fields_array = array('num', 'writer', 'visit', 'wdate' );
@@ -207,7 +288,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             } else {
                 $data['bo_sh_fields'] = $bo_sh_fields = implode(",", $chk_fields_array);
             }
-            
+            //bo_sh_fields추가
+            $formats[] = '%s';  //bo_sh_fields
+
             if ($w == '') {
 
                 $sql = $wpdb->prepare("select count(*) as cnt from {$g5['board_table']} where bo_table = '%s'", $bo_table);
@@ -226,8 +309,12 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 $data['bo_table'] = $bo_table;
                 $data['bo_count_write'] = 0;
                 $data['bo_count_comment'] = 0;
-                
-                $db_result = $wpdb->insert($g5['board_table'], $data);
+                //추가
+                $formats[] = '%s';
+                $formats[] = '%d';
+                $formats[] = '%d';
+
+                $db_result = $wpdb->insert($g5['board_table'], $data, $formats);
                 
                 if( $db_result === false ){
                     g5_show_db_error();
@@ -248,19 +335,16 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
                     // 게시판의 글 수
                     $sql = $wpdb->prepare("select count(*) as cnt from {$g5['write_table']} where bo_table = '%s'", $bo_table);
-                    if( $bo_count_write = $wpdb->get_var($sql) ){
-                        $data['bo_count_write'] = $bo_count_write;
-                    }
-                    
+                    $data['bo_count_write'] = $wpdb->get_var($sql);
+                    $formats[] = '%d';
+
                     // 게시판의 코멘트 수
                     $sql = $wpdb->prepare("select count(*) as cnt from {$g5['comment_table']} where bo_table = '%s'", $bo_table);
-                    if( $bo_count_comment = $wpdb->get_var($sql) ){
-                        $data['bo_count_comment'] = $bo_count_comment;
-                    }
+                    $data['bo_count_comment'] = $wpdb->get_var($sql);
+                    $formats[] = '%d';
                     
                 }
 
-                
                 // 공지사항에는 등록되어 있지만 실제 존재하지 않는 글 아이디는 삭제합니다.
                 $bo_notice = "";
                 $lf = "";
@@ -275,12 +359,15 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
                     }
                     $data['bo_notice'] = $bo_notice;
+                    $formats[] = '%s';
                 }
 
                 $bo_wp_pageid = isset($_POST['bo_wp_pageid']) ? (int) $_POST['bo_wp_pageid'] : 0;
 
                 $where = array('bo_table'=>$bo_table);
-                $db_result = $wpdb->update($g5['board_table'], $data, $where);
+                $where_format = array( '%s' );
+
+                $db_result = $wpdb->update($g5['board_table'], $data, $where, $formats, $where_format);
                 if( $db_result === false ){
 
                     g5_show_db_error();

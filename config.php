@@ -1,9 +1,8 @@
 <?php
-define( 'G5_VERSION', '0.0.3' );
+define( 'G5_VERSION', '0.0.4' );
 define( 'G5_NAME', 'gnupress' );
 define( 'G5_DEBUG', false );
 define( 'G5_OPTION_KEY', 'g5_options' );
-define( 'G5_IS_MOBILE', wp_is_mobile() );
 
 //메타키 정의
 define( 'G5_META_KEY', G5_NAME.'_meta' );
@@ -16,17 +15,6 @@ define('G5_FILE_PERMISSION', 0644); // 파일 생성시 퍼미션
 
 // 이 상수가 정의되지 않으면 각각의 개별 페이지는 별도로 실행될 수 없음
 define('_GNUBOARD_', true);
-
-/********************
-    시간 상수
-********************/
-// 하루는 86400 초입니다. 1시간은 3600초
-// 6시간이 빠른 경우 time() + (3600 * 6);
-// 6시간이 느린 경우 time() - (3600 * 6);
-define('G5_SERVER_TIME',    time());
-define('G5_TIME_YMDHIS',    date('Y-m-d H:i:s', G5_SERVER_TIME));
-define('G5_TIME_YMD',       substr(G5_TIME_YMDHIS, 0, 10));
-define('G5_TIME_HIS',       substr(G5_TIME_YMDHIS, 11, 8));
 
 // 게시판에서 링크의 기본개수를 말합니다.
 // 필드를 추가하면 이 숫자를 필드수에 맞게 늘려주십시오.

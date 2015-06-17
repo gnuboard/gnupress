@@ -93,7 +93,8 @@ class G5_var {
             'cf_syndi_token' => '', //네이버 신디케이션 연동키
             'cf_syndi_except' => '', //네이버 신디케이션 제외게시판,
             'cf_use_search_include' => 1, //전체 검색시 게시판 내용을 포함
-            'cf_use_latest_cache' => 1 //최신글 캐쉬 사용
+            'cf_use_latest_cache' => 1, //최신글 캐쉬 사용
+            'cf_new_page_name' =>   'g5new' //새창 페이지 이름 등
         );
 
         $this->config = apply_filters( 'g5_config_add', wp_parse_args($g5_options['config'], $config_default) );

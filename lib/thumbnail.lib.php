@@ -6,7 +6,7 @@ function g5_get_list_thumbnail($bo_table, $wr_id, $thumb_width, $thumb_height, $
 {
     global $gnupress;
 
-    if( !$wr_id ) return;
+    if( !$wr_id || !g5_get_upload_path() ) return;
 
     $g5 = $gnupress->g5;
     $config = $gnupress->config;
@@ -18,12 +18,10 @@ function g5_get_list_thumbnail($bo_table, $wr_id, $thumb_width, $thumb_height, $
     $g5_data_url = g5_get_upload_path('url');
 
     $file_meta_data = get_metadata(G5_META_TYPE, $wr_id, G5_FILE_META_KEY , true );
-    $upload_path_info = wp_upload_dir();
-    $tmp_upload_dir = explode('/wp-content/', $upload_path_info['basedir'] );
-    $tmp_upload_url = explode('/wp-content/', $upload_path_info['baseurl'] );
+
     //워드프레스 물리적 경로
-    $wp_upload_dir = $tmp_upload_dir[0];
-    $wp_upload_url = $tmp_upload_url[0];
+    $wp_upload_dir = ABSPATH;
+    $wp_upload_url = site_url().'/';
 
     $row = array();
 
@@ -104,7 +102,7 @@ function g5_get_view_thumbnail($contents, $thumb_width=0, $board=array())
     // $contents 중 img 태그 추출
     $matches = g5_get_editor_image($contents, true);
 
-    if(empty($matches))
+    if(empty($matches) || !g5_get_upload_path())
         return $contents;
 
     for($i=0; $i<count($matches[1]); $i++) {
@@ -126,12 +124,10 @@ function g5_get_view_thumbnail($contents, $thumb_width=0, $board=array())
         $p = parse_url($src);
 
         $g5_data_dir = g5_get_upload_path();
-        $upload_path_info = wp_upload_dir();
-        $tmp_upload_dir = explode('/wp-content/', $upload_path_info['basedir'] );
-        $tmp_upload_url = explode('/wp-content/', $upload_path_info['baseurl'] );
+
         //워드프레스 물리적 경로
-        $wp_upload_dir = $tmp_upload_dir[0];
-        $wp_upload_url = $tmp_upload_url[0];
+        $wp_upload_dir = ABSPATH;
+        $wp_upload_url = site_url().'/';
 
         if(strpos($p['path'], '/'.$g5_data_dir.'/') != 0)
             $data_path = preg_replace('/^\/.*\/'.$g5_data_dir.'/', '/'.$g5_data_dir, $p['path']);

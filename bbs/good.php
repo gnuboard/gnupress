@@ -77,13 +77,15 @@ if ( !$err && ($good == 'good' || $good == 'nogood') ){
             $err = "이미 $status 하신 글 입니다.";
         } else {
             // 내역 생성
-            $result = $wpdb->query(" insert {$g5['board_good_table']} set bo_table = '{$bo_table}', wr_id = '{$wr_id}', user_id = '{$member['user_id']}', bg_flag = '{$good}', bg_datetime = '".G5_TIME_YMDHIS."' ");
+            $result = $wpdb->query(
+                        $wpdb->prepare(" insert {$g5['board_good_table']} set bo_table = '%s', wr_id = %d, user_id = %d, bg_flag = '%s', bg_datetime = '%s' ", $bo_table, $wr_id, $member['user_id'], $good, G5_TIME_YMDHIS)
+                        );
 
             if( $result === false ){
                 $err = "error";
             } else {
                 // 추천(찬성), 비추천(반대) 카운트 증가
-                $result = $wpdb->query(" update {$g5['write_table']} set wr_{$good} = wr_{$good} + 1 where wr_id = '{$wr_id}' ");
+                $result = $wpdb->query($wpdb->prepare(" update {$g5['write_table']} set wr_{$good} = wr_{$good} + 1 where wr_id = '%d' ", $wr_id));
 
                 $sql = $wpdb->prepare(" select wr_{$good} as count from {$g5['write_table']} where wr_id = %d ", $wr_id);
                 $count = $wpdb->get_var($sql);

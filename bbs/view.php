@@ -129,7 +129,7 @@ else if (!$write['user_id']) { // 회원이 쓴 글이 아니라면
 }
 
 //새창 열기 url
-$new_open_url = $gnupress->new_url;
+$new_open_url = get_permalink();
 
 // 최고, 그룹관리자라면 글 복사, 이동 가능
 $copy_href = $move_href = '';

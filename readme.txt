@@ -3,8 +3,8 @@ Contributors: kagla
 Donate link: 
 Tags: board, bbs, community, forum
 Requires at least: 4.0
-Tested up to: 4.1
-Stable tag: 4.1
+Tested up to: 4.2
+Stable tag: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
    /wp-content/plugins/gnupress/screenshot-2.jpg  
 
 == Changelog ==
+
+= 0.0.4 =
+code correct quite unsafe for wordpress standards
+fix an gnupress plugin error 
 
 = 0.0.3 =
 code correct quite unsafe for wordpress standards

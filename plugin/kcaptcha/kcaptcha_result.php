@@ -7,6 +7,6 @@ if ($count >= 5) { // 설정값 이상이면 자동등록방지 입력 문자가
     echo false;
 } else {
     g5_set_session("ss_captcha_count", $count + 1);
-    echo (g5_get_session("ss_captcha_key") == $_POST['captcha_key']) ? true : false;
+    echo (g5_get_session("ss_captcha_key") == sanitize_key($_POST['captcha_key'])) ? true : false;
 }
 ?>

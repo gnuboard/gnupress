@@ -77,7 +77,7 @@ class G5_Board extends G5_common {
 
     public function action_process( $action ){
 
-        $action_arr = apply_filters('g5_head_check_action', array('download', 'delete', 'delete_all', 'write_update', 'write_comment_update', 'good', 'nogood', 'move_update', 'rss', 'ping', 'password_check', 'delete_comment', 'link'));
+        $action_arr = apply_filters('g5_head_check_action', array('download', 'delete', 'delete_all', 'write_update', 'write_comment_update', 'good', 'nogood', 'move', 'move_update', 'rss', 'ping', 'password_check', 'delete_comment', 'link'));
         
         if( in_array( $action, $action_arr ) ){
             add_action( 'template_redirect', array( $this, 'header_process' ) );
@@ -125,10 +125,16 @@ class G5_Board extends G5_common {
 
         do_action('g5_header_process', $this->request_action, $this );
 
-        $get_array = array('w', 'secret');
+        $g5_param_array = g5_request_param_keys(array('secret'));
+        
+        extract( $g5_param_array );
+
+        /*
+        $get_array = array('w', 'sw', 'secret');
         foreach( $get_array as $v ){
             $$v = isset($_REQUEST[$v]) ? esc_attr( wp_unslash($_REQUEST[$v]) ) : '';
         }
+        */
 
         switch( $this->request_action ){
             
@@ -163,20 +169,16 @@ class G5_Board extends G5_common {
             $this->error_display_print((array) $msg);
             return;
         }
-
-        $check_key_array = apply_filters('g5_board_view_request_check', array('w', 'sop', 'stx', 'sca', 'sst', 'sca', 'sfl', 'spt', 'sod', 'sw', 'board_page_id', 'tag') );
         
-        $g5_param_array = array();
+        $g5_param_array = g5_request_param_keys();
 
-        foreach( $check_key_array as &$v ){
-            $g5_param_array[$v] = isset($_REQUEST[$v]) ? g5_request_check($_REQUEST[$v]) : '';
+        if( isset($g5_param_array['gw']) && !empty($g5_param_array['gw']) ){
+            $g5_param_array['w'] = $g5_param_array['gw'];
         }
 
         $g5_param_array = wp_parse_args( $this->g5_board_value(), $g5_param_array );
         
         extract( $g5_param_array );
-
-        unset( $check_key_array );
 
         $board['board_skin_path'] = $board_skin_path;
 
@@ -194,7 +196,7 @@ class G5_Board extends G5_common {
         if( $board['bo_use_tag'] ){
             include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );
         }
-         
+
         switch ( $action ) {
             case 'write': // 글쓰기 페이지
                 if($board['bo_use_dhtml_editor'] && $config['cf_editor']){  //에디터를 사용한다면
@@ -393,7 +395,7 @@ class G5_Board extends G5_common {
             $list['file']['count'] = $list['wr_file'];
         }
 
-        if ($list['file']['count'])
+        if (isset($list['file']['count']) && !empty($list['file']['count']))
             $list['icon_file'] = '<img src="'.$skin_url.'/img/icon_file.gif" alt="첨부파일">';
 
         return $list;

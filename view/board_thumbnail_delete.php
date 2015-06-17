@@ -7,30 +7,34 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     </p>
 </div>
 <?php
-$dir = g5_get_upload_path().'/file/'.$board['bo_table'];
-
-$cnt = 0;
-if(is_dir($dir)) {
-    echo '<ul>';
-    $files = glob($dir.'/thumb-*');
-    if (is_array($files)) {
-        foreach($files as $thumbnail) {
-            $cnt++;
-            @unlink($thumbnail);
-
-            echo '<li>'.$thumbnail.'</li>'.PHP_EOL;
-
-            flush();
-
-            if ($cnt%10==0)
-                echo PHP_EOL;
-        }
-    }
-
-    echo '<li>완료됨</li></ul>'.PHP_EOL;
-    echo '<div class="local_desc01 local_desc"><p><strong>썸네일 '.$cnt.'건의 삭제 완료됐습니다.</strong></p></div>'.PHP_EOL;
+if( !g5_get_upload_path(){
+    echo '<p>첨부파일 디렉토리에 접근할수 없습니다.</p>';
 } else {
-    echo '<p>첨부파일 디렉토리가 존재하지 않습니다.</p>';
+    $dir = g5_get_upload_path().'/file/'.$board['bo_table'];
+
+    $cnt = 0;
+    if(is_dir($dir)) {
+        echo '<ul>';
+        $files = glob($dir.'/thumb-*');
+        if (is_array($files)) {
+            foreach($files as $thumbnail) {
+                $cnt++;
+                @unlink($thumbnail);
+
+                echo '<li>'.$thumbnail.'</li>'.PHP_EOL;
+
+                flush();
+
+                if ($cnt%10==0)
+                    echo PHP_EOL;
+            }
+        }
+
+        echo '<li>완료됨</li></ul>'.PHP_EOL;
+        echo '<div class="local_desc01 local_desc"><p><strong>썸네일 '.$cnt.'건의 삭제 완료됐습니다.</strong></p></div>'.PHP_EOL;
+    } else {
+        echo '<p>첨부파일 디렉토리가 존재하지 않습니다.</p>';
+    }
 }
 
 if( wp_get_referer() ){

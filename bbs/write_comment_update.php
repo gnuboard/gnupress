@@ -8,7 +8,9 @@ if ( ! isset( $_POST['g5_nonce_field'] ) || ! wp_verify_nonce( $_POST['g5_nonce_
 
 include_once(G5_PLUGIN_PATH.'/kcaptcha/captcha.lib.php');
 
-$cm_content = wp_filter_kses(trim($_POST['cm_content']));
+$post_data = $_POST;
+
+$cm_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['cm_content'] ) ) );
 
 // 090710
 if (substr_count($cm_content, "&#") > 50) {
@@ -27,7 +29,7 @@ $cm_secret = ( isset($_POST['cm_secret']) && !empty($_POST['cm_secret']) ) ? 'se
 
 $user_email = '';
 if ( isset($_POST['user_email']) && !empty($_POST['user_email']) )
-    $user_email = g5_get_email_address(trim($_POST['user_email']));
+    $user_email = sanitize_email($_POST['user_email']);
 
 // 비회원의 경우 이름이 누락되는 경우가 있음
 if ($is_guest) {
@@ -122,6 +124,9 @@ if ($w == 'c') // 댓글 입력
             'cm_ip' => $_SERVER['REMOTE_ADDR'],
             'cm_option' => $cm_option
         );
+
+    
+    $cm_data = apply_filters('g5_insert_comment_filters', wp_unslash($cm_data), $post_data);
 
     // insert
     $result = $wpdb->insert( $g5['comment_table'], $cm_data );
@@ -248,6 +253,8 @@ else if ($w == 'cu') // 댓글 수정
 
     $where = array( 'cm_id' => $cm_id );
 
+    $cm_data = apply_filters('g5_update_comment_filters', wp_unslash($cm_data), $post_data);
+
     $result = $wpdb->update($g5['comment_table'], $cm_data, $where);
     if ( $result === false ){
         g5_show_db_error();
@@ -259,6 +266,9 @@ else if ($w == 'cu') // 댓글 수정
 // 사용자 코드 실행
 @include_once($board_skin_path.'/write_comment_update.skin.php');
 @include_once($board_skin_path.'/write_comment_update.tail.skin.php');
+
+wp_cache_delete( 'g5_bo_table_'.$board['bo_table'] );
+wp_cache_delete( 'g5_'.$g5['write_table'].'_'.$wr_id );
 
 $redirect_to = add_query_arg( array( 'bo_table'=>$board['bo_table'], 'wr_id'=>$wr_id ), get_permalink() ).'&#c_'.$comment_id;
 
