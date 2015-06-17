@@ -35,16 +35,6 @@ if( isset($bo_table) && !empty($bo_table) ) $arr_params['bo_table'] = $bo_table;
 if( isset($w) && !empty($w) ) $arr_params['w'] = $w;
 $form_action_url = add_query_arg($arr_params, admin_url('admin.php?page=g5_board_form'));
 
-/* 이 부분을 나중에 지워야 함 시작 */
-if ( !isset($board['bo_sh_fields']) ){
-    $sql = " ALTER TABLE `{$g5['board_table']}`
-                    ADD `bo_sh_fields` VARCHAR(255) NOT NULL DEFAULT '' ";
-    $wpdb->hide_errors();
-    $wpdb->query( $sql );
-    $wpdb->show_errors();
-}
-/* 이 부분을 나중에 지워야 함 끝 */
-
 $chk_fields_array = array('num', 'writer', 'visit', 'wdate' ); //번호, 작성자, 조회, 작성일 체크
 $chk_bo_sh_array = array();
 
@@ -60,12 +50,12 @@ foreach( $chk_fields_array as $key=>$v ){
 <form name="fboardform" id="fboardform" action="<?php echo g5_form_action_url($form_action_url);?>" onsubmit="return fboardform_submit(this)" method="post" enctype="multipart/form-data" class="bootstrap">
 <?php wp_nonce_field( 'bbs-update-fields' ); ?>
 <input type="hidden" name="g5_admin_post" value="bbs_update" />
-<input type="hidden" name="w" value="<?php echo $w ?>">
-<input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-<input type="hidden" name="stx" value="<?php echo $stx ?>">
-<input type="hidden" name="sst" value="<?php echo $sst ?>">
-<input type="hidden" name="sod" value="<?php echo $sod ?>">
-<input type="hidden" name="page" value="<?php echo $page ?>">
+<input type="hidden" name="w" value="<?php echo esc_attr( $w ); ?>">
+<input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
+<input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
+<input type="hidden" name="sst" value="<?php echo esc_attr( $sst ); ?>">
+<input type="hidden" name="sod" value="<?php echo esc_attr( $sod ); ?>">
+<input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
 
 <section id="anc_bo_basic">
     <h2 class="h2_frm">게시판 기본 설정</h2>
@@ -920,7 +910,7 @@ jQuery(document).ready(function($) {
 
     <form action="<?php echo g5_form_action_url($form_action_url);?>" onsubmit="return fboardcopy_check(this);" method="post">
     <?php wp_nonce_field( 'bbs-adm-copy' ); ?>
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr( $bo_table ); ?>">
     <input type="hidden" name="g5_admin_post" value="bbs_copy" />
     <div class="tbl_frm01 tbl_wrap">
         <table>

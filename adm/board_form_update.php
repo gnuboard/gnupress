@@ -210,7 +210,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             
             if ($w == '') {
 
-                $sql = " select count(*) as cnt from {$g5['board_table']} where bo_table = '{$bo_table}' ";
+                $sql = $wpdb->prepare("select count(*) as cnt from {$g5['board_table']} where bo_table = '%s'", $bo_table);
                 $row = $wpdb->get_row($sql, ARRAY_A);
 
                 if ($row['cnt']){
@@ -247,13 +247,13 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 if (isset($_POST['proc_count'])) {
 
                     // 게시판의 글 수
-                    $sql = " select count(*) as cnt from {$g5['write_table']} where bo_table = '$bo_table' ";
+                    $sql = $wpdb->prepare("select count(*) as cnt from {$g5['write_table']} where bo_table = '%s'", $bo_table);
                     if( $bo_count_write = $wpdb->get_var($sql) ){
                         $data['bo_count_write'] = $bo_count_write;
                     }
                     
                     // 게시판의 코멘트 수
-                    $sql = " select count(*) as cnt from {$g5['comment_table']} where bo_table = '$bo_table' ";
+                    $sql = $wpdb->prepare("select count(*) as cnt from {$g5['comment_table']} where bo_table = '%s'", $bo_table);
                     if( $bo_count_comment = $wpdb->get_var($sql) ){
                         $data['bo_count_comment'] = $bo_count_comment;
                     }
@@ -268,7 +268,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     $tmp_array = explode(",", $board['bo_notice']);
                     foreach( $tmp_array as $nt ){
                         if( empty($nt) ) continue;
-                        if( $row_cnt = $wpdb->get_var("select count(*) as cnt from {$g5['write_table']} where wr_id = ".(int)$nt) ){
+                        if( $row_cnt = $wpdb->get_var($wpdb->prepare("select count(*) as cnt from {$g5['write_table']} where wr_id = %d ", (int) $nt)) ){
                             $bo_notice .= $lf.(int)$nt;
                             $lf = ",";
                         }

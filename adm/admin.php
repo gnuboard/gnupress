@@ -88,7 +88,7 @@ if ( ! function_exists('g5_point_action'))
                     $k = $_POST['chk'][$i];
 
                     // 포인트 내역정보
-                    $sql = " select * from {$g5['point_table']} where po_id = ".(int) $_POST['po_id'][$k] ." ";
+                    $sql = $wpdb->prepare("select * from {$g5['point_table']} where po_id = %d", (int) $_POST['po_id'][$k]);
                     $row = $wpdb->get_row($sql, ARRAY_A);
 
                     if(!$row['po_id'])
@@ -215,7 +215,7 @@ function g5_board_form(){
             $bo_table = preg_replace('/[^a-z0-9_]/i', '', trim($_REQUEST[$v]));
             $bo_table = substr($bo_table, 0, 20);
             if( $bo_table ){
-                $board = $wpdb->get_row(" select * from {$g5['board_table']} where bo_table = '$bo_table' ", ARRAY_A);
+                $board = $wpdb->get_row($wpdb->prepare(" select * from {$g5['board_table']} where bo_table = '%s' ", $bo_table), ARRAY_A);
             }
             if( ! isset($board['bo_table']) && empty($board['bo_table']) )
                 g5_alert('존재하지 않는 게시판입니다.');

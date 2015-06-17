@@ -3,18 +3,20 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if ( !class_exists( 'G5_Add_Search_Data' ) ) :
 
-add_action( 'pre_get_posts', function( $q ) {
-    global $gnupress;
-    
-    //워드프레스 전체 검색시 게시판 내용을 포함 설정이 되어 있다면
-    if( $gnupress->config['cf_use_search_include'] && $q->is_main_query() && $q->is_search() )
-    {
-        $q->set( 'nopaging', true );
-        $c = new G5_Add_Search_Data;
-        $c->init($q);
+if( !function_exists('g5_pre_get_posts') ){
+    function g5_pre_get_posts($q){
+        global $gnupress;
+        
+        //워드프레스 전체 검색시 게시판 내용을 포함 설정이 되어 있다면
+        if( $gnupress->config['cf_use_search_include'] && $q->is_main_query() && $q->is_search() )
+        {
+            $q->set( 'nopaging', true );
+            $c = new G5_Add_Search_Data;
+            $c->init($q);
+        }
     }
-});
-
+}
+add_action( 'pre_get_posts', 'g5_pre_get_posts' );
 
 /**
  * class WPSE_Add_Search_Data

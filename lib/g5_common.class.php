@@ -96,19 +96,6 @@ class G5_common {
             $this->write = $wpdb->get_row( $sql, ARRAY_A );
         }
 
-        /* 나중에 이 코드를 지워야 함 ㅠㅠ */
-        if( ! isset($this->write['wr_page_id']) ){
-
-            $sql = "ALTER TABLE `{$g5['write_table']}` ADD `wr_page_id` BIGINT(20) NOT NULL default '0'";
-            $result = $wpdb->query( $sql );
-
-            // db insert에 실패한 경우
-            if ( $result === false ){
-                g5_show_db_error();
-            }
-        }
-        /* 여기까지 나중에 이 코드를 지워야 함 ㅠㅠ */
-
         return $this->write;
     }
 

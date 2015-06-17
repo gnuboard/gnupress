@@ -33,11 +33,11 @@ $options = get_option(G5_OPTION_KEY);
 <form name="fboardlist" id="fboardlist" action="<?php echo g5_form_action_url(admin_url("admin.php?page=g5_board_list"));?>" onsubmit="return fboardlist_submit(this);" method="post">
 <?php wp_nonce_field( 'bbs_list_admin' ); ?>
 <input type="hidden" name="g5_admin_post" value="bbs_list_update" />
-<input type="hidden" name="sst" value="<?php echo $sst ?>">
-<input type="hidden" name="sod" value="<?php echo $sod ?>">
-<input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-<input type="hidden" name="stx" value="<?php echo $stx ?>">
-<input type="hidden" name="page" value="<?php echo $page ?>">
+<input type="hidden" name="sst" value="<?php echo esc_attr( $sst ); ?>">
+<input type="hidden" name="sod" value="<?php echo esc_attr( $sod ); ?>">
+<input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
+<input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
+<input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
 
 <div class="bootstrap" id="no-more-tables">
     <table class="table-bordered table-striped table-condensed">

@@ -65,14 +65,8 @@ $sql = apply_filters('g5_document_delete_sql', "delete from `$write_table` where
 if( $sql ){
     if( $result = $wpdb->query($sql) ){
 
-        //태그 기록 삭제
-        g5_delete_object_term_relationships( $write['wr_id'] , g5_get_taxonomy($bo_table) );
-
-        // 최근게시물 삭제
-        //$wpdb->query(" delete from {$g5['board_new_table']} where bo_table = '$bo_table' and wr_parent = '{$write['wr_id']}' ");
-
-        // 스크랩 삭제
-        //$wpdb->query(" delete from {$g5['scrap_table']} where bo_table = '$bo_table' and wr_id = '{$write['wr_id']}' ");
+        //포인트, 메타데이터, 스크랩, 썸네일, 파일, 태그 기록, 코멘트 삭제
+        $g5_board_delete->etc_check($write, $board);
 
         $count_write++;
         $count_comment++;
@@ -86,7 +80,7 @@ $wpdb->query(" update `{$g5['board_table']}` set bo_notice = '$bo_notice' where 
 if ($count_write > 0 || $count_comment > 0){
 
     if( $count_write ){
-        $count_write = $wpdb->get_var("select count(wr_id) from `{$g5['write_table']}` where bo_table = '$bo_table' ");
+        $count_write = $wpdb->get_var($wpdb->prepare("select count(wr_id) from `{$g5['write_table']}` where bo_table = '%s' ", $bo_table));
     }
     $result = $wpdb->query(" update `{$g5['board_table']}` set bo_count_write = '$count_write', bo_count_comment = bo_count_comment - '$count_comment' where bo_table = '$bo_table' ");
 
@@ -100,7 +94,7 @@ if ($count_write > 0 || $count_comment > 0){
 
 @include_once($board_skin_path.'/delete.tail.skin.php');
 
-//delete_cache_latest($bo_table);
+g5_delete_cache_latest($board['bo_table']);
 
 do_action('g5_document_delete', $write, $board );
 

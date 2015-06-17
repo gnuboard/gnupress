@@ -38,7 +38,7 @@ if ( !$err && !g5_get_session($ss_name)) {
 }
 
 if( !$err ){
-    $row_cnt = $wpdb->get_var(" select count(*) as cnt from {$g5['write_table']} where bo_table='".$bo_table."' ");
+    $row_cnt = $wpdb->get_var($wpdb->prepare(" select count(*) as cnt from {$g5['write_table']} where bo_table = '%s' ", $bo_table));
 
     if (!$row_cnt)
         $err = '존재하는 게시판이 아닙니다.';
@@ -59,11 +59,11 @@ if ( !$err && ($good == 'good' || $good == 'nogood') ){
     }
 
     if( !$err ){
-        $sql = " select bg_flag from {$g5['board_good_table']}
-                    where bo_table = '{$bo_table}'
-                    and wr_id = '{$wr_id}'
-                    and user_id = '{$member['user_id']}'
-                    and bg_flag in ('good', 'nogood') ";
+        $sql = $wpdb->prepare(" select bg_flag from {$g5['board_good_table']}
+                    where bo_table = '%s'
+                    and wr_id = %d
+                    and user_id = '%s'
+                    and bg_flag in ('good', 'nogood') ", $bo_table, $wr_id, $member['user_id']);
 
         $bg_flag = $wpdb->get_var($sql);
 
@@ -85,7 +85,7 @@ if ( !$err && ($good == 'good' || $good == 'nogood') ){
                 // 추천(찬성), 비추천(반대) 카운트 증가
                 $result = $wpdb->query(" update {$g5['write_table']} set wr_{$good} = wr_{$good} + 1 where wr_id = '{$wr_id}' ");
 
-                $sql = " select wr_{$good} as count from {$g5['write_table']} where wr_id = '$wr_id' ";
+                $sql = $wpdb->prepare(" select wr_{$good} as count from {$g5['write_table']} where wr_id = %d ", $wr_id);
                 $count = $wpdb->get_var($sql);
             }
         }

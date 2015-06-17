@@ -49,7 +49,7 @@ foreach( $rows as $row ){
 
         $g5_move_update = new G5_Move_update($member, $config, $board, $sw);    //인스턴스 생성 및 초기화
 
-        $sql2 = " select * from `$write_table` where bo_table = '$bo_table' and wr_num = '$wr_num' and wr_parent = 0 ";  //원글만 셀렉트
+        $sql2 = $wpdb->prepare("select * from `$write_table` where bo_table = '%s' and wr_num = %d and wr_parent = 0 ", $bo_table, $wr_num);  //원글만 셀렉트
 
         $rows2 = $wpdb->get_results($sql2, ARRAY_A);
 

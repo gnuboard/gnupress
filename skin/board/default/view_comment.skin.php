@@ -34,9 +34,6 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
             <?php } ?>
             작성일
             <span class="bo_vc_hdinfo"><time datetime="<?php echo date('Y-m-d\TH:i:s+09:00', strtotime($list[$i]['datetime'])) ?>"><?php echo $list[$i]['datetime'] ?></time></span>
-            <?php
-            //include(G5_SNS_PATH.'/view_comment_list.sns.skin.php');
-            ?>
         </header>
 
         <!-- 댓글 출력 -->
@@ -55,8 +52,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
             $query_string = add_query_arg(array());
 
             if($w == 'cu') {
-                $sql = " select cm_id, cm_content from `{$g5['comment_table']}` where cm_id = '$c_id' ";
-                $cmt = g5_sql_fetch($sql);
+                $cmt = g5_get_write($g5['comment_table'], $cm_id, 'cm_id');
                 $cm_content = $cmt['cm_content'];
             }
 
@@ -65,9 +61,9 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
          ?>
         <footer>
             <ul class="bo_vc_act">
-                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo $c_reply_href;  ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;">답변</a></li><?php } ?>
-                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo $c_edit_href;  ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;">수정</a></li><?php } ?>
-                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo $list[$i]['del_link'];  ?>" onclick="return g5_view_cm.comment_delete();">삭제</a></li><?php } ?>
+                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo esc_url( $c_reply_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;">답변</a></li><?php } ?>
+                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo esc_url( $c_edit_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;">수정</a></li><?php } ?>
+                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo esc_url( $list[$i]['del_link'] ); ?>" onclick="return g5_view_cm.comment_delete();">삭제</a></li><?php } ?>
             </ul>
         </footer>
         <?php } ?>
@@ -89,14 +85,14 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
     <?php wp_nonce_field( 'g5_comment_write', 'g5_nonce_field' ); ?>
     <input type="hidden" name="g5_rq" value="g5">
     <input type="hidden" name="action" value="write_comment_update">
-    <input type="hidden" name="w" value="<?php echo $w ?>" id="w">
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
-    <input type="hidden" name="cm_id" value="<?php echo $c_id ?>" id="cm_id">
-    <input type="hidden" name="sca" value="<?php echo $sca ?>">
-    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-    <input type="hidden" name="stx" value="<?php echo $stx ?>">
-    <input type="hidden" name="spt" value="<?php echo $spt ?>">
-    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="w" value="<?php echo esc_attr( $w ); ?>" id="w">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr( $bo_table ); ?>">
+    <input type="hidden" name="cm_id" value="<?php echo esc_attr( intval($cm_id) ); ?>" id="cm_id">
+    <input type="hidden" name="sca" value="<?php echo esc_attr( $sca ); ?>">
+    <input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
+    <input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
+    <input type="hidden" name="spt" value="<?php echo esc_attr( $spt ); ?>">
+    <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
     <input type="hidden" name="is_good" value="">
 
     <div class="tbl_frm01 tbl_wrap">
@@ -105,7 +101,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
         <?php if ($is_guest) { ?>
         <tr>
             <th scope="row"><label for="user_name">이름<strong class="sound_only"> 필수</strong></label></th>
-            <td><input type="text" name="user_name" value="<?php echo g5_get_cookie("ck_sns_name"); ?>" id="user_name" required class="frm_input required" size="5" maxLength="20"></td>
+            <td><input type="text" name="user_name" value="<?php echo esc_attr( g5_get_cookie("ck_sns_name") ); ?>" id="user_name" required class="frm_input required" size="5" maxLength="20"></td>
         </tr>
         <tr>
             <th scope="row"><label for="user_pass">비밀번호<strong class="sound_only"> 필수</strong></label></th>
@@ -122,16 +118,6 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
             <td><?php echo $captcha_html; ?></td>
         </tr>
         <?php } ?>
-        <?php
-        if($board['bo_use_sns'] && ($config['cf_facebook_appid'] || $config['cf_twitter_key'])) {
-        ?>
-        <tr>
-            <th scope="row">SNS 동시등록</th>
-            <td id="bo_vc_send_sns"></td>
-        </tr>
-        <?php
-        }
-        ?>
         <tr>
             <th scope="row">내용</th>
             <td>
@@ -320,17 +306,6 @@ var g5_view_cm = {
 
     g5_view_cm.comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 추가 (root님)
 
-    <?php if($board['bo_use_sns'] && ($config['cf_facebook_appid'] || $config['cf_twitter_key'])) { ?>
-    // sns 등록
-    $(function() {
-        $("#bo_vc_send_sns").load(
-            "<?php echo G5_SNS_URL; ?>/view_comment_write.sns.skin.php?bo_table=<?php echo $bo_table; ?>",
-            function() {
-                g5_view_cm.save_html = document.getElementById('bo_vc_w').innerHTML;
-            }
-        );
-    });
-    <?php } ?>
 })(jQuery);
 </script>
 <?php } ?>

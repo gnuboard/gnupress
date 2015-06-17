@@ -53,7 +53,7 @@ if ($sca || $stx || count($search_tag)) {
     $sql_search = g5_get_sql_search($sca, $sfl, $stx, $sop, count($search_tag));
 
     // 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
-    $sql = " select MIN(wr_num) as min_wr_num from {$write_table} where bo_table = '$bo_table' ";
+    $sql = $wpdb->prepare(" select MIN(wr_num) as min_wr_num from {$write_table} where bo_table = '%s' ", $bo_table);
     $row = $wpdb->get_row($sql, ARRAY_A);
     $min_spt = (int)$row['min_wr_num'];
 
@@ -204,15 +204,15 @@ if ($sst) {
 }
 
 if ($sca || $stx || count($search_tag)) {
-    $sql = " select * from {$write_table} where {$sql_search} {$sql_order} limit {$from_record}, $page_rows ";
+    $sql = $wpdb->prepare(" select * from {$write_table} where {$sql_search} {$sql_order} limit %d, %d ", $from_record, $page_rows);
 
     if( count($search_tag) && $board['bo_use_tag'] ){  //태그 검색이 들어가 있다면...
-        $sql = " select * from $write_table wr left join `{$g5['relation_table']}` t on wr.wr_id = t.object_id where $sql_search $sql_search_add_sql $sql_order limit {$from_record}, $page_rows";
+        $sql = $wpdb->prepare(" select * from $write_table wr left join `{$g5['relation_table']}` t on wr.wr_id = t.object_id where $sql_search $sql_search_add_sql $sql_order limit %d, %d", $from_record, $page_rows);
     }
     $sql = apply_filters('g5_list_search_sql', $sql, $board, $sql_search, $sql_order, $search_tag, $from_record, $page_rows );
 
 } else {
-    $sql = " select * from {$write_table} where bo_table = '$bo_table' ";
+    $sql = $wpdb->prepare(" select * from {$write_table} where bo_table = '%s' ", $bo_table);
     if(!empty($notice_array))
         $sql .= " and wr_id not in (".implode(', ', $notice_array).") ";
     $sql .= " {$sql_order} limit {$from_record}, $page_rows ";

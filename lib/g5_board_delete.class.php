@@ -9,7 +9,7 @@ class G5_Board_delete extends G5_Board {
     public function check_get_list($wr_id, $bo_table, $table){
         global $wpdb;
 
-        $sql = " select * from `$table` where wr_parent = '".esc_sql($wr_id)."' order by wr_num ";
+        $sql = $wpdb->prepare("select * from `$table` where wr_parent = %d order by wr_num ", $wr_id);
         $rows = $wpdb->get_results($sql);
         return $rows;
     }
@@ -27,7 +27,7 @@ class G5_Board_delete extends G5_Board {
         //글 리스트를 전부 삭제한다.
 
         $this->delete_reply($write['wr_id'], $board, $table);
-        
+
         $count_array = array('count_write'=>0, 'count_comment'=>0);
         $count_array['count_write'] = $this->count_write;
         $count_array['count_comment'] = $this->count_comment;
@@ -58,34 +58,45 @@ class G5_Board_delete extends G5_Board {
 	}
 
     public function etc_check($row, $board){
+            global $wpdb, $gnupress;
 
+            $g5 = $gnupress->g5;
+            $config = $gnupress->config;
             // 원글 포인트 삭제
             
-            
-            //if (!g5_delete_point($row['user_id'], $board['bo_table'], $row['wr_id'], '쓰기'))
-            //    g5_insert_point($row['user_id'], $board['bo_write_point'] * (-1), "{$board['bo_subject']} {$row['wr_id']} 글삭제");
+            if (!g5_delete_point($row['user_id'], $board['bo_table'], $row['wr_id'], '쓰기'))
+                g5_insert_point($row['user_id'], $board['bo_write_point'] * (-1), "{$board['bo_subject']} {$row['wr_id']} 글삭제");
 
             // 업로드된 파일이 있다면 파일삭제
-            
-            /*
-            $sql2 = " select * from {$g5['board_file_table']} where bo_table = '$bo_table' and wr_id = '{$row['wr_id']}' ";
-            $result2 = sql_query($sql2);
-            while ($row2 = g5_sql_fetch_array($result2)) {
-                @unlink(G5_DATA_PATH.'/file/'.$bo_table.'/'.$row2['bf_file']);
-                // 썸네일삭제
-                if(preg_match("/\.({$config['cf_image_extension']})$/i", $row2['bf_file'])) {
-                    delete_board_thumbnail($bo_table, $row2['bf_file']);
+            $file_meta_data = get_metadata(G5_META_TYPE, $row['wr_id'], G5_FILE_META_KEY , true);
+
+            // metadata에 있으면 삭제
+            if( count($file_meta_data) ){
+                foreach((array) $file_meta_data as $row2 ){
+                    if( !isset($row2['bf_file']) ) continue;
+                    @unlink(g5_get_upload_path().'/file/'.$board['bo_table'].'/'.$row2['bf_file']);
+                    // 썸네일삭제
+                    if(preg_match("/\.({$config['cf_image_extension']})$/i", $row2['bf_file'])) {
+                        g5_delete_board_thumbnail($board['bo_table'], $row2['bf_file']);
+                    }
                 }
             }
-            */
 
             // 에디터 썸네일 삭제
-            //delete_editor_thumbnail($row['wr_content']);
+            g5_delete_editor_thumbnail($row['wr_content']);
 
-            // 파일테이블 행 삭제
-            //$wpdb->query(" delete from {$g5['board_file_table']} where bo_table = '$bo_table' and wr_id = '{$row['wr_id']}' ");
+            //메타데이터 삭제
+            delete_metadata(G5_META_TYPE, $row['wr_id'], G5_FILE_META_KEY);
 
-            // 코멘트 포인트 삭제
+            // 스크랩 삭제
+            $wpdb->query(" delete from {$g5['scrap_table']} where bo_table = '{$board['bo_table']}' and wr_id = '{$row['wr_id']}' ");
+
+            //태그 기록 삭제
+            g5_delete_object_term_relationships($row['wr_id'], g5_get_taxonomy($board['bo_table']));
+
+            // 코멘트 및 코멘트 포인트 삭제
+            $this->sql_comment_delete($row['wr_id']);
+
             // 실행
 
             do_action('g5_etc_check_delete', $row, $board, $this);
@@ -97,16 +108,19 @@ class G5_Board_delete extends G5_Board {
         $sql = apply_filters('g5_reply_delete_sql', " delete from `$table` where wr_id = '$wr_id' " , $wr_id, $table, $this );
 
         if( $sql ){
-            $wpdb->query(" delete from `$table` where wr_id = '$wr_id' ");
+            $wpdb->query($sql);
+            return true;
         }
     }
 
     public function sql_comment_delete($wr_id){
-        global $wpdb;
-        if( $result = $wpdb->query(" delete from `$write_table` where wr_id = '$wr_id' ") ){
-            //태그 기록 삭제
-            g5_delete_object_term_relationships($write['wr_id'] , g5_get_taxonomy($bo_table));
-        }
+        global $wpdb, $gnupress;
+
+        $g5 = $gnupress->g5;
+        
+        if( !$wr_id ) return;
+
+        $result = $wpdb->query(" delete from `{$g5['comment_table']}` where wr_id = '$wr_id' ");
     }
 }
 

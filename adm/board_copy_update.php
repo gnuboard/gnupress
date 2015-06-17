@@ -139,7 +139,7 @@ if ($copy_case == 'schema_data_both') {
     $d->close();
 
     // 글복사
-    $sql = " select * from {$g5['write_table']} where bo_table = '$bo_table' order by wr_num, wr_parent ";
+    $sql = $wpdb->prepare("select * from {$g5['write_table']} where bo_table = '%s' order by wr_num, wr_parent", $bo_table);
     if( $rows = $wpdb->get_results( $sql, ARRAY_A ) ){
         $before_parent_arr = array();
 

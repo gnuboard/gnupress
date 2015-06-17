@@ -23,7 +23,7 @@ foreach($check_param as $v){
     $$v = isset($_POST[$v]) ? sanitize_text_field($_POST[$v]) : '';
 }
 
-$cm_secret = isset($_POST['cm_secret']) ? 'secret' : '';
+$cm_secret = ( isset($_POST['cm_secret']) && !empty($_POST['cm_secret']) ) ? 'secret' : '';
 
 $user_email = '';
 if ( isset($_POST['user_email']) && !empty($_POST['user_email']) )
@@ -63,7 +63,7 @@ if ( empty($wr['wr_id']) )
 
 // "인터넷옵션 > 보안 > 사용자정의수준 > 스크립팅 > Action 스크립팅 > 사용 안 함" 일 경우의 오류 처리
 // 이 옵션을 사용 안 함으로 설정할 경우 어떤 스크립트도 실행 되지 않습니다.
-//if (!trim($_POST["wr_content"])) die ("내용을 입력하여 주십시오.");
+if (!trim($_POST["cm_content"])) die ("내용을 입력하여 주십시오.");
 
 if ($is_member)
 {
@@ -81,20 +81,15 @@ else
 
 if ($w == 'c') // 댓글 입력
 {
-    /*
-    if ($member[mb_point] + $board[bo_comment_point] < 0 && !$is_admin)
-        alert('보유하신 포인트('.number_format($member[mb_point]).')가 없거나 모자라서 댓글쓰기('.number_format($board[bo_comment_point]).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 댓글을 써 주십시오.');
-    */
     // 댓글쓰기 포인트설정시 회원의 포인트가 음수인 경우 댓글을 쓰지 못하던 버그를 수정 (곱슬최씨님)
     $tmp_point = ($member['mb_point'] > 0) ? $member['mb_point'] : 0;
     if ($tmp_point + $board['bo_comment_point'] < 0 && !$is_admin)
-        alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 댓글쓰기('.number_format($board['bo_comment_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 댓글을 써 주십시오.');
+        g5_alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 댓글쓰기('.number_format($board['bo_comment_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 댓글을 써 주십시오.');
 
     // 댓글 답변
     if ($cm_id)
     {
-        $sql = " select cm_id, cm_parent, cm_num from `{$g5['comment_table']}` where cm_id = '$cm_id' ";
-        $reply_array = g5_sql_fetch($sql);
+        $reply_array = g5_get_write($g5['comment_table'], $cm_id, 'cm_id');
         if (!$reply_array['cm_id']){
             g5_alert(__('답변할 댓글이 없습니다.\\n\\n답변하는 동안 댓글이 삭제되었을 수 있습니다.', G5_NAME));
         }
@@ -114,6 +109,7 @@ if ($w == 'c') // 댓글 입력
 
     $cm_data = array(
             'wr_id' => $wr_id,
+            'bo_table' => $bo_table,
             'cm_parent' => $cm_id,
             'cm_num' => $cm_num,
             'user_id' => $user_id,
@@ -133,6 +129,7 @@ if ($w == 'c') // 댓글 입력
     if ( $result === false ){
         g5_show_db_error();
     }
+
     $comment_id = $wpdb->insert_id;
 
     // 원글에 댓글수 증가 & 마지막 시간 반영
@@ -182,9 +179,9 @@ if ($w == 'c') // 댓글 입력
 
         // 댓글 쓴 모든이에게 메일 발송이 되어 있다면 (자신에게는 발송하지 않는다)
         if ($config['cf_email_wr_comment_all']) {
-            $sql = " select distinct user_email from `{$g5['comment_table']}`
+            $sql = $wpdb->prepare(" select distinct user_email from `{$g5['comment_table']}`
                         where user_email not in ( '{$wr['user_email']}', '{$member['user_email']}', '' )
-                        and wr_id = '$wr_id' ";
+                        and wr_id = %d ", $wr_id);
 
             $rows = $wpdb->get_results($sql);
 
@@ -211,10 +208,7 @@ if ($w == 'c') // 댓글 입력
 }
 else if ($w == 'cu') // 댓글 수정
 {
-    $sql = " select cm_id, user_id, user_pass from `{$g5['comment_table']}`
-                where cm_id = '".esc_sql($cm_id)."' ";
-
-    $comment = $reply_array = g5_sql_fetch($sql);
+    $comment = $reply_array = g5_get_write($g5['comment_table'], $cm_id, 'cm_id');
 
     if ($is_admin == 'super') // 최고관리자 통과
         ;
@@ -235,18 +229,14 @@ else if ($w == 'cu') // 댓글 수정
             g5_alert('댓글을 수정할 권한이 없습니다.');
     }
 
-    $sql = " select count(*) as cnt from`{$g5['comment_table']}`
-                where cm_parent = '$cm_id'
-                and cm_id <> '$cm_id'
-                and wr_id = '$wr_id'";
+    $sql = $wpdb->prepare("select count(*) as cnt from`{$g5['comment_table']}` where cm_parent = %d and cm_id <> %d and wr_id = %d", $cm_id, $cm_id, $wr_id );
 
-    $row = g5_sql_fetch($sql);
-    if ($row['cnt'] && !$is_admin){
+    $row_cnt = $wpdb->get_var($sql);
+    if ($row_cnt && !$is_admin){
         g5_alert(__('이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다.', G5_NAME));
     }
 
     $cm_data = array(
-        'cm_subject' => $cm_subject,
         'cm_content' => $cm_content
     );
 
@@ -254,9 +244,7 @@ else if ($w == 'cu') // 댓글 수정
         $cm_data['cm_ip'] = $_SERVER['REMOTE_ADDR'];
     }
 
-    if ($cm_secret){
-        $cm_data['cm_option'] = apply_filters('g5_comment_update_option', $cm_secret, $board);
-    }
+    $cm_data['cm_option'] = apply_filters('g5_comment_update_option', $cm_secret, $board);
 
     $where = array( 'cm_id' => $cm_id );
 
@@ -264,7 +252,8 @@ else if ($w == 'cu') // 댓글 수정
     if ( $result === false ){
         g5_show_db_error();
     }
-
+    
+    $comment_id = $cm_id;
 }
 
 // 사용자 코드 실행

@@ -35,10 +35,10 @@ echo <<<HEREDOC
 </script>
 HEREDOC;
 
-$sql = " select count(*) as cnt from {$g5['scrap_table']}
+$sql = $wpdb->prepare(" select count(*) as cnt from {$g5['scrap_table']}
             where user_id = '{$member['user_id']}'
-            and bo_table = '$bo_table'
-            and wr_id = '$wr_id' ";
+            and bo_table = '%s'
+            and wr_id = %d ", $bo_table, $wr_id);
 
 $row_cnt = $wpdb->get_var($sql);
 

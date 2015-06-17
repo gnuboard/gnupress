@@ -16,7 +16,7 @@ switch ($w) {
         break;
     case 'x' :
         $action = 'delete_comment';
-        $wr_id = $wpdb->get_var(" select wr_id from `{$g5['comment_table']}` where cm_id = '$cm_id' ");
+        $wr_id = $wpdb->get_var($wpdb->prepare(" select wr_id from `{$g5['comment_table']}` where cm_id = %d ", $cm_id));
         $return_url = add_query_arg( array('wr_id'=>$wr_id) , $default_href ).'#c_'.$cm_id;
         $nonce_name = 'g5_cm_delete';
         $nonce_key = 'nonce';

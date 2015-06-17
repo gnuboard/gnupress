@@ -8,7 +8,7 @@ if ( !isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'g5_
 // 4.1
 @include_once($board_skin_path.'/delete_comment.head.skin.php');
 
-$comment_write = g5_sql_fetch(" select * from `{$g5['comment_table']}` where cm_id = '$cm_id' ");
+$comment_write = $wpdb->get_row($wpdb->prepare(" select * from `{$g5['comment_table']}` where cm_id = %d ", $cm_id), ARRAY_A);
 
 if (!$comment_write['cm_id'])
     g5_alert(__('등록된 코멘트가 없거나 코멘트 글이 아닙니다.', G5_NAME));
@@ -32,17 +32,15 @@ else if ($is_admin == 'board') { // 게시판관리자이면
         g5_alert('비밀번호가 틀립니다.');
 }
 
-$sql = " select count(*) as cnt from `{$g5['comment_table']}` where cm_parent = '$cm_id'";
+$sql = $wpdb->prepare(" select count(*) as cnt from `{$g5['comment_table']}` where cm_parent = %d ", $cm_id);
 
 $row_cnt = $wpdb->get_var($sql);
 if ($row_cnt && !$is_admin)
     g5_alert(__('이 코멘트와 관련된 답변코멘트가 존재하므로 삭제 할 수 없습니다.', G5_NAME));
 
-/*
 // 코멘트 포인트 삭제
-if (!g5_delete_point($comment_write['user_id'], $bo_table, $comment_id, '댓글'))
-    g5_insert_point($comment_write['user_id'], $board['bo_comment_point'] * (-1), "{$board['bo_subject']} {$comment_write['wr_id']}-{$comment_id} 댓글삭제");
-*/
+if (!g5_delete_point($comment_write['user_id'], $bo_table, $cm_id, '댓글'))
+    g5_insert_point($comment_write['user_id'], $board['bo_comment_point'] * (-1), "{$board['bo_subject']} {$comment_write['cm_id']}-{$cm_id} 댓글삭제");
 
 // 코멘트 삭제
 g5_sql_query(" delete from `{$g5['comment_table']}` where cm_id = '$cm_id' ");

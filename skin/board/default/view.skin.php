@@ -45,7 +45,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             if (isset($view['file'][$i]['source']) && $view['file'][$i]['source'] && !$view['file'][$i]['view']) {
          ?>
             <li>
-                <a href="<?php echo $view['file'][$i]['href'];  ?>" class="view_file_download">
+                <a href="<?php echo esc_url( $view['file'][$i]['href'] ); ?>" class="view_file_download">
                     <img src="<?php echo $board_skin_url ?>/img/icon_file.gif" alt="첨부">
                     <strong><?php echo $view['file'][$i]['source'] ?></strong>
                     <?php echo $view['file'][$i]['content'] ?> (<?php echo $view['file'][$i]['size'] ?>)
@@ -78,7 +78,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                 $link = g5_cut_str($view['link'][$i], 70);
          ?>
             <li>
-                <a href="<?php echo $view['link_href'][$i] ?>" target="_blank">
+                <a href="<?php echo esc_url( $view['link_href'][$i] ); ?>" target="_blank">
                     <img src="<?php echo $board_skin_url ?>/img/icon_link.gif" alt="관련링크">
                     <strong><?php echo $link ?></strong>
                 </a>
@@ -100,20 +100,20 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
          ?>
         <?php if ($prev_href || $next_href) { ?>
         <ul class="bo_v_nb">
-            <?php if ($prev_href) { ?><li><a href="<?php echo $prev_href ?>" class="btn_b01">이전글</a></li><?php } ?>
-            <?php if ($next_href) { ?><li><a href="<?php echo $next_href ?>" class="btn_b01">다음글</a></li><?php } ?>
+            <?php if ($prev_href) { ?><li><a href="<?php echo esc_url( $prev_href ); ?>" class="btn_b01">이전글</a></li><?php } ?>
+            <?php if ($next_href) { ?><li><a href="<?php echo esc_url( $next_href ); ?>" class="btn_b01">다음글</a></li><?php } ?>
         </ul>
         <?php } ?>
 
         <ul class="bo_v_com">
-            <?php if ($update_href) { ?><li><a href="<?php echo $update_href ?>" class="btn_b01">수정</a></li><?php } ?>
-            <?php if ($delete_href) { ?><li><a href="<?php echo $delete_href ?>" class="btn_b01" onclick="del(this.href); return false;">삭제</a></li><?php } ?>
-            <?php if ($copy_href) { ?><li><a href="<?php echo $copy_href ?>" class="btn_admin" onclick="board_move(this.href); return false;">복사</a></li><?php } ?>
-            <?php if ($move_href) { ?><li><a href="<?php echo $move_href ?>" class="btn_admin" onclick="board_move(this.href); return false;">이동</a></li><?php } ?>
-            <?php if ($search_href) { ?><li><a href="<?php echo $search_href ?>" class="btn_b01">검색</a></li><?php } ?>
+            <?php if ($update_href) { ?><li><a href="<?php echo esc_url( $update_href ); ?>" class="btn_b01">수정</a></li><?php } ?>
+            <?php if ($delete_href) { ?><li><a href="<?php echo esc_url( $delete_href ); ?>" class="btn_b01" onclick="gnupress.del(this.href); return false;">삭제</a></li><?php } ?>
+            <?php if ($copy_href) { ?><li><a href="<?php echo esc_url( $copy_href ); ?>" class="btn_admin" onclick="board_move(this.href); return false;">복사</a></li><?php } ?>
+            <?php if ($move_href) { ?><li><a href="<?php echo esc_url( $move_href ); ?>" class="btn_admin" onclick="board_move(this.href); return false;">이동</a></li><?php } ?>
+            <?php if ($search_href) { ?><li><a href="<?php echo esc_url( $search_href ); ?>" class="btn_b01">검색</a></li><?php } ?>
             <li><a href="<?php echo $list_href ?>" class="btn_b01">목록</a></li>
-            <?php if ($reply_href) { ?><li><a href="<?php echo $reply_href ?>" class="btn_b01">답변</a></li><?php } ?>
-            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02">글쓰기</a></li><?php } ?>
+            <?php if ($reply_href) { ?><li><a href="<?php echo esc_url( $reply_href ); ?>" class="btn_b01">답변</a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02">글쓰기</a></li><?php } ?>
         </ul>
         <?php
         $link_buttons = ob_get_contents();
@@ -153,16 +153,16 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <!-- 스크랩 추천 비추천 시작 { -->
         <?php if ($scrap_href || $good_href || $nogood_href) { ?>
         <div id="bo_v_act">
-            <?php if ($scrap_href) { ?><a href="<?php echo $scrap_href;  ?>" target="_blank" class="btn_b01" onclick="gnupress.win_scrap(this.href); return false;">스크랩</a><?php } ?>
+            <?php if ($scrap_href) { ?><a href="<?php echo esc_url( $scrap_href ); ?>" target="_blank" class="btn_b01" onclick="gnupress.win_scrap(this.href); return false;">스크랩</a><?php } ?>
             <?php if ($good_href) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php echo $good_href ?>" id="good_button" class="btn_b01">추천 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
+                <a href="<?php echo esc_url( $good_href ) ?>" id="good_button" class="btn_b01">추천 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
                 <b id="bo_v_act_good"></b>
             </span>
             <?php } ?>
             <?php if ($nogood_href) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php echo $nogood_href ?>" id="nogood_button" class="btn_b01">비추천  <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
+                <a href="<?php echo esc_url( $nogood_href ) ?>" id="nogood_button" class="btn_b01">비추천  <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
                 <b id="bo_v_act_nogood"></b>
             </span>
             <?php } ?>

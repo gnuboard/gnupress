@@ -40,8 +40,7 @@ function g5_get_list_thumbnail($bo_table, $wr_id, $thumb_width, $thumb_height, $
         $filepath = $g5_data_path.'/file/'.$bo_table;
         $alt = g5_get_text($row['bf_content']);
     } else {
-        $sql = " select wr_content from `{$g5['write_table']}` where wr_id = '$wr_id' ";
-        $write = g5_sql_fetch($sql);
+        $write = g5_get_write($g5['write_table'], $wr_id );
         $matches = g5_get_editor_image($write['wr_content'], false);
         $edt = true;
 

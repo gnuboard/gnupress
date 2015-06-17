@@ -4,7 +4,7 @@
  *  Description: 워드프레스 게시판 플러그인
  *  Author: SIR Soft
  *  Author URI: http://sir.co.kr
- *  Version: 0.0.1
+ *  Version: 0.0.2
  *  Text Domain: SIR Soft
  */
 
@@ -62,6 +62,9 @@ Class GnuPress {
 
     public function __construct() {
 
+        //extend 폴더에서 파일들을 include한다.
+        $this->load_extend_file();
+
         $this->config = G5_var::getInstance()->get_options('config');
         $this->g5 = G5_var::getInstance()->get_options();
 
@@ -71,8 +74,7 @@ Class GnuPress {
             $this->board_redirect($redirect_id);
         }
         
-        //extend 폴더에서 파일들을 include한다.
-        $this->load_extend_file();
+
 
         add_action('the_posts', array( $this, 'check_g5_page') );
         add_shortcode( G5_NAME, array( $this, 'g5_shortcode' ) );
@@ -401,7 +403,7 @@ Class GnuPress {
             $bo_table = $board['bo_table'];
             $bo_subject = g5_get_text($board['bo_subject']);
 
-            $sql = " select * from {$g5['write_table']} where bo_table = '$bo_table' and wr_parent = 0 order by wr_num limit 0, {$rows} ";
+            $sql = $wpdb->prepare("select * from {$g5['write_table']} where bo_table = '%s' and wr_parent = 0 order by wr_num limit 0, %d ", $bo_table, $rows);
             $lists = $wpdb->get_results($sql, ARRAY_A);
             
             $i = 0;

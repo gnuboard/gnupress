@@ -347,6 +347,8 @@ $chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
 // 가변 파일 업로드
 $file_upload_msg = '';
 $upload = array();
+$old_meta_data = $file_meta_data = ( $w == '' ? array() : get_metadata(G5_META_TYPE, $wr_id, G5_FILE_META_KEY , true) );
+$bf_content = isset($_POST['bf_content']) ? esc_textarea($_POST['bf_content']) : array();
 
 for ($i=0; $i<count($_FILES['bf_file']['name']); $i++) {
     $upload[$i]['file']     = '';
@@ -358,15 +360,17 @@ for ($i=0; $i<count($_FILES['bf_file']['name']); $i++) {
     $upload[$i]['image'][2] = '';
 
     // 삭제에 체크가 되어있다면 파일을 삭제합니다.
-
     if (isset($_POST['bf_file_del'][$i]) && $_POST['bf_file_del'][$i]) {
         $upload[$i]['del_check'] = true;
 
-        $row = g5_sql_fetch(" select bf_file from {$g5['board_file_table']} where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' and bf_no = '{$i}' ");
-        @unlink($g5_data_path.'/file/'.$bo_table.'/'.$row['bf_file']);
-        // 썸네일삭제
-        if(preg_match("/\.({$config['cf_image_extension']})$/i", $row['bf_file'])) {
-            g5_delete_board_thumbnail($bo_table, $row['bf_file']);
+        // metadata에 있으면 삭제
+        if( isset($file_meta_data[$i]['bf_file']) && !empty($file_meta_data[$i]['bf_file']) ){
+            $row = $file_meta_data[$i];
+            @unlink($g5_data_path.'/file/'.$bo_table.'/'.$row['bf_file']);
+            // 썸네일삭제
+            if(preg_match("/\.({$config['cf_image_extension']})$/i", $row['bf_file'])) {
+                g5_delete_board_thumbnail($bo_table, $row['bf_file']);
+            }
         }
     }
     else
@@ -415,11 +419,14 @@ for ($i=0; $i<count($_FILES['bf_file']['name']); $i++) {
         // 4.00.11 - 글답변에서 파일 업로드시 원글의 파일이 삭제되는 오류를 수정
         if ($w == 'u') {
             // 존재하는 파일이 있다면 삭제합니다.
-            $row = g5_sql_fetch(" select bf_file from {$g5['board_file_table']} where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
-            @unlink($g5_data_path.'/file/'.$bo_table.'/'.$row['bf_file']);
-            // 이미지파일이면 썸네일삭제
-            if(preg_match("/\.({$config['cf_image_extension']})$/i", $row['bf_file'])) {
-                delete_board_thumbnail($bo_table, $row['bf_file']);
+            // metadata에 있으면 삭제
+            if( isset($file_meta_data[$i]['bf_file']) && !empty($file_meta_data[$i]['bf_file']) ){
+                $row = $file_meta_data[$i];
+                @unlink($g5_data_path.'/file/'.$bo_table.'/'.$row['bf_file']);
+                // 이미지파일이면 썸네일삭제
+                if(preg_match("/\.({$config['cf_image_extension']})$/i", $row['bf_file'])) {
+                    g5_delete_board_thumbnail($bo_table, $row['bf_file']);
+                }
             }
         }
 
@@ -446,9 +453,6 @@ for ($i=0; $i<count($_FILES['bf_file']['name']); $i++) {
     }
 }
 
-$old_meta_data = $file_meta_data = ( $w == '' ? array() : get_metadata(G5_META_TYPE, $wr_id, G5_FILE_META_KEY , true) );
-$bf_content = isset($_POST['bf_content']) ? $_POST['bf_content'] : array();
-
 // 나중에 테이블에 저장하는 이유는 $wr_id 값을 저장해야 하기 때문입니다.
 for ($i=0; $i<count($upload); $i++)
 {
@@ -456,13 +460,16 @@ for ($i=0; $i<count($upload); $i++)
         $upload[$i]['source'] = addslashes($upload[$i]['source']);
     }
 
+    $bf_file_content = isset($bf_content[$i]) ? $bf_content[$i] : '';
     if( isset($file_meta_data[$i]) && !empty($file_meta_data[$i]) ) //데이터가 있다면 데이터 인덱스 내용 수정
     {
         // 삭제에 체크가 있거나 파일이 있다면 업데이트를 합니다.
         // 그렇지 않다면 내용만 업데이트 합니다.
         if ($upload[$i]['del_check'] || $upload[$i]['file'])
         {
-            $file_meta_data[$i] = g5_get_file_data($bo_table, $wr_id, $i, $upload[$i] , $bf_content[$i]);
+            if($tmp_data = g5_get_file_data($bo_table, $wr_id, $i, $upload[$i] , $bf_file_content)){
+                $file_meta_data[$i] = $tmp_data;
+            }
         }
         else
         {
@@ -471,7 +478,9 @@ for ($i=0; $i<count($upload); $i++)
     }
     else
     {
-        $file_meta_data[$i] = g5_get_file_data($bo_table, $wr_id, $i, $upload[$i] , $bf_content[$i]);
+        if($tmp_data = g5_get_file_data($bo_table, $wr_id, $i, $upload[$i] , $bf_file_content)){
+            $file_meta_data[$i] = $tmp_data;
+        }
     }
 }
 
@@ -497,7 +506,12 @@ if( is_array($file_meta_data) && $upload_count = count($file_meta_data) ){
 
 if( $old_meta_data !== $file_meta_data ){
     // 변경된 내용이 있다면 메타 데이터를 업데이트 한다.
-    update_metadata( G5_META_TYPE, $wr_id, G5_FILE_META_KEY, $file_meta_data );
+    if( $file_meta_data ){
+        update_metadata( G5_META_TYPE, $wr_id, G5_FILE_META_KEY, $file_meta_data );
+    } else {
+        // 값이 비워 있다면 삭제한다.
+        delete_metadata( G5_META_TYPE, $wr_id, G5_FILE_META_KEY );
+    }
 }
 
 $after_update['wr_file'] = $upload_count;

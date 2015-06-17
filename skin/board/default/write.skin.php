@@ -8,17 +8,17 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     <!-- 게시물 작성/수정 시작 { -->
     <form name="fwrite" id="fwrite" action="<?php echo $action_url ?>" method="post" enctype="multipart/form-data" autocomplete="off" style="width:<?php echo $width; ?>" onsubmit="return gnupress.fwrite_submit(this);">
     <?php wp_nonce_field( 'g5_write', 'g5_nonce_field' ); ?>
-    <input type="hidden" name="w" value="<?php echo $w ?>">
+    <input type="hidden" name="w" value="<?php echo esc_attr( $w ); ?>">
     <input type="hidden" name="action" value="write_update">
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
-    <input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
-    <input type="hidden" name="sca" value="<?php echo $sca ?>">
-    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-    <input type="hidden" name="stx" value="<?php echo $stx ?>">
-    <input type="hidden" name="spt" value="<?php echo $spt ?>">
-    <input type="hidden" name="sst" value="<?php echo $sst ?>">
-    <input type="hidden" name="sod" value="<?php echo $sod ?>">
-    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr( $bo_table ); ?>">
+    <input type="hidden" name="wr_id" value="<?php echo esc_attr( intval($wr_id) ); ?>">
+    <input type="hidden" name="sca" value="<?php echo esc_attr( $sca ); ?>">
+    <input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
+    <input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
+    <input type="hidden" name="spt" value="<?php echo esc_attr( $spt ); ?>">
+    <input type="hidden" name="sst" value="<?php echo esc_attr( $sst ); ?>">
+    <input type="hidden" name="sod" value="<?php echo esc_attr( $sod ); ?>">
+    <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
     <?php
     $option = '';
     $option_hidden = '';
@@ -59,7 +59,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <?php if ($is_name) { ?>
         <tr>
             <th scope="row"><label for="user_name">이름<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="user_name" value="<?php echo $name ?>" id="user_name" required class="frm_input required" size="10" maxlength="20"></td>
+            <td><input type="text" name="user_name" value="<?php echo esc_attr( $name ); ?>" id="user_name" required class="frm_input required" size="10" maxlength="20"></td>
         </tr>
         <?php } ?>
 
@@ -73,7 +73,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <?php if ($is_email) { ?>
         <tr>
             <th scope="row"><label for="user_email">이메일</label></th>
-            <td><input type="text" name="user_email" value="<?php echo $email ?>" id="user_email" class="frm_input email" size="50" maxlength="100"></td>
+            <td><input type="text" name="user_email" value="<?php echo esc_attr( $email ); ?>" id="user_email" class="frm_input email" size="50" maxlength="100"></td>
         </tr>
         <?php } ?>
 
@@ -100,7 +100,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             <th scope="row"><label for="wr_subject">제목<strong class="sound_only">필수</strong></label></th>
             <td>
                 <div id="autosave_wrapper">
-                    <input type="text" name="wr_subject" value="<?php echo $subject ?>" id="wr_subject" required class="frm_input required" size="50" maxlength="255">
+                    <input type="text" name="wr_subject" value="<?php echo esc_attr( $subject ); ?>" id="wr_subject" required class="frm_input required" size="50" maxlength="255">
                 </div>
             </td>
         </tr>
@@ -172,7 +172,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
     <div class="btn_confirm">
         <input type="submit" value="작성완료" id="btn_submit" accesskey="s" class="btn_submit">
-        <a href="<?php echo $default_href;?>" class="btn_cancel">취소</a>
+        <a href="<?php echo esc_url( $default_href ); ?>" class="btn_cancel">취소</a>
     </div>
     </form>
 </section>

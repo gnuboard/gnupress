@@ -47,11 +47,11 @@ echo '<?phpxml version="1.0" encoding="utf-8" ?>'."\n";
 <language><?php bloginfo_rss( 'language' ); ?></language>
 
 <?php
-$sql = " select wr_id, wr_subject, wr_content, user_display_name, wr_datetime, wr_option
+$sql = $wpdb->prepare(" select wr_id, wr_subject, wr_content, user_display_name, wr_datetime, wr_option
             from {$g5['write_table']}
-            where bo_table = '$bo_table'
+            where bo_table = '%s'
             and wr_option not like '%secret%'
-            order by wr_num, wr_parent limit 0, $lines ";
+            order by wr_num, wr_parent limit 0, %d ", $bo_table, $lines );
 
 $rows = $wpdb->get_results( $sql, ARRAY_A );
 

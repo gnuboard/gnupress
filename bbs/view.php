@@ -128,11 +128,14 @@ else if (!$write['user_id']) { // 회원이 쓴 글이 아니라면
     $delete_href = apply_filters('g5_password_delete_href', add_query_arg( array_merge((array) $qstr, array('action'=>'password', 'w'=>'d', 'bo_table' => $bo_table, 'wr_id'=>$wr_id, 'page'=> $page))) );
 }
 
+//새창 열기 url
+$new_open_url = $gnupress->new_url;
+
 // 최고, 그룹관리자라면 글 복사, 이동 가능
 $copy_href = $move_href = '';
 if (!$write['wr_parent'] && ($is_admin == 'super')) {
-    $copy_href = apply_filters('g5_copy_href', add_query_arg( array_merge((array) $qstr, array('action'=>'move', 'sw'=>'copy', 'wr_id'=>$wr_id, 'page'=> $page))) );
-    $move_href = apply_filters('g5_move_href', add_query_arg( array_merge((array) $qstr, array('action'=>'move', 'sw'=>'move', 'wr_id'=>$wr_id, 'page'=> $page))) );
+    $copy_href = apply_filters('g5_copy_href', add_query_arg( array_merge((array) $qstr, array('action'=>'move', 'bo_table'=>$bo_table, 'sw'=>'copy', 'wr_id'=>$wr_id, 'page'=> $page)), $new_open_url) );
+    $move_href = apply_filters('g5_move_href', add_query_arg( array_merge((array) $qstr, array('action'=>'move', 'bo_table'=>$bo_table, 'sw'=>'move', 'wr_id'=>$wr_id, 'page'=> $page)), $new_open_url) );
 }
 
 $scrap_href = '';
@@ -140,8 +143,6 @@ $good_href = '';
 $nogood_href = '';
 if ($is_member) {
     // 스크랩 링크
-
-    $new_open_url = $gnupress->new_url;
 
     $scrap_href = add_query_arg( array('action'=>'scrap_popin', 'bo_table'=>$bo_table, 'wr_id'=>$wr_id, 'ms_url'=>urlencode(home_url($current_url))), $new_open_url);
 

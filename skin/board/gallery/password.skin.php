@@ -27,14 +27,14 @@ else $g5['title'] = $g5['title'];
 
     <form name="fboardpassword" action="<?php echo $password_action_url;?>" method="post">
     <?php wp_nonce_field($nonce_name, $nonce_key); ?>
-    <input type="hidden" name="action" value="<?php echo $action;?>">
-    <input type="hidden" name="w" value="<?php echo $w ?>">
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
-    <input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
-    <input type="hidden" name="cm_id" value="<?php echo $cm_id ?>">
-    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-    <input type="hidden" name="stx" value="<?php echo $stx ?>">
-    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="action" value="<?php echo esc_attr( $action );?>">
+    <input type="hidden" name="w" value="<?php echo esc_attr( $w ); ?>">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr( $bo_table ); ?>">
+    <input type="hidden" name="wr_id" value="<?php echo esc_attr( intval($wr_id) ); ?>">
+    <input type="hidden" name="cm_id" value="<?php echo esc_attr( intval($cm_id) ); ?>">
+    <input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
+    <input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
+    <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
 
     <fieldset>
         <label for="pw_wr_password">비밀번호<strong class="sound_only">필수</strong></label>
@@ -44,7 +44,7 @@ else $g5['title'] = $g5['title'];
     </form>
 
     <div class="btn_confirm">
-        <a href="<?php echo $return_url ?>">돌아가기</a>
+        <a href="<?php echo esc_url( $return_url ); ?>">돌아가기</a>
     </div>
 
 </div>

@@ -56,9 +56,9 @@ if (!$is_show_field['wdate']) $colspan--;
 
         <?php if ($rss_href || $write_href) { ?>
         <ul class="btn_bo_user">
-            <?php if ($rss_href) { ?><li><a href="<?php echo $rss_href ?>" class="btn_b01">RSS</a></li><?php } ?>
-            <?php if ($admin_href) { ?><li><a href="<?php echo $admin_href ?>" class="btn_admin">관리자</a></li><?php } ?>
-            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02">글쓰기</a></li><?php } ?>
+            <?php if ($rss_href) { ?><li><a href="<?php echo esc_url( $rss_href ); ?>" class="btn_b01">RSS</a></li><?php } ?>
+            <?php if ($admin_href) { ?><li><a href="<?php echo esc_url( $admin_href ); ?>" class="btn_admin">관리자</a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02">글쓰기</a></li><?php } ?>
         </ul>
         <?php } ?>
     </div>
@@ -68,15 +68,15 @@ if (!$is_show_field['wdate']) $colspan--;
     <?php wp_nonce_field( 'g5_list', 'g5_nonce_field' ); ?>
     <input type="hidden" name="action" value="">
     <input type="hidden" name="board_page_id" value="<?php echo $post->ID?>" >
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
-    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
-    <input type="hidden" name="stx" value="<?php echo $stx ?>">
-    <input type="hidden" name="spt" value="<?php echo $spt ?>">
-    <input type="hidden" name="sca" value="<?php echo $sca ?>">
-    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr( $bo_table ); ?>">
+    <input type="hidden" name="sfl" value="<?php echo esc_attr( $sfl ); ?>">
+    <input type="hidden" name="stx" value="<?php echo esc_attr( $stx ); ?>">
+    <input type="hidden" name="spt" value="<?php echo esc_attr( $spt ); ?>">
+    <input type="hidden" name="sca" value="<?php echo esc_attr( $sca ); ?>">
+    <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
     <input type="hidden" name="sw" value="">
     <?php if( $board['bo_use_tag'] ){ //게시판에서 태그기능을 사용한다면... ?>
-    <input type="hidden" name="tag" value="<?php echo $tag?>" >
+    <input type="hidden" name="tag" value="<?php echo esc_attr( $tag ); ?>" >
     <?php } ?>
 
     <div class="tbl_head01 tbl_wrap">
@@ -222,9 +222,9 @@ if (!$is_show_field['wdate']) $colspan--;
 
     <form name="fsearch" method="get" class="g5_list_search">
     <?php foreach( $search_form_var as $key => $v ){ ?>
-        <input type="hidden" name="<?php echo $key ?>" value="<?php echo $v ?>">
+        <input type="hidden" name="<?php echo $key ?>" value="<?php echo esc_attr( $v ); ?>">
     <?php } ?>
-    <input type="hidden" name="sca" value="<?php echo $sca ?>">
+    <input type="hidden" name="sca" value="<?php echo esc_attr( $sca ); ?>">
     <input type="hidden" name="sop" value="and">
     <label for="sfl" class="sound_only">검색대상</label>
     <select name="sfl" id="sfl">

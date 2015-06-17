@@ -9,8 +9,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     <form name="f_scrap_popin" action="<?php echo g5_form_action_url(add_query_arg(array()));?>" method="post">
     <?php wp_nonce_field( 'g5_scrap', '_wpnonce_g5_field' ); ?>
     <input type="hidden" name="gaction" value="scrap_popin_update">
-    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
-    <input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
+    <input type="hidden" name="bo_table" value="<?php echo esc_attr( $bo_table ); ?>">
+    <input type="hidden" name="wr_id" value="<?php echo esc_attr( intval($wr_id) ); ?>">
 
     <div class="tbl_frm01 tbl_wrap">
         <table>

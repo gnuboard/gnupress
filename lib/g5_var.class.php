@@ -1,8 +1,6 @@
 <?php
 if ( ! class_exists( 'G5_var' ) ) :
 
-// http://wafe.github.io/php-the-right-way/pages/Design-Patterns.html 참고
-
 class G5_var {
 
     protected $db_tables = array();
@@ -13,7 +11,7 @@ class G5_var {
     {
         static $instance = null;
         if (null === $instance) {
-            $instance = new static();
+            $instance = new self();
         }
 
         return $instance;

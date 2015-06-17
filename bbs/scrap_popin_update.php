@@ -19,10 +19,10 @@ if (!$is_member)
     exit;
 }
 
-$sql = " select count(*) as cnt from {$g5['scrap_table']}
+$sql = $wpdb->prepare("select count(*) as cnt from {$g5['scrap_table']}
             where user_id = '{$member['user_id']}'
-            and bo_table = '$bo_table'
-            and wr_id = '$wr_id' ";
+            and bo_table = '$s'
+            and wr_id = %d ", $bo_table, $wr_id);
 
 $row_cnt = $wpdb->get_var( $sql );
 
@@ -65,7 +65,7 @@ if ($cm_content && ($member['user_level'] >= $board['bo_comment_level']))
         
         $cm_num = g5_get_next_num( $g5['comment_table'], $wr_id, 'comment' );
         
-        $cm_option = isset($_REQUEST['cm_option']) ? $_REQUEST['cm_option'] : '';
+        $cm_option = isset($_REQUEST['cm_option']) ? g5_clean_xss_tags($_REQUEST['cm_option']) : '';
 
         $cm_data = array(
                 'wr_id' => $wr_id,
@@ -84,36 +84,6 @@ if ($cm_content && ($member['user_level'] >= $board['bo_comment_level']))
         // insert
         $result = $wpdb->insert( $g5['comment_table'], $cm_data );
         $comment_id = $wpdb->insert_id;
-
-        /*
-
-        $sql = " select max(wr_comment) as max_comment from $write_table
-                    where wr_parent = '$wr_id' and wr_is_comment = '1' ";
-
-        $row = sql_fetch($sql);
-        $row['max_comment'] += 1;
-
-        $sql = " insert into $write_table
-                    set ca_name = '{$wr['ca_name']}',
-                         wr_option = '',
-                         wr_num = '{$wr['wr_num']}',
-                         wr_reply = '',
-                         wr_parent = '$wr_id',
-                         wr_is_comment = '1',
-                         wr_comment = '{$row['max_comment']}',
-                         wr_content = '$wr_content',
-                         mb_id = '$mb_id',
-                         wr_password = '$wr_password',
-                         wr_name = '$wr_name',
-                         wr_email = '$wr_email',
-                         wr_homepage = '$wr_homepage',
-                         wr_datetime = '".G5_TIME_YMDHIS."',
-                         wr_ip = '{$_SERVER['REMOTE_ADDR']}' ";
-        sql_query($sql);
-
-        $comment_id = mysql_insert_id();
-        
-        */
         
         if( $result !== false ){
             // 원글에 코멘트수 증가

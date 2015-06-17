@@ -364,7 +364,7 @@ function g5_get_point_sum($user_id)
     }
 
     // 포인트합
-    $sql = " select sum(po_point) as sum_po_point from {$g5['point_table']} where user_id = '$user_id' ";
+    $sql = $wpdb->prepare("select sum(po_point) as sum_po_point from {$g5['point_table']} where user_id = %d ", $user_id);
     $sum_po_point = $wpdb->get_var($sql);
 
     return $sum_po_point;
@@ -385,13 +385,13 @@ function g5_insert_use_point($user_id, $point, $po_id='')
 
     $point1 = abs($point);
 
-    $sql = " select po_id, po_point, po_use_point
+    $sql = $wpdb->prepare(" select po_id, po_point, po_use_point
                 from {$g5['point_table']}
-                where user_id = '$user_id'
-                  and po_id <> '$po_id'
+                where user_id = %d
+                  and po_id <> %d
                   and po_expired = '0'
                   and po_point > po_use_point
-                $sql_order ";
+                $sql_order ", $user_id, $po_id );
 
     $rows = $wpdb->get_results($sql, ARRAY_A);
 
@@ -444,12 +444,12 @@ function g5_delete_use_point($user_id, $point)
         $sql_order = " order by po_id desc ";
 
     $point1 = abs($point);
-    $sql = " select po_id, po_use_point, po_expired, po_expire_date
+    $sql = $wpdb->prepare(" select po_id, po_use_point, po_expired, po_expire_date
                 from {$g5['point_table']}
-                where user_id = '$user_id'
+                where user_id = %d
                   and po_expired <> '1'
                   and po_use_point > 0
-                $sql_order ";
+                $sql_order ", $user_id );
     
     $rows = $wpdb->get_results($sql);
 
@@ -499,12 +499,12 @@ function g5_get_expire_point($user_id)
     if($config['cf_point_term'] == 0)
         return 0;
 
-    $sql = " select sum(po_point - po_use_point) as sum_point
+    $sql = $wpdb->prepare(" select sum(po_point - po_use_point) as sum_point
                 from {$g5['point_table']}
-                where user_id = '$user_id'
+                where user_id = %d
                   and po_expired = '0'
-                  and po_expire_date <> '9999-12-31'
-                  and po_expire_date < '".G5_TIME_YMD."' ";
+                  and po_expire_date <> '%s'
+                  and po_expire_date < '%s' ", $user_id, '9999-12-31', G5_TIME_YMD);
     $sum_point = $wpdb->get_var($sql);
 
     return $sum_point;
@@ -519,13 +519,13 @@ function g5_delete_expire_point($user_id, $point)
     $g5 = $gnupress->g5;
 
     $point1 = abs($point);
-    $sql = " select po_id, po_use_point, po_expired, po_expire_date
+    $sql = $wpdb->prepare(" select po_id, po_use_point, po_expired, po_expire_date
                 from {$g5['point_table']}
-                where user_id = '$user_id'
+                where user_id = %d
                   and po_expired = '1'
                   and po_point >= 0
                   and po_use_point > 0
-                order by po_expire_date desc, po_id desc ";
+                order by po_expire_date desc, po_id desc ", $user_id);
 
     $rows = $wpdb->get_results($sql);
 
@@ -566,6 +566,56 @@ function g5_delete_expire_point($user_id, $point)
         }
 
     }
+}
+
+// 포인트 삭제
+function g5_delete_point($user_id, $rel_table, $rel_id, $rel_action)
+{
+    global $wpdb, $gnupress;
+
+    $g5 = $gnupress->g5;
+
+    $result = false;
+    if ($rel_table || $rel_id || $rel_action)
+    {
+        // 포인트 내역정보
+        $sql = $wpdb->prepare("select * from {$g5['point_table']} where user_id = %d and po_rel_table = '%s' and po_rel_id = '%s' and po_rel_action = '%s' ", (int) $user_id, $rel_table, $rel_id, $rel_action);
+        $row = $wpdb->get_row($sql, ARRAY_A);
+
+        if($row['po_point'] < 0) {
+            $user_id = $row['user_id'];
+            $po_point = abs($row['po_point']);
+
+            g5_delete_use_point($mb_id, $po_point);
+        } else {
+            if($row['po_use_point'] > 0) {
+                g5_insert_use_point($row['user_id'], $row['po_use_point'], $row['po_id']);
+            }
+        }
+
+        $result = $wpdb->query(" delete from {$g5['point_table']}
+                     where user_id = '$user_id'
+                       and po_rel_table = '$rel_table'
+                       and po_rel_id = '$rel_id'
+                       and po_rel_action = '$rel_action' ");
+
+        // po_mb_point에 반영
+        $sql = " update {$g5['point_table']}
+                    set po_mb_point = po_mb_point - '{$row['po_point']}'
+                    where user_id = '$user_id'
+                      and po_id > '{$row['po_id']}' ";
+        $wpdb->query($sql);
+
+        // 포인트 내역의 합을 구하고
+        $sum_point = g5_get_point_sum($user_id);
+
+        //메타 테이블에서 포인트 내역을 업데이트 한다.
+        update_user_meta( $user_id, 'mb_point', $sum_point );
+        
+        return true;
+    }
+
+    return $result;
 }
 
 // 검색 구문을 얻는다.
@@ -862,6 +912,8 @@ function g5_conv_unescape_nl($str)
 // 게시판의 다음글 번호를 얻는다. ( 또는 코멘트 )
 function g5_get_next_num($table, $bo_table, $btype='post')
 {
+    global $wpdb;
+
     // 가장 작은 번호를 얻는다.
 
     if( $btype == 'comment' ){
@@ -874,27 +926,11 @@ function g5_get_next_num($table, $bo_table, $btype='post')
     
     // 이 함수에는 wp_cache 적용을 하지 않는다.
 
-    $sql = " select min($db_field) as min_num from $table where $where_field = '$bo_table' ";
-    $row = g5_sql_fetch($sql);
+    $sql = $wpdb->prepare(" select min($db_field) as min_num from $table where $where_field = '%s' ", $bo_table);
+    $row_min_num = $wpdb->get_var($sql);
 
     // 가장 작은 번호에 1을 빼서 넘겨줌
-    return (int)($row['min_num'] - 1);
-}
-
-// 코멘트의 다음글 번호를 얻는다.
-function g5_comment_next_num($table, $wr_id)
-{
-    // 가장 작은 번호를 얻어
-
-    $row = wp_cache_get( 'g5_cmt_nextnum_'.$bo_table );
-    if ( false === $row ) {
-        $sql = " select min(wr_num) as min_wr_num from $table where bo_table = '$bo_table' ";
-        $row = g5_sql_fetch($sql);
-        wp_cache_set( 'g5_cmt_nextnum_'.$bo_table , $row );
-    }
-
-    // 가장 작은 번호에 1을 빼서 넘겨줌
-    return (int)($row['min_wr_num'] - 1);
+    return (int)($row_min_num - 1);
 }
 
 // 회원 정보를 얻는다.
@@ -945,10 +981,13 @@ function g5_get_member($mb_id, $slug='')
         if( $member_array['user_id'] ){
             $member_meta = get_user_meta( $member_array['user_id'] );
 
+            if( !function_exists('g5_member_meta_extends') ){
+                function g5_member_meta_extends($a){
+                    return $a[0];
+                }
+            }
             // Filter out empty meta data
-            $member_meta = array_filter( array_map( function( $a ) {
-                return $a[0];
-            }, $member_meta ) );
+            $member_meta = array_filter( array_map('g5_member_meta_extends', $member_meta) );
             
             $check_meta_arr = array('first_name', 'last_name', 'mb_today_login', 'mb_login_ip');
 
@@ -1893,7 +1932,7 @@ function g5_comment_copy( $new_wr_id, $before_wr_id, $new_bo_table='', $before_b
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
-    $sql = "select * from {$g5['comment_table']} where wr_id = ".(int) $before_wr_id." order by cm_num, cm_parent ";
+    $sql = $wpdb->prepare("select * from {$g5['comment_table']} where wr_id = %d order by cm_num, cm_parent ", (int) $before_wr_id);
     $before_parent_arr = array();
     if( $rows = $wpdb->get_results($sql, ARRAY_A) ){
         
@@ -1949,6 +1988,46 @@ function g5_set_html_content_type(){
 //form action 을 검사한다.
 function g5_form_action_url($action_url){
     return apply_filters('g5_form_action_filter', esc_url($action_url));
+}
+
+//게시판 thumbnail 삭제
+function g5_delete_board_thumbnail($bo_table, $file){
+    if(!$bo_table || !$file)
+        return;
+
+    $fn = preg_replace("/\.[^\.]+$/i", "", basename($file));
+    $files = glob(g5_get_upload_path().'/file/'.$bo_table.'/thumb-'.$fn.'*');
+    if (is_array($files)) {
+        foreach ($files as $filename)
+            unlink($filename);
+    }
+}
+
+// 에디터 썸네일 삭제
+function g5_delete_editor_thumbnail($contents)
+{
+    if(!$contents)
+        return;
+
+    // $contents 중 img 태그 추출
+    $matchs = g5_get_editor_image($contents);
+
+    if(!$matchs)
+        return;
+
+    for($i=0; $i<count($matchs[1]); $i++) {
+        // 이미지 path 구함
+        $imgurl = parse_url($matchs[1][$i]);
+        $srcfile = $_SERVER['DOCUMENT_ROOT'].$imgurl['path'];
+
+        $filename = preg_replace("/\.[^\.]+$/i", "", basename($srcfile));
+        $filepath = dirname($srcfile);
+        $files = glob($filepath.'/thumb-'.$filename.'*');
+        if (is_array($files)) {
+            foreach($files as $filename)
+                unlink($filename);
+        }
+    }
 }
 
 function g5_pre( $msg ){

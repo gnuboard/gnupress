@@ -45,6 +45,19 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
 
 == Changelog ==
 
+= 0.0.2 =
+php 5.2 correct grammar
+code correct quite unsafe for wordpress standards
+apply prepare function( SQL code ) 
+
+= 0.0.1 =
+The first version.
+
+== Upgrade Notice ==
+
+= 0.0.1 =
+Troubleshooting SQL INJECTION
+
 = 0.0.1 =
 The first version.
 

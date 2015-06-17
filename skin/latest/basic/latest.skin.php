@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 // $g5_page_url 이 빈값으로 나올 경우 숏코드에 해당 url을 입력, 또는 게시판 기본 설정에서 적용할 페이지을 설정해 주시면 됩니다.
 ?>
 <div class="g5_latest_lt">
-    <strong class="lt_title"><a href="<?php echo $g5_page_url; ?>"><?php echo $bo_subject; ?></a></strong>
+    <strong class="lt_title"><a href="<?php echo esc_url( $g5_page_url ); ?>"><?php echo $bo_subject; ?></a></strong>
     <ul>
     <?php 
     foreach($list as $row) {
@@ -12,7 +12,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     ?>
         <li>
             <?php
-            echo "<a href=\"".$row['href']."\">";
+            echo "<a href=\"".esc_url($row['href'])."\">";
             if ($row['is_notice'])
                 echo "<strong>".$row['subject']."</strong>";
             else
@@ -38,6 +38,6 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     <li>게시물이 없습니다.</li>
     <?php }  ?>
     </ul>
-    <div class="lt_more"><a href="<?php echo $g5_page_url; ?>"><span class="sound_only"><?php echo $bo_subject ?></span>더보기</a></div>
+    <div class="lt_more"><a href="<?php echo esc_url( $g5_page_url ); ?>"><span class="sound_only"><?php echo $bo_subject ?></span>더보기</a></div>
 </div>
 <!-- } <?php echo $bo_subject; ?> 최신글 끝 -->

@@ -32,7 +32,8 @@ else // 일괄삭제
 // 거꾸로 읽는 이유는 답변글부터 삭제가 되어야 하기 때문임
 for ($i=count($tmp_array)-1; $i>=0; $i--)
 {
-    $write = g5_sql_fetch(" select * from `{$write_table}` where wr_id = '".esc_sql($tmp_array[$i])."' ");
+    $sql = $wpdb->prepare(" select * from `{$write_table}` where wr_id = %d ", (int) $tmp_array[$i]);
+    $write = $wpdb->get_row($sql, ARRAY_A);
 
     if ($is_admin == 'super') // 최고관리자 통과
         ;
@@ -80,13 +81,8 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
     if( $sql ){
         if( $result = $wpdb->query($sql) ){
 
-            //태그 기록 삭제
-            g5_delete_object_term_relationships( $write['wr_id'] , g5_get_taxonomy($bo_table) );
-
-            // 최근게시물 삭제
-
-            // 스크랩 삭제
-            //sql_query(" delete from {$g5['scrap_table']} where bo_table = '$bo_table' and wr_id = '{$write['wr_id']}' ");
+            //포인트, 메타데이터, 스크랩, 썸네일, 파일, 태그 기록, 코멘트 삭제
+            $g5_board_delete->etc_check($write, $board);
 
             $count_write++;
             $count_comment++;
