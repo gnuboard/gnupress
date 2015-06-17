@@ -43,7 +43,9 @@ $wpdb->query($sql);
 delete_post_meta_by_key(G5_META_KEY);
 
 // 게시판 폴더 전체 삭제
-//g5_rm_rf(g5_get_upload_path());
+if( $data_path = g5_get_upload_path() ){
+    g5_rm_rf($data_path);
+}
 
 //옵션테이블에서 옵션을 제거한다.
 delete_option(G5_OPTION_KEY);

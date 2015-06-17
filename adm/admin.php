@@ -196,7 +196,11 @@ function g5_config_form_update(){
     }
 
     $options = array('version'=>G5_VERSION, 'board_page'=>$pages, 'config'=>$tmp_config);
-    
+
+    if( isset($tmp_config['cf_new_page_id']) ){
+        $options['cf_new_page_id'] = $tmp_config['cf_new_page_id'];
+    }
+
     g5_update_options_by($options, 'all');
 
     $location = admin_url('admin.php?page=g5_board_admin');

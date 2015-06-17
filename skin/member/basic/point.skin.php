@@ -74,8 +74,13 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         </table>
     </div>
 
-    <?php 
-    $get_paging_url = add_query_arg( array_merge( (array) $qstr, array('page'=>false)), $default_href );
+    <?php
+    if($gnupress->window_open){
+        $page_array = array('page'=>false, 'action'=>'point');
+    } else {
+        $page_array = array('page'=>false);
+    }
+    $get_paging_url = add_query_arg( array_merge( (array) $qstr, $page_array ), $default_href );
     echo g5_get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, $get_paging_url );
     ?>
 

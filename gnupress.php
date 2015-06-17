@@ -46,6 +46,7 @@ Class GnuPress {
     public $member_page_array = array();
     public $wr_id = null;
     public $member_page_action = '';
+    public $window_open = false;
 
     private $config;
     private $g5;
@@ -346,27 +347,27 @@ Class GnuPress {
     }
 
     public function g5_member_page_check($posts){
-        global $post;
 
-        /*
         if( !$this->member_page_action ){
-            return false;
+            //return false;
         }
-        */
 
         if ( empty($posts) || $this->is_g5_page || !is_singular() )
             return false;
 
         $g5_options = get_option(G5_OPTION_KEY);
-
+        
         foreach ($posts as $post) {
 
             if( $post->post_type != 'page' ) continue;
 
-            if( isset($post->ID) && isset($g5_options['cf_new_page_id']) && $post->ID === $g5_options['cf_new_page_id'] ){
+            if( isset($post->ID) && isset($g5_options['cf_new_page_id']) && $post->ID == $g5_options['cf_new_page_id'] ){
                 if( !$this->member_page_action ){
                     $this->member_page_action = 'point';
+                    $this->attr = array( 'page_mode'=>$this->member_page_action );
+                    add_filter('the_content', array( $this, 'filter_the_content') );   //내용 관리 필터
                 } else {
+                    $this->window_open = true;
                     add_action( 'template_redirect', array( $this, 'g5_member_pageload' ) );
                 }
                 return true;
@@ -380,10 +381,7 @@ Class GnuPress {
 
         $g5_options = get_option(G5_OPTION_KEY);
         $page_mode = $action = $this->member_page_action;
-
-        //if( $g5_new && in_array($action, $this->member_page_array) && is_user_logged_in() ){
-            include_once( G5_DIR_PATH.'bbs/member.php' );
-        //}
+        include_once( G5_DIR_PATH.'bbs/member.php' );
 
     }
 

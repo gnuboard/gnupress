@@ -1,14 +1,23 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
-if ( $is_guest )
-    g5_alert_close('회원만 조회하실 수 있습니다.');
+global $gnupress;
+
+if ( $is_guest ){
+    $msg = __('회원만 조회하실 수 있습니다.', G5_NAME);
+    if( $gnupress->window_open ){
+        g5_alert_close($msg);
+    } else {
+        $this->error_display_print((array) $msg);
+        return;
+    }
+}
 
 $g5['title'] = $member['user_display_name'].' 님의 포인트 내역';
 
 $list = array();
 
-$sql_common = " from {$g5['point_table']} where user_id = '".esc_sql($member['user_id'])."' ";
+$sql_common = $wpdb->prepare(" from {$g5['point_table']} where user_id = '%s' ", $member['user_id']);
 $sql_order = " order by po_id desc ";
 
 $sql = " select count(*) as cnt {$sql_common} ";

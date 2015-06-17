@@ -235,27 +235,6 @@ class G5_Board extends G5_common {
 
         return apply_filters_ref_array( 'g5_skin_view', array( $output, $action, &$this ) );
     }
-    
-    public function error_display_print($errors=array()){
-
-        $errors = $errors ? $errors : $this->errors;
-
-        if( count($errors) ){
-            foreach($errors as $err){
-                if ( empty($err) ) continue;
-
-                if( is_array( $err ) ){
-                    $msg = str_replace("\\n","<br>",$err[0]);
-                    $link = '<a href="'.$err[1].'" class="btn" >바로가기</a>';
-                } else {
-                    $msg = str_replace("\\n","<br>",$err);
-                    $link = '<button type="button" class="btn" onclick="history.back()" >뒤로가기</button>';
-                }
-
-                echo '<blockquote class="g5_errors"><div>'.$msg.'</div>'.$link.'</blockquote>';
-            }
-        }
-    }
 
     // 게시물 정보($write_row)를 출력하기 위하여 $list로 가공된 정보를 복사 및 가공
     function get_list($write_row, $board, $skin_url, $subject_len=40, $board_page_url='')

@@ -2,78 +2,14 @@
 
 if ( ! class_exists( 'G5_point' ) ) :
 
-class G5_point {
-
-    protected $v_extract = array();
-
-    public $request_action;
-
-    public $errors = array();
-
-    private $g5 = array();
-    private $configs = array();
-    private $member = array();
-    private $attr = array();
-    private $qstr = array();
-
-    private $is_load_script = false;
-
-    private $is_admin;
-    private $is_member;
-    private $is_guest;
-    private $skin_path;
-    private $skin_url;
-
-    private $cache = array();
+class G5_point extends G5_common {
 
     public function __construct( $attr='' ) {
 
-        if( $attr ){
-            $this->attr = wp_parse_args( $attr );
-        }
-        $this->set_config();
+        parent::__construct( $attr );
 
         $this->skin_path = G5_DIR_PATH.'skin/member/basic';
         $this->skin_url = G5_DIR_URL.'skin/member/basic';
-
-        $this->qstr = g5_get_qstr();
-
-    }
-
-    public function set_config(){
-        global $gnupress;
-
-        $this->g5 = $gnupress->g5;
-        $this->config = $gnupress->config;
-        $this->is_admin = current_user_can( 'administrator' ) ? 'super' : '';
-        $this->member = g5_get_member( get_current_user_id() );
-
-        if( $this->member['user_id'] ){
-            $this->is_member = true;
-        } else {
-            $this->is_guest = true;
-        }
-
-        $this->request_action = isset( $_REQUEST['action'] ) ? sanitize_key( $_REQUEST['action'] ) : '';
-
-        $this->action_process( $this->request_action );
-    }
-
-    public function action_process( $action ){
-
-        $action_arr = array('download', 'delete', 'delete_all', 'write_update', 'write_comment_update');
-
-        if( in_array( $action, $action_arr ) ){
-            add_action( 'template_redirect', array( $this, 'header_process' ) );
-        }
-    }
-
-    public function header_script($attr){
-        if( isset($attr['page_mode']) && !empty($attr['page_mode']) ){
-            wp_enqueue_style ( 'g5-'.$attr['page_mode'].'-style' , $this->skin_url.'/style.css', '', G5_VERSION );
-            $this->is_load_script = true;
-            do_action( 'g5_'.$attr['page_mode'].'_style_script' );
-        }
     }
 
 	public function shortcode() {
@@ -86,59 +22,6 @@ class G5_point {
 
 		return $this->point_view();
 	}
-
-    public function g5_global_value(){
-        $arr = array(
-            'qstr' => $this->qstr,
-            'wr_id' => isset($_REQUEST['wr_id']) ? (int)$_REQUEST['wr_id'] : 0 ,
-            'cm_id' => isset($_REQUEST['cm_id']) ? (int) $_REQUEST['cm_id'] : 0,
-            'page' => isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 0,
-            'config' => $this->config,
-            'member' => $this->member,
-            'is_admin' => $this->is_admin,
-            'is_guest' => $this->is_guest,
-			'is_member' => $this->is_member,
-            'g5' => $this->g5,
-            'default_href' => apply_filters('g5_view_default_href' , get_permalink())
-            );
-
-        if( !$arr['page'] ){
-            $arr['page'] = ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1;
-        }
-
-        $this->v_extract = $arr;
-
-        return $this->v_extract;
-    }
-
-    public function header_process(){
-        global $wpdb, $post;
-
-        do_action('g5_header_process', $this->request_action, $this );
-
-        switch( $this->request_action ){
-            
-            case 'write_comment_update' :
-            case 'write_update' :
-
-                if ( empty( $action ) )
-                    $action = $this->request_action;
-
-                $get_array = array('w', 'secret');
-                foreach( $get_array as $v ){
-                    $$v = isset($_REQUEST[$v]) ? $_REQUEST[$v] : '';
-                }
-                break;
-            default :
-                break;
-        }
-        
-        if( $this->request_action ){
-            extract( $this->g5_global_value() );
-            include_once( G5_DIR_PATH.'bbs/'.$this->request_action.'.php' );
-            exit;
-        }
-    }
 
     public function memeber_view ( $action = '' ){
         global $wpdb, $post;
