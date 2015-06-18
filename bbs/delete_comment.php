@@ -47,7 +47,7 @@ if (!g5_delete_point($comment_write['user_id'], $bo_table, $cm_id, '댓글'))
 
 // 코멘트 삭제
 $result = $wpdb->query(
-                $wpdb->prepare(" delete from `{$g5['comment_table']}` where cm_id = %d ", $cm_id);
+                $wpdb->prepare(" delete from `{$g5['comment_table']}` where cm_id = %d ", $cm_id)
             );
 
 // 코멘트가 삭제되므로 해당 게시물에 대한 최근 시간을 다시 얻는다.
@@ -57,12 +57,12 @@ $wr_last = $wpdb->get_var(
 
 // 원글의 코멘트 숫자를 감소
 $result = $wpdb->query(
-                $wpdb->prepare(" update `{$write_table}` set wr_comment = case wr_comment when 0 then 0 else wr_comment - 1 end, wr_last = '%s' where wr_id = %d ", $wr_last, $comment_write['wr_id']);
+                $wpdb->prepare(" update `{$write_table}` set wr_comment = case wr_comment when 0 then 0 else wr_comment - 1 end, wr_last = '%s' where wr_id = %d ", $wr_last, $comment_write['wr_id'])
             );
 
 // 코멘트 숫자 감소
 $result = $wpdb->query(
-                $wpdb->prepare(" update `{$g5['board_table']}` set bo_count_comment = case bo_count_comment when 0 then 0 else bo_count_comment - 1 end where bo_table = '%s ", $bo_table);
+                $wpdb->prepare(" update `{$g5['board_table']}` set bo_count_comment = case bo_count_comment when 0 then 0 else bo_count_comment - 1 end where bo_table = '%s ", $bo_table)
             );
 
 // 사용자 코드 실행

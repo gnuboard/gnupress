@@ -81,7 +81,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 <!-- 댓글 쓰기 시작 { -->
 <aside id="bo_vc_w">
     <h2>댓글쓰기</h2>
-    <form name="fviewcomment" action="<?php $comment_action_url; ?>" onsubmit="return g5_view_cm.fviewcomment_submit(this);" method="post" autocomplete="off">
+    <form name="fviewcomment" id="fviewcomment" action="<?php $comment_action_url; ?>" onsubmit="return g5_view_cm.fviewcomment_submit(this);" method="post" autocomplete="off">
     <?php wp_nonce_field( 'g5_comment_write', 'g5_nonce_field' ); ?>
     <input type="hidden" name="g5_rq" value="g5">
     <input type="hidden" name="action" value="write_comment_update">
@@ -255,7 +255,10 @@ var g5_view_cm = {
     g5_view_cm.comment_box = function(comment_id, work)
     {
         var el_id,
-            othis = this;
+            othis = this,
+            form_el = 'fviewcomment',
+            respond = document.getElementById(form_el);
+
         // 댓글 아이디가 넘어오면 답변, 수정
         if (comment_id)
         {
@@ -267,16 +270,20 @@ var g5_view_cm = {
         else
             el_id = 'bo_vc_w';
 
+        var comm = document.getElementById(el_id);
+
         if (othis.save_before != el_id)
         {
+
             if (othis.save_before)
             {
                 document.getElementById(othis.save_before).style.display = 'none';
-                document.getElementById(othis.save_before).innerHTML = '';
             }
 
-            document.getElementById(el_id).style.display = '';
-            document.getElementById(el_id).innerHTML = othis.save_html;
+            comm.style.display = '';
+
+            comm.appendChild(respond);
+
             // 댓글 수정
             if (work == 'cu')
             {
@@ -292,9 +299,6 @@ var g5_view_cm = {
             document.getElementById('cm_id').value = comment_id;
             document.getElementById('w').value = work;
 
-            if(othis.save_before)
-                $("#captcha_reload").trigger("click");
-
             othis.save_before = el_id;
         }
     }
@@ -303,8 +307,6 @@ var g5_view_cm = {
     {
         return confirm("이 댓글을 삭제하시겠습니까?");
     }
-
-    g5_view_cm.comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 추가 (root님)
 
 })(jQuery);
 </script>
