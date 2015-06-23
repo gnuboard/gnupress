@@ -19,7 +19,8 @@ $is_comment_write = false;
 if ($member['user_level'] >= $board['bo_comment_level'])
     $is_comment_write = true;
 
-$sql = $wpdb->prepare(" select * from `{$g5['comment_table']}` where wr_id = %d order by cm_num, cm_parent, cm_datetime desc ", $wr_id );
+$sql = $wpdb->prepare(" select * from `{$g5['comment_table']}` where wr_id = %d order by cm_num desc, cm_parent, cm_datetime desc ", $wr_id );
+$sql = apply_filters('get_get_comment_sql', $sql);
 
 $rows = $wpdb->get_results($sql, ARRAY_A);
 $list = array();

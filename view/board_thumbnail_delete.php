@@ -7,7 +7,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     </p>
 </div>
 <?php
-if( !g5_get_upload_path(){
+if( !g5_get_upload_path() ){
     echo '<p>첨부파일 디렉토리에 접근할수 없습니다.</p>';
 } else {
     $dir = g5_get_upload_path().'/file/'.$board['bo_table'];

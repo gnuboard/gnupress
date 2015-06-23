@@ -16,14 +16,14 @@ class G5_scrap extends G5_common {
         $this->skin_path = G5_DIR_PATH.'skin/member/basic';
         $this->skin_url = G5_DIR_URL.'skin/member/basic';
 
-        $this->gaction = isset($_REQUEST['gaction']) ? $_REQUEST['gaction'] : '';
+        $this->gaction = isset($_REQUEST['gaction']) ? sanitize_key($_REQUEST['gaction']) : '';
         $this->ms_id = isset($_REQUEST['ms_id']) ? (int) $_REQUEST['ms_id'] : 0;
         $this->current_url = home_url(add_query_arg(array()));
 
         $re_chk_array = array('scrap_popin_update', 'scrap_delete');
 
         if( $this->gaction && in_array($this->gaction, $re_chk_array) ){
-            add_action( 'wp_enqueue_scripts', array( $this, 'header_process' ) );
+            $this->header_process();
         }
 
         add_filter('g5_get_global_value', array( $this, 'extract_add' ) );
@@ -79,7 +79,7 @@ class G5_scrap extends G5_common {
 	}
 
     public function scrap_view( $action = '' ) {
-        global $wpdb, $post;
+        global $wpdb, $post, $gnupress;
         
         add_action('g5_error_display' , array( & $this, 'g5_error_display'));
 

@@ -10,8 +10,8 @@ $tax = get_taxonomy( $taxonomy );
 
 $g5 = G5_var::getInstance()->get_options();
 
-$bo_table = isset($_REQUEST['bo_table']) ? $_REQUEST['bo_table'] : '';
-$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+$bo_table = isset($_REQUEST['bo_table']) ? sanitize_text_field($_REQUEST['bo_table']) : '';
+$page = isset($_REQUEST['page']) ? sanitize_text_field(($_REQUEST['page']) : '';
 
 $sql = "select * from {$g5['board_table']} where bo_use_tag = 1 ";
 $board_list = $wpdb->get_results($sql, ARRAY_A);

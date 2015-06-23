@@ -18,9 +18,6 @@ class G5_var {
     }
 
     protected function __construct() {
-        $this->get_table_array();
-        $this->get_config();
-        $this->get_config_js();
     }
 
     protected function get_table_array() {
@@ -43,13 +40,15 @@ class G5_var {
 
     public function get_config_js() {
 
+        $g5_options = get_option(G5_OPTION_KEY);
+
         $this->js = apply_filters( 'g5_js_defaults', array(
             'bbs_url' => get_permalink( get_the_ID() ),
             'is_member' => get_current_user_id() ? true : false,
             'is_admin' => current_user_can( 'administrator' ) ? 'super' : '',
             'is_mobile' => wp_is_mobile(),
             'bo_table' => '',
-            'plugin_url' => G5_PLUGIN_URL,
+            'new_url' => isset($g5_options['cf_new_page_id']) ? get_permalink($g5_options['cf_new_page_id']) : '',
             'ajax_url' => admin_url('admin-ajax.php')
         ));
     }
@@ -101,6 +100,14 @@ class G5_var {
     }
 
     public function get_options($options='db_tables') {
+        if( ! $this->db_tables && $options == 'db_tables' ){
+            $this->get_table_array();
+        } else if( ! $this->config && $options == 'config' ){
+            $this->get_config();
+        } else if( ! $this->js && $options == 'js' ){
+            $this->get_config_js();
+        }
+
         return $this->$options;
     }
 }

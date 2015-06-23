@@ -12,13 +12,13 @@ if (!$config['cf_email_use'])
 if (!$is_member && $config['cf_formmail_is_member'])
     g5_alert_close('회원만 이용하실 수 있습니다.');
 
-$check_param = array('to', 'attach', 'subject', 'content', 'type', 'fnick', 'fmail');
-
-foreach( $check_param as $v ){
-    $$v = isset($_POST[$v]) ? $_POST[$v] : '';
-}
-
-$to = base64_decode($_POST['to']);
+$to = isset($_POST['to']) ? base64_decode(sanitize_text_field($_POST['to'])) : '';
+$attach = isset($_POST['attach']) ? sanitize_text_field($_POST['attach']) : '';
+$subject = isset($_POST['subject']) ? sanitize_text_field($_POST['subject']) : '';
+$content = isset($_POST['content']) ? wp_kses_post(trim($_POST['content'])) : '';
+$type = isset($_POST['type']) ? sanitize_text_field($_POST['type']) : '';
+$fnick = isset($_POST['fnick']) ? sanitize_text_field($_POST['fnick']) : '';
+$fmail = isset($_POST['fmail']) ? sanitize_email($_POST['fmail']) : '';
 
 if (substr_count($to, "@") > 1)
     g5_alert_close('한번에 한사람에게만 메일을 발송할 수 있습니다.');

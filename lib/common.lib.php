@@ -1295,8 +1295,8 @@ function g5_get_sideview($user_id, $name='', $email='', $homepage='', $default_h
     $str2 = "<span class=\"sv\">\n";
 
     if($email){
-        $formmail_arr = array('user_id'=>$user_id, 'name'=> urlencode($name), 'email' => $email , 'action' => 'formmail');
-        $formmail_url = apply_filters('g5_formmail_url', add_query_arg( $formmail_arr, G5_DIR_URL.'g5_new.php' ) , $formmail_arr);
+        $formmail_arr = array('action' => 'formmail', 'user_id'=>$user_id, 'user_name'=> urlencode($name), 'email' => $email);
+        $formmail_url = apply_filters('g5_formmail_url', add_query_arg( $formmail_arr, $gnupress->new_url ) , $formmail_arr);
         $str2 .= "<a href=\"".$formmail_url."\" onclick=\"gnupress.win_email(this.href); return false;\">메일보내기</a>\n";
     }
     if($homepage)

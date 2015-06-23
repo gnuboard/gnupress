@@ -144,7 +144,7 @@ $nogood_href = '';
 if ($is_member) {
     // 스크랩 링크
 
-    $scrap_href = add_query_arg( array('action'=>'scrap_popin', 'bo_table'=>$bo_table, 'wr_id'=>$wr_id, 'ms_url'=>urlencode(home_url($current_url))), $new_open_url);
+    $scrap_href = add_query_arg( array('action'=>'scrap_popin', 'bo_table'=>$bo_table, 'wr_id'=>$wr_id, 'ms_url'=>urlencode(home_url($current_url))), $gnupress->new_url);
 
     // 추천 링크
     if ($board['bo_use_good'])

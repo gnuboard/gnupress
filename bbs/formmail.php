@@ -23,7 +23,7 @@ if ($sendmail_count > 3)
 
 $g5['title'] = '메일 쓰기';
 
-$name = isset($_REQUEST['name']) ? esc_attr($_REQUEST['name']) : '';
+$name = isset($_REQUEST['name']) ? sanitize_text_field($_REQUEST['name']) : '';
 $email = isset($_REQUEST['email']) ? sanitize_email($_REQUEST['email']) : '';
 
 if (! isset($_REQUEST['name']) )

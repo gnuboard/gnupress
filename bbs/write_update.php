@@ -221,7 +221,6 @@ if ($w == '' || $w == 'r') {
         'user_pass' => $user_pass,
         'user_display_name' => $user_name,
         'user_email' => $user_email,
-        'user_pass' => $user_pass,
         'wr_link1' => $wr_link1,
         'wr_link2' => $wr_link2,
         'wr_datetime' => G5_TIME_YMDHIS,
@@ -245,7 +244,6 @@ if ($w == '' || $w == 'r') {
         '%s',
         '%s',
         '%s',
-        '%s',
         '%d',
         '%s'
         );
@@ -255,6 +253,7 @@ if ($w == '' || $w == 'r') {
     }
 
     $g5_data = apply_filters('g5_insert_data_filters', wp_unslash($g5_data), $post_data);
+
     $formats = apply_filters('g5_insert_format_filters', $formats);
 
     // insert

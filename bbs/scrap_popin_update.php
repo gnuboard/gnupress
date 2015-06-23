@@ -5,7 +5,7 @@ if ( ! isset( $_POST['_wpnonce_g5_field'] ) || ! wp_verify_nonce( $_POST['_wpnon
     return;
 }
 
-$refer_page = isset($_REQUEST['ms_url']) ? urldecode($_REQUEST['ms_url']) : wp_get_referer();
+$refer_page = isset($_REQUEST['ms_url']) ? esc_url_raw(urldecode($_REQUEST['ms_url'])) : wp_get_referer();
 
 $scrap_href = add_query_arg( array('action'=>'scrap', 'gaction'=>false) );
 
@@ -21,7 +21,7 @@ if (!$is_member)
 
 $sql = $wpdb->prepare("select count(*) as cnt from {$g5['scrap_table']}
             where user_id = '{$member['user_id']}'
-            and bo_table = '$s'
+            and bo_table = '%s'
             and wr_id = %d ", $bo_table, $wr_id);
 
 $row_cnt = $wpdb->get_var( $sql );
@@ -47,7 +47,8 @@ if ($row_cnt)
 
 $cm_content = '';
 if (isset($_POST['cm_content'])) {
-    $cm_content = substr(trim($_POST['cm_content']),0,65536);
+    $cm_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['cm_content'] ) ) );
+    $cm_content = substr(trim($cm_content),0,65536);
     $cm_content = preg_replace("#[\\\]+$#", "", $cm_content);
 }
 
@@ -65,7 +66,7 @@ if ($cm_content && ($member['user_level'] >= $board['bo_comment_level']))
         
         $cm_num = g5_get_next_num( $g5['comment_table'], $wr_id, 'comment' );
         
-        $cm_option = isset($_REQUEST['cm_option']) ? g5_clean_xss_tags($_REQUEST['cm_option']) : '';
+        $cm_option = isset($_REQUEST['cm_option']) ? sanitize_text_field($_REQUEST['cm_option']) : '';
 
         $cm_data = array(
                 'wr_id' => $wr_id,
@@ -87,10 +88,14 @@ if ($cm_content && ($member['user_level'] >= $board['bo_comment_level']))
         
         if( $result !== false ){
             // 원글에 코멘트수 증가
-            g5_sql_query(" update $write_table set wr_comment = wr_comment + 1 where wr_id = '$wr_id' ");
+            $result = $wpdb->query(
+                $wpdb->prepare(" update $write_table set wr_comment = wr_comment + 1 where wr_id = %d ", $wr_id)
+                );
 
             // 코멘트 1 증가
-            g5_sql_query(" update {$g5['board_table']}  set bo_count_comment = bo_count_comment + 1 where bo_table = '$bo_table' ");
+            $result = $wpdb->query(
+                $wpdb->prepare(" update {$g5['board_table']}  set bo_count_comment = bo_count_comment + 1 where bo_table = '%s' ", $bo_table)
+                );
 
             // 포인트 부여
             g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 코멘트쓰기", $bo_table, $comment_id, '코멘트');
@@ -104,9 +109,14 @@ $i_data = array(
     'wr_id' => $wr_id,
     'ms_datetime' => G5_TIME_YMDHIS
 );
-
+$formats = array(
+                '%s',
+                '%s',
+                '%d',
+                '%s'
+            );
 // insert
-$result = $wpdb->insert( $g5['scrap_table'], $i_data );
+$result = $wpdb->insert( $g5['scrap_table'], $i_data, $formats);
 
 if ( $result !== 'false') {
     g5_delete_cache_latest($bo_table);

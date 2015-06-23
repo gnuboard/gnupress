@@ -31,7 +31,7 @@ else {
     $comma = '';
     foreach((array) $_POST['chk_wr_id'] as $v ){
         if( empty($v) ) continue;
-        $wr_id_list .= $comma . $v;
+        $wr_id_list .= $comma . intval($v);
         $comma = ',';
     }
 }

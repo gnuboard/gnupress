@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 <!-- 폼메일 시작 { -->
 <div id="formmail" class="new_win mbskin">
-    <h1 id="win_title"><?php echo $name ?>님께 메일보내기</h1>
+    <h1 id="win_title"><?php echo $user_name ?>님께 메일보내기</h1>
 
     <form name="fformmail" action="<?php echo g5_form_action_url(add_query_arg(array()));?>" onsubmit="return fformmail_submit(this);" method="post" enctype="multipart/form-data" style="margin:0px;">
     <?php wp_nonce_field( 'g5_formmail', 'g5_nonce_field' ); ?>

@@ -233,7 +233,7 @@ function g5_board_form(){
         $$v = isset($_REQUEST[$v]) ? sanitize_text_field($_REQUEST[$v]) : '';
 
         if($v == 'bo_table' && $$v != null ){
-            $bo_table = preg_replace('/[^a-z0-9_]/i', '', trim($_REQUEST[$v]));
+            $bo_table = preg_replace('/[^a-z0-9_]/i', '', $bo_table);
             $bo_table = substr($bo_table, 0, 20);
             if( $bo_table ){
                 $board = $wpdb->get_row($wpdb->prepare(" select * from {$g5['board_table']} where bo_table = '%s' ", $bo_table), ARRAY_A);
@@ -303,7 +303,13 @@ function g5_board_form(){
                 $board[$v] = '';
 
             if( $add_err_msg && isset($_POST[$v]) ){
-                $board[$v] = $_POST[$v];
+                if( $v == 'bo_content_head' || $v == 'bo_content_tail' ){
+                    $board[$v] = wp_kses_post( trim($_POST[$v]) );
+                } else if ( $v == 'bo_insert_content' ){
+                    $board[$v] = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST[$v] ) ) );
+                } else {
+                    $board[$v] = sanitize_text_field( trim($_POST[$v]) );
+                }
             }
         }
 
@@ -355,7 +361,7 @@ function g5_board_list(){
     $config = $gnupress->config;
     $is_admin = g5_is_admin();
 
-    $check_post_msg = ( isset( $_POST['g5_admin_post'] ) ) ? g5_admin_post( $_POST['g5_admin_post'] ) : false;
+    $check_post_msg = ( isset( $_POST['g5_admin_post'] ) ) ? g5_admin_post( sanitize_key($_POST['g5_admin_post']) ) : false;
 
     $g5['title'] = __('게시판관리', G5_NAME );
     //파라미터

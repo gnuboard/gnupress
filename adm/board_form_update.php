@@ -278,12 +278,20 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
             foreach( $chk_arr as $v ){
                 $data[$v] = isset($_POST[$v]) ? sanitize_text_field(trim($_POST[$v])) : '';
+
+                if( $v == 'bo_content_head' || $v == 'bo_content_tail' ){
+                    $data[$v] = wp_kses_post( trim($_POST[$v]) );
+                } else if ( $v == 'bo_insert_content' ){
+                    $data[$v] = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST[$v] ) ) );
+                }
             }
 
             $chk_fields_array = array('num', 'writer', 'visit', 'wdate' );
 
-            if( isset($_POST['bo_sh_fields']) && count($_POST['bo_sh_fields']) && is_array($_POST['bo_sh_fields']) ){ //번호, 작성자, 조회, 작성일 설정
-                $tmp_fields = array_diff($chk_fields_array, $_POST['bo_sh_fields']);
+            $bo_sh_fields = isset($_POST['bo_sh_fields']) ? array_map('sanitize_text_field', $_POST['bo_sh_fields']) : array();
+
+            if( ! empty($bo_sh_fields) ){ //번호, 작성자, 조회, 작성일 설정
+                $tmp_fields = array_diff($chk_fields_array, $bo_sh_fields);
                 $data['bo_sh_fields'] = $bo_sh_fields = implode(",", $tmp_fields);
             } else {
                 $data['bo_sh_fields'] = $bo_sh_fields = implode(",", $chk_fields_array);
@@ -314,6 +322,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 $formats[] = '%d';
                 $formats[] = '%d';
 
+                $data = apply_filters('g5_insert_bbs_settings', wp_unslash($data), $bo_table);
                 $db_result = $wpdb->insert($g5['board_table'], $data, $formats);
                 
                 if( $db_result === false ){
@@ -367,6 +376,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 $where = array('bo_table'=>$bo_table);
                 $where_format = array( '%s' );
 
+                $data = apply_filters('g5_update_bbs_settings', wp_unslash($data), $bo_table);
                 $db_result = $wpdb->update($g5['board_table'], $data, $where, $formats, $where_format);
                 if( $db_result === false ){
 

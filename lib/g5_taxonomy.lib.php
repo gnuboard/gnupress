@@ -1505,7 +1505,7 @@ function g5_get_edit_term_link( $term_id, $taxonomy, $object_type = '', $url='',
 		$args['post_type'] = $object_type;
 
     if( !$url ){
-        $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
+        $page = isset($_REQUEST['page']) ? sanitize_text_field($_REQUEST['page']) : '';
         if( $action == 'delete' ){
             $url = g5_get_current_page()."?page=".$page;
         } else {

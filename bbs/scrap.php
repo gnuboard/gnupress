@@ -6,7 +6,7 @@ if (!$is_member)
 
 $g5['title'] = $member['user_display_name'].'님의 스크랩';
 
-$sql_common = " from {$g5['scrap_table']} where user_id = '".esc_sql($member['user_id'])."' ";
+$sql_common = $wpdb->prepare(" from {$g5['scrap_table']} where user_id = '%s' ", $member['user_id']);
 $sql_order = " order by ms_id desc ";
 
 $sql = " select count(*) as cnt $sql_common ";
@@ -37,14 +37,14 @@ foreach( $results as $row ){
     $num = $total_count - ($page - 1) * $rows - $i;
 
     // 게시판 제목
-    $sql2 = " select bo_subject from {$g5['board_table']} where bo_table = '{$row['bo_table']}' ";
+    $sql2 = $wpdb->prepare(" select bo_subject from {$g5['board_table']} where bo_table = '%s' ", $row['bo_table']);
     $row2 = $wpdb->get_row($sql2, ARRAY_A);
 
     if (!$row2['bo_subject']) $row2['bo_subject'] = '[게시판 없음]';
 
     // 게시물 제목
     $tmp_write_table = $g5['write_table'];
-    $sql3 = " select wr_subject from $tmp_write_table where wr_id = '{$row['wr_id']}' ";
+    $sql3 = $wpdb->prepare(" select wr_subject from $tmp_write_table where wr_id = %d ", intval($row['wr_id']));
 
     $row3 = $wpdb->get_row($sql3, ARRAY_A);
 

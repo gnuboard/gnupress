@@ -60,7 +60,7 @@ class G5_Move_update extends G5_Board {
                 
                 $this->update_reply($row['wr_id'], $table, $insert_id, $move_bo_table);
                 //답변글이라면 wr_parent 업데이트
-                $sql = "update `$table` set wr_parent = '$parent_id' where wr_id = '$insert_id' ";
+                $sql = $wpdb->prepare("update `$table` set wr_parent = %d where wr_id = %d ", $parent_id, $insert_id);
                 if( $wpdb->query($sql) ){
                     $this->count_write++;
                 }

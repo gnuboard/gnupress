@@ -45,6 +45,10 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
 
 == Changelog ==
 
+= 0.0.5 =
+code correct quite unsafe for wordpress standards
+fix an gnupress plugin error 
+
 = 0.0.4 =
 code correct quite unsafe for wordpress standards
 fix an gnupress plugin error 

@@ -4,7 +4,7 @@
  *  Description: 워드프레스 게시판 플러그인
  *  Author: SIR Soft
  *  Author URI: http://sir.co.kr
- *  Version: 0.0.4
+ *  Version: 0.0.5
  *  Text Domain: SIR Soft
  */
 
@@ -83,7 +83,7 @@ Class GnuPress {
             $this->board_redirect($redirect_id);
         }
         
-        $this->member_page_array = apply_filters('g5_get_member_page', array('point', 'scrap', 'scrap_popin', 'formmail'));
+        $this->member_page_array = apply_filters('g5_get_member_page', array('point', 'scrap', 'scrap_popin', 'formmail', 'kcaptcha_image'));
 
         $check_arr = array('g5_new', 'action');
         foreach($check_arr as $v){
@@ -381,7 +381,11 @@ Class GnuPress {
 
         $g5_options = get_option(G5_OPTION_KEY);
         $page_mode = $action = $this->member_page_action;
-        include_once( G5_DIR_PATH.'bbs/member.php' );
+        if( $action == 'kcaptcha_image' ){
+            include_once( G5_PLUGIN_PATH.'/kcaptcha/kcaptcha_image.php' );
+        } else {
+            include_once( G5_DIR_PATH.'bbs/member.php' );
+        }
 
     }
 

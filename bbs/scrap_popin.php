@@ -1,9 +1,9 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
-$refer_page = isset($_REQUEST['ms_url']) ? urldecode($_REQUEST['ms_url']) : wp_get_referer();
+$refer_page = isset($_REQUEST['ms_url']) ? esc_url_raw(urldecode($_REQUEST['ms_url'])) : wp_get_referer();
 
-$new_open_url = apply_filters('g5_new_open_url', G5_DIR_URL.'g5_new.php');
+$new_open_url = apply_filters('g5_new_open_url', $gnupress->new_url);
 
 $scrap_href = add_query_arg( array('action'=>'scrap', 'gaction'=>false) );
 
@@ -36,9 +36,9 @@ echo <<<HEREDOC
 HEREDOC;
 
 $sql = $wpdb->prepare(" select count(*) as cnt from {$g5['scrap_table']}
-            where user_id = '{$member['user_id']}'
+            where user_id = '%s'
             and bo_table = '%s'
-            and wr_id = %d ", $bo_table, $wr_id);
+            and wr_id = %d ", $member['user_id'], $bo_table, $wr_id);
 
 $row_cnt = $wpdb->get_var($sql);
 

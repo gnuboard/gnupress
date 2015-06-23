@@ -13,11 +13,11 @@ class G5_formmail extends G5_common {
         $this->skin_path = G5_DIR_PATH.'skin/member/basic';
         $this->skin_url = G5_DIR_URL.'skin/member/basic';
         
-        $this->gaction = isset($_REQUEST['gaction']) ? $_REQUEST['gaction'] : '';
+        $this->gaction = isset($_REQUEST['gaction']) ? sanitize_key($_REQUEST['gaction']) : '';
         $re_chk_array = array('form_mail_update');
 
         if( $this->gaction && in_array($this->gaction, $re_chk_array) ){
-            add_action( 'wp_enqueue_scripts', array( $this, 'header_process' ) );
+            $this->header_process();
         }
     }
 
@@ -51,6 +51,8 @@ class G5_formmail extends G5_common {
         $g5_param_array = wp_parse_args( $this->g5_global_value(), g5_request_param_keys() );
         
         extract( $g5_param_array );
+
+        $user_name = isset($_REQUEST['user_name']) ?  sanitize_text_field($_REQUEST['user_name']) : '';
 
         $member_skin_path = $this->skin_path;
 

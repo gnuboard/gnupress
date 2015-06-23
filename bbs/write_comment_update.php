@@ -125,11 +125,26 @@ if ($w == 'c') // 댓글 입력
             'cm_option' => $cm_option
         );
 
+    $formats = array(
+            '%d',
+            '%s',
+            '%d',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s',
+            '%s'
+        );
     
     $cm_data = apply_filters('g5_insert_comment_filters', wp_unslash($cm_data), $post_data);
 
     // insert
-    $result = $wpdb->insert( $g5['comment_table'], $cm_data );
+    $result = $wpdb->insert( $g5['comment_table'], $cm_data, $formats );
 
     if ( $result === false ){
         g5_show_db_error();

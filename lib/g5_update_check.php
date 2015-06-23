@@ -1,7 +1,7 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
 
-if( G5_VERSION === '0.0.4' ){
+if(version_compare(G5_VERSION, "0.0.4", "<")){
     $config = G5_var::getInstance()->get_options('config');
     
     //point, scrap 등등 새창으로 여는 페이지 생성

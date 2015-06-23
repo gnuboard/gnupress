@@ -100,8 +100,8 @@ class G5_Board extends G5_common {
         $this->g5_global_value();
 
         $arr = array(
-            'page' => isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 0,
-            'search_tag_str' => isset($_REQUEST['tag']) ? $_REQUEST['tag'] : '',
+            'page' => isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 0,
+            'search_tag_str' => isset($_REQUEST['tag']) ? sanitize_text_field($_REQUEST['tag']) : '',
             'search_tag' => array(),
             'board_skin_path' => G5_DIR_PATH.'skin/board/'.$this->board['bo_skin'],
             'board_skin_url' => G5_DIR_URL.'skin/board/'.$this->board['bo_skin']

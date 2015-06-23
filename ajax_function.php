@@ -106,7 +106,7 @@ add_action("wp_ajax_g5_delete-tag", "g5_ajax_delete_tag");
 function g5_ajax_delete_tag() {
     global $gnupress;
 
-    $bo_table = ($_REQUEST['bo_table']) ? $_REQUEST['bo_table'] : '';
+    $bo_table = ($_REQUEST['bo_table']) ? sanitize_text_field($_REQUEST['bo_table']) : '';
 
     if( !$bo_table ){
         wp_die( -1 );
@@ -190,4 +190,5 @@ function g5_ajax_get_tags(){
     die();
 }
 
+//캡챠관련 ajax
 ?>

@@ -1,9 +1,10 @@
 jQuery(function($){
     var mp3_url = "",
-        g5_captcha_url = gnupress.plugin_url+'/kcaptcha';
+        g5_captcha_url = gnupress.new_url ? gnupress.new_url+'?action=kcaptcha_image' : '';
 
     $(".g5_captchar_wrap").on("click", "#captcha_reload", function(e){
         e.preventDefault();
+        if( !g5_captcha_url ) return;
         $.ajax({
             type: 'POST',
             url: gnupress.ajax_url,
@@ -13,7 +14,7 @@ jQuery(function($){
             cache: false,
             async: false,
             success: function(text) {
-                $('#captcha_img').attr('src', g5_captcha_url+'/kcaptcha_image.php?t=' + (new Date).getTime());
+                $('#captcha_img').attr('src', g5_captcha_url+'&t=' + (new Date).getTime());
             }
         });
 

@@ -149,6 +149,7 @@ $formats = array(
     '%d'
 );
 
+$data = apply_filters('g5_board_setting_filters', $g5_data, $board);
 $result = $wpdb->insert($g5['board_table'], $data, $formats);
 if ( $result === false ){
     g5_show_db_error();
