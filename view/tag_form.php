@@ -3,15 +3,13 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 global $current_screen;
 
-echo wp_get_original_referer();
-
 $taxonomy = $gnupress->taxonomy;
 $tax = get_taxonomy( $taxonomy );
 
 $g5 = G5_var::getInstance()->get_options();
 
 $bo_table = isset($_REQUEST['bo_table']) ? sanitize_text_field($_REQUEST['bo_table']) : '';
-$page = isset($_REQUEST['page']) ? sanitize_text_field(($_REQUEST['page']) : '';
+$page = isset($_REQUEST['page']) ? sanitize_text_field($_REQUEST['page']) : '';
 
 $sql = "select * from {$g5['board_table']} where bo_use_tag = 1 ";
 $board_list = $wpdb->get_results($sql, ARRAY_A);
