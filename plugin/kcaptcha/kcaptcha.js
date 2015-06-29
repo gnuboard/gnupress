@@ -1,6 +1,6 @@
 jQuery(function($){
     var mp3_url = "",
-        g5_captcha_url = gnupress.new_url ? gnupress.new_url+'?action=kcaptcha_image' : '';
+        g5_captcha_url = gnupress.new_url ? gnupress.new_url+((gnupress.new_url.indexOf('?') === -1) ? '?' : '&')+'action=kcaptcha_image' : '';
 
     $(".g5_captchar_wrap").on("click", "#captcha_reload", function(e){
         e.preventDefault();
