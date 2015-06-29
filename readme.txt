@@ -1,19 +1,23 @@
-=== Plugin Name ===
+=== GNUPress ===
 Contributors: kagla
-Donate link: 
-Tags: board, bbs, community, forum
+Donate link: http://sir.co.kr
+Tags: board, bbs, community, forum, 한국형게시판, 그누프레스, 게시판, 그누보드5, 그누보드
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 4.2
+Stable tag: 0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
 
 == Description ==
 
 GNUPRESS is a bulletin board for WORDPRESS.
 You can easily build a community site.
+
+그누프레스는 워드프레스 게시판 플러그인입니다.
+
+공식 홈페이지 : http://sir.co.kr
+
+forum url : http://sir.co.kr/main/gnupress/
 
 == Installation ==
 
@@ -44,6 +48,9 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
    /wp-content/plugins/gnupress/screenshot-2.jpg  
 
 == Changelog ==
+
+= 0.1 =
+워드프레스 플러그인에 첫 등록
 
 = 0.0.5 =
 code correct quite unsafe for wordpress standards
