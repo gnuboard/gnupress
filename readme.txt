@@ -56,7 +56,7 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
 == Changelog ==
 
 = 0.1.1 =
-캡챠 이미지가 나오는 않는 오류를 수정했습니다.
+캡챠 이미지가 나오지 않는 오류를 수정했습니다.
 
 = 0.1 =
 워드프레스 플러그인에 첫 등록
