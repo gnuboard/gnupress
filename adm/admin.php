@@ -6,6 +6,7 @@ function g5_load_admin_js($v)
     $load_skin_js = array();
     $load_skin_js[] = array('handle'=>'g5-common-js', 'src'=>G5_DIR_URL.'js/common.js', 'deps'=>'', 'ver'=>G5_VERSION);
     $load_skin_js[] = array('handle'=>'g5-admin-js', 'src'=>G5_DIR_URL.'view/js/g5_admin.js', 'deps'=>'', 'ver'=>G5_VERSION);
+    $load_skin_js[] = array('handle'=>'g5-html5-js', 'src'=>G5_DIR_URL.'view/js/html5.js', 'deps'=>'', 'ver'=>G5_VERSION);
 
     $load_skin_js = apply_filters( 'g5_admin_load_js', $load_skin_js );
     if( count($load_skin_js) ){
@@ -14,6 +15,7 @@ function g5_load_admin_js($v)
         }
     }
 	wp_enqueue_style ( 'g5-admin-css', G5_DIR_URL . 'view/css/g5_admin.css', '', G5_VERSION );
+    wp_script_add_data( 'g5-html5-js', 'conditional', 'if lte IE 8' );
 }
 
 function g5_tag_form(){
