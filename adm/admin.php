@@ -369,9 +369,24 @@ function g5_board_list(){
     foreach( $param_arr as $v ){
         $$v = isset($_REQUEST[$v]) ? sanitize_text_field($_REQUEST[$v]) : '';
     }
-    
+
+    $paged = isset($_REQUEST['paged']) ? intval($_REQUEST['paged']) : 0;
+
     $sql_common = " from {$g5['board_table']} a ";
     $sql_search = " where (1) ";
+
+    if ($stx) {
+        $sql_search .= " and ( ";
+        switch ($sfl) {
+            case "bo_table" :
+                $sql_search .= $wpdb->prepare(" ($sfl like '%s') ", $stx.'%');
+                break;
+            default :
+                $sql_search .= $wpdb->prepare(" ($sfl like '%s') ", '%'.$stx.'%');
+                break;
+        }
+        $sql_search .= " ) ";
+    }
 
     if (!$sst) {
         $sst  = "a.bo_table";
@@ -387,10 +402,11 @@ function g5_board_list(){
 
     $limit = $config['cf_page_rows'];
     $total_page  = ceil($total_count / $limit);  // 전체 페이지 계산
-    if ($page < 1) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
-    $from_record = ($page - 1) * $limit; // 시작 열을 구함
+    if ($paged < 1) { $paged = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
+    $from_record = ($paged - 1) * $limit; // 시작 열을 구함
 
-    $sql = $wpdb->prepare(" select * {$sql_common} {$sql_search} {$sql_order} limit %d, %d", $from_record, $limit);
+    $sql = " select * {$sql_common} {$sql_search} {$sql_order} limit ". intval($from_record).", ".intval($limit);
+
     $rows = $wpdb->get_results( $sql , ARRAY_A );
 
     include_once( G5_DIR_PATH.'view/board_list.php' );
