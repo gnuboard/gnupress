@@ -23,7 +23,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <tr>
             <td class="td_num"><?php echo $list[$i]['num'] ?></td>
             <td class="td_board"><a href="<?php echo $list[$i]['opener_href'] ?>" target="_blank" onclick="opener.document.location.href='<?php echo $list[$i]['opener_href'] ?>'; return false;"><?php echo $list[$i]['bo_subject'] ?></a></td>
-            <td><a href="<?php echo $list[$i]['opener_href_wr_id'] ?>" target="_blank" onclick="opener.document.location.href='<?php echo $list[$i]['opener_href_wr_id'] ?>'; return false;"><?php echo $list[$i]['subject'] ?></a></td>
+            <td class="td_subject"><a href="<?php echo $list[$i]['opener_href_wr_id'] ?>" target="_blank" onclick="opener.document.location.href='<?php echo $list[$i]['opener_href_wr_id'] ?>'; return false;"><?php echo $list[$i]['subject'] ?></a></td>
             <td class="td_datetime"><?php echo $list[$i]['ms_datetime'] ?></td>
             <td class="td_mng"><a href="<?php echo $list[$i]['del_href'];  ?>" onclick="gnupress.del(this.href); return false;">삭제</a></td>
         </tr>
