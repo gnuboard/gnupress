@@ -4,7 +4,7 @@ Donate link: http://sir.co.kr
 Tags: gnupress, gnu, gnuboard, korea, korean, bulletin, board, bbs, community, forum, 그누프레스, 그누보드, 게시판, 한국형게시판
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
    /wp-content/plugins/gnupress/screenshot-2.jpg  
 
 == Changelog ==
+
+= 0.1.3 =
+다운로드 포인트 차감이 안되는 오류를 수정했습니다.
+게시판 관리에서 페이징이 빠져있는 오류를 수정했습니다.
+일부 테마에서 css문제로 정상적으로 출력되지 않는 문제를 수정했습니다.
 
 = 0.1.2 =
 0.1.1버젼으로 자동 업데이트시 g5member 이름의 페이지가 자동으로 만들어 지지 않는 오류를 고쳤습니다.
