@@ -78,9 +78,9 @@ foreach( $chk_fields_array as $key=>$v ){
                     영문자, 숫자, _ 만 가능 (공백없이 20자 이내)
                 <?php } else { ?>
                     <?php if($bbs_direct_url){ ?>
-                        <a href="<?php echo $bbs_direct_url ?>" class="btn_frmline">게시판 바로가기</a>
+                        <a href="<?php echo $bbs_direct_url ?>" class="button">게시판 바로가기</a>
                     <?php } ?>
-                    <a href="<?php echo $list_page_url ?>" class="btn_frmline">목록으로</a>
+                    <a href="<?php echo $list_page_url ?>" class="button">목록으로</a>
                 <?php } ?>
             </td>
         </tr>

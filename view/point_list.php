@@ -106,7 +106,7 @@ function point_clear()
 </select>
 <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
 <input type="text" name="stx" value="<?php echo $stx ?>" id="stx" required class="required frm_input">
-<input type="submit" class="btn_submit" value="검색">
+<input type="submit" class="button btn_submit" value="검색">
 </form>
 
 <form name="fpointlist" id="fpointlist" method="post" action="<?php echo g5_form_action_url(admin_url("admin.php?page=g5_point_list"));?>" onsubmit="return fpointlist_submit(this);">
@@ -205,7 +205,7 @@ function point_clear()
 </div>
 
 <div class="btn_list01 btn_list">
-    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value">
+    <input type="submit" name="act_button" class="button" value="선택삭제" onclick="document.pressed=this.value">
 </div>
 
 </form>
@@ -254,7 +254,7 @@ function point_clear()
     </div>
 
     <div class="btn_confirm01 btn_confirm">
-        <input type="submit" value="확인" class="btn_submit">
+        <input type="submit" value="확인" class="button btn_submit">
     </div>
 
     </form>

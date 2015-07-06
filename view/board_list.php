@@ -68,8 +68,8 @@ $options = get_option(G5_OPTION_KEY);
     $i = 0;
     foreach($rows as $row){
         $modify_url = add_query_arg( array('page'=>'g5_board_form', 'w'=>'u', 'bo_table'=>$row['bo_table'] ) ); //수정 버튼 url
-        $one_update = '<a href="'.$modify_url.'">수정</a>';
-        $one_copy = '<a href="./board_copy.php?bo_table='.$row['bo_table'].'" class="board_copy" data-bo_table="'.$row['bo_table'].'" data-bo_subject="'.$row['bo_subject'].'" title="게시판복사">복사</a>';
+        $one_update = '<a href="'.$modify_url.'" class="button">수정</a>';
+        $one_copy = '<a href="./board_copy.php?bo_table='.$row['bo_table'].'" class="button board_copy" data-bo_table="'.$row['bo_table'].'" data-bo_subject="'.$row['bo_subject'].'" title="게시판복사">복사</a>';
         $bbs_direct_url = '';
         
         if( $g5_get_page_id = g5_get_page_id(G5_NAME."-".$row['bo_table']) ){     //게시판이 적용된 페이지가 존재한다면
