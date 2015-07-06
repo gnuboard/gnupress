@@ -30,3 +30,16 @@ body{padding:0}
 .pg_start, .pg_prev {/* 이전 */}
 .pg_end, .pg_next {/* 다음 */}
 .pg_current {display:inline-block;margin:0 4px 0 0;background:#333;color:#fff;font-weight:normal}
+
+.new_win table{width:98%;border-top:1px solid #e5eff8;border-right:1px solid #e5eff8;margin:1% auto;border-collapse:collapse}
+.new_win caption{color:#9ba9b4;font-size:.94em;letter-spacing:.1em;padding:0;caption-side:top}
+.new_win tr.odd td{background:#f7fbff}
+.new_win tr.odd .column1{background:#f4f9fe}
+.column1{background:#f9fcfe}
+.new_win td{color:#678197;border-bottom:1px solid #e5eff8;border-left:1px solid #e5eff8;padding:.3em .1em;text-align:center}
+.new_win td.subject{text-align:left}
+.new_win th{font-weight:400;color:#678197;text-align:left;border-bottom:1px solid #e5eff8;border-left:1px solid #e5eff8;padding:.3em .1em}
+.new_win thead th{background:#f4f9fe;text-align:center;color:#66a3d3}
+.new_win tfoot th{text-align:center;background:#f4f9fe}
+.new_win tfoot th strong{margin:.5em .5em .5em 0;color:#66a3d3}
+.new_win tfoot th em{color:#f03b58;font-weight:700;font-size:1.1em;font-style:normal}
