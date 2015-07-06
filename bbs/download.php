@@ -64,7 +64,7 @@ if (!is_file($filepath) || !file_exists($filepath))
 // 이미 다운로드 받은 파일인지를 검사한 후 게시물당 한번만 포인트를 차감하도록 수정
 $ss_name = 'ss_down_'.$bo_table.'_'.$wr_id;
 
-if (g5_get_session($ss_name))
+if (!g5_get_session($ss_name))
 {
     // 자신의 글이라면 통과
     // 관리자인 경우 통과
