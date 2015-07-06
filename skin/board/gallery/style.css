@@ -320,7 +320,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 #bo_v_title {padding:10px 0;font-size:1.2em}
 
 #bo_v_info {padding:0 0 10px;border-bottom:1px solid #ddd}
-#bo_v_info h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#bo_v #bo_v_info h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #bo_v_info strong {display:inline-block;margin:0 15px 0 5px;font-weight:normal}
 #bo_v_info .sv_member,
 #bo_v_info .sv_guest,
@@ -362,7 +362,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 .bo_v_com li {float:left;margin-left:5px}
 
 #bo_v_atc {min-height:200px;height:auto !important;height:200px}
-#bo_v_atc_title {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#bo_v #bo_v_atc_title {position:absolute;font-size:0;line-height:0;overflow:hidden}
 
 #bo_v_img {margin:0 0 10px;width:100%;overflow:hidden;zoom:1}
 #bo_v_img:after {display:block;visibility:hidden;clear:both;content:""}
@@ -384,7 +384,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 
 /* 게시판 댓글 */
 #bo_vc {margin:0 0 20px;padding:20px 20px 10px;border:1px solid #e5e8ec;background:#f5f8f9}
-#bo_vc h2 {margin:0;margin-bottom:10px;font-size:1em}
+#bo_v #bo_vc h2 {margin:0;margin-bottom:10px;font-size:1em}
 #bo_vc article {padding:0 0 10px;border-top:1px dotted #ccc}
 #bo_vc header {position:relative;padding:15px 0 5px}
 #bo_vc header .icon_reply {position:absolute;top:15px;left:-20px}
@@ -405,7 +405,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 .bo_vc_act li {list-style:none !important;float:left;margin-left:5px}
 
 #bo_vc_w {position:relative;margin:0 0 10px;padding:0 0 20px;border-bottom:1px solid #cfded8}
-#bo_vc_w h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#bo_v #bo_vc_w h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 #bo_vc_w #char_cnt {display:block;margin:0 0 5px}
 
 
