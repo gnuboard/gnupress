@@ -25,7 +25,7 @@ if (isset($_POST['wr_subject'])) {
 }
 
 if ($wr_subject == '') {
-    $msg[] = '<strong>제목</strong>을 입력하세요.';
+    $msg[] = '제목을 입력하세요.';
 }
 
 $ca_name = '';
@@ -52,10 +52,10 @@ if (isset($_POST['wr_content'])) {
         $wr_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['wr_content'] ) ) );
     }
     $wr_content = preg_replace("#[\\\]+$#", "", $wr_content);
-}
-
-if ($wr_content == '') {
-    $msg[] = '<strong>내용</strong>을 입력하세요.';
+} else {
+    if( empty($_POST['wr_content']) ){  //is empty
+        $msg[] = '내용을 입력하세요.';
+    }
 }
 
 $wr_link1 = '';
@@ -74,7 +74,7 @@ if (isset($_POST['wr_link2'])) {
 
 $msg = implode('<br>', $msg);
 if ($msg) {
-    g5_alert($msg);
+    g5_alert(strip_tags($msg));
 }
 
 // 090710
