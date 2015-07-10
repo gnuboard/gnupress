@@ -343,7 +343,7 @@ Class GnuPress {
     }
 
     public function filter_the_content($content=''){
-        return $content.$this->g5_shortcode($this->attr);
+        return $content.$this->g5_shortcode($this->attr ,true);
     }
 
     public function g5_member_page_check($posts){
@@ -390,7 +390,7 @@ Class GnuPress {
     }
 
     // 게시판 관련 숏코드 실행
-    public function g5_shortcode($attr=''){
+    public function g5_shortcode($attr='', $is_setup_page=false){
 
         if( isset($attr['page_mode']) && in_array($attr['page_mode'], $this->member_page_array) ){
             return $this->g5_member_action( $attr );
@@ -406,9 +406,14 @@ Class GnuPress {
             $this->load($attr);
         }
         
-        if( $this->is_shortcode_load === false ){   //한 페이지에 shortcode 중복 방지
-            $this->is_shortcode_load = true;
+        if( $is_setup_page ){
+            $this->is_shortcode_load = true;    //페이지가 지정 되었으면 무조건 리턴한다.
             return $this->instances->shortcode();
+        } else {
+            if( $this->is_shortcode_load === false ){   //한 페이지에 shortcode 중복 방지
+                $this->is_shortcode_load = true;
+                return $this->instances->shortcode();
+            }
         }
     }
 

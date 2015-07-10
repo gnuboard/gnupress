@@ -3,9 +3,11 @@
 if ( ! class_exists( 'G5_Board' ) ) :
 
 class G5_Board extends G5_common {
+    
+    private $html = null;
 
     protected $view = array();
-
+    
     public $is_board_load_script = false;
 
     public function __construct( $attr='' ) {
@@ -91,8 +93,13 @@ class G5_Board extends G5_common {
         if( isset($attr['page_mode']) ){
             $this->request_action = $attr['page_mode'];     //게시물 복사 및 이동 및 새창에서 이루어 지는 작업
         }
+        
+        //중복으로 저장하는것을 막는다.
+        if( $this->html === null ){
+		    $this->html = $this->board_view();
+        }
 
-		return $this->board_view();
+        return $this->html;
 	}
 
     public function g5_board_value(){
