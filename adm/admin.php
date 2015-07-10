@@ -15,7 +15,9 @@ function g5_load_admin_js($v)
         }
     }
 	wp_enqueue_style ( 'g5-admin-css', G5_DIR_URL . 'view/css/g5_admin.css', '', G5_VERSION );
-    wp_script_add_data( 'html5-js', 'conditional', 'if lte IE 8' );
+    if( function_exists('wp_script_add_data') ){
+        wp_script_add_data( 'html5-js', 'conditional', 'if lte IE 8' );
+    }
 }
 
 function g5_tag_form(){
