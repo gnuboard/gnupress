@@ -4,7 +4,7 @@
  *  Description: 워드프레스 게시판 플러그인
  *  Author: SIR Soft
  *  Author URI: http://sir.co.kr
- *  Version: 0.1.3
+ *  Version: 0.1.4
  *  Text Domain: SIR Soft
  */
 
