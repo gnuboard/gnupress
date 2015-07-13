@@ -302,7 +302,7 @@ if ($is_guest) {
 
 $is_dhtml_editor = false;
 
-if ($config['cf_editor'] && $board['bo_use_dhtml_editor'] && $member['user_level'] >= $board['bo_html_level']) {
+if ($config['cf_editor'] && $board['bo_use_dhtml_editor']) {
     $is_dhtml_editor = true;
 }
 

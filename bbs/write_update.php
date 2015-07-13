@@ -44,10 +44,30 @@ if (isset($_POST['wp_html']) && $_POST['wp_html'] && $html ) {
     $wp_html = sanitize_text_field($_POST['wp_html']);
 }
 
+// youtube 나 video 때문에 allow tag 에 iframe 을 추가
+add_filter('wp_kses_allowed_html', 'g5_allow_tags', 15, 2);
+function g5_allow_tags($allow_tags, $context) {
+    if( $context == 'post' ){
+        $allow_tags += array(
+            'iframe' => array(
+            'width' => array(),
+            'height' => array(),
+            'frameborder' => array(),
+            'src' => array(),
+            'frameborder' => array(),
+            'marginwidth' => array(),
+            'marginheight' => array(),
+            'allowfullscreen' => array()
+            )
+        );
+    }
+    return $allow_tags;
+}
+
 $wr_content = '';
 if (isset($_POST['wr_content'])) {
     if($html){
-        $wr_content = wp_kses_post(trim($_POST['wr_content']));
+        $wr_content = sanitize_post_field('post_content', $_POST['wr_content'], $after_update['wr_page_id'], 'db');
     } else {
         $wr_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['wr_content'] ) ) );
     }
@@ -57,6 +77,8 @@ if (isset($_POST['wr_content'])) {
         $msg[] = '내용을 입력하세요.';
     }
 }
+
+remove_filter('wp_kses_allowed_html', 'g5_allow_tags', 15);
 
 $wr_link1 = '';
 if (isset($_POST['wr_link1'])) {

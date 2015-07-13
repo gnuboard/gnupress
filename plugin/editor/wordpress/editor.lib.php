@@ -17,7 +17,8 @@ function g5_editor_html($id, $content)
 // textarea 로 값을 넘긴다. javascript 반드시 필요
 function g5_get_editor_js($id)
 {
-    $js_code = "var {$id}_wp_editor = tinyMCE.get('$id');\n";
+    //$js_code = "var {$id}_wp_editor = tinyMCE.get('$id');\n";
+    $js_code = "var {$id}_wp_editor = tinyMCE.editors['$id'];\n";
     return $js_code;
 }
 
@@ -25,7 +26,7 @@ function g5_get_editor_js($id)
 //  textarea 의 값이 비어 있는지 검사
 function g5_chk_editor_js($id)
 {
-    return "if (!{$id}_wp_editor.getContent()) { alert(\"내용을 입력해 주십시오.\"); {$id}_wp_editor.focus(); return false; }\n";
+    return "jQuery('#{$id}-tmce').trigger('click');if (!jQuery.trim({$id}_wp_editor.getContent())) { alert(\"내용을 입력해 주십시오.\"); {$id}_wp_editor.focus(); return false; }\n";
     //return "if (!{$id}_editor.value) { alert(\"내용을 입력해 주십시오.\"); {$id}_editor.focus(); return false; }\n";
 }
 ?>
