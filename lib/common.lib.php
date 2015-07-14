@@ -1826,21 +1826,11 @@ function g5_get_editor_content($content){
 function g5_board_head_print($board, $wr_id=0){
     global $gnupress;
 
-    if (G5_IS_MOBILE) {
-        if($board['bo_mobile_content_head']){
-            if( $gnupress->config['cf_editor'] == 'wordpress' ){
-                echo g5_hook_conv_wp(stripslashes($board['bo_content_head']), $board['bo_content_head']);
-            } else {
-                echo stripslashes($board['bo_mobile_content_head']);
-            }
-        }
-    } else {
-        if($board['bo_content_head']){
-            if( $gnupress->config['cf_editor'] == 'wordpress' ){
-                echo g5_hook_conv_wp(stripslashes($board['bo_content_head']), $board['bo_content_head']);
-            } else {
-                echo stripslashes($board['bo_content_head']);
-            }
+    if($board['bo_content_head']){
+        if( $gnupress->config['cf_editor'] == 'wordpress' ){
+            echo g5_hook_conv_wp(stripslashes($board['bo_content_head']), $board['bo_content_head']);
+        } else {
+            echo stripslashes($board['bo_content_head']);
         }
     }
 
@@ -1851,21 +1841,11 @@ function g5_board_head_print($board, $wr_id=0){
 function g5_board_tail_print($board, $wr_id=0){
     global $gnupress;
 
-    if (G5_IS_MOBILE) {
-        if($board['bo_mobile_content_tail']){
-            if( $gnupress->config['cf_editor'] == 'wordpress' ){
-                echo g5_hook_conv_wp(stripslashes($board['bo_content_tail']), $board['bo_content_tail']);
-            } else {
-                echo stripslashes($board['bo_mobile_content_tail']);
-            }
-        }
-    } else {
-        if($board['bo_content_tail']){
-            if( $gnupress->config['cf_editor'] == 'wordpress' ){
-                echo g5_hook_conv_wp(stripslashes($board['bo_content_tail']), $board['bo_content_tail']);
-            } else {
-                echo stripslashes($board['bo_content_tail']);
-            }
+    if($board['bo_content_tail']){
+        if( $gnupress->config['cf_editor'] == 'wordpress' ){
+            echo g5_hook_conv_wp(stripslashes($board['bo_content_tail']), $board['bo_content_tail']);
+        } else {
+            echo stripslashes($board['bo_content_tail']);
         }
     }
 
