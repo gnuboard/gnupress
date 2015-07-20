@@ -39,7 +39,7 @@ else {
 $sql = "select * from {$g5['board_table']} a ";
 
 if ($is_admin == 'board'){
-    $sql .= $wpdb->prepare(" and a.bo_admin = '%s' ", $member['user_id']);
+    $sql .= $wpdb->prepare(" where a.bo_admin = '%s' ", $member['user_login']);
 }
 
 $rows = $wpdb->get_results($sql, ARRAY_A);

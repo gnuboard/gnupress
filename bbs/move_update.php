@@ -9,7 +9,7 @@ if( !isset($bo_table) ){
     wp_die( __('bo_table값이 없습니다.', G5_NAME) );
 }
 
-$act = isset($_POST['act']) ? $_POST['act'] : '';
+$act = isset($_POST['act']) ? sanitize_text_field($_POST['act']) : '';
 
 //g5_move_update.class.php
 include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );
@@ -28,7 +28,15 @@ if(!count($_POST['chk_bo_table']))
 $check_arr = array('wr_id_list');
 
 foreach($check_arr as $v){
-    $$v = isset($_REQUEST[$v]) ? sanitize_text_field(trim($_REQUEST[$v])) : '';
+    if( $v == 'wr_id_list' ){
+        $$v = isset($_REQUEST[$v]) ? array_filter( explode( ',', sanitize_text_field($_REQUEST[$v]) ) ) : '';
+    } else {
+        $$v = isset($_REQUEST[$v]) ? sanitize_text_field(trim($_REQUEST[$v])) : '';
+    }
+}
+
+if( !is_array($wr_id_list) ){
+    $wr_id_list = explode(',' , $wr_id_list);
 }
 
 unset($check_arr);
@@ -38,13 +46,13 @@ $bo_tables = array($bo_table);
 $save_count_write = 0;
 $save_count_comment = 0;
 
-$sql = $wpdb->prepare(" select distinct wr_num from `$write_table` where wr_id in ( %s ) order by wr_id ", $wr_id_list);
+$sql = $wpdb->prepare(" select distinct wr_num from `$write_table` where wr_id in (". str_repeat("%d,", count($wr_id_list)-1) . "%d) order by wr_id ", $wr_id_list);
 $rows = $wpdb->get_results($sql, ARRAY_A);
 
 foreach( $rows as $row ){
     $wr_num = $row['wr_num'];
     foreach( $_POST['chk_bo_table'] as $bo ){
-        $move_bo_table = $bo;
+        $move_bo_table = sanitize_key($bo);
 
         $bo_tables[] = $move_bo_table;
 

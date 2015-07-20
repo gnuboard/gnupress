@@ -40,8 +40,8 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
     else if ($is_admin == 'board') // 게시판관리자이면
     {
         $mb = g5_get_member($write['user_id']);
-        if ($member['user_id'] == $board['bo_admin']) // 자신이 관리하는 게시판인가?
-            if ($member['mb_level'] >= $mb['mb_level']) // 자신의 레벨이 크거나 같다면 통과
+        if ($member['user_login'] == $board['bo_admin']) // 자신이 관리하는 게시판인가?
+            if ($member['user_level'] >= $mb['user_level']) // 자신의 레벨이 크거나 같다면 통과
                 ;
             else
                 continue;

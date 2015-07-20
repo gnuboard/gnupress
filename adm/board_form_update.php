@@ -206,7 +206,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                             'bo_comment_min',
                             'bo_comment_max',
                             'bo_sort_field',
-                            'bo_use_tag'
+                            'bo_use_tag',
+                            'bo_admin'
             );
 
             $formats = array(
@@ -272,6 +273,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     '%d',
                     '%d',
                     '%s',   //bo_sort_field
+                    '%s',
                     '%s'
                 );
             $data = array();

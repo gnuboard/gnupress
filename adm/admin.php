@@ -172,6 +172,7 @@ function g5_config_form_update(){
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
+    $config = $gnupress->config;
 
     $pages = $tmp_config = array();
 
@@ -197,6 +198,11 @@ function g5_config_form_update(){
         if( $page_id = g5_get_page_id(g5_page_get_by($b['bo_table'],'name')) ){
             $pages[$b['bo_table']] = $page_id;
         }
+    }
+
+    //버젼이 틀리면 업데이트를 체크한다.
+    if( G5_VERSION != $config['version'] ){
+        include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
     }
 
     $options = array('version'=>G5_VERSION, 'board_page'=>$pages, 'config'=>$tmp_config);

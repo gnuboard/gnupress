@@ -115,6 +115,16 @@ class G5_common {
         }
     }
 
+    public function g5_is_board_admin( $is_admin, $board, $member){
+        if( $is_admin == 'super' ){
+            return $is_admin;
+        }
+
+        if (isset($board['bo_admin']) && isset($member['user_login']) && ($board['bo_admin'] == $member['user_login'])) return 'board';
+
+        return '';
+    }
+
     public function g5_global_value(){
         global $gnupress;
 
@@ -127,7 +137,7 @@ class G5_common {
             'page' => isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 0,
             'board' => $this->board,
             'member' => $this->member,
-            'is_admin' => $this->is_admin,
+            'is_admin' => $this->g5_is_board_admin($this->is_admin, $this->board, $this->member),
             'is_guest' => $this->is_guest,
 			'is_member' => $this->is_member,
             'write' => array(),

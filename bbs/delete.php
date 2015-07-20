@@ -14,9 +14,9 @@ if ($is_admin == 'super') // 최고관리자 통과
     ;
 else if ($is_admin == 'board') { // 게시판관리자이면
     $mb = g5_get_member($write['user_id']);
-    if ($member['user_id'] != $board['bo_admin']) // 자신이 관리하는 게시판인가?
+    if ($member['user_login'] != $board['bo_admin']) // 자신이 관리하는 게시판인가?
         g5_alert('자신이 관리하는 게시판이 아니므로 삭제할 수 없습니다.');
-    else if ($member['mb_level'] < $mb['mb_level']) // 자신의 레벨이 크거나 같다면 통과
+    else if ($member['user_level'] < $mb['user_level']) // 자신의 레벨이 크거나 같다면 통과
         g5_alert('자신의 권한보다 높은 권한의 회원이 작성한 글은 삭제할 수 없습니다.');
 } else if ($member['user_id']) {
     if ($member['user_id'] != $write['user_id'])

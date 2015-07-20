@@ -317,7 +317,7 @@ if ($w == '' || $w == 'r') {
         ;
     else if ($is_admin == 'board') { // 게시판관리자이면
         $mb = g5_get_member($write['user_id']);
-        if ($member['user_id'] != $board['bo_admin']) // 자신이 관리하는 게시판인가?
+        if ($member['user_login'] != $board['bo_admin']) // 자신이 관리하는 게시판인가?
             g5_alert('자신이 관리하는 게시판이 아니므로 수정할 수 없습니다.', $return_url);
         else if ($member['user_level'] < $mb['user_level']) // 자신의 레벨이 크거나 같다면 통과
             g5_alert('자신의 권한보다 높은 권한의 회원이 작성한 글은 수정할 수 없습니다.', $return_url);

@@ -172,7 +172,7 @@ if(!empty($notice_array)) {
 
 // 관리자라면 CheckBox 보임
 $is_checkbox = false;
-if ($is_member && ($is_admin == 'super' || $board['bo_admin'] == $member['user_id']))
+if ($is_member && ($is_admin == 'super' || $is_admin == 'board'))
     $is_checkbox = true;
 
 // 정렬에 사용하는 QUERY_STRING
