@@ -277,7 +277,7 @@ Class GnuPress {
         $this->term_list = _g5_get_list_table('G5_Terms_List_Table', $this->taxonomy, $bo_table);
     }
 
-    public function check_g5_page($posts){
+    public function check_g5_page($posts, $check_end=false){
 
         $g5_options = get_option(G5_OPTION_KEY);
 
@@ -285,6 +285,9 @@ Class GnuPress {
             include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
         }
 
+        if( $check_end ){
+            return;
+        }
         $is_g5_page = false;
 
         if( $is_g5_page = $this->g5_member_page_check($posts) ){
@@ -590,7 +593,9 @@ Class GnuPress {
 
         do_action( 'g5_pre_admin_init', $this );
 
-        if( current_user_can( 'edit_users' ) ) {
+        if( is_admin() && current_user_can( 'edit_users' ) ) {
+
+            $this->check_g5_page('', true);
             if( $this->config['cf_editor'] ){
                 //에디터를 사용할 경우 처리
                 include_once( G5_DIR_PATH.'plugin/editor/'.$this->config['cf_editor'].'/editor.lib.php' );
