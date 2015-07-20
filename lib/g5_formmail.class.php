@@ -5,6 +5,7 @@ if ( ! class_exists( 'G5_formmail' ) ) :
 class G5_formmail extends G5_common {
 
     public $gaction;
+    public $html = null;
 
     public function __construct( $attr='' ) {
 
@@ -40,7 +41,12 @@ class G5_formmail extends G5_common {
             $this->request_action = $this->attr['page_mode'];     //formmail
         }
 
-		return $this->formmail_view();
+        //중복으로 저장하는것을 막는다.
+        if( $this->html === null ){
+		    $this->html = $this->formmail_view();
+        }
+
+        return $this->html;
 	}
 
     public function formmail_view( $action = '' ) {

@@ -4,6 +4,7 @@ if ( ! class_exists( 'G5_point' ) ) :
 
 class G5_point extends G5_common {
 
+    public $html = null;
     public function __construct( $attr='' ) {
 
         parent::__construct( $attr );
@@ -19,8 +20,12 @@ class G5_point extends G5_common {
         if( isset($attr['page_mode']) ){
             $this->request_action = $attr['page_mode'];     //point
         }
+        //중복으로 저장하는것을 막는다.
+        if( $this->html === null ){
+		    $this->html = $this->point_view();
+        }
 
-		return $this->point_view();
+        return $this->html;
 	}
 
     public function memeber_view ( $action = '' ){

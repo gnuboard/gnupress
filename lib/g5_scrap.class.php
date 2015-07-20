@@ -8,6 +8,7 @@ class G5_scrap extends G5_common {
     private $ms_id;
 
     public $current_url;
+    public $html = null;
 
     public function __construct( $attr='' ) {
 
@@ -75,7 +76,12 @@ class G5_scrap extends G5_common {
             $this->request_action = $this->attr['page_mode'];     //point
         }
 
-		return $this->scrap_view();
+        //중복으로 저장하는것을 막는다.
+        if( $this->html === null ){
+		    $this->html = $this->scrap_view();
+        }
+
+        return $this->html;
 	}
 
     public function scrap_view( $action = '' ) {
