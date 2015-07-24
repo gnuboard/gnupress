@@ -11,6 +11,7 @@ include_once(G5_DIR_PATH.'lib/naver_syndi.lib.php');
 $g5['title'] = '게시글 저장';
 
 $g5_data_path = g5_get_upload_path();
+$g5_data_url = g5_get_upload_path('url');
 $after_update = $after_formats = array();
 $after_update['wr_page_id'] = get_the_ID();
 $after_formats[] = '%d';
@@ -455,18 +456,26 @@ if( $g5_data_path ){
         else
             $upload[$i]['del_check'] = false;
 
-        $tmp_file  = $_FILES['bf_file']['tmp_name'][$i];
-        $filesize  = $_FILES['bf_file']['size'][$i];
-        $filename  = $_FILES['bf_file']['name'][$i];
+		$g5_tmp = apply_filters('wp_handle_upload_prefilter', array(
+				'name' => $_FILES['bf_file']['name'][$i],
+				'type' => $_FILES['bf_file']['type'][$i],
+				'tmp_name' => $_FILES['bf_file']['tmp_name'][$i],
+				'error' => $_FILES['bf_file']['error'][$i],
+				'size' => $_FILES['bf_file']['size'][$i]
+			));
+
+        $tmp_file  = $g5_tmp['tmp_name'];
+        $filesize  = $g5_tmp['size'];
+        $filename  = $g5_tmp['name'];
         $filename  = g5_get_safe_filename($filename);
 
         // 서버에 설정된 값보다 큰파일을 업로드 한다면
         if ($filename) {
-            if ($_FILES['bf_file']['error'][$i] == 1) {
+            if ($g5_tmp['error'] == 1) {
                 $file_upload_msg .= '\"'.$filename.'\" 파일의 용량이 서버에 설정('.$upload_max_filesize.')된 값보다 크므로 업로드 할 수 없습니다.\\n';
                 continue;
             }
-            else if ($_FILES['bf_file']['error'][$i] != 0) {
+            else if ($g5_tmp['error'] != 0) {
                 $file_upload_msg .= '\"'.$filename.'\" 파일이 정상적으로 업로드 되지 않았습니다.\\n';
                 continue;
             }
@@ -515,6 +524,8 @@ if( $g5_data_path ){
 
             // 아래의 문자열이 들어간 파일은 -x 를 붙여서 웹경로를 알더라도 실행을 하지 못하도록 함
             $filename = preg_replace("/\.(php|phtm|htm|cgi|pl|exe|jsp|asp|inc)/i", "$0-x", $filename);
+			
+			$filename = wp_unique_filename( $g5_data_path.'/file/'.$bo_table.'/', $filename );
 
             shuffle($chars_array);
             $shuffle = implode('', $chars_array);
@@ -523,9 +534,16 @@ if( $g5_data_path ){
             $upload[$i]['file'] = abs(ip2long($_SERVER['REMOTE_ADDR'])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename)));
 
             $dest_file = $g5_data_path.'/file/'.$bo_table.'/'.$upload[$i]['file'];
+			$data_file_url = $g5_data_url.'/file/'.$bo_table.'/'.$upload[$i]['file'];
 
             // 업로드가 안된다면 에러메세지 출력하고 죽어버립니다.
             $error_code = move_uploaded_file($tmp_file, $dest_file) or die($_FILES['bf_file']['error'][$i]);
+
+			$tmp_g5file = apply_filters( 'wp_handle_upload', array(
+							'file' => $dest_file,
+							'url'  => $data_file_url,
+							'type' => $g5_tmp['type']
+						), 'upload' );
 
             // 올라간 파일의 퍼미션을 변경합니다.
             chmod($dest_file, G5_FILE_PERMISSION);
