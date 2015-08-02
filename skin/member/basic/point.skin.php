@@ -7,14 +7,14 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
     <div class="tbl_head01 tbl_wrap">
         <table>
-        <caption>포인트 사용내역 목록</caption>
+        <caption><?php _e('Point History List', 'gnupress');?></caption>
         <thead>
         <tr>
-            <th scope="col">일시</th>
-            <th scope="col">내용</th>
-            <th scope="col">만료일</th>
-            <th scope="col">지급포인트</th>
-            <th scope="col">사용포인트</th>
+            <th scope="col"><?php _e('date', 'gnupress');?></th>
+            <th scope="col"><?php _e('description', 'gnupress');?></th>
+            <th scope="col"><?php _e('expire date', 'gnupress');?></th>
+            <th scope="col"><?php _e('payments Point', 'gnupress');	//지급포인트?></th>
+            <th scope="col"><?php _e('using Points', 'gnupress');	//사용포인트?></th>
         </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             <td><?php echo $po_content; ?></td>
             <td class="td_date<?php echo $expr; ?>">
                 <?php if ($row['po_expired'] == 1) { ?>
-                만료<?php echo substr(str_replace('-', '', $row['po_expire_date']), 2); ?>
+                <?php _e('expire', 'gnupress');?><?php echo substr(str_replace('-', '', $row['po_expire_date']), 2); ?>
                 <?php } else echo $row['po_expire_date'] == '9999-12-31' ? '&nbsp;' : $row['po_expire_date']; ?>
             </td>
             <td class="td_numbig"><?php echo $point1; ?></td>
@@ -52,7 +52,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         }
 
         if ( !count($rows) )
-            echo '<tr><td colspan="5" class="empty_table">자료가 없습니다.</td></tr>';
+            echo '<tr><td colspan="5" class="empty_table">'.__('No Contents.', 'gnupress').'</td></tr>';
         else {
             if ($sum_point1 > 0)
                 $sum_point1 = "+" . number_format($sum_point1);
@@ -62,12 +62,12 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         </tbody>
         <tfoot>
         <tr>
-            <th scope="row" colspan="3">소계</th>
+            <th scope="row" colspan="3"><?php _e('Subtotal', 'gnupress');?></th>
             <td><?php echo $sum_point1; ?></td>
             <td><?php echo $sum_point2; ?></td>
         </tr>
         <tr>
-            <th scope="row" colspan="3">보유포인트</th>
+            <th scope="row" colspan="3"><?php _e('Hold point', 'gnupress');	//보유포인트?></th>
             <td colspan="2"><?php echo number_format($member['mb_point']); ?></td>
         </tr>
         </tfoot>
@@ -84,5 +84,5 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     echo g5_get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['cf_write_pages'], $page, $total_page, $get_paging_url );
     ?>
 
-    <div class="win_btn"><button type="button" onclick="javascript:window.close();">창닫기</button></div>
+    <div class="win_btn"><button type="button" onclick="javascript:window.close();"><?php _e('Close', 'gnupress');?></button></div>
 </div>

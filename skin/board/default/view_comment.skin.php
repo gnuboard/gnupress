@@ -11,7 +11,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 
 <!-- 댓글 시작 { -->
 <section id="bo_vc">
-    <h2>댓글목록</h2>
+    <h2><?php _e('Comment List', 'gnupress'); //댓글목록?></h2>
     <?php
     $cmt_amt = count($list);
     for ($i=0; $i<$cmt_amt; $i++) {
@@ -25,7 +25,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 
     <article id="c_<?php echo $comment_id ?>" <?php if ($cmt_depth) { ?>style="margin-left:<?php echo $cmt_depth ?>px;border-top-color:#e0e0e0"<?php } ?>>
         <header style="z-index:<?php echo $cmt_sv; ?>">
-            <h1><?php echo g5_get_text($list[$i]['user_display_name']); ?>님의 댓글</h1>
+            <h1><?php echo g5_get_text($list[$i]['user_display_name']); ?><?php _e('\'S comments', 'gnupress');   //님의 댓글?></h1>
             <?php echo $list[$i]['name'] ?>
             <?php if ($cmt_depth) { ?><img src="<?php echo $board_skin_url ?>/img/icon_reply.gif" class="icon_reply" alt="댓글의 댓글"><?php } ?>
             <?php if ($is_ip_view) { ?>
@@ -38,7 +38,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 
         <!-- 댓글 출력 -->
         <p>
-            <?php if (strstr($list[$i]['cm_option'], "secret")) { ?><img src="<?php echo $board_skin_url; ?>/img/icon_secret.gif" alt="비밀글"><?php } ?>
+            <?php if (strstr($list[$i]['cm_option'], "secret")) { ?><img src="<?php echo $board_skin_url; ?>/img/icon_secret.gif" alt="<?php _e('Secret', 'gnupress'); ?>"><?php } ?>
             <?php echo $comment ?>
         </p>
 
@@ -61,15 +61,15 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
          ?>
         <footer>
             <ul class="bo_vc_act">
-                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo esc_url( $c_reply_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;" class="no-ajaxy">답변</a></li><?php } ?>
-                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo esc_url( $c_edit_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;" class="no-ajaxy">수정</a></li><?php } ?>
-                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo esc_url( $list[$i]['del_link'] ); ?>" onclick="return g5_view_cm.comment_delete();" class="no-ajaxy">삭제</a></li><?php } ?>
+                <?php if ($list[$i]['is_reply']) { ?><li><a href="<?php echo esc_url( $c_reply_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'c'); return false;" class="no-ajaxy"><?php _e('Reply', 'gnupress'); ?></a></li><?php } ?>
+                <?php if ($list[$i]['is_edit']) { ?><li><a href="<?php echo esc_url( $c_edit_href ); ?>" onclick="g5_view_cm.comment_box('<?php echo $comment_id ?>', 'cu'); return false;" class="no-ajaxy"><?php _e('Modify', 'gnupress'); ?></a></li><?php } ?>
+                <?php if ($list[$i]['is_del'])  { ?><li><a href="<?php echo esc_url( $list[$i]['del_link'] ); ?>" onclick="return g5_view_cm.comment_delete();" class="no-ajaxy"><?php _e('Delete', 'gnupress'); ?></a></li><?php } ?>
             </ul>
         </footer>
         <?php } ?>
     </article>
     <?php } ?>
-    <?php if ($i == 0) { //댓글이 없다면 ?><p id="bo_vc_empty">등록된 댓글이 없습니다.</p><?php } ?>
+    <?php if ($i == 0) { //댓글이 없다면 ?><p id="bo_vc_empty"><?php _e('No comments', 'gnupress');    //등록된 댓글이 없습니다.?></p><?php } ?>
 
 </section>
 <!-- } 댓글 끝 -->
@@ -80,7 +80,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 ?>
 <!-- 댓글 쓰기 시작 { -->
 <aside id="bo_vc_w">
-    <h2>댓글쓰기</h2>
+    <h2><?php _e('Write a comment', 'gnupress'); ?></h2>
     <form name="fviewcomment" id="fviewcomment" action="<?php $comment_action_url; ?>" onsubmit="return g5_view_cm.fviewcomment_submit(this);" method="post" autocomplete="off">
     <?php wp_nonce_field( 'g5_comment_write', 'g5_nonce_field' ); ?>
     <input type="hidden" name="g5_rq" value="g5">
@@ -101,31 +101,31 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
         <tbody>
         <?php if ($is_guest) { ?>
         <tr>
-            <th scope="row"><label for="user_name">이름<strong class="sound_only"> 필수</strong></label></th>
+            <th scope="row"><label for="user_name"><?php _e('Name', 'gnupress');?><strong class="sound_only"> <?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="text" name="user_name" value="<?php echo esc_attr( g5_get_cookie("ck_sns_name") ); ?>" id="user_name" required class="frm_input required" size="10" maxLength="20"></td>
         </tr>
         <tr>
-            <th scope="row"><label for="user_pass">비밀번호<strong class="sound_only"> 필수</strong></label></th>
+            <th scope="row"><label for="user_pass"><?php _e('Password', 'gnupress');?><strong class="sound_only"> <?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="password" name="user_pass" id="user_pass" required class="frm_input required" size="10" maxLength="20"></td>
         </tr>
         <?php } ?>
         <tr>
-            <th scope="row"><label for="cm_secret">비밀글사용</label></th>
+            <th scope="row"><label for="cm_secret"><?php _e('Use secret', 'gnupress');    //비밀글사용?></label></th>
             <td><input type="checkbox" name="cm_secret" value="secret" id="cm_secret"></td>
         </tr>
         <?php if ($is_guest) { ?>
         <tr>
-            <th scope="row">자동등록방지</th>
+            <th scope="row"><?php _e('Captcha', 'gnupress');    //자동등록방지?></th>
             <td><?php echo $captcha_html; ?></td>
         </tr>
         <?php } ?>
         <tr>
-            <th scope="row">내용</th>
+            <th scope="row"><?php _e('Content', 'gnupress');    //내용?></th>
             <td>
-                <?php if ($comment_min || $comment_max) { ?><strong id="char_cnt"><span id="char_count"></span>글자</strong><?php } ?>
+                <?php if ($comment_min || $comment_max) { ?><strong id="char_cnt"><span id="char_count"></span> <?php _e('Length', 'gnupress');    //글자?></strong><?php } ?>
                 <textarea id="cm_content" name="cm_content" maxlength="10000" required class="required" title="내용"
-                <?php if ($comment_min || $comment_max) { ?>onkeyup="check_byte('cm_content', 'char_count');"<?php } ?>><?php echo $cm_content;  ?></textarea>
-                <?php if ($comment_min || $comment_max) { ?><script> check_byte('cm_content', 'char_count'); </script><?php } ?>
+                <?php if ($comment_min || $comment_max) { ?>onkeyup="g5_check_byte('cm_content', 'char_count');"<?php } ?>><?php echo $cm_content;  ?></textarea>
+                <?php if ($comment_min || $comment_max) { ?><script> g5_check_byte('cm_content', 'char_count'); </script><?php } ?>
                 <script>
                 (function($){
                     $("form[name=fviewcomment]").on("textarea#cm_content[maxlength]", "keyup change", function() {
@@ -145,7 +145,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
     </div>
 
     <div class="btn_confirm">
-        <input type="submit" id="btn_submit" class="btn_submit" value="댓글등록">
+        <input type="submit" id="btn_submit" class="btn_submit" value="<?php _e('Submit', 'gnupress');    //댓글등록?>">
     </div>
 
     </form>
@@ -196,7 +196,7 @@ var g5_view_cm = {
         });
 
         if (content) {
-            alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
+            alert("<?php _e('Content contains forbidden words : ', 'gnupress');?>'"+content);
             f.cm_content.focus();
             return false;
         }
@@ -206,21 +206,21 @@ var g5_view_cm = {
         document.getElementById('cm_content').value = document.getElementById('cm_content').value.replace(pattern, "");
         if (char_min > 0 || char_max > 0)
         {
-            check_byte('cm_content', 'char_count');
+            g5_check_byte('cm_content', 'char_count');
             var cnt = parseInt(document.getElementById('char_count').innerHTML);
             if (char_min > 0 && char_min > cnt)
             {
-                alert("댓글은 "+char_min+"글자 이상 쓰셔야 합니다.");
+                alert( gnupress.sprintf("<?php _e('You must write at least %d words', 'gnupress');?>", char_min) );     //char_min+"글자 이상 쓰셔야 합니다."
                 return false;
             } else if (char_max > 0 && char_max < cnt)
             {
-                alert("댓글은 "+char_max+"글자 이하로 쓰셔야 합니다.");
+                alert(gnupress.sprintf("<?php _e('You must write %d letters or less.', 'gnupress');?>", char_max) );   //char_max+"글자 이하로 쓰셔야 합니다."
                 return false;
             }
         }
         else if (!document.getElementById('cm_content').value)
         {
-            alert("댓글을 입력하여 주십시오.");
+            alert("<?php _e('Please Enter a Comment.', 'gnupress');?>");     //댓글을 입력하여 주십시오.
             return false;
         }
 
@@ -229,7 +229,7 @@ var g5_view_cm = {
             f.user_name.value = f.user_name.value.replace(pattern, "");
             if (f.user_name.value == '')
             {
-                alert('이름이 입력되지 않았습니다.');
+                alert("<?php _e('Please enter your name.', 'gnupress');?>");   //이름을 입력하세요.
                 f.user_name.focus();
                 return false;
             }
@@ -240,7 +240,7 @@ var g5_view_cm = {
             f.user_pass.value = f.user_pass.value.replace(pattern, "");
             if (f.user_pass.value == '')
             {
-                alert('비밀번호가 입력되지 않았습니다.');
+                alert("<?php _e('Please enter a password.', 'gnupress');?>");   //비밀번호를 입력하세요.
                 f.user_pass.focus();
                 return false;
             }
@@ -290,7 +290,7 @@ var g5_view_cm = {
             {
                 document.getElementById('cm_content').value = document.getElementById('save_comment_' + comment_id).value;
                 if (typeof char_count != 'undefined')
-                    check_byte('cm_content', 'char_count');
+                    g5_check_byte('cm_content', 'char_count');
                 if (document.getElementById('secret_comment_'+comment_id).value)
                     document.getElementById('cm_secret').checked = true;
                 else
@@ -306,7 +306,7 @@ var g5_view_cm = {
 
     g5_view_cm.comment_delete = function()
     {
-        return confirm("이 댓글을 삭제하시겠습니까?");
+        return confirm("<?php _e('Are you want to delete this comment?', 'gnupress');?>");  //댓글을 삭제하시겠습니까?
     }
 
 })(jQuery);

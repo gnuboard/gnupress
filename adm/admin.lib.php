@@ -30,7 +30,7 @@ function g5_get_skin_select($skin_gubun, $id, $name, $selected='', $event='')
     $skins = g5_get_skin_dir($skin_gubun);
     $str = "<select id=\"$id\" name=\"$name\" $event>\n";
     for ($i=0; $i<count($skins); $i++) {
-        if ($i == 0) $str .= "<option value=\"\">선택</option>";
+        if ($i == 0) $str .= "<option value=\"\">".__('— Select —', 'gnupress')."</option>";
         $str .= g5_option_selected($skins[$i], $selected);
     }
     $str .= "</select>";
@@ -85,7 +85,7 @@ function g5_mk_page($data=array()){
     $page_action = g5_page_get_by($data['bo_table'], 'name');
     if ( ! $page = g5_get_page_id( $page_action ) ) {
         $page_id = wp_insert_post( array(
-            'post_title'     => isset($data['bo_subject']) ? $data['bo_subject'] : __('그누보드5', G5_NAME),
+            'post_title'     => isset($data['bo_subject']) ? $data['bo_subject'] : __('GNUPress', G5_NAME),
             'post_name'      => $data['bo_subject'],
             'post_status'    => 'publish',
             'post_type'      => 'page',

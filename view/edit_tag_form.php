@@ -115,7 +115,7 @@ do_action( "{$taxonomy}_term_edit_form_tag" );
 			<th scope="row"><label for="description"><?php _e( 'Description' ); ?></label></th>
 			<td><textarea name="description" id="description" rows="5" cols="50" class="large-text"><?php echo $tag->description; // textarea_escaped ?></textarea>
 			    <p class="description">
-                <?php echo __('* 태그 수정시 워드프레스 의 태그와 카테고리에 동일한 이름이 있을 경우 같이 수정됩니다.', G5_NAME); ?>
+                <?php echo __('* If exists same name on the tag or category of WordPress, It will be modified equally.', G5_NAME);     //워드프레스 의 태그와 카테고리에 동일한 이름이 있을 경우 똑같이 수정됩니다. ?>
                 </p>
             </td>
 		</tr>

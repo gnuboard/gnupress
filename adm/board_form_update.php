@@ -25,7 +25,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
             $act_buttion_title = sanitize_text_field($_POST['act_button']);
 
-            if ($act_buttion_title == "선택수정") {
+            if ($act_buttion_title == __('choose-Modify', 'gnupress') ) {
 
                 for ($i=0, $post_count = count($chk); $i<$post_count; $i++) {
                     // 실제 번호를 넘김
@@ -57,7 +57,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     }
                 }
 
-            } else if ($act_buttion_title == "선택삭제") {
+            } else if ($act_buttion_title == __('choose-Delete', 'gnupress')) {
                 if ($is_admin != 'super')
                     g5_alert(__('게시판 삭제는 최고관리자만 가능합니다.', G5_NAME));
 

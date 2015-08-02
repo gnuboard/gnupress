@@ -123,8 +123,8 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
             <td>
                 <?php if ($comment_min || $comment_max) { ?><strong id="char_cnt"><span id="char_count"></span>글자</strong><?php } ?>
                 <textarea id="cm_content" name="cm_content" maxlength="10000" required class="required" title="내용"
-                <?php if ($comment_min || $comment_max) { ?>onkeyup="check_byte('cm_content', 'char_count');"<?php } ?>><?php echo $cm_content; ?></textarea>
-                <?php if ($comment_min || $comment_max) { ?><script> check_byte('cm_content', 'char_count'); </script><?php } ?>
+                <?php if ($comment_min || $comment_max) { ?>onkeyup="g5_check_byte('cm_content', 'char_count');"<?php } ?>><?php echo $cm_content; ?></textarea>
+                <?php if ($comment_min || $comment_max) { ?><script> g5_check_byte('cm_content', 'char_count'); </script><?php } ?>
                 <script>
                 (function($){
                     $("form[name=fviewcomment]").on("textarea#cm_content[maxlength]", "keyup change", function() {
@@ -205,7 +205,7 @@ var g5_view_cm = {
         document.getElementById('cm_content').value = document.getElementById('cm_content').value.replace(pattern, "");
         if (char_min > 0 || char_max > 0)
         {
-            check_byte('cm_content', 'char_count');
+            g5_check_byte('cm_content', 'char_count');
             var cnt = parseInt(document.getElementById('char_count').innerHTML);
             if (char_min > 0 && char_min > cnt)
             {
@@ -289,7 +289,7 @@ var g5_view_cm = {
             {
                 document.getElementById('cm_content').value = document.getElementById('save_comment_' + comment_id).value;
                 if (typeof char_count != 'undefined')
-                    check_byte('cm_content', 'char_count');
+                    g5_check_byte('cm_content', 'char_count');
                 if (document.getElementById('secret_comment_'+comment_id).value)
                     document.getElementById('cm_secret').checked = true;
                 else

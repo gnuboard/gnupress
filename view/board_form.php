@@ -10,23 +10,23 @@ $thumbnail_delete_url = home_url(add_query_arg( array('g5_rq'=>'board_thumbnail_
 $readonly = '';
 $sound_only = '';
 $pg_anchor = '<ul class="anchor">
-    <li><a href="#anc_bo_basic">기본 설정</a></li>
-    <li><a href="#anc_bo_auth">권한 설정</a></li>
-    <li><a href="#anc_bo_function">기능 설정</a></li>
-    <li><a href="#anc_bo_design">디자인/양식</a></li>
-    <li><a href="#anc_bo_point">포인트 설정</a></li>
+    <li><a href="#anc_bo_basic">'.__('Defalut Setting', 'gnupress').'</a></li>
+    <li><a href="#anc_bo_auth">'.__('Setting authority', 'gnupress').'</a></li>
+    <li><a href="#anc_bo_function">'.__('Setting Function', 'gnupress').'</a></li>
+    <li><a href="#anc_bo_design">'.__('Design and style', 'gnupress').'</a></li>
+    <li><a href="#anc_bo_point">'.__('Setting Point', 'gnupress').'</a></li>
 </ul>';
 
 $frm_submit = '<div class="btn_confirm">
-    <input type="submit" value="확인" class="btn btn-primary" accesskey="s">
-    <a href="'.$list_page_url.'" class="btn btn-info">목록</a>'.PHP_EOL;
+    <input type="submit" value="'.__('Submit', 'gnupress').'" class="btn btn-primary" accesskey="s">
+    <a href="'.$list_page_url.'" class="btn btn-info">'.__('Go List', 'gnupress').'</a>'.PHP_EOL;
 
 if ($w == 'u'){
-    $frm_submit .= ' <button class="btn btn-info board_copy" title="게시판복사" >게시판복사</button>';
+    $frm_submit .= ' <button class="btn btn-info board_copy" title="'.__('Copy board', 'gnupress').'" >'.__('Copy board', 'gnupress').'</button>';
     if($bbs_direct_url){
-        $frm_submit .= ' <a href="'.$bbs_direct_url.'" class="btn btn-info">게시판 바로가기</a>';
+        $frm_submit .= ' <a href="'.$bbs_direct_url.'" class="btn btn-info">'.__('Go direct bbs', 'gnupress').'</a>';
     }
-    $frm_submit .= ' <a href="'.$thumbnail_delete_url.'" class="btn btn-info" onclick="return delete_confirm2(\'게시판 썸네일 파일을 삭제하시겠습니까?\');">게시판 썸네일 삭제</a>'.PHP_EOL;
+    $frm_submit .= ' <a href="'.$thumbnail_delete_url.'" class="btn btn-info" onclick="return delete_confirm2(\''.__('Are you sure you want to delete the thumbnail files?', 'gnupress').'\');">'.__('Thumbnail delete', 'gnupress').'</a>'.PHP_EOL;
 }
 $frm_submit .= '</div>';
 
@@ -58,12 +58,12 @@ foreach( $chk_fields_array as $key=>$v ){
 <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
 
 <section id="anc_bo_basic">
-    <h2 class="h2_frm">게시판 기본 설정</h2>
+    <h2 class="h2_frm"><?php _e('BBS default setting', 'gnupress');?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table class="table-bordered table-striped table-condensed">
-        <caption>게시판 기본 설정</caption>
+        <caption><?php _e('BBS default setting', 'gnupress');?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -75,48 +75,48 @@ foreach( $chk_fields_array as $key=>$v ){
             <td colspan="2">
                 <input type="text" name="bo_table" value="<?php echo $board['bo_table'] ?>" id="bo_table" <?php echo $required ?> <?php echo $readonly ?> class="frm_input <?php echo $readonly ?> <?php echo $required ?> <?php //echo $required_valid ?>" maxlength="20">
                 <?php if ($w == '') { ?>
-                    영문자, 숫자, _ 만 가능 (공백없이 20자 이내)
+                    <?php _e('Allowed characters Alphabetic and Number and underbar( no whitespace with 20 characters limit )', 'gnupress'); ?>
                 <?php } else { ?>
                     <?php if($bbs_direct_url){ ?>
-                        <a href="<?php echo $bbs_direct_url ?>" class="button">게시판 바로가기</a>
+                        <a href="<?php echo $bbs_direct_url ?>" class="button"><?php _e('Go direct bbs', 'gnupress');?></a>
                     <?php } ?>
-                    <a href="<?php echo $list_page_url ?>" class="button">목록으로</a>
+                    <a href="<?php echo $list_page_url ?>" class="button"><?php _e('Go List', 'gnupress');?></a>
                 <?php } ?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_subject">게시판 제목<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_subject"><?php _e('Board Subject', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td colspan="2">
                 <input type="text" name="bo_subject" value="<?php echo g5_get_text($board['bo_subject']) ?>" id="bo_subject" required class="required frm_input" size="80" maxlength="120">
             </td>
         </tr>
         <?php if(!$w){ ?>
         <tr>
-            <th scope="row">페이지 생성 여부</th>
+            <th scope="row"><?php _e('Check in page creation', 'gnupress');   //페이지 생성여부?></th>
             <td colspan="2">
                 <input type="checkbox" name="bo_auto_install" id="bo_auto_install" value="1" checked="checked" >
-                <label for="bo_auto_install">체크시 게시판 페이지를 자동으로 생성합니다.</label>
+                <label for="bo_auto_install"><?php _e('Automatically generates a page at the check-Bulletin', 'gnupress');   //체크시 게시판 페이지를 자동으로 생성합니다.?></label>
             </td>
         </tr>
         <?php } ?>
         <tr>
-            <th scope="row"><label for="bo_category_list">분류</label></th>
+            <th scope="row"><label for="bo_category_list"><?php _e('Category', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('분류와 분류 사이는 | 로 구분하세요. (예: 질문|답변) 첫자로 #은 입력하지 마세요. (예: #질문|#답변 [X])') ?>
+                <?php echo g5_help(__('divide by vertical bar character( example : question|answer )', 'gnupress')) ?>
                 <input type="text" name="bo_category_list" value="<?php echo g5_get_text($board['bo_category_list']) ?>" id="bo_category_list" class="frm_input" size="70">
                 <input type="checkbox" name="bo_use_category" value="1" id="bo_use_category" <?php echo $board['bo_use_category']?'checked':''; ?>>
-                <label for="bo_use_category">사용</label>
+                <label for="bo_use_category"><?php _e('use', 'gnupress');?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_category_list" value="1" id="chk_all_category_list">
-                <label for="chk_all_category_list">전체적용</label>
+                <label for="chk_all_category_list"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <?php if ($w == 'u') { ?>
         <tr>
-            <th scope="row"><label for="bo_wp_pageid">적용할페이지</label></th>
+            <th scope="row"><label for="bo_wp_pageid"><?php _e('Page to apply', 'gnupress');?></label></th>
             <td colspan="2">
-                <?php echo g5_help('게시판을 적용할 페이지를 선택해 주세요. 게시판 적용은 페이지당 1개만 적용할수 있습니다.'); ?>
+                <?php echo g5_help(__('Please select the page you want to apply the Bulletin. you can apply only one per page.', 'gnupress')); ?>
                 <select name="bo_wp_pageid" id="bo_wp_pageid" >
                   <?php
                     $wp_pages = get_pages(array('post_status'=>'publish,private'));  
@@ -129,25 +129,25 @@ foreach( $chk_fields_array as $key=>$v ){
         </tr>
 
         <tr>
-            <th scope="row">게시판 Shortcode( 고정 )</th>
+            <th scope="row"><?php _e('Board', 'gnupress');?> Shortcode( <?php _e('Fix', 'gnupress');?> )</th>
             <td colspan="2">
-                <?php echo g5_help('글 또는 페이지에 게시판을 적용시킬수 있습니다.'); ?>
-                <strong><?php echo '['.G5_NAME.' bo_table='.$bo_table.']' ; ?></strong> <button type="button" class="copy_shortcode button">복사하기</button>
+                <?php echo g5_help(__('You apply the bulletin board in the post or page.', 'gnupress'));  //글 또는 페이지에 게시판을 적용시킬수 있습니다. ?>
+                <strong><?php echo '['.G5_NAME.' bo_table='.$bo_table.']' ; ?></strong> <button type="button" class="copy_shortcode button"><?php _e('Copy', 'gnupress');?></button>
             </td>
         </tr>
 
         <tr>
-            <th scope="row">최신글 Shortcode( 고정 )</th>
+            <th scope="row"><?php _e('Latest', 'gnupress');?> Shortcode( <?php _e('Fix', 'gnupress');?> )</th>
             <td colspan="2">
-                <?php echo g5_help('위의 적용할 페이지를 설정하였다면 url=페이지주소를 생략하셔도 됩니다. rows는 게시물갯수입니다.'); ?>
-                <strong><?php echo '['.G5_NAME.'_latest bo_table='.$bo_table.' url=페이지주소 rows=5]' ; ?></strong> <button type="button" class="copy_shortcode button">복사하기</button>
+                <?php echo g5_help(__("If you set the page to apply the above is acceptable to omit 'url=page_url'. rows is post number.", 'gnupress')); //위의 적용할 페이지를 설정하였다면 url=페이지주소를 생략하셔도 됩니다. rows는 게시물갯수입니다. ?>
+                <strong><?php echo '['.G5_NAME.'_latest bo_table='.$bo_table.' '.__('url=page_url', 'gnupress').' rows=5]' ; ?></strong> <button type="button" class="copy_shortcode button"><?php _e('Copy', 'gnupress');?></button>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="proc_count">카운트 조정</label></th>
+            <th scope="row"><label for="proc_count"><?php _e('Count Adjustment', 'gnupress');?></label></th>
             <td colspan="2">
-                <?php echo g5_help('현재 원글수 : '.number_format($board['bo_count_write']).', 현재 댓글수 : '.number_format($board['bo_count_comment'])."\n".'게시판 목록에서 글의 번호가 맞지 않을 경우에 체크하십시오.') ?>
+                <?php echo g5_help( sprintf(__('Current Posts number : %s, Current Comments number : %s', 'gnupress'), number_format($board['bo_count_write']), number_format($board['bo_count_comment']))."\n".__('Check the list on the board if the number of the article does not fit.', 'gnupress') ); ?>
                 <input type="checkbox" name="proc_count" value="1" id="proc_count">
             </td>
         </tr>
@@ -160,12 +160,12 @@ foreach( $chk_fields_array as $key=>$v ){
 <?php echo $frm_submit; ?>
 
 <section id="anc_bo_auth">
-    <h2 class="h2_frm">게시판 권한 설정</h2>
+    <h2 class="h2_frm"><?php _e('Board permissions setting', 'gnupress');   //게시판 권한 설정 ?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table class="table-bordered table-striped table-condensed">
-        <caption>게시판 권한 설정</caption>
+        <caption><?php _e('Board permissions setting', 'gnupress'); ?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -173,84 +173,93 @@ foreach( $chk_fields_array as $key=>$v ){
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row"><label for="bo_admin">게시판 관리자</label></th>
+            <th scope="row"><label for="bo_admin"><?php _e('board administrator', 'gnupress');?></label></th>
             <td>
                 <input type="text" name="bo_admin" value="<?php echo $board['bo_admin'] ?>" id="bo_admin" class="frm_input" maxlength="20">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_admin" value="1" id="chk_all_admin">
-                <label for="chk_all_admin">전체적용</label>
+                <label for="chk_all_admin"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_list_level">목록보기 권한</label></th>
+            <th scope="row"><label for="bo_list_level"><?php _e('List permissions', 'gnupress'); //목록보기 권한?></label></th>
             <td>
-                <?php echo g5_help('워드프레스 레벨 기본권한은 다음과 같습니다. <br>권한 -1 : 비회원<br>권한 0 : 구독자 (Subscriber) <br>권한 1 : 기여자 (Contributor) <br>권한 2 : 글쓴이 (Author) <br>권한 7 : 편집자 (Editor) <br>권한 10 : 관리자 (Administrator)') ?>
+                <?php echo g5_help(
+                    __('WordPress default permission levels are as follows:', 'gnupress').'<br>'.
+                    __('level -1 : Guest', 'gnupress').'<br>'.
+                    __('level 0 : Subscriber', 'gnupress').'<br>'.
+                    __('level 1 : Contributor', 'gnupress').'<br>'.
+                    __('level 2 : Author', 'gnupress').'<br>'.
+                    __('level 7 : Editor', 'gnupress').'<br>'.
+                    __('level 10 : Administrator', 'gnupress').'<br>'
+                    );
+                ?>
                 <?php echo g5_get_number_select('bo_list_level', -1, 10, $board['bo_list_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_list_level" value="1" id="chk_all_list_level">
-                <label for="chk_all_list_level">전체적용</label>
+                <label for="chk_all_list_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_read_level">글읽기 권한</label></th>
+            <th scope="row"><label for="bo_read_level"><?php _e('Read permissions', 'gnupress'); //글읽기 권한?></label></th>
             <td>
                 <?php echo g5_get_number_select('bo_read_level', -1, 10, $board['bo_read_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_read_level" value="1" id="chk_all_read_level">
-                <label for="chk_all_read_level">전체적용</label>
+                <label for="chk_all_read_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_write_level">글쓰기 권한</label></th>
+            <th scope="row"><label for="bo_write_level"><?php _e('Write permissions', 'gnupress'); //글쓰기 권한?></label></th>
             <td>
                 <?php echo g5_get_number_select('bo_write_level', -1, 10, $board['bo_write_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_write_level" value="1" id="chk_all_write_level">
-                <label for="chk_all_write_level">전체적용</label>
+                <label for="chk_all_write_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_comment_level">댓글쓰기 권한</label></th>
+            <th scope="row"><label for="bo_comment_level"><?php _e('Comment permissions', 'gnupress'); //글쓰기 권한?></label></th>
             <td>
                 <?php echo g5_get_number_select('bo_comment_level', -1, 10, $board['bo_comment_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_comment_level" value="1" id="chk_all_comment_level">
-                <label for="chk_all_comment_level">전체적용</label>
+                <label for="chk_all_comment_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_link_level">링크 권한</label></th>
+            <th scope="row"><label for="bo_link_level"><?php _e('Link permissions', 'gnupress'); //링크 권한?></label></th>
             <td>
                 <?php echo g5_get_number_select('bo_link_level', -1, 10, $board['bo_link_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_link_level" value="1" id="chk_all_link_level">
-                <label for="chk_all_link_level">전체적용</label>
+                <label for="chk_all_link_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_upload_level">업로드 권한</label></th>
+            <th scope="row"><label for="bo_upload_level"><?php _e('Upload permissions', 'gnupress'); //업로드 권한?></label></th>
             <td>
                 <?php echo g5_get_number_select('bo_upload_level', -1, 10, $board['bo_upload_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_upload_level" value="1" id="chk_all_upload_level">
-                <label for="chk_all_upload_level">전체적용</label>
+                <label for="chk_all_upload_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_download_level">다운로드 권한</label></th>
+            <th scope="row"><label for="bo_download_level"><?php _e('Download permissions', 'gnupress'); //다운로드 권한?></label></th>
             <td>
                 <?php echo g5_get_number_select('bo_download_level', -1, 10, $board['bo_download_level']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_download_level" value="1" id="chk_all_download_level">
-                <label for="chk_all_download_level">전체적용</label>
+                <label for="chk_all_download_level"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         </tbody>
@@ -261,12 +270,12 @@ foreach( $chk_fields_array as $key=>$v ){
 <?php echo $frm_submit; ?>
 
 <section id="anc_bo_function">
-    <h2 class="h2_frm">게시판 기능 설정</h2>
+    <h2 class="h2_frm"><?php _e('Board functions setting', 'gnupress'); //게시판 기능 설정?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table class="table-bordered table-striped table-condensed">
-        <caption>게시판 기능 설정</caption>
+        <caption><?php _e('Board functions setting', 'gnupress'); //게시판 기능 설정?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -274,268 +283,269 @@ foreach( $chk_fields_array as $key=>$v ){
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row"><label for="bo_count_modify">원글 수정 불가<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_count_modify"><?php _e('No modifications original', 'gnupress'); //원글 수정 불가?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
-                 <?php echo g5_help('댓글의 수가 설정 수 이상이면 원글을 수정할 수 없습니다. 0으로 설정하시면 댓글 수에 관계없이 수정할 수있습니다.'); ?>
-                댓글 <input type="text" name="bo_count_modify" value="<?php echo $board['bo_count_modify'] ?>" id="bo_count_modify" required class="required numeric frm_input" size="3">개 이상 달리면 수정불가
+                 <?php echo g5_help(__('If more than the set number of comments can not be modified original. If you set to 0, you can modify any number of comments.', 'gnupress')); ?>
+                <?php _e('comments', 'gnupress');?> <input type="text" name="bo_count_modify" value="<?php echo $board['bo_count_modify'] ?>" id="bo_count_modify" required class="required numeric frm_input" size="3"><?php _e('items over it can\'t modification', 'gnupress')  //개 이상 달리면 수정 불가;?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_count_modify" value="1" id="chk_all_count_modify">
-                <label for="chk_all_count_modify">전체적용</label>
+                <label for="chk_all_count_modify"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_count_delete">원글 삭제 불가<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_count_delete"><?php _e('No delete original', 'gnupress'); //원글 삭제 불가?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
-                댓글 <input type="text" name="bo_count_delete" value="<?php echo $board['bo_count_delete'] ?>" id="bo_count_delete" required class="required numeric frm_input" size="3">개 이상 달리면 삭제불가
+                <?php _e('comment', 'gnupress');?> <input type="text" name="bo_count_delete" value="<?php echo $board['bo_count_delete'] ?>" id="bo_count_delete" required class="required numeric frm_input" size="3"><?php _e('items over it can\'t delete', 'gnupress')  //개 이상 달리면 삭제 불가;?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_count_delete" value="1" id="chk_all_count_delete">
-                <label for="chk_all_count_delete">전체적용</label>
+                <label for="chk_all_count_delete"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_sideview">글쓴이 사이드뷰</label></th>
+            <th scope="row"><label for="bo_use_sideview"><?php _e('user sideview', 'gnupress'); //회원 사이드뷰?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_sideview" value="1" id="bo_use_sideview" <?php echo $board['bo_use_sideview']?'checked':''; ?>>
-                사용 (글쓴이 클릭시 나오는 레이어 메뉴)
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_sideview" value="1" id="chk_all_use_sideview">
-                <label for="chk_all_use_sideview">전체적용</label>
+                <label for="chk_all_use_sideview"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_secret">비밀글 사용</label></th>
+            <th scope="row"><label for="bo_use_secret"><?php _e('Use Secret', 'gnupress'); //비밀글 사용?></label></th>
             <td>
-                <?php echo g5_help('"체크박스"는 글작성시 비밀글 체크가 가능합니다. "무조건"은 작성되는 모든글을 비밀글로 작성합니다. (관리자는 체크박스로 출력합니다.) 스킨에 따라 적용되지 않을 수 있습니다.') ?>
+                <?php echo g5_help(
+                __('"Checkbox" You can have articles written during checking Secret. "Compulsion" is written into all of that Secret. (Administrators output checkbox.) It may not be applied depending on the skin.', 'gnupress')
+                ) ?>
                 <select id="bo_use_secret" name="bo_use_secret">
-                    <?php echo g5_option_selected(0, $board['bo_use_secret'], "사용하지 않음"); ?>
-                    <?php echo g5_option_selected(1, $board['bo_use_secret'], "체크박스"); ?>
-                    <?php echo g5_option_selected(2, $board['bo_use_secret'], "무조건"); ?>
+                    <?php echo g5_option_selected(0, $board['bo_use_secret'], __('Not use', 'gnupress'));  //사용하지 않음 ?>
+                    <?php echo g5_option_selected(1, $board['bo_use_secret'], __('Checkbox', 'gnupress'));  //체크박스 ?>
+                    <?php echo g5_option_selected(2, $board['bo_use_secret'], __('Compulsion', 'gnupress'));    //무조건 ?>
                 </select>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_secret" value="1" id="chk_all_use_secret">
-                <label for="chk_all_use_secret">전체적용</label>
+                <label for="chk_all_use_secret"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_dhtml_editor">DHTML 에디터 사용</label></th>
+            <th scope="row"><label for="bo_use_dhtml_editor"><?php _e('Using the DHTML editor', 'gnupress');    //에디터사용?></label></th>
             <td>
-                <?php echo g5_help('글작성시 내용을 DHTML 에디터 기능으로 사용할 것인지 설정합니다. 스킨에 따라 적용되지 않을 수 있습니다.') ?>
+                <?php echo g5_help(__('Set the paper to use when creating content as the editor functions. It may not be applied depending on the skin.', 'gnupress')) ?>
                 <input type="checkbox" name="bo_use_dhtml_editor" value="1" <?php echo $board['bo_use_dhtml_editor']?'checked':''; ?> id="bo_use_dhtml_editor">
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_dhtml_editor" value="1" id="chk_all_use_dhtml_editor">
-                <label for="chk_all_use_dhtml_editor">전체적용</label>
+                <label for="chk_all_use_dhtml_editor"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_rss_view">RSS 보이기 사용</label></th>
+            <th scope="row"><label for="bo_use_rss_view"><?php _e('Using the RSS', 'gnupress');    //RSS 사용?></label></th>
             <td>
-                <?php echo g5_help('비회원 글읽기가 가능하고 RSS 보이기 사용에 체크가 되어야만 RSS 지원을 합니다.') ?>
+                <?php echo g5_help(__('Guest can read the article and must be checked using RSS to the RSS support.', 'gnupress')); ?>
                 <input type="checkbox" name="bo_use_rss_view" value="1" <?php echo $board['bo_use_rss_view']?'checked':''; ?> id="bo_use_rss_view">
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_rss_view" value="1" id="chk_all_use_rss_view">
-                <label for="chk_all_use_rss_view">전체적용</label>
+                <label for="chk_all_use_rss_view"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_good">추천 사용</label></th>
+            <th scope="row"><label for="bo_use_good"><?php _e('Using the recommend', 'gnupress');    //추천 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_good" value="1" <?php echo $board['bo_use_good']?'checked':''; ?> id="bo_use_good">
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_good" value="1" id="chk_all_use_good">
-                <label for="chk_all_use_good">전체적용</label>
+                <label for="chk_all_use_good"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_nogood">비추천 사용</label></th>
+            <th scope="row"><label for="bo_use_nogood"><?php _e('Using the nonrecommend', 'gnupress');    //비추천 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_nogood" value="1" id="bo_use_nogood" <?php echo $board['bo_use_nogood']?'checked':''; ?>>
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_nogood" value="1" id="chk_all_use_nogood">
-                <label for="chk_all_use_nogood">전체적용</label>
+                <label for="chk_all_use_nogood"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_ip_view">IP 보이기 사용</label></th>
+            <th scope="row"><label for="bo_use_ip_view"><?php _e('Use IP show', 'gnupress');    //IP 보이기 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_ip_view" value="1" id="bo_use_ip_view" <?php echo $board['bo_use_ip_view']?'checked':''; ?>>
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_ip_view" value="1" id="chk_all_use_ip_view">
-                <label for="chk_all_use_ip_view">전체적용</label>
+                <label for="chk_all_use_ip_view"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_list_content">목록에서 내용 사용</label></th>
+            <th scope="row"><label for="bo_use_list_content"><?php _e('Use IP show', 'gnupress');    //IP 보이기 사용?></label></th>
             <td>
-                <?php echo g5_help("목록에서 게시판 제목외에 내용도 읽어와야 할 경우에 설정하는 옵션입니다. 기본은 사용하지 않습니다."); ?>
+                <?php echo g5_help("List is the option to set when you need to read the contents. The default is not used."); ?>
                 <input type="checkbox" name="bo_use_list_content" value="1" id="bo_use_list_content" <?php echo $board['bo_use_list_content']?'checked':''; ?>>
-                사용 (사용시 속도가 느려질 수 있습니다.)
+                <?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_list_content" value="1" id="chk_all_use_list_content">
-                <label for="chk_all_use_list_content">전체적용</label>
+                <label for="chk_all_use_list_content"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_list_file">목록에서 파일 사용</label></th>
+            <th scope="row"><label for="bo_use_list_file"><?php _e('Load uploads in List', 'gnupress');    //목록에서 파일 사용?></label></th>
             <td>
-                <?php echo g5_help("목록에서 게시판 첨부파일을 읽어와야 할 경우에 설정하는 옵션입니다. 기본은 사용하지 않습니다."); ?>
+                <?php echo g5_help(__('The options you set when you need to read Upload files in the list. The default is not used.', 'gnupress')); ?>
                 <input type="checkbox" name="bo_use_list_file" value="1" id="bo_use_list_file" <?php echo $board['bo_use_list_file']?'checked':''; ?>>
-                사용 (사용시 속도가 느려질 수 있습니다.)
+                <?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_list_file" value="1" id="chk_all_use_list_file">
-                <label for="chk_all_use_list_file">전체적용</label>
+                <label for="chk_all_use_list_file"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_list_view">전체목록보이기 사용</label></th>
+            <th scope="row"><label for="bo_use_list_view"><?php _e('Use Show all list', 'gnupress'); //전체목록보이기 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_list_view" value="1" id="bo_use_list_view" <?php echo $board['bo_use_list_view']?'checked':''; ?>>
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_list_view" value="1" id="chk_all_use_list_view">
-                <label for="chk_all_use_list_view">전체적용</label>
+                <label for="chk_all_use_list_view"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_email">메일발송 사용</label></th>
+            <th scope="row"><label for="bo_use_email"><?php _e('Using mailings', 'gnupress'); //메일발송 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_email" value="1" id="bo_use_email" <?php echo $board['bo_use_email']?'checked':''; ?>>
-                사용
+                <?php _e('use', 'gnupress'); //사용?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_email" value="1" id="chk_all_use_email">
-                <label for="chk_all_use_email">전체적용</label>
+                <label for="chk_all_use_email"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_upload_count">파일 업로드 개수<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_upload_count"><?php _e('Upload File Number', 'gnupress'); //파일 업로드 개수?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
-                <?php echo g5_help('게시물 한건당 업로드 할 수 있는 파일의 최대 개수 (0 은 파일첨부 사용하지 않음)') ?>
+                <?php echo g5_help(__('The maximum number of files that can be uploaded one posts (0 is not used attachments)', 'gnupress')); ?>
                 <input type="text" name="bo_upload_count" value="<?php echo $board['bo_upload_count'] ?>" id="bo_upload_count" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_upload_count" value="1" id="chk_all_upload_count">
-                <label for="chk_all_upload_count">전체적용</label>
+                <label for="chk_all_upload_count"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_upload_size">파일 업로드 용량<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_upload_size"><?php _e('uploads max_size', 'gnupress');  //파일 업로드 용량?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
-                <?php echo g5_help('최대 '.ini_get("upload_max_filesize").' 이하 업로드 가능, 1 MB = 1,048,576 bytes') ?>
-                업로드 파일 한개당 <input type="text" name="bo_upload_size" value="<?php echo $board['bo_upload_size'] ?>" id="bo_upload_size" required class="required numeric frm_input"  size="10"> bytes 이하
-            </td>
+                <?php echo g5_help( sprintf( __('Max_filesize is %s', 'gnupress'), ini_get("upload_max_filesize")).', 1 MB = 1,048,576 bytes') ?>
+                <?php _e('a uploads max_size', 'gnupress');?> <input type="text" name="bo_upload_size" value="<?php echo $board['bo_upload_size'] ?>" id="bo_upload_size" required class="required numeric frm_input"  size="10"> bytes <?php _e('less then or equal to', 'gnupress');?>            </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_upload_size" value="1" id="chk_all_upload_size">
-                <label for="chk_all_upload_size">전체적용</label>
+                <label for="chk_all_upload_size"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_file_content">파일 설명 사용</label></th>
+            <th scope="row"><label for="bo_use_file_content"><?php _e('Using uploads description', 'gnupress');  //파일 설명 사용?></label></th>
             <td>
-                <input type="checkbox" name="bo_use_file_content" value="1" id="bo_use_file_content" <?php echo $board['bo_use_file_content']?'checked':''; ?>>사용
+                <input type="checkbox" name="bo_use_file_content" value="1" id="bo_use_file_content" <?php echo $board['bo_use_file_content']?'checked':''; ?>><?php _e('all apply', 'gnupress');?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_file_content" value="1" id="chk_all_use_file_content">
-                <label for="chk_all_use_file_content">전체적용</label>
+                <label for="chk_all_use_file_content"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_write_min">최소 글수 제한</label></th>
+            <th scope="row"><label for="bo_write_min"><?php _e('Limit minimum text', 'gnupress');  //최소 글수 제한?></label></th>
             <td>
-                <?php echo g5_help('글 입력시 최소 글자수를 설정. 0을 입력하거나 최고관리자, DHTML 에디터 사용시에는 검사하지 않음') ?>
+                <?php echo g5_help(__('Setting a minimum length text input. Enter 0 or top managers, DHTML editor does not check when using include', 'gnupress')); ?>
                 <input type="text" name="bo_write_min" value="<?php echo $board['bo_write_min'] ?>" id="bo_write_min" class="numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_write_min" value="1" id="chk_all_write_min">
-                <label for="chk_all_write_min">전체적용</label>
+                <label for="chk_all_write_min"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_write_max">최대 글수 제한</label></th>
+            <th scope="row"><label for="bo_write_max"><?php _e('Limit maximum text', 'gnupress');  //최대 글수 제한?></label></th>
             <td>
-                <?php echo g5_help('글 입력시 최대 글자수를 설정. 0을 입력하거나 최고관리자, DHTML 에디터 사용시에는 검사하지 않음') ?>
+                <?php echo g5_help(__('Setting a maximum length text input. Enter 0 or top managers, DHTML editor does not check when using include', 'gnupress')); ?>
                 <input type="text" name="bo_write_max" value="<?php echo $board['bo_write_max'] ?>" id="bo_write_max" class="numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_write_max" value="1" id="chk_all_write_max">
-                <label for="chk_all_write_max">전체적용</label>
+                <label for="chk_all_write_max"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_comment_min">최소 댓글수 제한</label></th>
+            <th scope="row"><label for="bo_comment_min"><?php _e('Limit minimum Comments', 'gnupress');  //최소 댓글수 제한?></label></th>
             <td>
-                <?php echo g5_help('댓글 입력시 최소 글자수를 설정. 0을 입력하면 검사하지 않음') ?>
+                <?php echo g5_help(__('Comments Enter setting a minimum length. No inspection Entering 0', 'gnupress')); ?>
                 <input type="text" name="bo_comment_min" value="<?php echo $board['bo_comment_min'] ?>" id="bo_comment_min" class="numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_comment_min" value="1" id="chk_all_comment_min">
-                <label for="chk_all_comment_min">전체적용</label>
+                <label for="chk_all_comment_min"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_comment_max">최대 댓글수 제한</label></th>
+            <th scope="row"><label for="bo_comment_max"><?php _e('Limit maximum Comments', 'gnupress');  //최대 댓글수 제한?></label></th>
             <td>
-                <?php echo g5_help('댓글 입력시 최대 글자수를 설정. 0을 입력하면 검사하지 않음') ?>
+                <?php echo g5_help(__('Comments Enter setting a maximum length. No inspection Entering 0', 'gnupress')) ?>
                 <input type="text" name="bo_comment_max" value="<?php echo $board['bo_comment_max'] ?>" id="bo_comment_max" class="numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_comment_max" value="1" id="chk_all_comment_max">
-                <label for="chk_all_comment_max">전체적용</label>
+                <label for="chk_all_comment_max"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_search">전체 검색 사용</label></th>
+            <th scope="row"><label for="bo_use_search"><?php _e('Include WP Search', 'gnupress');  //전체 검색 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_search" value="1" id="bo_use_search" <?php echo $board['bo_use_search']?'checked':''; ?>>
-                사용
+                <?php _e('use', 'gnupress');?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_search" value="1" id="chk_all_use_search">
-                <label for="chk_all_use_search">전체적용</label>
+                <label for="chk_all_use_search"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_search">태그 기능 사용</label></th>
+            <th scope="row"><label for="bo_use_search"><?php _e('Use tag', 'gnupress');  //태그 기능 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_tag" value="1" id="bo_use_tag" <?php echo $board['bo_use_tag']?'checked':''; ?>>
-                사용
+                <?php _e('use', 'gnupress');?>
                 <?php if( isset($board['bo_use_tag']) && !empty($board['bo_use_tag']) ){ ?>
-                <a href="<?php echo admin_url('admin.php?page=g5_tag_form&amp;bo_table='.$board['bo_table']) ?>" class="button">게시판 태그 설정관리</a>
+                <a href="<?php echo admin_url('admin.php?page=g5_tag_form&amp;bo_table='.$board['bo_table']) ?>" class="button"><?php _e('Manage BBS tag', 'gnupress');    //게시판 태그 설정관리?></a>
                 <?php } ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_tag" value="1" id="chk_all_use_tag">
-                <label for="chk_all_use_tag">전체적용</label>
+                <label for="chk_all_use_tag"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row">번호, 작성자, 조회, 작성일 설정</th>
+            <th scope="row"><?php _e('Show Number, author, hit, date', 'gnupress');    //번호, 작성자, 조회, 작성일 설정 ?></th>
             <td>
                 <input type="hidden" name="bo_chk_fields" value="<?php echo $board['bo_sh_fields']?>" >
-                <input type="checkbox" name="bo_sh_fields[]" value="num" id="bo_chk_fields_1" <?php echo $chk_bo_sh_array['num']?> ><label for="bo_chk_fields_1">번호 표시</label>
-                <input type="checkbox" name="bo_sh_fields[]" value="writer" id="bo_chk_fields_2" <?php echo $chk_bo_sh_array['writer']?> > <label for="bo_chk_fields_2">작성자 표시</label>
-                <input type="checkbox" name="bo_sh_fields[]" value="visit" id="bo_chk_fields_3" <?php echo $chk_bo_sh_array['visit']?> > <label for="bo_chk_fields_3">조회 표시</label>
-                <input type="checkbox" name="bo_sh_fields[]" value="wdate" id="bo_chk_fields_4" <?php echo $chk_bo_sh_array['wdate']?> > <label for="bo_chk_fields_4">작성일 표시</label>
+                <input type="checkbox" name="bo_sh_fields[]" value="num" id="bo_chk_fields_1" <?php echo $chk_bo_sh_array['num']?> ><label for="bo_chk_fields_1"><?php _e('Show Number', 'gnupress');?></label>
+                <input type="checkbox" name="bo_sh_fields[]" value="writer" id="bo_chk_fields_2" <?php echo $chk_bo_sh_array['writer']?> > <label for="bo_chk_fields_2"><?php _e('Show author', 'gnupress');?></label>
+                <input type="checkbox" name="bo_sh_fields[]" value="visit" id="bo_chk_fields_3" <?php echo $chk_bo_sh_array['visit']?> > <label for="bo_chk_fields_3"><?php _e('Show hit', 'gnupress');?></label>
+                <input type="checkbox" name="bo_sh_fields[]" value="wdate" id="bo_chk_fields_4" <?php echo $chk_bo_sh_array['wdate']?> > <label for="bo_chk_fields_4"><?php _e('Show date', 'gnupress');?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_sh_fields" value="1" id="chk_all_sh_fields">
-                <label for="chk_all_sh_fields">전체적용</label>
+                <label for="chk_all_sh_fields"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
 
@@ -547,12 +557,12 @@ foreach( $chk_fields_array as $key=>$v ){
 <?php echo $frm_submit; ?>
 
 <section id="anc_bo_design">
-    <h2 class="h2_frm">게시판 디자인/양식</h2>
+    <h2 class="h2_frm"><?php _e('Board design and pattern', 'gnupress');    //게시판 디자인/양식 ?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table class="table-bordered table-striped table-condensed">
-        <caption>게시판 디자인/양식</caption>
+        <caption><?php _e('Board design and pattern', 'gnupress');    //게시판 디자인/양식 ?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -560,217 +570,217 @@ foreach( $chk_fields_array as $key=>$v ){
         </colgroup>
         <tbody>
             <tr>
-            <th scope="row"><label for="bo_skin">스킨 디렉토리<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_skin"><?php _e('Skin directory', 'gnupress'); //스킨 디렉토리?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
                 <?php echo g5_get_skin_select('board', 'bo_skin', 'bo_skin', $board['bo_skin'], 'required'); ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_skin" value="1" id="chk_all_skin">
-                <label for="chk_all_skin">전체적용</label>
+                <label for="chk_all_skin"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="bo_content_head">상단 내용</label></th>
+            <th scope="row"><label for="bo_content_head"><?php _e('Add Before contents', 'gnupress'); //상단 내용?></label></th>
             <td>
                 <?php echo g5_editor_html("bo_content_head", g5_get_editor_content($board['bo_content_head'])); ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_content_head" value="1" id="chk_all_content_head">
-                <label for="chk_all_content_head">전체적용</label>
+                <label for="chk_all_content_head"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_content_tail">하단 내용</label></th>
+            <th scope="row"><label for="bo_content_tail"><?php _e('Add After contents', 'gnupress'); //하단 내용?></label></th>
             <td>
                 <?php echo g5_editor_html("bo_content_tail", g5_get_editor_content($board['bo_content_tail'])); ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_content_tail" value="1" id="chk_all_content_tail">
-                <label for="chk_all_content_tail">전체적용</label>
+                <label for="chk_all_content_tail"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
 
          <tr>
-            <th scope="row"><label for="bo_insert_content">글쓰기 기본 내용</label></th>
+            <th scope="row"><label for="bo_insert_content"><?php _e('Writing basic information', 'gnupress'); ?></label></th>
             <td>
                 <textarea id="bo_insert_content" name="bo_insert_content" rows="5"><?php echo $board['bo_insert_content'] ?></textarea>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_insert_content" value="1" id="chk_all_insert_content">
-                <label for="chk_all_insert_content">전체적용</label>
+                <label for="chk_all_insert_content"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_subject_len">제목 길이<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_subject_len"><?php _e('Subject length', 'gnupress'); ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('목록에서의 제목 글자수. 잘리는 글은 … 로 표시') ?>
+                <?php echo g5_help(__('Cut text are displayed in \'...\' when overflow', 'gnupress')); //목록에서의 제목 글자수. 잘리는 글은 … 로 표시?>
                 <input type="text" name="bo_subject_len" value="<?php echo $board['bo_subject_len'] ?>" id="bo_subject_len" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_subject_len" value="1" id="chk_all_subject_len">
-                <label for="chk_all_subject_len">전체적용</label>
+                <label for="chk_all_subject_len"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_mobile_subject_len">모바일 제목 길이<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_mobile_subject_len"><?php _e('Mobile Subject length', 'gnupress'); ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('목록에서의 제목 글자수. 잘리는 글은 … 로 표시') ?>
+                <?php echo g5_help(__('Cut text are displayed in \'...\' when overflow', 'gnupress')); //목록에서의 제목 글자수. 잘리는 글은 … 로 표시?>
                 <input type="text" name="bo_mobile_subject_len" value="<?php echo $board['bo_mobile_subject_len'] ?>" id="bo_mobile_subject_len" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_mobile_subject_len" value="1" id="chk_all_mobile_subject_len">
-                <label for="chk_all_mobile_subject_len">전체적용</label>
+                <label for="chk_all_mobile_subject_len"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_page_rows">페이지당 목록 수<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_page_rows"><?php _e('Lists per page', 'gnupress'); //페이지당 목록수 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
                 <input type="text" name="bo_page_rows" value="<?php echo $board['bo_page_rows'] ?>" id="bo_page_rows" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_page_rows" value="1" id="chk_all_page_rows">
-                <label for="chk_all_page_rows">전체적용</label>
+                <label for="chk_all_page_rows"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_mobile_page_rows">모바일 페이지당 목록 수<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_mobile_page_rows"><?php _e('Mobile Lists per page', 'gnupress'); //페이지당 목록수 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
                 <input type="text" name="bo_mobile_page_rows" value="<?php echo $board['bo_mobile_page_rows'] ?>" id="bo_mobile_page_rows" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_mobile_page_rows" value="1" id="chk_all_mobile_page_rows">
-                <label for="chk_all_mobile_page_rows">전체적용</label>
+                <label for="chk_all_mobile_page_rows"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_gallery_cols">갤러리 이미지 수<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_gallery_cols"><?php _e('Gallery images per line', 'gnupress'); //갤러리 이미지 수 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('갤러리 형식의 게시판 목록에서 이미지를 한줄에 몇장씩 보여 줄 것인지를 설정하는 값') ?>
+                <?php echo g5_help(__('The values which set how many pages to be displayed in the list of the gallery types', 'gnupress')); //갤러리 형식의 게시판 목록에서 이미지를 한줄에 몇장씩 보여 줄 것인지를 설정하는 값 ?>
                 <?php echo g5_get_number_select('bo_gallery_cols', 1, 10, $board['bo_gallery_cols']) ?>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_gallery_cols" value="1" id="chk_all_gallery_cols">
-                <label for="chk_all_gallery_cols">전체적용</label>
+                <label for="chk_all_gallery_cols"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_gallery_width">갤러리 이미지 폭<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_gallery_width"><?php _e('Set gallery width', 'gnupress'); //갤러리 이미지 폭 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('갤러리 형식의 게시판 목록에서 썸네일 이미지의 폭을 설정하는 값') ?>
+                <?php echo g5_help(__('The values which set the width of thumb nale images in the board list of the gallery types', 'gnupress')); //갤러리 형식의 게시판 목록에서 썸네일 이미지의 폭을 설정하는 값 ?>
                 <input type="text" name="bo_gallery_width" value="<?php echo $board['bo_gallery_width'] ?>" id="bo_gallery_width" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_gallery_width" value="1" id="chk_all_gallery_width">
-                <label for="chk_all_gallery_width">전체적용</label>
+                <label for="chk_all_gallery_width"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_gallery_height">갤러리 이미지 높이<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_gallery_height"><?php _e('Set gallery height', 'gnupress'); //갤러리 이미지 높이 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('갤러리 형식의 게시판 목록에서 썸네일 이미지의 높이를 설정하는 값') ?>
+                <?php echo g5_help(__('The  values which set the heighth of thumb nale images in the board list of the gallery types', 'gnupress')); //갤러리 형식의 게시판 목록에서 썸네일 이미지의 높이를 설정하는 값 ?>
                 <input type="text" name="bo_gallery_height" value="<?php echo $board['bo_gallery_height'] ?>" id="bo_gallery_height" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_gallery_height" value="1" id="chk_all_gallery_height">
-                <label for="chk_all_gallery_height">전체적용</label>
+                <label for="chk_all_gallery_height"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_mobile_gallery_width">모바일<br>갤러리 이미지 폭<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_mobile_gallery_width"><?php _e('Set Mobile gallery width', 'gnupress'); //모바일 갤러리 이미지 폭 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('모바일로 접속시 갤러리 형식의 게시판 목록에서 썸네일 이미지의 폭을 설정하는 값') ?>
+                <?php echo g5_help(__('The values which set the width of thumbnale images in the board list of the gallery types when you connect on a mobile', 'gnupress')); //모바일로 접속시 갤러리 형식의 게시판 목록에서 썸네일 이미지의 폭을 설정하는 값 ?>
                 <input type="text" name="bo_mobile_gallery_width" value="<?php echo $board['bo_mobile_gallery_width'] ?>" id="bo_mobile_gallery_width" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_mobile_gallery_width" value="1" id="chk_all_mobile_gallery_width">
-                <label for="chk_all_mobile_gallery_width">전체적용</label>
+                <label for="chk_all_mobile_gallery_width"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_mobile_gallery_height">모바일<br>갤러리 이미지 높이<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_mobile_gallery_height"><?php _e('Set Mobile gallery height', 'gnupress'); //모바일 갤러리 이미지 높이 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('모바일로 접속시 갤러리 형식의 게시판 목록에서 썸네일 이미지의 높이를 설정하는 값') ?>
+                <?php echo g5_help(__('The values which set the height of thumbnale images in the board list of the gallery types when you connect on a mobile', 'gnupress')); //모바일로 접속시 갤러리 형식의 게시판 목록에서 썸네일 이미지의 높이를 설정하는 값 ?>
                 <input type="text" name="bo_mobile_gallery_height" value="<?php echo $board['bo_mobile_gallery_height'] ?>" id="bo_mobile_gallery_height" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_mobile_gallery_height" value="1" id="chk_all_mobile_gallery_height">
-                <label for="chk_all_mobile_gallery_height">전체적용</label>
+                <label for="chk_all_mobile_gallery_height"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_table_width">게시판 폭<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_table_width"><?php _e('SET Board Width', 'gnupress'); //게시판 폭 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('100 이하는 %') ?>
+                <?php echo g5_help(__('If less than 100, set it by %', 'gnupress')); //100 이하는 % ?>
                 <input type="text" name="bo_table_width" value="<?php echo $board['bo_table_width'] ?>" id="bo_table_width" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_table_width" value="1" id="chk_all_table_width">
-                <label for="chk_all_table_width">전체적용</label>
+                <label for="chk_all_table_width"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_image_width">이미지 폭 크기<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_image_width"><?php _e('SET image_view width', 'gnupress'); //이미지 폭 크기 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('게시판에서 출력되는 이미지의 폭 크기') ?>
-                <input type="text" name="bo_image_width" value="<?php echo $board['bo_image_width'] ?>" id="bo_image_width" required class="required numeric frm_input" size="4"> 픽셀
+                <?php echo g5_help(__('Width size of the image outputted from the board', 'gnupress')); //게시판에서 출력되는 이미지의 폭 크기?>
+                <input type="text" name="bo_image_width" value="<?php echo $board['bo_image_width'] ?>" id="bo_image_width" required class="required numeric frm_input" size="4"> pixel
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_image_width" value="1" id="chk_all_image_width">
-                <label for="chk_all_image_width">전체적용</label>
+                <label for="chk_all_image_width"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_new">새글 아이콘<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_new"><?php _e('Set new icon', 'gnupress');   //새글 아이콘 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('글 입력후 new 이미지를 출력하는 시간. 0을 입력하시면 아이콘을 출력하지 않습니다.') ?>
+                <?php echo g5_help(__('Time to output the new image and text input. If you enter 0, no output icons.')); //글 입력후 new 이미지를 출력하는 시간. 0을 입력하시면 아이콘을 출력하지 않습니다. ?>
                 <input type="text" name="bo_new" value="<?php echo $board['bo_new'] ?>" id="bo_new" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_new" value="1" id="chk_all_new">
-                <label for="chk_all_new">전체적용</label>
+                <label for="chk_all_new"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_hot">인기글 아이콘<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_hot"><?php _e('Set hit icon', 'gnupress');   //인기글 아이콘 ?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
-                <?php echo g5_help('조회수가 설정값 이상이면 hot 이미지 출력. 0을 입력하시면 아이콘을 출력하지 않습니다.') ?>
+                <?php echo g5_help(__('If Hits is setting over hot image outputs. If you enter 0, no output icons.', 'gnupress')); //조회수가 설정값 이상이면 hot 이미지 출력. 0을 입력하시면 아이콘을 출력하지 않습니다. ?>
                 <input type="text" name="bo_hot" value="<?php echo $board['bo_hot'] ?>" id="bo_hot" required class="required numeric frm_input" size="4">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_hot" value="1" id="chk_all_hot">
-                <label for="chk_all_hot">전체적용</label>
+                <label for="chk_all_hot"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_sort_field">리스트 정렬 필드</label></th>
+            <th scope="row"><label for="bo_sort_field"><?php _e('Set order by filed', 'gnupress');   //리스트 정렬 필드 ?></label></th>
             <td>
-                <?php echo g5_help('리스트에서 기본으로 정렬에 사용할 필드를 선택합니다. "기본"으로 사용하지 않으시는 경우 속도가 느려질 수 있습니다.') ?>
+                <?php echo g5_help(__('Select the field you want to sort the list by default. If you are not used as a "Default" it may be slow.', 'gnupress'));    //리스트에서 기본으로 정렬에 사용할 필드를 선택합니다. "기본"으로 사용하지 않으시는 경우 속도가 느려질 수 있습니다. ?>
                 <select id="bo_sort_field" name="bo_sort_field">
-                    <option value="" <?php echo g5_get_selected($board['bo_sort_field'], ""); ?>>wr_num, wr_parent : 기본</option>
-                    <option value="wr_datetime asc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_datetime asc"); ?>>wr_datetime asc : 날짜 이전것 부터</option>
-                    <option value="wr_datetime desc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_datetime desc"); ?>>wr_datetime desc : 날짜 최근것 부터</option>
-                    <option value="wr_hit asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_hit asc, wr_num, wr_parent"); ?>>wr_hit asc : 조회수 낮은것 부터</option>
-                    <option value="wr_hit desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_hit desc, wr_num, wr_parent"); ?>>wr_hit desc : 조회수 높은것 부터</option>
-                    <option value="wr_last asc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_last asc"); ?>>wr_last asc : 최근글 이전것 부터</option>
-                    <option value="wr_last desc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_last desc"); ?>>wr_last desc : 최근글 최근것 부터</option>
-                    <option value="wr_comment asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_comment asc, wr_num, wr_parent"); ?>>wr_comment asc : 댓글수 낮은것 부터</option>
-                    <option value="wr_comment desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_comment desc, wr_num, wr_parent"); ?>>wr_comment desc : 댓글수 높은것 부터</option>
-                    <option value="wr_good asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_good asc, wr_num, wr_parent"); ?>>wr_good asc : 추천수 낮은것 부터</option>
-                    <option value="wr_good desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_good desc, wr_num, wr_parent"); ?>>wr_good desc : 추천수 높은것 부터</option>
-                    <option value="wr_nogood asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_nogood asc, wr_num, wr_parent"); ?>>wr_nogood asc : 비추천수 낮은것 부터</option>
-                    <option value="wr_nogood desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_nogood desc, wr_num, wr_parent"); ?>>wr_nogood desc : 비추천수 높은것 부터</option>
-                    <option value="wr_subject asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_subject asc, wr_num, wr_parent"); ?>>wr_subject asc : 제목 내림차순</option>
-                    <option value="wr_subject desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_subject desc, wr_num, wr_parent"); ?>>wr_subject desc : 제목 오름차순</option>
-                    <option value="wr_name asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_name asc, wr_num, wr_parent"); ?>>wr_name asc : 글쓴이 내림차순</option>
-                    <option value="wr_name desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_name desc, wr_num, wr_parent"); ?>>wr_name desc : 글쓴이 오름차순</option>
-                    <option value="ca_name asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "ca_name asc, wr_num, wr_parent"); ?>>ca_name asc : 분류명 내림차순</option>
-                    <option value="ca_name desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "ca_name desc, wr_num, wr_parent"); ?>>ca_name desc : 분류명 오름차순</option>
+                    <option value="" <?php echo g5_get_selected($board['bo_sort_field'], ""); ?>>wr_num, wr_parent : <?php _e('Default', 'gnupress');?></option>
+                    <option value="wr_datetime asc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_datetime asc"); ?>>wr_datetime asc : <?php _e('Ascending order date', 'gnupress');   //날짜 이전것 부터?></option>
+                    <option value="wr_datetime desc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_datetime desc"); ?>>wr_datetime desc : <?php _e('Descending order date', 'gnupress');   //날짜 최근것 부터?></option>
+                    <option value="wr_hit asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_hit asc, wr_num, wr_parent"); ?>>wr_hit asc : <?php _e('Ascending order hit', 'gnupress');   //조회수 낮은것 부터?></option>
+                    <option value="wr_hit desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_hit desc, wr_num, wr_parent"); ?>>wr_hit desc : <?php _e('Descending order hit', 'gnupress');   //조회수 높은것 부터?></option>
+                    <option value="wr_last asc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_last asc"); ?>>wr_last asc : <?php _e('Ascending order last', 'gnupress');   //최근글 이전것 부터?></option>
+                    <option value="wr_last desc" <?php echo g5_get_selected($board['bo_sort_field'], "wr_last desc"); ?>>wr_last desc : <?php _e('Descending order last', 'gnupress');   //최근글 최근것 부터?></option>
+                    <option value="wr_comment asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_comment asc, wr_num, wr_parent"); ?>>wr_comment asc : <?php _e('Ascending order Comments', 'gnupress');   //댓글수 낮은것 부터?></option>
+                    <option value="wr_comment desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_comment desc, wr_num, wr_parent"); ?>>wr_comment desc : <?php _e('Descending order Comments', 'gnupress');   //댓글수 높은것 부터?></option>
+                    <option value="wr_good asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_good asc, wr_num, wr_parent"); ?>>wr_good asc : <?php _e('Ascending order recommend', 'gnupress');   //추천수 낮은것 부터?></option>
+                    <option value="wr_good desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_good desc, wr_num, wr_parent"); ?>>wr_good desc : <?php _e('Descending order recommend', 'gnupress');   //추천수 높은것 부터?></option>
+                    <option value="wr_nogood asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_nogood asc, wr_num, wr_parent"); ?>>wr_nogood asc : <?php _e('Ascending order nonrecommend', 'gnupress');   //비추천수 낮은것 부터?></option>
+                    <option value="wr_nogood desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_nogood desc, wr_num, wr_parent"); ?>>wr_nogood desc : <?php _e('Descending order nonrecommend', 'gnupress');   //비추천수 높은것 부터?></option>
+                    <option value="wr_subject asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_subject asc, wr_num, wr_parent"); ?>>wr_subject asc : <?php _e('Ascending order subject', 'gnupress');   //제목 오름차순?></option>
+                    <option value="wr_subject desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_subject desc, wr_num, wr_parent"); ?>>wr_subject desc : <?php _e('Descending order nonrecommend', 'gnupress');   //제목 내림차순?></option>
+                    <option value="wr_name asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_name asc, wr_num, wr_parent"); ?>>wr_name asc : <?php _e('Ascending order Author', 'gnupress');   //글쓴이 오름차순?></option>
+                    <option value="wr_name desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "wr_name desc, wr_num, wr_parent"); ?>>wr_name desc : <?php _e('Descending order Author', 'gnupress');   //글쓴이 내림차순?></option>
+                    <option value="ca_name asc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "ca_name asc, wr_num, wr_parent"); ?>>ca_name asc : <?php _e('Ascending order Category', 'gnupress');   //분류명 오름차순?></option>
+                    <option value="ca_name desc, wr_num, wr_parent" <?php echo g5_get_selected($board['bo_sort_field'], "ca_name desc, wr_num, wr_parent"); ?>>ca_name desc : <?php _e('Descending order Category', 'gnupress');   //분류명 내림차순?></option>
                 </select>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_sort_field" value="1" id="chk_all_sort_field">
-                <label for="chk_all_sort_field">전체적용</label>
+                <label for="chk_all_sort_field"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tbody>
         </table>
@@ -780,12 +790,12 @@ foreach( $chk_fields_array as $key=>$v ){
 <?php echo $frm_submit; ?>
 
 <section id="anc_bo_point">
-    <h2 class="h2_frm">게시판 포인트 설정</h2>
+    <h2 class="h2_frm"><?php _e('Board point setting', 'gnupress');   //게시판 포인트 설정?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table class="table-bordered table-striped table-condensed">
-        <caption>게시판 포인트 설정</caption>
+        <caption><?php _e('Board point setting', 'gnupress');   //게시판 포인트 설정?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -793,50 +803,50 @@ foreach( $chk_fields_array as $key=>$v ){
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row"><label for="chk_grp_point">기본값으로 설정</label></th>
+            <th scope="row"><label for="chk_grp_point"><?php _e('Set as Default', 'gnupress');?></label></th>
             <td colspan="2">
-                <?php echo g5_help('환경설정에 입력된 포인트로 설정') ?>
+                <?php echo g5_help(__('Set point input to the gnupress config', 'gnupress'));  //환경설정에 입력된 포인트로 설정 ?>
                 <input type="checkbox" name="chk_grp_point" id="chk_grp_point" onclick="set_point(this.form)">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_read_point">글읽기 포인트<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_read_point"><?php _e('Read points', 'gnupress'); //글읽기 포인트?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
                 <input type="text" name="bo_read_point" value="<?php echo $board['bo_read_point'] ?>" id="bo_read_point" required class="required frm_input" size="5">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_read_point" value="1" id="chk_all_read_point">
-                <label for="chk_all_read_point">전체적용</label>
+                <label for="chk_all_read_point"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_write_point">글쓰기 포인트<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_write_point"><?php _e('Write points', 'gnupress'); //글쓰기 포인트?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
                 <input type="text" name="bo_write_point" value="<?php echo $board['bo_write_point'] ?>" id="bo_write_point" required class="required frm_input" size="5">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_write_point" value="1" id="chk_all_write_point">
-                <label for="chk_all_write_point">전체적용</label>
+                <label for="chk_all_write_point"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_comment_point">댓글쓰기 포인트<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_comment_point"><?php _e('Comment points', 'gnupress'); //댓글쓰기 포인트?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
                 <input type="text" name="bo_comment_point" value="<?php echo $board['bo_comment_point'] ?>" id="bo_comment_point" required class="required frm_input" size="5">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_comment_point" value="1" id="chk_all_comment_point">
-                <label for="chk_all_comment_point">전체적용</label>
+                <label for="chk_all_comment_point"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_download_point">다운로드 포인트<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="bo_download_point"><?php _e('Download points', 'gnupress'); //다운로드 포인트?><strong class="sound_only"><?php _e('required', 'gnupress'); ?></strong></label></th>
             <td>
                 <input type="text" name="bo_download_point" value="<?php echo $board['bo_download_point'] ?>" id="bo_download_point" required class="required frm_input" size="5">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_download_point" value="1" id="chk_all_download_point">
-                <label for="chk_all_download_point">전체적용</label>
+                <label for="chk_all_download_point"><?php _e('all apply', 'gnupress');?></label>
             </td>
         </tr>
         </tbody>
@@ -858,10 +868,8 @@ function delete_confirm2(msg)
 
 function fboardcopy_check(f)
 {
-    console.log( f );
-
     if (f.bo_table.value == f.target_table.value) {
-        alert("원본 테이블명과 복사할 테이블명이 달라야 합니다.");
+        alert("<?php _e('copy name must be different from original', 'gnupress');?>");
         return false;
     }
 
@@ -900,7 +908,7 @@ jQuery(document).ready(function($) {
         if (window.clipboardData && clipboardData.setData) {
             clipboardData.setData('text', s);
         } else {
-            prompt(" Ctrl+C를 눌러 shortcode를 복사해 주세요.", s);
+            prompt("<?php _e('Press Ctrl + C to copy the shortcode.', 'gnupress');?>", s);
         }
     });
 });
@@ -917,31 +925,31 @@ jQuery(document).ready(function($) {
         <caption><?php echo $g5['title']; ?></caption>
         <tbody>
         <tr>
-            <th scope="col">원본 테이블명</th>
+            <th scope="col"><?php _e('Original table name', 'gnupress');?></th>
             <td><?php echo $bo_table ?></td>
         </tr>
         <tr>
-            <th scope="col"><label for="target_table">복사 테이블명<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="target_table" id="target_table" required class="required alnum_ frm_input" maxlength="20"><br />영문자, 숫자, _ 만 가능 (공백없이)</td>
+            <th scope="col"><label for="target_table"><?php _e('Copy the table name', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
+            <td><input type="text" name="target_table" id="target_table" required class="required alnum_ frm_input" maxlength="20"><br /><?php _e('Allowed characters Alphabetic and Number and underbar( no whitespace )', 'gnupress'); ?></td>
         </tr>
         <tr>
-            <th scope="col"><label for="target_subject">게시판 제목<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="target_subject" value="[복사본] <?php echo $board['bo_subject'] ?>" id="target_subject" required class="required frm_input" maxlength="120"></td>
+            <th scope="col"><label for="target_subject"><?php _e('Board Subject', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
+            <td><input type="text" name="target_subject" value="[<?php echo _e('carbon copy', 'gnupress');?>] <?php echo $board['bo_subject'] ?>" id="target_subject" required class="required frm_input" maxlength="120"></td>
         </tr>
         <tr>
-            <th scope="col">복사 유형</th>
+            <th scope="col"><?php _e('Copy Type', 'gnupress');  //복사유형?></th>
             <td>
                 <input type="radio" name="copy_case" value="schema_only" id="copy_case" checked>
-                <label for="copy_case">구조만</label>
+                <label for="copy_case"><?php _e('Only Structure', 'gnupress');  //구조만?></label>
                 <input type="radio" name="copy_case" value="schema_data_both" id="copy_case2">
-                <label for="copy_case2">구조와 데이터</label>
+                <label for="copy_case2"><?php _e('Structure and Data', 'gnupress');  //구조와 데이터?></label>
             </td>
         </tr>
         </tbody>
         </table>
     </div>
     <div class="btn_confirm01 btn_confirm">
-        <input type="submit" class="btn_submit" value="복사">
+        <input type="submit" class="btn_submit" value="<?php _e('Copy', 'gnupress');?>">
     </div>
     </form>
 </div>

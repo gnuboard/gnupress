@@ -298,7 +298,7 @@ endif; ?>
 <div>
 
 <select id="select_bo_table">
-<option value="">선택해주세요.</option>
+<option value=""><?php _e('Please select', 'gnupress'); ?></option>
 <?php 
 foreach( $board_list as $v ){ 
     $selected = '';
@@ -582,7 +582,7 @@ do_action( "{$taxonomy}_add_form", $taxonomy );
 ?>
 </form>
 <?php } else { // end if $bo_table ?>
-<div>게시판을 선택해 주세요.</div>
+<div><?php _e('Please choose a board', 'gnupress');    //게시판을 선택해 주세요.?></div>
 <?php } ?>
 </div>
 <?php } ?>

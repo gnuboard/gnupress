@@ -11,7 +11,7 @@ $options = get_option(G5_OPTION_KEY);
 
 <div class="local_ov01 local_ov">
     <?php echo $listall ?>
-    생성된 게시판수 <?php echo number_format($total_count) ?>개
+    <?php _e('Created board items', 'gnupress');?> <strong><?php echo number_format($total_count) ?></strong> <?php _e('item', 'gnupress');?>
 </div>
 
 <form name="fsearch" id="fsearch" class="local_sch01 local_sch" method="get">
@@ -20,17 +20,17 @@ $options = get_option(G5_OPTION_KEY);
 <label for="sfl" class="sound_only">검색대상</label>
 <select name="sfl" id="sfl">
     <option value="bo_table"<?php echo g5_get_selected($sfl, "bo_subject", true); ?>>TABLE</option>
-    <option value="bo_subject"<?php echo g5_get_selected($sfl, "bo_subject"); ?>>제목</option>
+    <option value="bo_subject"<?php echo g5_get_selected($sfl, "bo_subject"); ?>><?php echo _e('Subject', 'gnupress');?></option>
 </select>
-<label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+<label for="stx" class="sound_only"><?php _e('Search word', 'gnupress');?><strong class="sound_only"> <?php _e('required', 'gnupress');?></strong></label>
 <input type="text" name="stx" value="<?php echo $stx ?>" id="stx" required class="required frm_input">
-<input type="submit" value="검색" class="btn_submit button">
+<input type="submit" value="<?php _e('Search', 'gnupress');?>" class="btn_submit button">
 
 </form>
 
 <?php if ($is_admin == 'super') { ?>
 <div class="btn_add01 btn_add">
-    <a href="<?php echo add_query_arg( array('page'=>'g5_board_form') );?>" id="bo_add" class="button">게시판 추가</a>
+    <a href="<?php echo add_query_arg( array('page'=>'g5_board_form') );?>" id="bo_add" class="button"><?php _e('New board add', 'gnupress');?></a>
 </div>
 <?php } ?>
 
@@ -54,13 +54,13 @@ $options = get_option(G5_OPTION_KEY);
             <input type="checkbox" name="chkall" value="1" id="chkall" onclick="g5_check_all(this.form)">
         </th>
         <th scope="col"><?php echo g5_subject_sort_link('bo_table') ?>TABLE</a></th>
-        <th scope="col"><?php echo g5_subject_sort_link('bo_skin', '', 'desc') ?>스킨</a></th>
-        <th scope="col"><?php echo g5_subject_sort_link('bo_subject') ?>제목</a></th>
-        <th scope="col">읽기P<span class="sound_only">포인트</span></th>
-        <th scope="col">쓰기P<span class="sound_only">포인트</span></th>
-        <th scope="col">댓글P<span class="sound_only">포인트</span></th>
-        <th scope="col">다운P<span class="sound_only">포인트</span></th>
-        <th scope="col">관리</th>
+        <th scope="col"><?php echo g5_subject_sort_link('bo_skin', '', 'desc') ?><?php _e('Skin', 'gnupress');?></a></th>
+        <th scope="col"><?php echo g5_subject_sort_link('bo_subject') ?><?php _e('Subject', 'gnupress');?></a></th>
+        <th scope="col"><?php _e('Read P', 'gnupress');?><span class="sound_only"><?php _e('Point', 'gnupress');?></span></th>
+        <th scope="col"><?php _e('Write P', 'gnupress');?><span class="sound_only"><?php _e('Point', 'gnupress');?></span></th>
+        <th scope="col"><?php _e('Comment P', 'gnupress');?><span class="sound_only"><?php _e('Point', 'gnupress');?></span></th>
+        <th scope="col"><?php _e('Download P', 'gnupress');?><span class="sound_only"><?php _e('Point', 'gnupress');?></span></th>
+        <th scope="col"><?php _e('Manage', 'gnupress');?></th>
     </tr>
     </thead>
     <tbody>
@@ -68,8 +68,8 @@ $options = get_option(G5_OPTION_KEY);
     $i = 0;
     foreach($rows as $row){
         $modify_url = add_query_arg( array('page'=>'g5_board_form', 'w'=>'u', 'bo_table'=>$row['bo_table'] ) ); //수정 버튼 url
-        $one_update = '<a href="'.$modify_url.'" class="button">수정</a>';
-        $one_copy = '<a href="./board_copy.php?bo_table='.$row['bo_table'].'" class="button board_copy" data-bo_table="'.$row['bo_table'].'" data-bo_subject="'.$row['bo_subject'].'" title="게시판복사">복사</a>';
+        $one_update = '<a href="'.$modify_url.'" class="button">'.__('Modify', 'gnupress').'</a>';
+        $one_copy = '<a href="./board_copy.php?bo_table='.$row['bo_table'].'" class="button board_copy" data-bo_table="'.$row['bo_table'].'" data-bo_subject="'.$row['bo_subject'].'" title="'.__('Copy board', 'gnupress').'">'.__('Copy', 'gnupress').'</a>';
         $bbs_direct_url = '';
         
         if( $g5_get_page_id = g5_get_page_id(G5_NAME."-".$row['bo_table']) ){     //게시판이 적용된 페이지가 존재한다면
@@ -94,27 +94,27 @@ $options = get_option(G5_OPTION_KEY);
             <?php } ?>
         </td>
         <td>
-            <label for="bo_skin_<?php echo $i; ?>" class="sound_only">스킨</label>
+            <label for="bo_skin_<?php echo $i; ?>" class="sound_only"><?php _e('Skin', 'gnupress');?></label>
             <?php echo g5_get_skin_select('board', 'bo_skin_'.$i, "bo_skin[$i]", $row['bo_skin']); ?>
         </td>
         <td>
-            <label for="bo_subject_<?php echo $i; ?>" class="sound_only">게시판 제목<strong class="sound_only"> 필수</strong></label>
+            <label for="bo_subject_<?php echo $i; ?>" class="sound_only"><?php _e('Board subject', 'gnupress');?><strong class="sound_only"> <?php _e('required', 'gnupress');?></strong></label>
             <input type="text" name="bo_subject[<?php echo $i ?>]" value="<?php echo g5_get_text($row['bo_subject']) ?>" id="bo_subject_<?php echo $i ?>" required class="required frm_input bo_subject full_input" size="10">
         </td>
         <td class="td_numsmall">
-            <label for="bo_read_point_<?php echo $i; ?>" class="sound_only">읽기 포인트</label>
+            <label for="bo_read_point_<?php echo $i; ?>" class="sound_only"><?php _e('Read Point', 'gnupress');?></label>
             <input type="text" name="bo_read_point[<?php echo $i ?>]" value="<?php echo $row['bo_read_point'] ?>" id="bo_read_point_<?php echo $i; ?>" class="frm_input" size="2">
         </td>
         <td class="td_numsmall">
-            <label for="bo_write_point_<?php echo $i; ?>" class="sound_only">쓰기 포인트</label>
+            <label for="bo_write_point_<?php echo $i; ?>" class="sound_only"><?php _e('Write a Point', 'gnupress');?></label>
             <input type="text" name="bo_write_point[<?php echo $i ?>]" value="<?php echo $row['bo_write_point'] ?>" id="bo_write_point_<?php echo $i; ?>" class="frm_input" size="2">
         </td>
         <td class="td_numsmall">
-            <label for="bo_comment_point_<?php echo $i; ?>" class="sound_only">댓글 포인트</label>
+            <label for="bo_comment_point_<?php echo $i; ?>" class="sound_only"><?php _e('Comments Point', 'gnupress');?></label>
             <input type="text" name="bo_comment_point[<?php echo $i ?>]" value="<?php echo $row['bo_comment_point'] ?>" id="bo_comment_point_<?php echo $i; ?>" class="frm_input" size="2">
         </td>
         <td class="td_numsmall">
-            <label for="bo_download_point_<?php echo $i; ?>" class="sound_only">다운 포인트</label>
+            <label for="bo_download_point_<?php echo $i; ?>" class="sound_only"><?php _e('Download Point', 'gnupress');?></label>
             <input type="text" name="bo_download_point[<?php echo $i ?>]" value="<?php echo $row['bo_download_point'] ?>" id="bo_download_point_<?php echo $i; ?>" class="frm_input" size="2">
         </td>
 
@@ -127,16 +127,16 @@ $options = get_option(G5_OPTION_KEY);
     $i++;
     }
     if ($i == 0)
-        echo '<tr><td colspan="'.$colspan.'" class="empty_table">자료가 없습니다.</td></tr>';
+        echo '<tr><td colspan="'.$colspan.'" class="empty_table">'.__('Empty data', 'gnupress').'</td></tr>';
     ?>
     </tbody>
     </table>
 </div>
 
 <div class="btn_list01 btn_list">
-    <input type="submit" name="act_button" value="선택수정" onclick="document.pressed=this.value" class="button">
+    <input type="submit" name="act_button" value="<?php _e('choose-Modify', 'gnupress');?>" onclick="document.pressed=this.value" class="button">
     <?php if ($is_admin == 'super') { ?>
-    <input type="submit" name="act_button" value="선택삭제" onclick="document.pressed=this.value" class="button">
+    <input type="submit" name="act_button" value="<?php _e('choose-Delete', 'gnupress');?>" onclick="document.pressed=this.value" class="button">
     <?php } ?>
 </div>
 
@@ -148,12 +148,12 @@ $options = get_option(G5_OPTION_KEY);
 function fboardlist_submit(f)
 {
     if (!g5_is_checked("chk[]")) {
-        alert(document.pressed+" 하실 항목을 하나 이상 선택하세요.");
+        alert(document.pressed+" <?php _e('to be select least one item', 'gnupress');?>");
         return false;
     }
 
-    if(document.pressed == "선택삭제") {
-        if(!confirm("선택한 자료를 정말 삭제하시겠습니까?")) {
+    if(document.pressed == "<?php _e('choose-Delete', 'gnupress');?>") {
+        if(!confirm("<?php _e('Are you sure you want to delete the selected data?', 'gnupress');?>")) {
             return false;
         }
     }
@@ -185,7 +185,7 @@ jQuery(document).ready(function($) {
             bo_table = $(this).attr("data-bo_table"),
             bo_subject = $(this).attr("data-bo_subject");
 
-        $("#g5_board_copy_el").find(".bo_table_key").text( bo_table ).end().find("input[name='bo_table']").val( bo_table ).end().find("input[name='target_subject']").val( '[복사본] '+bo_subject );
+        $("#g5_board_copy_el").find(".bo_table_key").text( bo_table ).end().find("input[name='bo_table']").val( bo_table ).end().find("input[name='target_subject']").val( "[<?php echo _e('carbon copy', 'gnupress');?>] "+bo_subject );
         $("span.ui-dialog-title").text(title);
         ($c_box.dialog("isOpen") == false) ? $c_box.dialog("open") : $c_box.dialog("close");
     });
@@ -204,31 +204,31 @@ jQuery(document).ready(function($) {
         <caption><?php echo $g5['title']; ?></caption>
         <tbody>
         <tr>
-            <th scope="col">원본 테이블명</th>
+            <th scope="col"><?php _e('Original table name', 'gnupress');?></th>
             <td><span class="bo_table_key"></span></td>
         </tr>
         <tr>
-            <th scope="col"><label for="target_table">복사 테이블명<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="target_table" id="target_table" required class="required alnum_ frm_input" maxlength="20"><br />영문자, 숫자, _ 만 가능 (공백없이)</td>
+            <th scope="col"><label for="target_table"><?php _e('Copy the table name', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
+            <td><input type="text" name="target_table" id="target_table" required class="required alnum_ frm_input" maxlength="20"><br /><?php _e('Allowed characters Alphabetic and Number and underbar( no whitespace )', 'gnupress'); ?></td>
         </tr>
         <tr>
-            <th scope="col"><label for="target_subject">게시판 제목<strong class="sound_only">필수</strong></label></th>
+            <th scope="col"><label for="target_subject"><?php _e('Board Subject', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="text" name="target_subject" value="" id="target_subject" required class="required frm_input" maxlength="120"></td>
         </tr>
         <tr>
-            <th scope="col">복사 유형</th>
+            <th scope="col"><?php _e('Copy Type', 'gnupress');  //복사유형?></th>
             <td>
                 <input type="radio" name="copy_case" value="schema_only" id="copy_case" checked>
-                <label for="copy_case">구조만</label>
+                <label for="copy_case"><?php _e('Only Structure', 'gnupress');  //구조만?></label>
                 <input type="radio" name="copy_case" value="schema_data_both" id="copy_case2">
-                <label for="copy_case2">구조와 데이터</label>
+                <label for="copy_case2"><?php _e('Structure and Data', 'gnupress');  //구조와 데이터?></label>
             </td>
         </tr>
         </tbody>
         </table>
     </div>
     <div class="btn_confirm01 btn_confirm">
-        <input type="submit" class="btn_submit" value="복사">
+        <input type="submit" class="btn_submit" value="<?php _e('Copy', 'gnupress');?>">
     </div>
     </form>
 </div>

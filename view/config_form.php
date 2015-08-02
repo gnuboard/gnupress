@@ -4,15 +4,15 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 $home_url = home_url();
 
 $pg_anchor = '<ul class="anchor">
-    <li><a href="#anc_cf_basic">기본환경</a></li>
-    <li><a href="#anc_cf_board">게시판기본</a></li>
-    <li><a href="#anc_cf_mail">기본메일환경</a></li>
-    <li><a href="#anc_cf_article_mail">글작성메일</a></li>
+    <li><a href="#anc_cf_basic">'.__('Default', 'gnupress').'</a></li>
+    <li><a href="#anc_cf_board">'.__('BBS default', 'gnupress').'</a></li>
+    <li><a href="#anc_cf_mail">'.__('Mail setting', 'gnupress').'</a></li>
+    <li><a href="#anc_cf_article_mail">'.__('Email posts', 'gnupress').'</a></li>
 </ul>';
 
 $frm_submit = '<div class="btn_confirm01 btn_confirm">
-    <input type="submit" value="확인" class="btn btn-primary" accesskey="s">
-    <a href="'.$home_url.'/" class="btn btn-info">메인으로</a>
+    <input type="submit" value="'.__('Submit', 'gnupress').'" class="btn btn-primary" accesskey="s">
+    <a href="'.$home_url.'/" class="btn btn-info">'.__('Go Main', 'gnupress').'</a>
 </div>';
 ?>
 
@@ -21,12 +21,12 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 <input type="hidden" name="g5_config_form" value="update" >
 
 <section id="anc_cf_basic">
-    <h2 class="h2_frm">홈페이지 기본환경 설정</h2>
+    <h2 class="h2_frm"><?php _e('Site default setting', 'gnupress');?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table>
-        <caption>홈페이지 기본환경 설정</caption>
+        <caption><?php _e('Site default setting', 'gnupress');?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -35,62 +35,54 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row">현재버젼</th>
+            <th scope="row"><?php _e('Current Version', 'gnupress'); ?></th>
             <td colspan="3">
                 <?php echo $g5_options['version']; ?>
             </td>
         </tr>
-        <!--
         <tr>
-            <th scope="row">파일 최적화 시간</th>
-            <td colspan="3">
-                <?php echo $g5_options['optimize_date']; ?>
-            </td>
-        </tr>
-        -->
-        <tr>
-            <th scope="row"><label for="cf_use_point">포인트 사용</label></th>
-            <td colspan="3"><input type="checkbox" name="cf_use_point" value="1" id="cf_use_point" <?php echo $config['cf_use_point']?'checked':''; ?>> 사용</td>
+            <th scope="row"><label for="cf_use_point"><?php _e('Using Points', 'gnupress' );?></label></th>
+            <td colspan="3"><input type="checkbox" name="cf_use_point" value="1" id="cf_use_point" <?php echo $config['cf_use_point']?'checked':''; ?>> <?php _e('use', 'gnupress' );?></td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_login_point">로그인시 포인트<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="cf_login_point"><?php _e('Login point', 'gnupress' );?><strong class="sound_only"><?php _e('required', 'gnupress' ); ?></strong></label></th>
             <td colspan="3">
-                <?php echo g5_help('회원이 로그인시 하루에 한번만 적립') ?>
-                <input type="text" name="cf_login_point" value="<?php echo $config['cf_login_point'] ?>" id="cf_login_point" required class="required frm_input" size="2"> 점
+                <?php echo g5_help(__('Members saving point only once a day at login', 'gnupress')); //회원이 로그인시 하루에 한번만 적립 ?>
+                <input type="text" name="cf_login_point" value="<?php echo $config['cf_login_point'] ?>" id="cf_login_point" required class="required frm_input" size="2"> <?php _e('point', 'gnupress'); ?>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_cut_name">이름(닉네임) 표시</label></th>
+            <th scope="row"><label for="cf_cut_name"><?php _e('Display Name', 'gnupress');?></label></th>
             <td colspan="3">
-                <input type="text" name="cf_cut_name" value="<?php echo $config['cf_cut_name'] ?>" id="cf_cut_name" class="frm_input" size="5"> 자리만 표시
+                <input type="text" name="cf_cut_name" value="<?php echo $config['cf_cut_name'] ?>" id="cf_cut_name" class="frm_input" size="5"> <?php _e('Display Cut string', 'gnupress');?>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_point_term">포인트 유효기간</label></th>
+            <th scope="row"><label for="cf_point_term"><?php _e('Point expiry date', 'gnupress'); ?></label></th>
             <td colspan="3">
-                <?php echo g5_help('기간을 0으로 설정시 포인트 유효기간이 적용되지 않습니다.') ?>
-                <input type="text" name="cf_point_term" value="<?php echo $config['cf_point_term']; ?>" id="cf_point_term" required class="required frm_input" size="5"> 일
+                <?php echo g5_help(__('This point does not apply during the period of the validity period is set to 0', 'gnupress')); //기간을 0으로 설정시 포인트 유효기간이 적용되지 않습니다. ?>
+                <input type="text" name="cf_point_term" value="<?php echo $config['cf_point_term']; ?>" id="cf_point_term" required class="required frm_input" size="5"> <?php _e('days', 'gnupress');?>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_write_pages">페이지 표시 수<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="cf_write_pages" value="<?php echo $config['cf_write_pages'] ?>" id="cf_write_pages" required class="required numeric frm_input" size="3"> 페이지씩 표시</td>
-            <th scope="row"><label for="cf_mobile_pages">모바일 페이지 표시 수<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="cf_mobile_pages" value="<?php echo $config['cf_mobile_pages'] ?>" id="cf_mobile_pages" required class="required numeric frm_input" size="3"> 페이지씩 표시</td>
+            <th scope="row"><label for="cf_write_pages"><?php _e('Display setting for page number', 'gnupress'); ?><strong class="sound_only"><?php _e('required', 'gnupress' );?></strong></label></th>
+            <td><input type="text" name="cf_write_pages" value="<?php echo $config['cf_write_pages'] ?>" id="cf_write_pages" required class="required numeric frm_input" size="3"> <?php _e('Show per page', 'gnupress');?></td>
+            <th scope="row"><label for="cf_mobile_pages"><?php _e('Display setting for page number( MOBILE )', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress' );?></strong></label></th>
+            <td><input type="text" name="cf_mobile_pages" value="<?php echo $config['cf_mobile_pages'] ?>" id="cf_mobile_pages" required class="required numeric frm_input" size="3"> <?php _e('Show per page', 'gnupress');?></td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_editor">에디터 선택</label></th>
+            <th scope="row"><label for="cf_editor"><?php _e('Select editor', 'gnupress'); ?></label></th>
             <td colspan="3">
-                <?php echo g5_help(g5_get_plugin_url('editor').' 밑의 DHTML 에디터 폴더를 선택합니다.') ?>
+                <?php echo g5_help(g5_get_plugin_url('editor').' '.__('For in that editor folder please select', 'gnupress')) ?>
                 <select name="cf_editor" id="cf_editor">
                 <?php
                 $arr = g5_get_skin_dir('', g5_get_plugin_path('editor') );
                 for ($i=0; $i<count($arr); $i++) {
-                    if ($i == 0) echo "<option value=\"\">사용안함</option>";
+                    if ($i == 0) echo "<option value=\"\">".__('not use', 'gnupress')."</option>";
                     echo "<option value=\"".$arr[$i]."\"".g5_get_selected($config['cf_editor'], $arr[$i]).">".$arr[$i]."</option>\n";
                 }
                 ?>
@@ -98,14 +90,14 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_captcha_mp3">음성캡챠 선택<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="cf_captcha_mp3"><?php _e('Select captcha sound', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress' );?></strong></label></th>
             <td colspan="3">
-                <?php echo g5_help(g5_get_plugin_url('captcha').'/mp3 밑의 음성 폴더를 선택합니다.') ?>
+                <?php echo g5_help(g5_get_plugin_url('captcha')._e('/mp3 For in that sound folder please select.', 'gnupress')) ?>
                 <select name="cf_captcha_mp3" id="cf_captcha_mp3" required class="required">
                 <?php
                 $arr = g5_get_skin_dir('mp3', g5_get_plugin_path('kcaptcha') );
                 for ($i=0; $i<count($arr); $i++) {
-                    if ($i == 0) echo "<option value=\"\">선택</option>";
+                    if ($i == 0) echo "<option value=\"\">".__('— Select —', 'gnupress')."</option>";
                     echo "<option value=\"".$arr[$i]."\"".g5_get_selected($config['cf_captcha_mp3'], $arr[$i]).">".$arr[$i]."</option>\n";
                 }
                 ?>
@@ -114,9 +106,9 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_new_page_id">스크랩 및 포인트 적용페이지(새창)<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="cf_new_page_id"><?php _e('Select scrap and point page( open )', 'gnupress'); ?><strong class="sound_only"><?php _e('required', 'gnupress' );?></strong></label></th>
             <td colspan="3">
-                <?php echo g5_help('스크랩 및 포인트 등을 새창으로 적용할 페이지를 선택해 주세요.'); ?>
+                <?php echo g5_help(__('Please select the page you want to apply, such as scrap and points in a new window.', 'gnupress')); ?>
                 <select name="cf_new_page_id" id="cf_new_page_id" >
                   <?php
                     $wp_pages = get_pages(array('post_status'=>'publish,private'));
@@ -129,33 +121,34 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_use_copy_log">복사, 이동시 로그</label></th>
+            <th scope="row"><label for="cf_use_copy_log"><?php _e('Log for copy and move', 'gnupress') ?></label></th>
             <td colspan="3">
-                <?php echo g5_help('게시물 아래에 누구로 부터 복사, 이동됨 표시') ?>
-                <input type="checkbox" name="cf_use_copy_log" value="1" id="cf_use_copy_log" <?php echo $config['cf_use_copy_log']?'checked':''; ?>> 남김
+                <?php echo g5_help(__('Show the direction of the copy, move from someone under the board', 'gnupress'));    //게시물 아래에 누구로 부터 복사, 이동됨 표시 ?>
+                <input type="checkbox" name="cf_use_copy_log" value="1" id="cf_use_copy_log" <?php echo $config['cf_use_copy_log']?'checked':''; ?>> <?php _e('display', 'gnupress');?>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_use_search_include">전체 검색시 게시판 포함 여부</label></th>
+            <th scope="row"><label for="cf_use_search_include"><?php _e('Board whether or not to include the wp search', 'gnupress'); //전체 검색시 게시판 포함 여부?></label></th>
             <td colspan="3">
-                <?php echo g5_help('워드프레스 전체 검색시 게시판 내용을 검색에 포함시킵니다. ( 검색에 문제가 있을시 체크 해제해 주세요. )') ?>
-                <input type="checkbox" name="cf_use_search_include" value="1" id="cf_use_search_include" <?php echo $config['cf_use_search_include']?'checked':''; ?>> 체크시 포함
+                <?php echo g5_help(__('Board contents to include the wp search', 'gnupress').' ( '.__('Please check off when there is a problem with the search.', 'gnupress').')') ?>
+                <input type="checkbox" name="cf_use_search_include" value="1" id="cf_use_search_include" <?php echo $config['cf_use_search_include']?'checked':''; ?>> <?php _e('include if check', 'gnupress');?>
             </td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="cf_syndi_token">네이버 신디케이션 연동키</label></th>
+            <th scope="row"><label for="cf_syndi_token"><?php _e('Naver syndication key', 'gnupress');?></label></th>
             <td colspan="3">
-                <?php if (!function_exists('curl_init')) echo g5_help('<b>경고) curl이 지원되지 않아 네이버 신디케이션을 사용할수 없습니다.</b>'); ?>
-                <?php echo g5_help('네이버 신디케이션 연동키(token)을 입력하면 네이버 신디케이션을 사용할 수 있습니다.<br>연동키는 <a href="http://webmastertool.naver.com/" target="_blank"><u>네이버 웹마스터도구</u></a> -> 네이버 신디케이션에서 발급할 수 있습니다.') ?>
+                <?php if (!function_exists('curl_init')) echo g5_help('<b>warning) Need to install or enable CURL support for php.</b>'); ?>
+                <?php echo g5_help(__('If you enter a key interlock Naver syndication (token) it can be use to Naver syndication.', 'gnupress').'<br>'.
+                            sprintf( __('keys must be issued by naver syndication of %s.', 'gnupress'), '<a href="http://webmastertool.naver.com/" target="_blank"><u>webmastertool.naver.com</u></a>')) ?>
                 <input type="text" name="cf_syndi_token" value="<?php echo $config['cf_syndi_token'] ?>" id="cf_syndi_token" class="frm_input" size="70">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_syndi_except">네이버 신디케이션 제외게시판</label></th>
+            <th scope="row"><label for="cf_syndi_except"><?php _e('Set board excluded from Naver syndication', 'gnupress'); //네이버 신디케이션 제외게시판?></label></th>
             <td colspan="3">
-                <?php echo g5_help('네이버 신디케이션 수집에서 제외할 게시판 아이디를 | 로 구분하여 입력하십시오. 예) notice|adult<br>참고로 글읽기 권한이 -1 인 게시판만 수집되며, 비밀글은 신디케이션 수집에서 제외됩니다.') ?>
+                <?php echo g5_help(__('Please enter separated by | the board ID to be excluded from the Naver collection syndication.', 'gnupress').' '.__('example :) notice|adult', 'gnupress').'<br>'.__('For your information, the boards whose permission is -1 are collected and secret writtings are excluded from the syndication collecting.', 'gnupress')); ?>
                 <input type="text" name="cf_syndi_except" value="<?php echo $config['cf_syndi_except'] ?>" id="cf_syndi_except" class="frm_input" size="70">
             </td>
         </tr>
@@ -168,14 +161,14 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 <?php echo $frm_submit; ?>
 
 <section id="anc_cf_board">
-    <h2 class="h2_frm">게시판 기본 설정</h2>
+    <h2 class="h2_frm"><?php _e('BBS default setting', 'gnupress'); ?></h2>
     <?php echo $pg_anchor ?>
     <div class="local_desc02 local_desc">
-        <p>각 게시판 관리에서 개별적으로 설정 가능합니다.</p>
+        <p><?php _e('It can be set individually for each management board.', 'gnupress');?></p>
     </div>
     <div class="tbl_frm01 tbl_wrap">
         <table>
-        <caption>게시판 기본 설정</caption>
+        <caption><?php _e('BBS default setting', 'gnupress') ?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
@@ -185,11 +178,11 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
         <tbody>
 
         <tr>
-            <th scope="row"><label for="cf_delay_sec">글쓰기 간격<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="cf_delay_sec" value="<?php echo $config['cf_delay_sec'] ?>" id="cf_delay_sec" required class="required numeric frm_input" size="3"> 초 지난후 가능</td>
-            <th scope="row"><label for="cf_link_target">새창 링크</label></th>
+            <th scope="row"><label for="cf_delay_sec"><?php _e('Intervals during for writing', 'gnupress'); ?><strong class="sound_only"><?php _e('required', 'gnupress' );?></strong></label></th>
+            <td><input type="text" name="cf_delay_sec" value="<?php echo $config['cf_delay_sec'] ?>" id="cf_delay_sec" required class="required numeric frm_input" size="3"> <?php _e('Intervals after', 'gnupress');?></td>
+            <th scope="row"><label for="cf_link_target"><?php _e('Link for target', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('글내용중 자동 링크되는 타켓을 지정합니다.') ?>
+                <?php echo g5_help(__('Specifies the target of the link is automatically posts content.', 'gnupress')); ?>
                 <select name="cf_link_target" id="cf_link_target">
                     <option value="_blank"<?php echo g5_get_selected($config['cf_link_target'], '_blank') ?>>_blank</option>
                     <option value="_self"<?php echo g5_get_selected($config['cf_link_target'], '_self') ?>>_self</option>
@@ -199,39 +192,39 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_read_point">글읽기 포인트<strong class="sound_only">필수</strong></label></th>
-            <td><input type="text" name="cf_read_point" value="<?php echo $config['cf_read_point'] ?>" id="cf_read_point" required class="required frm_input" size="3"> 점</td>
-            <th scope="row"><label for="cf_write_point">글쓰기 포인트</label></th>
-            <td><input type="text" name="cf_write_point" value="<?php echo $config['cf_write_point'] ?>" id="cf_write_point" required class="required frm_input" size="3"> 점</td>
+            <th scope="row"><label for="cf_read_point"><?php _e('Read points', 'gnupress'); ?><strong class="sound_only"><?php _e('required', 'gnupress' );?></strong></label></th>
+            <td><input type="text" name="cf_read_point" value="<?php echo $config['cf_read_point'] ?>" id="cf_read_point" required class="required frm_input" size="3"> <?php _e('point', 'gnupress');?></td>
+            <th scope="row"><label for="cf_write_point"><?php _e('Write points', 'gnupress'); ?></label></th>
+            <td><input type="text" name="cf_write_point" value="<?php echo $config['cf_write_point'] ?>" id="cf_write_point" required class="required frm_input" size="3"> <?php _e('point', 'gnupress');?></td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_comment_point">댓글쓰기 포인트</label></th>
-            <td><input type="text" name="cf_comment_point" value="<?php echo $config['cf_comment_point'] ?>" id="cf_comment_point" required class="required frm_input" size="3"> 점</td>
-            <th scope="row"><label for="cf_download_point">다운로드 포인트</label></th>
-            <td><input type="text" name="cf_download_point" value="<?php echo $config['cf_download_point'] ?>" id="cf_download_point" required class="required frm_input" size="3"> 점</td>
+            <th scope="row"><label for="cf_comment_point"><?php _e('Comment points', 'gnupress'); ?></label></th>
+            <td><input type="text" name="cf_comment_point" value="<?php echo $config['cf_comment_point'] ?>" id="cf_comment_point" required class="required frm_input" size="3"> <?php _e('point', 'gnupress');?></td>
+            <th scope="row"><label for="cf_download_point"><?php _e('Download points', 'gnupress'); ?></label></th>
+            <td><input type="text" name="cf_download_point" value="<?php echo $config['cf_download_point'] ?>" id="cf_download_point" required class="required frm_input" size="3"> <?php _e('point', 'gnupress');?></td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_search_part">검색 단위</label></th>
-            <td colspan="3"><input type="text" name="cf_search_part" value="<?php echo $config['cf_search_part'] ?>" id="cf_search_part" class="frm_input" size="4"> 건 단위로 검색</td>
+            <th scope="row"><label for="cf_search_part"><?php _e('Search Units', 'gnupress');?></label></th>
+            <td colspan="3"><input type="text" name="cf_search_part" value="<?php echo $config['cf_search_part'] ?>" id="cf_search_part" class="frm_input" size="4"> <?php _e('Units use Search', 'gnupress'); //건 단위로 검색  ?></td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_image_extension">이미지 업로드 확장자</label></th>
+            <th scope="row"><label for="cf_image_extension"><?php _e('Allowed image extensions', 'gnupress');?></label></th>
             <td colspan="3">
-                <?php echo g5_help('게시판 글작성시 이미지 파일 업로드 가능 확장자. | 로 구분') ?>
+                <?php echo g5_help(__('Allowed image extensions separated by( period or vertical bar )', 'gnupress')); ?>
                 <input type="text" name="cf_image_extension" value="<?php echo $config['cf_image_extension'] ?>" id="cf_image_extension" class="frm_input" size="70">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_flash_extension">플래쉬 업로드 확장자</label></th>
+            <th scope="row"><label for="cf_flash_extension"><?php _e('Allowed flash extensions', 'gnupress');?></label></th>
             <td colspan="3">
-                <?php echo g5_help('게시판 글작성시 플래쉬 파일 업로드 가능 확장자. | 로 구분') ?>
+                <?php echo g5_help(__('Allowed flash extensions separated by( period or vertical bar )', 'gnupress')); ?>
                 <input type="text" name="cf_flash_extension" value="<?php echo $config['cf_flash_extension'] ?>" id="cf_flash_extension" class="frm_input" size="70">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_movie_extension">동영상 업로드 확장자</label></th>
+            <th scope="row"><label for="cf_movie_extension"><?php _e('Allowed movie extensions', 'gnupress');?></label></th>
             <td colspan="3">
-                <?php echo g5_help('게시판 글작성시 동영상 파일 업로드 가능 확장자. | 로 구분') ?>
+                <?php echo g5_help(__('Allowed movie extensions separated by( period or vertical bar )', 'gnupress')); ?>
                 <input type="text" name="cf_movie_extension" value="<?php echo $config['cf_movie_extension'] ?>" id="cf_movie_extension" class="frm_input" size="70">
             </td>
         </tr>
@@ -244,29 +237,29 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 <?php echo $frm_submit; ?>
 
 <section id="anc_cf_mail">
-    <h2 class="h2_frm">기본 메일 환경 설정</h2>
+    <h2 class="h2_frm"><?php _e('Mail Default setting', 'gnupress');?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table>
-        <caption>기본 메일 환경 설정</caption>
+        <caption><?php _e('Mail Default setting', 'gnupress');?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row"><label for="cf_email_use">메일발송 사용</label></th>
+            <th scope="row"><label for="cf_email_use"><?php _e('Using mailings', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('체크하지 않으면 메일발송을 아예 사용하지 않습니다. 메일 테스트도 불가합니다.') ?>
-                <input type="checkbox" name="cf_email_use" value="1" id="cf_email_use" <?php echo $config['cf_email_use']?'checked':''; ?>> 사용
+                <?php echo g5_help(__('If you do not check, The mailing does not use at all. No mail is also testing', 'gnupress')); ?>
+                <input type="checkbox" name="cf_email_use" value="1" id="cf_email_use" <?php echo $config['cf_email_use']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_formmail_is_member">폼메일 사용 여부</label></th>
+            <th scope="row"><label for="cf_formmail_is_member"><?php _e('Whether using formmail', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('체크하지 않으면 비회원도 사용 할 수 있습니다.') ?>
-                <input type="checkbox" name="cf_formmail_is_member" value="1" id="cf_formmail_is_member" <?php echo $config['cf_formmail_is_member']?'checked':''; ?>> 회원만 사용
+                <?php echo g5_help(__('If you do not check, guest can be use.', 'gnupress')); ?>
+                <input type="checkbox" name="cf_formmail_is_member" value="1" id="cf_formmail_is_member" <?php echo $config['cf_formmail_is_member']?'checked':''; ?>> <?php _e('Use only members', 'gnupress');?>
             </td>
         </tr>
         </table>
@@ -276,43 +269,43 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 <?php echo $frm_submit; ?>
 
 <section id="anc_cf_article_mail">
-    <h2 class="h2_frm">게시판 글 작성 시 메일 설정</h2>
+    <h2 class="h2_frm"><?php _e('Mail setting when posts write', 'gnupress'); ?></h2>
     <?php echo $pg_anchor ?>
 
     <div class="tbl_frm01 tbl_wrap">
         <table>
-        <caption>게시판 글 작성 시 메일 설정</caption>
+        <caption><?php _e('Mail setting when posts write', 'gnupress'); ?></caption>
         <colgroup>
             <col class="grid_4">
             <col>
         </colgroup>
         <tbody>
         <tr>
-            <th scope="row"><label for="cf_email_wr_super_admin">최고관리자</label></th>
+            <th scope="row"><label for="cf_email_wr_super_admin"><?php _e('Administrator', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('최고관리자에게 메일을 발송합니다.') ?>
-                <input type="checkbox" name="cf_email_wr_super_admin" value="1" id="cf_email_wr_super_admin" <?php echo $config['cf_email_wr_super_admin']?'checked':''; ?>> 사용
+                <?php echo g5_help(__('Send email to the administrator.', 'gnupress')); //최고 관리자에게 메일을 발송합니다. ?>
+                <input type="checkbox" name="cf_email_wr_super_admin" value="1" id="cf_email_wr_super_admin" <?php echo $config['cf_email_wr_super_admin']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_email_wr_board_admin">게시판관리자</label></th>
+            <th scope="row"><label for="cf_email_wr_board_admin"><?php _e('BBS manager', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('게시판관리자에게 메일을 발송합니다.') ?>
-                <input type="checkbox" name="cf_email_wr_board_admin" value="1" id="cf_email_wr_board_admin" <?php echo $config['cf_email_wr_board_admin']?'checked':''; ?>> 사용
+                <?php echo g5_help(__('Send email to the BBS manager.', 'gnupress')); //'게시판관리자에게 메일을 발송합니다.' ?>
+                <input type="checkbox" name="cf_email_wr_board_admin" value="1" id="cf_email_wr_board_admin" <?php echo $config['cf_email_wr_board_admin']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_email_wr_write">원글작성자</label></th>
+            <th scope="row"><label for="cf_email_wr_write"><?php _e('Author', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('게시자님께 메일을 발송합니다.') ?>
-                <input type="checkbox" name="cf_email_wr_write" value="1" id="cf_email_wr_write" <?php echo $config['cf_email_wr_write']?'checked':''; ?>> 사용
+                <?php echo g5_help(__('Send email to the Author.', 'gnupress')); //게시자님께 메일을 발송합니다. ?>
+                <input type="checkbox" name="cf_email_wr_write" value="1" id="cf_email_wr_write" <?php echo $config['cf_email_wr_write']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_email_wr_comment_all">댓글작성자</label></th>
+            <th scope="row"><label for="cf_email_wr_comment_all"><?php _e('Commenter', 'gnupress');?></label></th>
             <td>
-                <?php echo g5_help('원글에 댓글이 올라오는 경우 댓글 쓴 모든 분들께 메일을 발송합니다.') ?>
-                <input type="checkbox" name="cf_email_wr_comment_all" value="1" id="cf_email_wr_comment_all" <?php echo $config['cf_email_wr_comment_all']?'checked':''; ?>> 사용
+                <?php echo g5_help(__('If write a comment on original, will be sent mail to all those who wrote comments.', 'gnupress')); //원글에 댓글이 올라오는 경우 댓글 쓴 모든 분들께 메일을 발송합니다. ?>
+                <input type="checkbox" name="cf_email_wr_comment_all" value="1" id="cf_email_wr_comment_all" <?php echo $config['cf_email_wr_comment_all']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
             </td>
         </tr>
         </tbody>

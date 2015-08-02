@@ -69,10 +69,10 @@ if ( ! function_exists('g5_point_action'))
                 $mb = g5_get_member($user_login);
                 
                 if (!$mb['user_id'])
-                    g5_alert( '존재하는 회원아이디가 아닙니다.', wp_get_referer() );
+                    g5_alert( __('User ID does not exist.', 'gnupress'), wp_get_referer() );   //회원아이디가 존재하지 않습니다.
 
                 if (($po_point < 0) && ($po_point * (-1) > $mb['mb_point']))
-                    g5_alert('포인트를 깎는 경우 현재 포인트보다 작으면 안됩니다.', wp_get_referer() );
+                    g5_alert('If deduct to the point, should not be less than the current point', wp_get_referer() );    //포인트를 깎는 경우 현재 포인트보다 작으면 안됩니다.
 
                 g5_insert_point($user_login, $po_point, $po_content, '@passive', $user_login, $current_user->user_login.'-'.uniqid(''), $expire);
                 
@@ -84,7 +84,7 @@ if ( ! function_exists('g5_point_action'))
 
                 $count = count($_POST['chk']);
                 if(!$count)
-                    g5_alert(sanitize_title($_POST['act_button']).' 하실 항목을 하나 이상 체크하세요.');
+                    g5_alert(sanitize_title($_POST['act_button']).' '.__('to be select least one item', 'gnupress')); //하실 항목을 하나 이상 체크하세요.
 
                 for ($i=0; $i<$count; $i++)
                 {
@@ -172,6 +172,7 @@ function g5_config_form_update(){
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
+    $config = $gnupress->config;
 
     $pages = $tmp_config = array();
 
@@ -197,6 +198,11 @@ function g5_config_form_update(){
         if( $page_id = g5_get_page_id(g5_page_get_by($b['bo_table'],'name')) ){
             $pages[$b['bo_table']] = $page_id;
         }
+    }
+
+    //버젼이 틀리면 업데이트를 체크한다.
+    if( G5_VERSION != $config['version'] ){
+        include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
     }
 
     $options = array('version'=>G5_VERSION, 'board_page'=>$pages, 'config'=>$tmp_config);
@@ -243,7 +249,7 @@ function g5_board_form(){
                 $board = $wpdb->get_row($wpdb->prepare(" select * from {$g5['board_table']} where bo_table = '%s' ", $bo_table), ARRAY_A);
             }
             if( ! isset($board['bo_table']) && empty($board['bo_table']) )
-                g5_alert('존재하지 않는 게시판입니다.');
+                g5_alert(__('The board does not exist.', 'gnupress'));  //게시판이 존재하지 않습니다.
         }
     }
 
@@ -253,7 +259,7 @@ function g5_board_form(){
     }
 
     if ($w == '') {
-        $html_title .= ' 생성';
+        $html_title .= ' '.__('create', 'gnupress');
         $required = 'required';
         $required_valid = 'alnum_';
         $sound_only = '<strong class="sound_only">필수</strong>';
@@ -319,10 +325,10 @@ function g5_board_form(){
 
     } else if ($w == 'u') {
 
-        $html_title .= ' 수정';
+        $html_title .= ' '.__('modify', 'gnupress');
 
         if ( !isset($board['bo_table']) )
-            $gnupress->add_err_msg = __( '존재하지 않는 게시판입니다.', G5_NAME );
+            $gnupress->add_err_msg = __( 'The board does not exist.', G5_NAME );
 
         $readonly = 'readonly';
 

@@ -29,6 +29,12 @@ function gnupress_init(){
     $GLOBALS['gnupress'] = new GnuPress();
 }
 
+add_action( 'plugins_loaded', 'g5_plugin_load_textdomain' );
+function g5_plugin_load_textdomain() {
+    //번역파일
+    load_plugin_textdomain( 'gnupress', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+}
+
 include_once( G5_DIR_PATH.'lib/g5_var.class.php' );
 include_once( G5_DIR_PATH.'lib/common.lib.php' );
 include_once( G5_DIR_PATH.'ajax_function.php' );
@@ -152,9 +158,6 @@ Class GnuPress {
         //add_action('wp_head', array( $this, 'g5_initialize_head') );
 
         $this->instances = new G5_Board($attr);
-        
-        //번역파일
-        //load_plugin_textdomain( G5_NAME, false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
     }
 
     public function g5_admin_menu(){
@@ -165,11 +168,11 @@ Class GnuPress {
         $page_arr[] = add_menu_page(G5_NAME, 'GNUPress', 'manage_options', 'g5_board_admin', 'g5_board_admin');
         
         //add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
-        $g5_admin_page[0] = array( 'title'=>__('환경설정', G5_NAME), 'menu_slug'=> 'g5_board_admin', 'function'=>'g5_board_admin' );
-        $g5_admin_page[1] = array( 'title'=>__('게시판 관리', G5_NAME), 'menu_slug'=> 'g5_board_list', 'function'=>'g5_board_list' );
-        $g5_admin_page[2] = array( 'title'=>__('게시판 추가', G5_NAME), 'menu_slug'=> 'g5_board_form', 'function'=>'g5_board_form' );
-        $g5_admin_page[3] = array( 'title'=>__('태그 관리', G5_NAME), 'menu_slug'=> 'g5_tag_form', 'function'=>'g5_tag_form' );
-        $g5_admin_page[4] = array( 'title'=>__('회원 포인트 관리', G5_NAME), 'menu_slug'=> 'g5_point_list', 'function'=>'g5_point_list' );
+        $g5_admin_page[0] = array( 'title'=>__('gnupress setting', G5_NAME), 'menu_slug'=> 'g5_board_admin', 'function'=>'g5_board_admin' );
+        $g5_admin_page[1] = array( 'title'=>__('Manage board', G5_NAME), 'menu_slug'=> 'g5_board_list', 'function'=>'g5_board_list' );
+        $g5_admin_page[2] = array( 'title'=>__('Add board', G5_NAME), 'menu_slug'=> 'g5_board_form', 'function'=>'g5_board_form' );
+        $g5_admin_page[3] = array( 'title'=>__('Manage board tag', G5_NAME), 'menu_slug'=> 'g5_tag_form', 'function'=>'g5_tag_form' );
+        $g5_admin_page[4] = array( 'title'=>__('Manage user points', G5_NAME), 'menu_slug'=> 'g5_point_list', 'function'=>'g5_point_list' );
 
         foreach( $g5_admin_page as $v ){
             $page_arr[] = add_submenu_page('g5_board_admin', G5_NAME, $v['title'], 'manage_options', $v['menu_slug'], $v['function']);
@@ -197,7 +200,7 @@ Class GnuPress {
         // 오늘 처음 로그인 인지 체크
         if (substr( get_user_meta($current_user->ID, 'mb_today_login', true) , 0, 10) != G5_TIME_YMD && $this->config['cf_login_point']) {
             // 첫 로그인 포인트 지급
-            g5_insert_point($current_user->ID, $this->config['cf_login_point'], G5_TIME_YMD.' 첫로그인', '@login', $current_user->ID, G5_TIME_YMD);
+            g5_insert_point($current_user->ID, $this->config['cf_login_point'], G5_TIME_YMD.' '.__('First Login', G5_NAME), '@login', $current_user->ID, G5_TIME_YMD);
 
             // 오늘의 로그인이 될 수도 있으며 마지막 로그인일 수도 있음
             // 해당 회원의 접근일시와 IP 를 저장
@@ -230,11 +233,11 @@ Class GnuPress {
                         'parent' => 'my-account', 'id' => $my_account_menu_id, 'title' => __( 'My Account', G5_NAME ), 'group' => true, 'meta' => array('class' => 'ab-sub-secondary')
                     ),
                     array(
-                        'parent' => $my_account_menu_id, 'id' => 'g5-account-point', 'title'  => __( '내 포인트', G5_NAME ).'( '.number_format((int) get_user_meta($current_user->ID ,'mb_point', true)).' )'
+                        'parent' => $my_account_menu_id, 'id' => 'g5-account-point', 'title'  => __( 'My point', G5_NAME ).'( '.number_format((int) get_user_meta($current_user->ID ,'mb_point', true)).' )'
                         , 'href' => g5_get_link_by('point'), 'meta' => array('class' => 'g5_new_open', 'target' => '_blank')
                     ),
                     array(
-                        'parent' => $my_account_menu_id, 'id' => 'g5-account-scrap', 'title'  => __( '내 스크랩', G5_NAME ), 'href' => g5_get_link_by('scrap'), 'meta' => array('class' => 'g5_new_open', 'target' => '_blank')
+                        'parent' => $my_account_menu_id, 'id' => 'g5-account-scrap', 'title'  => __( 'My scrap', G5_NAME ), 'href' => g5_get_link_by('scrap'), 'meta' => array('class' => 'g5_new_open', 'target' => '_blank')
                     )
             ));
 
@@ -277,7 +280,7 @@ Class GnuPress {
         $this->term_list = _g5_get_list_table('G5_Terms_List_Table', $this->taxonomy, $bo_table);
     }
 
-    public function check_g5_page($posts, $check_end=false){
+    public function check_g5_page($posts){
 
         $g5_options = get_option(G5_OPTION_KEY);
 
@@ -285,9 +288,6 @@ Class GnuPress {
             include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
         }
 
-        if( $check_end ){
-            return;
-        }
         $is_g5_page = false;
 
         if( $is_g5_page = $this->g5_member_page_check($posts) ){
@@ -400,7 +400,7 @@ Class GnuPress {
         }
 
         if( ! isset($attr['bo_table']) && empty($attr['bo_table']) ){
-            $g5_error = new WP_Error( 'broke', __( "shortcode에 반드시 bo_table값을 입력해 주세요.", G5_NAME ) );
+            $g5_error = new WP_Error( 'broke', __( "Please enter a value bo_table on the shortcode.", G5_NAME ) );
             echo $g5_error->get_error_message();
             return;
         }
@@ -427,7 +427,7 @@ Class GnuPress {
         $g5 = $this->g5;
 
         if( ! isset($attr['bo_table']) && empty($attr['bo_table']) ){
-            $g5_error = new WP_Error( 'broke', __( "shortcode에 반드시 bo_table값을 입력해 주세요.", G5_NAME ) );
+            $g5_error = new WP_Error( 'broke', __( "Please enter a value bo_table on the shortcode.", G5_NAME ) );   //shortcode에 반드시 bo_table값을 입력해 주세요.
             return $g5_error->get_error_message();
         }
         
@@ -484,7 +484,7 @@ Class GnuPress {
             $board = g5_get_board_config($bo_table);
 
             if( !isset($board['bo_table']) || empty($board['bo_table']) ){
-                $g5_error = new WP_Error( 'broke', __( "해당 값이 없습니다.", G5_NAME) );
+                $g5_error = new WP_Error( 'broke', __( "No data.", G5_NAME) );   //데이터가 없습니다.
                 return $g5_error->get_error_message();
             }
 
@@ -593,9 +593,7 @@ Class GnuPress {
 
         do_action( 'g5_pre_admin_init', $this );
 
-        if( is_admin() && current_user_can( 'edit_users' ) ) {
-
-            $this->check_g5_page('', true);
+        if( current_user_can( 'edit_users' ) ) {
             if( $this->config['cf_editor'] ){
                 //에디터를 사용할 경우 처리
                 include_once( G5_DIR_PATH.'plugin/editor/'.$this->config['cf_editor'].'/editor.lib.php' );

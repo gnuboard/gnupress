@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 <!-- 폼메일 시작 { -->
 <div id="formmail" class="new_win mbskin">
-    <h1 id="win_title"><?php echo $user_name ?>님께 메일보내기</h1>
+    <h1 id="win_title"><?php echo $user_name ?><?php _e(' - Send Email', 'gnupress');?></h1>
 
     <form name="fformmail" action="<?php echo g5_form_action_url(add_query_arg(array()));?>" onsubmit="return fformmail_submit(this);" method="post" enctype="multipart/form-data" style="margin:0px;">
     <?php wp_nonce_field( 'g5_formmail', 'g5_nonce_field' ); ?>
@@ -22,16 +22,16 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
         <tbody>
         <?php if (!$is_member) {  ?>
         <tr>
-            <th scope="row"><label for="fnick">이름<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="fnick"><?php _e('Name', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="text" name="fnick" id="fnick" required class="frm_input required"></td>
         </tr>
         <tr>
-            <th scope="row"><label for="fmail">E-mail<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="fmail">E-mail<strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="text" name="fmail"  id="fmail" required class="frm_input required"></td>
         </tr>
         <?php }  ?>
         <tr>
-            <th scope="row"><label for="subject">제목<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="subject"><?php _e('Subject', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="text" name="subject" id="subject" required class="frm_input required"></td>
         </tr>
         <tr>
@@ -43,22 +43,22 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="content">내용<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="content"><?php _e('Content', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><textarea name="content" id="content" required class="required"></textarea></td>
         </tr>
         <tr>
-            <th scope="row"><label for="file1">첨부 파일 1</label></th>
+            <th scope="row"><label for="file1"><?php _e('Attachments', 'gnupress');?> 1</label></th>
             <td>
                 <input type="file" name="file1" id="file1"  class="frm_input">
-                첨부 파일은 누락될 수 있으므로 메일을 보낸 후 파일이 첨부 되었는지 반드시 확인해 주시기 바랍니다.
+				<?php _e('Please make sure that the attachments may be missing after sending the email file attachment.', 'gnupress');	//첨부 파일은 누락될 수 있으므로 메일을 보낸 후 파일이 첨부 되었는지 반드시 확인해 주시기 바랍니다.?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="file2">첨부 파일 2</label></th>
+            <th scope="row"><label for="file2"><?php _e('Attachments', 'gnupress');?> 2</label></th>
             <td><input type="file" name="file2" id="file2" class="frm_input"></td>
         </tr>
         <tr>
-            <th scope="row">자동등록방지</th>
+            <th scope="row"><?php _e('Captcha', 'gnupress');?></th>
             <td><?php echo g5_captcha_html(); ?></td>
         </tr>
         </tbody>
@@ -66,8 +66,8 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     </div>
 
     <div class="win_btn">
-        <input type="submit" value="메일발송" id="btn_submit" class="btn_submit">
-        <button type="button" onclick="window.close();">창닫기</button>
+        <input type="submit" value="<?php _e('Send Email', 'gnupress');?>" id="btn_submit" class="btn_submit">
+        <button type="button" onclick="window.close();"><?php _e('Close', 'gnupress');?></button>
     </div>
 
     </form>
@@ -87,7 +87,7 @@ function fformmail_submit(f)
 
     if (f.file1.value || f.file2.value) {
         // 4.00.11
-        if (!confirm("첨부파일의 용량이 큰경우 전송시간이 오래 걸립니다.\n\n메일보내기가 완료되기 전에 창을 닫거나 새로고침 하지 마십시오."))
+        if (!confirm("<?php _e('If the capacity of the attachment larger the longer the transmission time required.', 'gnupress');?>\n\n<?php _e('Email close the window before it finishes Do not refresh.', 'gnupress');?>"))
             return false;
     }
 
