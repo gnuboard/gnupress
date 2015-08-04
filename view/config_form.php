@@ -222,10 +222,17 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="cf_movie_extension"><?php _e('Allowed movie extensions', 'gnupress');?></label></th>
+            <th scope="row"><label for="cf_movie_extension"><?php _e('Allowed movie extensions', 'gnupress');   //동영상 업로드 확장자?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Allowed movie extensions separated by( period or vertical bar )', 'gnupress')); ?>
                 <input type="text" name="cf_movie_extension" value="<?php echo $config['cf_movie_extension'] ?>" id="cf_movie_extension" class="frm_input" size="70">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="cf_filter"><?php _e('Filter words', 'gnupress');   //단어 필터링?></label></th>
+            <td colspan="3">
+                <?php echo g5_help(__('The Contents contained is entered word can not published. The words between words, separated by commas.', G5_NAME)); ?>
+                <textarea name="cf_filter" id="cf_filter" rows="7"><?php echo $config['cf_filter'] ?></textarea>
             </td>
         </tr>
 

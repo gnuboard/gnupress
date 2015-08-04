@@ -167,7 +167,7 @@ a.pg_page {border:0}
 
 /* 쓰기 버튼 */
 #bo_w .btn_confirm {} /* 서식단계 진행 */
-#bo_w .btn_submit, #bo_w button.btn_submit { padding:8px;border:0;background:#ff3061;color:#fff;letter-spacing:-0.1em;cursor:pointer;font-size:1em;vertical-align:middle }
+#bo_w .btn_submit, #bo_w button.btn_submit { padding:8px;border:0;background:#ff3061;color:#fff;letter-spacing:-0.1em;cursor:pointer;font-size:1em;vertical-align:middle;margin-bottom:0 }
 #bo_w button.btn_submit {}
 #bo_w fieldset .btn_submit {}
 #bo_w .btn_cancel {}
@@ -250,7 +250,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 
 /* 갤러리 목록 */
 #bo_gall h2 {margin:0;padding:0;width:1px;height:1px;font-size:0;line-height:0;overflow:hidden}
-#bo_gall #gall_ul {zoom:1}
+#bo_gall #gall_ul {zoom:1;margin-bottom:30px}
 #bo_gall #gall_ul:after {display:block;visibility:hidden;clear:both;content:""}
 #bo_gall .gall_li {float:left;margin:0 10px 30px 0}
 

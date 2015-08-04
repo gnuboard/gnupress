@@ -140,7 +140,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             }
 
             if( !$bo_table ){
-                $gnupress->add_err_msg = __( 'bo_table 값을 입력하세요.', G5_NAME );
+                $gnupress->add_err_msg = __( 'Enter your \"bo_table\" value.', G5_NAME );
                 break;
             }
 

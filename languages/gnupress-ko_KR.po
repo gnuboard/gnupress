@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnupress\n"
-"POT-Creation-Date: 2015-08-04 10:01+0900\n"
-"PO-Revision-Date: 2015-08-04 10:01+0900\n"
+"POT-Creation-Date: 2015-08-04 11:08+0900\n"
+"PO-Revision-Date: 2015-08-04 11:15+0900\n"
 "Last-Translator: \n"
 "Language-Team: SIR Soft\n"
 "Language: ko_KR\n"
@@ -106,7 +106,7 @@ msgid "You can delete only the top management board."
 msgstr "게시판 삭제는 최고관리자만 가능합니다."
 
 #: adm/board_form_update.php:143
-msgid "bo_table 값을 입력하세요."
+msgid "Enter your \\\"bo_table\\\" value."
 msgstr "bo_table 값을 입력하세요."
 
 #: adm/board_form_update.php:310
@@ -140,7 +140,7 @@ msgstr ""
 #: skin/board/gallery/view_comment.skin.php:66
 #: skin/member/basic/scrap.skin.php:18 skin/member/basic/scrap.skin.php:28
 msgid "Delete"
-msgstr ""
+msgstr "삭제"
 
 #: adm/includes/class-g5-terms-list-table.php:108 view/edit_tag_form.php:115
 #: view/point_list.php:95
@@ -849,7 +849,7 @@ msgstr "메일"
 
 #: bbs/write_update_mail.php:19 skin/board/default/list.skin.php:99
 #: skin/board/default/list.skin.php:236 skin/board/gallery/list.skin.php:138
-#: skin/board/gallery/list.skin.php:200 view/config_form.php:298
+#: skin/board/gallery/list.skin.php:200 view/config_form.php:305
 msgid "Author"
 msgstr "작성자"
 
@@ -1661,8 +1661,8 @@ msgstr ""
 #: view/board_form.php:384 view/board_form.php:396 view/board_form.php:408
 #: view/board_form.php:419 view/board_form.php:430 view/board_form.php:461
 #: view/board_form.php:516 view/board_form.php:527 view/config_form.php:45
-#: view/config_form.php:255 view/config_form.php:287 view/config_form.php:294
-#: view/config_form.php:301 view/config_form.php:308
+#: view/config_form.php:262 view/config_form.php:294 view/config_form.php:301
+#: view/config_form.php:308 view/config_form.php:315
 msgid "use"
 msgstr "사용"
 
@@ -1916,7 +1916,7 @@ msgstr ""
 msgid "Use Show all list"
 msgstr "전체목록보이기 사용"
 
-#: view/board_form.php:427 view/config_form.php:252
+#: view/board_form.php:427 view/config_form.php:259
 msgid "Using mailings"
 msgstr "메일발송 사용"
 
@@ -2386,7 +2386,7 @@ msgstr "홈페이지 기본환경 설정"
 
 #: view/config_form.php:38
 msgid "Current Version"
-msgstr "현재버젼"
+msgstr "현재버전"
 
 #: view/config_form.php:44
 msgid "Using Points"
@@ -2590,57 +2590,69 @@ msgstr "동영상 업로드 확장자"
 msgid "Allowed movie extensions separated by( period or vertical bar )"
 msgstr "게시판 글작성시 동영상 파일 업로드 가능 확장자. | 로 구분"
 
-#: view/config_form.php:240 view/config_form.php:245
+#: view/config_form.php:232
+msgid "Filter words"
+msgstr "단어 필터링"
+
+#: view/config_form.php:234
+msgid ""
+"The Contents contained is entered word can not published. The words between "
+"words, separated by commas."
+msgstr ""
+"입력된 단어가 포함된 내용은 게시할 수 없습니다. 단어와 단어 사이는 ,로 구분합"
+"니다."
+
+#: view/config_form.php:247 view/config_form.php:252
 msgid "Mail Default setting"
 msgstr "기본 메일 환경 설정"
 
-#: view/config_form.php:254
+#: view/config_form.php:261
 msgid ""
 "If you do not check, The mailing does not use at all. No mail is also testing"
 msgstr ""
 "체크하지 않으면 메일발송을 아예 사용하지 않습니다. 메일 테스트도 불가합니다"
 
-#: view/config_form.php:259
+#: view/config_form.php:266
 msgid "Whether using formmail"
 msgstr "폼메일 사용 여부"
 
-#: view/config_form.php:261
+#: view/config_form.php:268
 msgid "If you do not check, guest can be use."
 msgstr "체크하지 않으면 비회원도 사용 할 수 있습니다."
 
-#: view/config_form.php:262
+#: view/config_form.php:269
 msgid "Use only members"
 msgstr "회원만 사용"
 
-#: view/config_form.php:272 view/config_form.php:277
+#: view/config_form.php:279 view/config_form.php:284
 msgid "Mail setting when posts write"
 msgstr "게시판 글 작성 시 메일 설정"
 
-#: view/config_form.php:284
+#: view/config_form.php:291
 msgid "Administrator"
 msgstr "최고관리자"
 
-#: view/config_form.php:286
+#: view/config_form.php:293
 msgid "Send email to the administrator."
 msgstr "최고 관리자에게 메일을 발송합니다."
 
-#: view/config_form.php:291
+#: view/config_form.php:298
 msgid "BBS manager"
 msgstr "게시판관리자"
 
-#: view/config_form.php:293
+#: view/config_form.php:300
 msgid "Send email to the BBS manager."
 msgstr "게시판관리자에게 메일을 발송합니다."
 
-#: view/config_form.php:300
+#: view/config_form.php:307
 msgid "Send email to the Author."
 msgstr "게시자님께 메일을 발송합니다."
 
-#: view/config_form.php:305
+#: view/config_form.php:312
 msgid "Commenter"
 msgstr "댓글작성자"
 
-#: view/config_form.php:307
+#: view/config_form.php:314
 msgid ""
 "If write a comment on original, will be sent mail to all those who wrote "
 "comments."
@@ -2984,6 +2996,9 @@ msgstr ""
 #: view/tag_form.php:586
 msgid "Please choose a board"
 msgstr "게시판을 선택해 주세요."
+
+#~ msgid "bo_table 값을 입력하세요."
+#~ msgstr "bo_table 값을 입력하세요."
 
 #~ msgid "잘못된 접근입니다."
 #~ msgstr "Invalid Connection."

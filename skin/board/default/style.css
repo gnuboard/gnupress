@@ -164,7 +164,7 @@ a.pg_page {border:0}
 
 /* 쓰기 버튼 */
 #bo_w .btn_confirm {} /* 서식단계 진행 */
-#bo_w .btn_submit, #bo_w button.btn_submit { padding:8px;border:0;background:#ff3061;color:#fff;letter-spacing:-0.1em;cursor:pointer;font-size:1em;vertical-align:middle }
+#bo_w .btn_submit, #bo_w button.btn_submit { padding:8px;border:0;background:#ff3061;color:#fff;letter-spacing:-0.1em;cursor:pointer;font-size:1em;vertical-align:middle;margin-bottom:0 }
 #bo_w button.btn_submit {}
 #bo_w fieldset .btn_submit {}
 #bo_w .btn_cancel {}

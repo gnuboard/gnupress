@@ -127,7 +127,7 @@ tfoot td {font-weight:bold;text-align:center}
 /* 폼 테이블 */
 .tbl_frm01 th {padding:0;border-top:1px solid #ececec;border-bottom:1px solid #ececec;text-align:left}
 .tbl_frm01 td {padding:10px 5px;border-right:0;border-left:0}
-.tbl_frm01 textarea {height:150px}
+.tbl_frm01 textarea {width:99%;height:150px}
 .tbl_frm01 #captcha {margin:0;padding:0;border:0;background:transparent}
 .tbl_frm01 #captcha input {margin-left:5px;text-align:center}
 
