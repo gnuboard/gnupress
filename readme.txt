@@ -4,7 +4,7 @@ Donate link: http://sir.co.kr
 Tags: gnupress, gnu, gnuboard, korea, korean, bulletin, board, bbs, community, forum, 그누프레스, 그누보드, 게시판, 한국형게시판
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 0.1.7
+Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
