@@ -3,8 +3,24 @@ include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );
 
 function g5_load_admin_js($v)
 {
+    // Register the script
+    wp_register_script( 'g5-common-js', G5_DIR_URL.'js/common.js', '', G5_VERSION );
+
+    // Localize the script with new data
+    $translation_array = array(
+        'del1' => __( 'Deleted data can not be recovered once.', G5_NAME ),
+        'del2' => __( 'Are you sure you want to delete the selected data?', G5_NAME ),
+        'placeholderText' => __( 'Input tags', G5_NAME ),
+        'bchkchk' => __('to be select least one item', G5_NAME ),
+        'mtxt' => __('modify', G5_NAME ),
+        'dtxt' => __('delete', G5_NAME )
+    );
+    wp_localize_script( 'g5-common-js', 'g5_object', $translation_array );
+
+    // Enqueued script with localized data.
+    wp_enqueue_script( 'g5-common-js' );
+
     $load_skin_js = array();
-    $load_skin_js[] = array('handle'=>'g5-common-js', 'src'=>G5_DIR_URL.'js/common.js', 'deps'=>'', 'ver'=>G5_VERSION);
     $load_skin_js[] = array('handle'=>'g5-admin-js', 'src'=>G5_DIR_URL.'view/js/g5_admin.js', 'deps'=>'', 'ver'=>G5_VERSION);
     $load_skin_js[] = array('handle'=>'html5-js', 'src'=>G5_DIR_URL.'view/js/html5.js', 'deps'=>'', 'ver'=>G5_VERSION);
 
@@ -14,6 +30,7 @@ function g5_load_admin_js($v)
             wp_enqueue_script( $js['handle'], $js['src'], $js['deps'], $js['ver'] );
         }
     }
+
 	wp_enqueue_style ( 'g5-admin-css', G5_DIR_URL . 'view/css/g5_admin.css', '', G5_VERSION );
     if( function_exists('wp_script_add_data') ){
         wp_script_add_data( 'html5-js', 'conditional', 'if lte IE 8' );
@@ -172,7 +189,7 @@ function g5_config_form_update(){
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
-    $config = $gnupress->config;
+    $g5_options = get_option(G5_OPTION_KEY);
 
     $pages = $tmp_config = array();
 
@@ -201,7 +218,7 @@ function g5_config_form_update(){
     }
 
     //버젼이 틀리면 업데이트를 체크한다.
-    if( G5_VERSION != $config['version'] ){
+    if( G5_VERSION != $g5_options['version'] ){
         include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
     }
 
@@ -373,7 +390,7 @@ function g5_board_list(){
 
     $check_post_msg = ( isset( $_POST['g5_admin_post'] ) ) ? g5_admin_post( sanitize_key($_POST['g5_admin_post']) ) : false;
 
-    $g5['title'] = __('게시판관리', G5_NAME );
+    $g5['title'] = __('Management Board', G5_NAME );
     //파라미터
     $param_arr = array('stx', 'sfl', 'sst', 'sod', 'page');
     foreach( $param_arr as $v ){

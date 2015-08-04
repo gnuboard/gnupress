@@ -38,7 +38,7 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
     <?php if($cnt) { ?>
     <!-- 첨부파일 시작 { -->
     <section id="bo_v_file">
-        <h2>첨부파일</h2>
+        <h2><?php _e('Attachments', 'gnupress');?></h2>
         <ul>
         <?php
         // 가변 파일

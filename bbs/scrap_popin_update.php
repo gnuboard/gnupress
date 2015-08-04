@@ -15,7 +15,7 @@ if (!$is_member)
 
     $href = wp_login_url( $refer_page );
 
-    echo '<script> alert(\'회원만 접근 가능합니다.\'); top.location.href = \''.$href.'\'; </script>';
+    echo '<script> alert(\''.__('Only registered members can access.', G5_NAME).'\'); top.location.href = \''.$href.'\'; </script>';
     exit;
 }
 
@@ -30,17 +30,18 @@ if ($row_cnt)
 {
     $scrap_url = add_query_arg( array('action'=>'scrap'), $current_url );
 
+    $msg1 = __('Your article is already scrap.\\n\\nDo you want to scrap it now?', G5_NAME);
     echo '
     <script>
-    if (confirm(\'이미 스크랩하신 글 입니다.'."\\n\\n".'지금 스크랩을 확인하시겠습니까?\'))
+    if (confirm(\''.$msg1.'\'))
         document.location.href = \''.$scrap_url.'\';
     else
         window.close();
     </script>
     <noscript>
-    <p>이미 스크랩하신 글 입니다.</p>
-    <a href="$scrap_url">스크랩 확인하기</a>
-    <a href="$refer_page">돌아가기</a>
+    <p>Your article is already scrap.</p>
+    <a href="$scrap_url">Confirm scrap</a>
+    <a href="$refer_page">Go back</a>
     </noscript>';
     exit;
 }
@@ -98,7 +99,7 @@ if ($cm_content && ($member['user_level'] >= $board['bo_comment_level']))
                 );
 
             // 포인트 부여
-            g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 코멘트쓰기", $bo_table, $comment_id, '코멘트');
+            g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} ".__('Write a comment', G5_NAME), $bo_table, $comment_id, __('comment', G5_NAME));
         }
     }
 }
@@ -122,16 +123,17 @@ if ( $result !== 'false') {
     g5_delete_cache_latest($bo_table);
 }
 
+$msg1 = __('scrap this article.\\n\\nDo you want to scrap it now?', G5_NAME);
 echo <<<HEREDOC
 <script>
-    if (confirm('이 글을 스크랩 하였습니다.\\n\\n지금 스크랩을 확인하시겠습니까?'))
+    if (confirm('$msg1'))
         document.location.href = '$scrap_href';
     else
         window.close();
 </script>
 <noscript>
-<p>이 글을 스크랩 하였습니다.</p>
-<a href="$scrap_href">스크랩 확인하기</a>
+<p>scrap article.</p>
+<a href="$scrap_href">Go scrap</a>
 </noscript>
 HEREDOC;
 

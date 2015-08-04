@@ -2,13 +2,13 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if ( ! isset( $_POST['g5_nonce_field'] ) || ! wp_verify_nonce( $_POST['g5_nonce_field'], 'g5_write' ) ) {
-    g5_alert(__('잘못된 접근입니다.', G5_NAME), get_permalink() );
+    g5_alert(__('Invalid Connection.', G5_NAME), get_permalink() );
 }
 
 include_once(G5_PLUGIN_PATH.'/kcaptcha/captcha.lib.php');
 include_once(G5_DIR_PATH.'lib/naver_syndi.lib.php');
 
-$g5['title'] = '게시글 저장';
+$g5['title'] = __('Posts update', G5_NAME);
 
 $g5_data_path = g5_get_upload_path();
 $after_update = $after_formats = array();
@@ -25,7 +25,7 @@ if (isset($_POST['wr_subject'])) {
 }
 
 if ($wr_subject == '') {
-    $msg[] = '제목을 입력하세요.';
+    $msg[] = __('enter a subject.', G5_NAME);
 }
 
 $ca_name = '';
@@ -74,7 +74,7 @@ if (isset($_POST['wr_content'])) {
     $wr_content = preg_replace("#[\\\]+$#", "", $wr_content);
 } else {
     if( empty($_POST['wr_content']) ){  //is empty
-        $msg[] = '내용을 입력하세요.';
+        $msg[] = __('enter a Contents.', G5_NAME);
     }
 }
 
@@ -101,14 +101,16 @@ if ($msg) {
 
 // 090710
 if (substr_count($wr_content, '&#') > 50) {
-    g5_alert('내용에 올바르지 않은 코드가 다수 포함되어 있습니다.');
+    g5_alert(__('It did the code is incorrect, the content contains multiple.', G5_NAME));    //내용에 올바르지 않은 코드가 다수 포함되어 있습니다.
     exit;
 }
 
 $upload_max_filesize = ini_get('upload_max_filesize');
 
 if (empty($_POST)) {
-    g5_alert("파일 또는 글내용의 크기가 서버에서 설정한 값을 넘어 오류가 발생하였습니다.\\npost_max_size=".ini_get('post_max_size')." , upload_max_filesize=".$upload_max_filesize."\\n게시판관리자 또는 서버관리자에게 문의 바랍니다.");
+    g5_alert(
+        sprintf(__('The size of the file contents or writing over the value set in the server error has occurred.\\npost_max_size=%s ,upload_max_filesize=%s \\nPlease contact the board administrator or server administrator.', G5_NAME), ini_get('post_max_size'), $upload_max_filesize)
+    );
 }
 
 $notice_array = explode(",", $board['bo_notice']);
@@ -121,13 +123,13 @@ if ($w == 'u' || $w == 'r') {
     }
 
     if (! isset($wr['wr_id']) ) {
-        g5_alert(__("글이 존재하지 않습니다.\\n글이 삭제되었거나 이동하였을 수 있습니다.", G5_NAME));
+        g5_alert(__("This article does not exist.\\nThe article may have been deleted or moved.", G5_NAME));
     }
 }
 
 // 외부에서 글을 등록할 수 있는 버그가 존재하므로 비밀글은 사용일 경우에만 가능해야 함
 if (!$is_admin && !$board['bo_use_secret'] && $secret) {
-	g5_alert('비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다.');
+	g5_alert(__('Secret unused because the board can not be registered as Secret.', G5_NAME));   //비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다.
 }
 
 // 외부에서 글을 등록할 수 있는 버그가 존재하므로 비밀글 무조건 사용일때는 관리자를 제외(공지)하고 무조건 비밀글로 등록
@@ -161,47 +163,47 @@ if ($w == '' || $w == 'u') {
     if($w =='u' && $member['user_id'] && $wr['user_id'] == $member['user_id']) {
         ;
     } else if ($member['user_level'] < $board['bo_write_level']) {
-        g5_alert('글을 쓸 권한이 없습니다.');
+        g5_alert(__('You do not have permission to write.', G5_NAME));   //글을 쓸 권한이 없습니다.
     }
 
 	// 외부에서 글을 등록할 수 있는 버그가 존재하므로 공지는 관리자만 등록이 가능해야 함
 	if (!$is_admin && $notice) {
-		g5_alert('관리자만 공지할 수 있습니다.');
+		g5_alert(__('Only the administrator can be notified.', G5_NAME));   //관리자만 공지할 수 있습니다.
     }
 
 } else if ($w == 'r') {
 
     if (in_array((int)$wr_id, $notice_array)) {
-        g5_alert('공지에는 답변 할 수 없습니다.');
+        g5_alert(__('Notice you can not answer.', G5_NAME));  //공지에는 답변 할 수 없습니다.
     }
 
     if ($member['user_level'] < $board['bo_reply_level']) {
-        g5_alert('글을 답변할 권한이 없습니다.');
+        g5_alert(__('You do not have permission to reply to posts.', G5_NAME));   //글을 답변할 권한이 없습니다.
     }
 
     if ( $wr['wr_parent'] && $config['cf_parent_limit'] ){
-        g5_alert(__('더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다.', G5_NAME));
+        g5_alert(__('You can not answer anymore.\\n\\nThe answer can be only one step.', G5_NAME));    //더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다.
     }
 
 } else {
-    g5_alert('w 값이 제대로 넘어오지 않았습니다.');
+    g5_alert('w value is invalid.'); //w 값이 유효하지 않습니다.
 }
 
 if ($is_guest && !g5_chk_captcha()) {
-    g5_alert('자동등록방지 숫자가 틀렸습니다.');
+    g5_alert('captcha invalid');    //자동등록방지 숫자가 틀렸습니다.
 }
 
 if ($w == '' || $w == 'r') {
 
     if (isset($_SESSION['ss_datetime'])) {
         if ($_SESSION['ss_datetime'] >= (G5_SERVER_TIME - $config['cf_delay_sec']) && !$is_admin)
-            g5_alert('너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.');
+            g5_alert(__('Posts in too soon, you can not continuously post.', G5_NAME));     //너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.
     }
     g5_set_session("ss_datetime", G5_SERVER_TIME);
 }
 
 if (!$wr_subject)
-    g5_alert('제목을 입력하여 주십시오.');
+    g5_alert(__('Please enter the subject.', G5_NAME));
 
 if ($w == '' || $w == 'r') {
     if ($member['user_id']) {
@@ -214,7 +216,7 @@ if ($w == '' || $w == 'r') {
         // 비회원의 경우 이름이 누락되는 경우가 있음
         $user_name = sanitize_text_field(trim($_POST['user_name']));
         if (!$user_name)
-            g5_alert('이름은 필히 입력하셔야 합니다.');
+            g5_alert(__('The name require entered.', G5_NAME)); //이름은 필히 입력하셔야 합니다.
         $user_pass = g5_sql_password(sanitize_text_field(trim($_POST['user_pass'])));
         $user_email = sanitize_text_field(trim($_POST['user_email']));
     }
@@ -302,11 +304,11 @@ if ($w == '' || $w == 'r') {
                 );
         }
 
-        g5_insert_point($member['user_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');
+        g5_insert_point($member['user_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} ".__('Write', G5_NAME), $bo_table, $wr_id, __('Write', G5_NAME));
     } else {
         // 답변은 코멘트 포인트를 부여함
         // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음
-        g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id} 글답변", $bo_table, $wr_id, '쓰기');
+        g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id} ".__('Reply', G5_NAME), $bo_table, $wr_id, __('Reply', G5_NAME));
     }
 
 }  else if ($w == 'u') {
@@ -318,15 +320,15 @@ if ($w == '' || $w == 'r') {
     else if ($is_admin == 'board') { // 게시판관리자이면
         $mb = g5_get_member($write['user_id']);
         if ($member['user_login'] != $board['bo_admin']) // 자신이 관리하는 게시판인가?
-            g5_alert('자신이 관리하는 게시판이 아니므로 수정할 수 없습니다.', $return_url);
+            g5_alert(__('The board itself can not be modified because you manage.', G5_NAME), $return_url);     //자신이 관리하는 게시판이 아니므로 수정할 수 없습니다.
         else if ($member['user_level'] < $mb['user_level']) // 자신의 레벨이 크거나 같다면 통과
-            g5_alert('자신의 권한보다 높은 권한의 회원이 작성한 글은 수정할 수 없습니다.', $return_url);
+            g5_alert(__('Posts members of the higher authority than his written authority can not be modified.', G5_NAME), $return_url);    //자신의 권한보다 높은 권한의 회원이 작성한 글은 수정할 수 없습니다.
     } else if ($member['user_id']) {
         if ($member['user_id'] != $write['user_id'])
-            g5_alert('자신의 글이 아니므로 수정할 수 없습니다.', $return_url);
+            g5_alert(__('Because your posts is not then can not edit this posts.', G5_NAME), $return_url);  //자신의 글이 아니므로 수정할 수 없습니다.
     } else {
         if ($write['user_id'])
-            g5_alert('로그인 후 수정하세요.', wp_login_url($return_url));
+            g5_alert(__('Please modify after login.', G5_NAME), wp_login_url($return_url));   //로그인 후 수정하세요.
     }
 
     if ($member['user_id']) {
@@ -350,7 +352,7 @@ if ($w == '' || $w == 'r') {
         $user_id = "";
         $user_name = sanitize_text_field(trim($_POST['user_name']));
         // 비회원의 경우 이름이 누락되는 경우가 있음
-        if (!trim($user_name)) g5_alert("이름은 필히 입력하셔야 합니다.");
+        if (!trim($user_name)) g5_alert(__('The name required.', G5_NAME));  //이름은 필히 입력하셔야 합니다.
         $user_name = sanitize_text_field(trim($_POST['user_name']));
         $user_email = sanitize_email(trim($_POST['user_email']));
     }
@@ -463,11 +465,11 @@ if( $g5_data_path ){
         // 서버에 설정된 값보다 큰파일을 업로드 한다면
         if ($filename) {
             if ($_FILES['bf_file']['error'][$i] == 1) {
-                $file_upload_msg .= '\"'.$filename.'\" 파일의 용량이 서버에 설정('.$upload_max_filesize.')된 값보다 크므로 업로드 할 수 없습니다.\\n';
+                $file_upload_msg .= sprintf(__('\"%s\" the capacity of a file on the server settings ( %s ) that can not be uploaded is larger than the value.\\n', G5_NAME), $filename, $upload_max_filesize);  //$filename 파일의 용량이 서버에 설정( $upload_max_filesize)된 값보다 크므로 업로드 할 수 없습니다.\\n'
                 continue;
             }
             else if ($_FILES['bf_file']['error'][$i] != 0) {
-                $file_upload_msg .= '\"'.$filename.'\" 파일이 정상적으로 업로드 되지 않았습니다.\\n';
+                $file_upload_msg .= sprintf(__('\"%s\" file has been upload failed.\\n', G5_NAME), $filename);  //$filename 파일이 정상적으로 업로드 되지 않았습니다.\\n'
                 continue;
             }
         }
@@ -475,7 +477,7 @@ if( $g5_data_path ){
         if (is_uploaded_file($tmp_file)) {
             // 관리자가 아니면서 설정한 업로드 사이즈보다 크다면 건너뜀
             if (!$is_admin && $filesize > $board['bo_upload_size']) {
-                $file_upload_msg .= '\"'.$filename.'\" 파일의 용량('.number_format($filesize).' 바이트)이 게시판에 설정('.number_format($board['bo_upload_size']).' 바이트)된 값보다 크므로 업로드 하지 않습니다.\\n';
+                $file_upload_msg .= sprintf(__('Because the capacity of a file %s (%s byte) is set on the board ( %s byte) values are not uploaded to the greater than upload failed.\\n', G5_NAME), $filename, number_format($filesize), number_format($board['bo_upload_size']));  //$filename 파일의 용량(number_format($filesize) 바이트)이 게시판에 설정(number_format($board['bo_upload_size']) 바이트)된 값보다 크므로 업로드 하지 않습니다.\\n'
                 continue;
             }
 
@@ -614,10 +616,10 @@ if (!($w == 'u' || $w == 'cu') && $config['cf_email_use'] && $board['bo_use_emai
 
     $mail_content = g5_conv_content(g5_conv_unescape_nl($wr_content), $tmp_html);
 
-    $warr = array( ''=>'입력', 'u'=>'수정', 'r'=>'답변', 'c'=>'코멘트', 'cu'=>'코멘트 수정' );
+    $warr = array( ''=>__('input', G5_NAME), 'u'=>__('modify', G5_NAME), 'r'=>__('reply', G5_NAME), 'c'=>__('comment', G5_NAME), 'cu'=>__('Comments modifiy', G5_NAME) );
     $str = $warr[$w];
 
-    $subject = '['.get_bloginfo( 'name' ).'] '.$board['bo_subject'].' 게시판에 '.$str.'글이 올라왔습니다.';
+    $subject = '['.get_bloginfo('name').'] '.$board['bo_subject'].' - '. sprintf(__('This article has been %s to the board.', G5_NAME), $str); //게시판에 %s글이 올라왔습니다.
 
     $link_url = add_query_arg( array_merge((array) $qstr, array('wr_id'=>$wr_id)), $default_href);
 

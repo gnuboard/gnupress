@@ -21,13 +21,14 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
     <input type="hidden" name="sst" value="<?php echo esc_attr( $sst ); ?>">
     <input type="hidden" name="sod" value="<?php echo esc_attr( $sod ); ?>">
     <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
+    <input type="hidden" name="page_id" value="<?php echo get_the_ID(); ?>">
     <?php
     $option = '';
     $option_hidden = '';
     if ($is_notice || $is_html || $is_secret || $is_mail) {
         $option = '';
         if ($is_notice) {
-            $option .= "\n".'<input type="checkbox" id="notice" name="notice" value="1" '.$notice_checked.'>'."\n".'<label for="notice">공지</label>';
+            $option .= "\n".'<input type="checkbox" id="notice" name="notice" value="1" '.$notice_checked.'>'."\n".'<label for="notice">'.__('notice', 'gnupress').'</label>';
         }
 
         if ($is_html) {
@@ -35,20 +36,20 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
                 $option_hidden .= '<input type="hidden" value="html1" name="html">';
                 $option_hidden .= "\n".'<input type="hidden" value="wp_html" name="wp_html">';
             } else {
-                $option .= "\n".'<input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="'.esc_attr($html_value).'" '.$html_checked.'>'."\n".'<label for="html">html</label>';
+                $option .= "\n".'<input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="'.$html_value.'" '.$html_checked.'>'."\n".'<label for="html">html</label>';
             }
         }
 
         if ($is_secret) {
             if ($is_admin || $is_secret==1) {
-                $option .= "\n".'<input type="checkbox" id="secret" name="secret" value="secret" '.$secret_checked.'>'."\n".'<label for="secret">비밀글</label>';
+                $option .= "\n".'<input type="checkbox" id="secret" name="secret" value="secret" '.$secret_checked.'>'."\n".'<label for="secret">'.__('secret').'</label>';
             } else {
                 $option_hidden .= '<input type="hidden" name="secret" value="secret">';
             }
         }
 
         if ($is_mail) {
-            $option .= "\n".'<input type="checkbox" id="mail" name="mail" value="mail" '.$recv_email_checked.'>'."\n".'<label for="mail">답변메일받기</label>';
+            $option .= "\n".'<input type="checkbox" id="mail" name="mail" value="mail" '.$recv_email_checked.'>'."\n".'<label for="mail">'.__('Receive e-mail reply', 'gnupress').'</label>';
         }
     }
 
@@ -60,38 +61,38 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
         <tbody>
         <?php if ($is_name) { ?>
         <tr>
-            <th scope="row"><label for="user_name">이름<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="user_name"><?php _e('Name', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="text" name="user_name" value="<?php echo esc_attr( $name ); ?>" id="user_name" required class="frm_input required" size="10" maxlength="20"></td>
         </tr>
         <?php } ?>
 
         <?php if ($is_password) { ?>
         <tr>
-            <th scope="row"><label for="user_pass">비밀번호<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="user_pass"><?php _e('Password', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td><input type="password" name="user_pass" id="user_pass" <?php echo $password_required ?> class="frm_input <?php echo $password_required ?>" maxlength="20"></td>
         </tr>
         <?php } ?>
 
         <?php if ($is_email) { ?>
         <tr>
-            <th scope="row"><label for="user_email">이메일</label></th>
+            <th scope="row"><label for="user_email"><?php _e('Email', 'gnupress');?></label></th>
             <td><input type="text" name="user_email" value="<?php echo esc_attr( $email ); ?>" id="user_email" class="frm_input email" size="50" maxlength="100"></td>
         </tr>
         <?php } ?>
 
         <?php if ($option) { ?>
         <tr>
-            <th scope="row">옵션</th>
+            <th scope="row"><?php _e('Option', 'gnupress');?></th>
             <td><?php echo $option ?></td>
         </tr>
         <?php } ?>
 
         <?php if ($is_category) { ?>
         <tr>
-            <th scope="row"><label for="ca_name">분류<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="ca_name"><?php _e('Category', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
                 <select name="ca_name" id="ca_name" required class="required" >
-                    <option value="">선택하세요</option>
+                    <option value=""><?php _e('— Select —', 'gnupress');?></option>
                     <?php echo $category_option ?>
                 </select>
             </td>
@@ -99,46 +100,46 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
         <?php } ?>
 
         <tr>
-            <th scope="row"><label for="wr_subject">제목<strong class="sound_only">필수</strong></label></th>
+            <th scope="row"><label for="wr_subject"><?php _e('Subject', 'gnupress');?><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label></th>
             <td>
                 <div id="autosave_wrapper">
-                    <input type="text" name="wr_subject" value="<?php echo $subject ?>" id="wr_subject" required class="frm_input required" size="50" maxlength="255">
+                    <input type="text" name="wr_subject" value="<?php echo esc_attr( $subject ); ?>" id="wr_subject" required class="frm_input required" size="50" maxlength="255">
                 </div>
             </td>
         </tr>
 
         <tr>
             <td class="wr_content" colspan="2">
-                <label for="wr_content" class="block_label"><strong>내용</strong><strong class="sound_only">필수</strong></label>
+                <label for="wr_content" class="block_label"><strong><?php _e('Content', 'gnupress');?></strong><strong class="sound_only"><?php _e('required', 'gnupress');?></strong></label>
                 <?php if($write_min || $write_max) { ?>
                 <!-- 최소/최대 글자 수 사용 시 -->
-                <p id="char_count_desc">이 게시판은 최소 <strong><?php echo $write_min; ?></strong>글자 이상, 최대 <strong><?php echo $write_max; ?></strong>글자 이하까지 글을 쓰실 수 있습니다.</p>
+                <p id="char_count_desc"><?php echo sprintf(__('This board is write at least %s characters long, posts up to %s characters or less.', 'gnupress'), '<strong>'.$write_min.'</strong>', '<strong>'.$write_max.'</strong>');?></p>
                 <?php } ?>
                 <?php echo $editor_html; // 에디터 사용시는 에디터로, 아니면 textarea 로 노출 ?>
                 <?php if($write_min || $write_max) { ?>
                 <!-- 최소/최대 글자 수 사용 시 -->
-                <div id="char_count_wrap"><span id="char_count"></span>글자</div>
+                <div id="char_count_wrap"><span id="char_count"></span><?php _e('Length', 'gnupress');?></div>
                 <?php } ?>
             </td>
         </tr>
 
         <?php for ($i=1; $is_link && $i<=G5_LINK_COUNT; $i++) { ?>
         <tr>
-            <th scope="row"><label for="wr_link<?php echo $i ?>">링크 #<?php echo $i ?></label></th>
+            <th scope="row"><label for="wr_link<?php echo $i ?>"><?php _e('Link', 'gnupress');?> #<?php echo $i ?></label></th>
             <td><input type="text" name="wr_link<?php echo $i ?>" value="<?php if($w=="u"){echo$write['wr_link'.$i];} ?>" id="wr_link<?php echo $i ?>" class="frm_input" size="50"></td>
         </tr>
         <?php } ?>
 
         <?php for ($i=0; $is_file && $i<$file_count; $i++) { ?>
         <tr>
-            <th scope="row">파일 #<?php echo $i+1 ?></th>
+            <th scope="row"><?php _e('File', 'gnupress');?> #<?php echo $i+1 ?></th>
             <td>
-                <input type="file" name="bf_file[]" title="파일첨부 <?php echo $i+1 ?> : 용량 <?php echo $upload_max_filesize ?> 이하만 업로드 가능" class="frm_file frm_input">
+                <input type="file" name="bf_file[]" title="<?php _e('Attachments', 'gnupress');?> <?php echo $i+1 ?> : <?php echo sprintf(__('%s bytes or less capacity can be uploaded', 'gnupress'), $upload_max_filesize);?>" class="frm_file frm_input">
                 <?php if ($is_file_content) { ?>
-                <input type="text" name="bf_content[]" value="<?php echo ($w == 'u' && isset($file[$i]['bf_content'])) ? $file[$i]['bf_content'] : ''; ?>" title="파일 설명을 입력해주세요." class="frm_file frm_input" size="50">
+                <input type="text" name="bf_content[]" value="<?php echo ($w == 'u' && isset($file[$i]['bf_content'])) ? $file[$i]['bf_content'] : ''; ?>" title="<?php _e('enter a file description.' , 'gnupress');?>" class="frm_file frm_input" size="50">
                 <?php } ?>
                 <?php if($w == 'u' && isset($file[$i]['file']) ) { ?>
-                <input type="checkbox" id="bf_file_del<?php echo $i ?>" name="bf_file_del[<?php echo $i;  ?>]" value="1"> <label for="bf_file_del<?php echo $i ?>"><?php echo $file[$i]['source'].'('.$file[$i]['size'].')';  ?> 파일 삭제</label>
+                <input type="checkbox" id="bf_file_del<?php echo $i ?>" name="bf_file_del[<?php echo $i;  ?>]" value="1"> <label for="bf_file_del<?php echo $i ?>"><?php echo $file[$i]['source'].'('.$file[$i]['size'].')';  ?> <?php _e('Delete File', 'gnupress');?></label>
                 <?php } ?>
             </td>
         </tr>
@@ -146,7 +147,7 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
 
         <?php if ($is_guest) { //자동등록방지  ?>
         <tr>
-            <th scope="row">자동등록방지</th>
+            <th scope="row"><?php _e('Captcha', 'gnupress');?></th>
             <td>
                 <?php echo $captcha_html ?>
             </td>
@@ -163,7 +164,7 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
         <div class="inside">
             <div class="tagsdiv" id="post_tag">
                 <div class="jaxtag">
-                    <label class="screen-reader-text" for="wr_tag_input"><?php _e('Tags'); ?></label>
+                    <label class="screen-reader-text" for="newtag"><?php _e('Tags'); ?></label>
                     <input type="text" name="wr_tag[post_tag]" class="the-tags" id="wr_tag_input" value="<?php echo $string_wr_tags ?>" />
                     <ul id="g5_singleFieldTags" class="qa_tag_el"></ul>
                 </div>
@@ -173,8 +174,8 @@ if($board['bo_use_tag'])    //게시판 설정에서 태그 기능을 사용한�
 	<?php } ?>
 
     <div class="btn_confirm">
-        <input type="submit" value="작성완료" id="btn_submit" accesskey="s" class="btn_submit">
-        <a href="<?php echo esc_url( $default_href ); ?>" class="btn_cancel">취소</a>
+        <input type="submit" value="<?php _e('Submit', 'gnupress')?>" id="btn_submit" accesskey="s" class="btn_submit">
+        <a href="<?php echo esc_url( $default_href ); ?>" class="btn_cancel"><?php _e('Cancel', 'gnupress')?></a>
     </div>
     </form>
 </section>
@@ -197,7 +198,7 @@ jQuery(function($) {
 function html_auto_br(obj)
 {
     if (obj.checked) {
-        result = confirm("자동 줄바꿈을 하시겠습니까?\n\n자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다.");
+        result = confirm("<?php _e('Enable wrap it?', 'gnupress');?>\n\n<?php _e('Word wrap is a feature that converts contents of the posts where the line changes to <br> tags', 'gnupress');?>");
         if (result)
             obj.value = "html2";
         else
@@ -232,13 +233,13 @@ jQuery(function($){
             });
 
             if (subject) {
-                alert("제목에 금지단어('"+subject+"')가 포함되어있습니다");
+                alert( gnupress.sprintf("<?php _e('It contains a banned word in the subject %s', 'gnupress');?>", subject) );
                 f.wr_subject.focus();
                 return false;
             }
 
             if (content) {
-                alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
+                alert( gnupress.sprintf("<?php _e('It contains a banned word in the content %s', 'gnupress');?>", content) );
                 if (typeof(ed_wr_content) != "undefined")
                     ed_wr_content.returnFalse();
                 else
@@ -250,11 +251,11 @@ jQuery(function($){
                 if (char_min > 0 || char_max > 0) {
                     var cnt = parseInt(check_byte("wr_content", "char_count"));
                     if (char_min > 0 && char_min > cnt) {
-                        alert("내용은 "+char_min+"글자 이상 쓰셔야 합니다.");
+						alert( gnupress.sprintf("<?php _e('Contents, you must write at least %d words.', 'gnupress');?>", char_min) );
                         return false;
                     }
                     else if (char_max > 0 && char_max < cnt) {
-                        alert("내용은 "+char_max+"글자 이하로 쓰셔야 합니다.");
+						alert( gnupress.sprintf("<?php _e('Contents, you must write in %d words or less.', 'gnupress');?>", char_max) );
                         return false;
                     }
                 }
@@ -266,43 +267,4 @@ jQuery(function($){
             return true;
     }
 });
-
-/*
-(function( $ ) {
-    <?php echo 'gnupress.wr_tags = '.g5_useskin_js_array(array()).';'.PHP_EOL; ?>
-    if( typeof tagit != 'undefined' ){
-        tagit_load();
-    } else {
-        $.when(
-            $.getScript("<?php echo site_url(  '/wp-includes/js/jquery/ui/core.min.js' );?>"),
-            $.getScript("<?php echo site_url(  '/wp-includes/js/jquery/ui/widget.min.js' );?>"),
-            $.getScript("<?php echo site_url(  '/wp-includes/js/jquery/ui/autocomplete.min.js' );?>"),
-            $.getScript("<?php echo $board_skin_url.'/js/tag-it.js';?>"),
-            $.Deferred(function( deferred ){
-                $( deferred.resolve );
-            })
-        ).done(function(){
-            tagit_load();
-        });
-    }
-    function tagit_load(){
-        $("#wr_tag_input").hide();
-        $('#g5_singleFieldTags').tagit({
-            availableTags: gnupress.wr_tags,
-            placeholderText : "태그를 입력해주세요.",
-            autocomplete: {delay: 0, minLength: 1},
-            singleField: true,
-            singleFieldNode: $('#wr_tag_input'),
-            allowSpaces : true,
-            onTagLimitExceeded : function(e, ui){}
-        }).on("keypress keydown keyup change", "input", function(e){
-            if(e.keyCode == 13) { // Enter 방지
-                e.preventDefault();
-                return false;
-            }
-        });
-    }
-})(jQuery);
-*/
-
 </script>

@@ -2,11 +2,11 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if ( ! isset( $_POST['g5_nonce_field'] ) || ! wp_verify_nonce( $_POST['g5_nonce_field'], 'g5_move' ) ) {
-    wp_die( __('잘못된 요청입니다.', G5_NAME) );
+    wp_die( __('Invalid request.', G5_NAME) );
 }
 
 if( !isset($bo_table) ){
-    wp_die( __('bo_table값이 없습니다.', G5_NAME) );
+    wp_die( __('No value bo_table', G5_NAME) );
 }
 
 $act = isset($_POST['act']) ? sanitize_text_field($_POST['act']) : '';
@@ -17,13 +17,13 @@ include_once( G5_DIR_PATH.'lib/g5_move_update.class.php' );
 
 // 게시판 관리자 이상 복사, 이동 가능
 if ($is_admin != 'board' && $is_admin != 'super')
-    wp_die('게시판 관리자 이상 접근이 가능합니다.');
+    wp_die(__('Access is possible over the board manager.', G5_NAME));
 
 if ($sw != 'move' && $sw != 'copy')
-    g5_alert('sw 값이 제대로 넘어오지 않았습니다.');
+    g5_alert(__('sw value is invalid.', G5_NAME));
 
 if(!count($_POST['chk_bo_table']))
-    g5_alert('게시물을 '.$act.'할 게시판을 한개 이상 선택해 주십시오.', $url);
+    g5_alert(sprintf(__('Select at least one board to %s.', G5_NAME), $act), $url);
 
 $check_arr = array('wr_id_list');
 
@@ -134,7 +134,7 @@ foreach( array_unique($bo_tables) as $tmp_name ){
     wp_cache_delete( 'g5_bo_table_'.$tmp_name );
 }
 
-$msg = '해당 게시물을 선택한 게시판으로 '.$act.' 하였습니다.';
+$msg = sprintf(__('This post is %s to the selected board.', G5_NAME), $act);  //해당 게시물을 선택한 게시판으로 $act 하였습니다.
 $opener_href = add_query_arg( array_merge( (array) $qstr, array('page'=>$page)), $default_href );
 
 $charset = get_bloginfo('charset');
@@ -152,7 +152,7 @@ window.close();
 <p>
     "$msg"
 </p>
-<a href="$opener_href">돌아가기</a>
+<a href="$opener_href">Go Back</a>
 </noscript>
 HEREDOC;
 ?>

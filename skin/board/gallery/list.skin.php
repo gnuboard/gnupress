@@ -3,7 +3,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 ?>
 <div class="gp_skin_list">
 
-<h2 id="container_title"><?php echo $board['bo_subject'] ?><span class="sound_only"> 목록</span></h2>
+<h2 id="container_title"><?php echo $board['bo_subject'] ?><span class="sound_only"> <?php _e('List', 'gnupress'); ?></span></h2>
 
 <!-- 게시판 목록 시작 { -->
 <div id="bo_gall" style="width:<?php echo $width; ?>">
@@ -11,7 +11,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     <!-- 게시판 카테고리 시작 { -->
     <?php if ($is_category) { ?>
     <nav id="bo_cate">
-        <h2><?php echo $board['bo_subject'] ?> 카테고리</h2>
+        <h2><?php echo $board['bo_subject'] ?> <?php _e('Category', 'gnupress'); ?></h2>
         <ul id="bo_cate_ul">
             <?php echo $category_option ?>
         </ul>
@@ -39,15 +39,15 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     <!-- 게시판 페이지 정보 및 버튼 시작 { -->
     <div class="bo_fx">
         <div id="bo_list_total">
-            <span>Total <?php echo number_format($total_count) ?>건</span>
-            <?php echo $page ?> 페이지
+            <span>Total <?php echo number_format($total_count) ?> /</span>
+            <?php echo $page ?> <?php _e('page', 'gnupress'); ?>
         </div>
 
         <?php if ($rss_href || $write_href) { ?>
         <ul class="btn_bo_user">
             <?php if ($rss_href) { ?><li><a href="<?php echo esc_url( $rss_href ); ?>" class="btn_b01 rss_open" target="_blank">RSS</a></li><?php } ?>
-            <?php if ($admin_href) { ?><li><a href="<?php echo esc_url( $admin_href ); ?>" class="btn_admin" target="_blank">관리자</a></li><?php } ?>
-            <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02">글쓰기</a></li><?php } ?>
+            <?php if ($admin_href) { ?><li><a href="<?php echo esc_url( $admin_href ); ?>" class="btn_admin" target="_blank"><?php _e('Manage', 'gnupress');?></a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02"><?php _e('Write', 'gnupress');?></a></li><?php } ?>
         </ul>
         <?php } ?>
     </div>
@@ -70,7 +70,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
     <?php if ($is_checkbox) { ?>
     <div id="gall_allchk">
-        <label for="chkall" class="sound_only">현재 페이지 게시물 전체</label>
+        <label for="chkall" class="sound_only"><?php _e('All current page Posts', 'gnupress');  //현재 페이지 게시물 전체?></label>
         <input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);">
     </div>
     <?php } ?>
@@ -87,7 +87,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
             <span class="sound_only">
                 <?php
                 if ($wr_id == $v['wr_id'])
-                    echo "<span class=\"bo_current\">열람중</span>";
+                    echo "<span class=\"bo_current\">".__('Of reading', 'gnupress')."</span>";
                 else
                     echo $v['num'];
                  ?>
@@ -97,7 +97,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     <a href="<?php echo $v['href'] ?>" class="thumbnail" style="height:<?php echo $board['bo_gallery_height'];?>px">
                     <?php
                     if ($v['is_notice']) { // 공지사항  ?>
-                        <strong>공지</strong>
+                        <strong><?php _e('noticie', 'gnupress');?></strong>
                     <?php } else {
                         $thumb = g5_get_list_thumbnail($board['bo_table'], $v['wr_id'], $board['bo_gallery_width'], $board['bo_gallery_height']);
 
@@ -121,7 +121,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                     <?php } ?>
                     <a href="<?php echo $v['href'] ?>">
                         <?php echo $v['subject'] ?>
-                        <?php if ($v['comment_cnt']) { ?><span class="sound_only">댓글</span><?php echo $v['comment_cnt']; ?><span class="sound_only">개</span><?php } ?>
+                        <?php if ($v['comment_cnt']) { ?><span class="sound_only"><?php _e('comment', 'gnupress');?></span><?php echo $v['comment_cnt']; ?><?php } ?>
                     </a>
                     <?php
                     // if ($v['link']['count']) { echo '['.$v['link']['count']}.']'; }
@@ -135,36 +135,36 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                      ?>
                 </li>
                 <?php if($is_show_field['writer']){ // 게시판 설정 중 작성자 체크가 되어 있으면 ?>
-                <li class="text-info"><span class="gall_subject">작성자 </span><?php echo $v['name'] ?></li>
+                <li class="text-info"><span class="gall_subject"><?php _e('Author', 'gnupress');  //글쓴이?> </span><?php echo $v['name'] ?></li>
                 <?php } ?>
                 <?php if($is_show_field['wdate']){ // 게시판 설정 중 작성일 체크가 되어 있으면 ?>
-                <li class="text-info"><span class="gall_subject">작성일 </span><?php echo $v['datetime2'] ?></li>
+                <li class="text-info"><span class="gall_subject"><?php _e('Date', 'gnupress');  //날짜?> </span><?php echo $v['datetime2'] ?></li>
                 <?php } ?>
                 <?php if($is_show_field['visit']){ // 게시판 설정 중 조회 체크가 되어 있으면 ?>
-                <li class="text-info"><span class="gall_subject">조회 </span><?php echo $v['wr_hit'] ?></li>
+                <li class="text-info"><span class="gall_subject"><?php _e('Hit', 'gnupress');  //조회?> </span><?php echo $v['wr_hit'] ?></li>
                 <?php } ?>
-                <?php if ($is_good) { ?><li class="text-info"><span class="gall_subject">추천</span><strong><?php echo $v['wr_good'] ?></strong></li><?php } ?>
-                <?php if ($is_nogood) { ?><li class="text-info"><span class="gall_subject">비추천</span><strong><?php echo $v['wr_nogood'] ?></strong></li><?php } ?>
+                <?php if ($is_good) { ?><li class="text-info"><span class="gall_subject"><?php _e('recommend', 'gnupress');  //추천?></span><strong><?php echo $v['wr_good'] ?></strong></li><?php } ?>
+                <?php if ($is_nogood) { ?><li class="text-info"><span class="gall_subject"><?php _e('nonrecommend', 'gnupress');  //비추천?></span><strong><?php echo $v['wr_nogood'] ?></strong></li><?php } ?>
             </ul>
         </div>
         <?php } ?>
-        <?php if (count($list) == 0) { echo "<li class=\"empty_list\">게시물이 없습니다.</li>"; } ?>
+        <?php if (count($list) == 0) { echo "<li class=\"empty_list\">".__('Empty data', 'gnupress')."</li>"; } ?>
     </div>
 
     <?php if ($list_href || $is_checkbox || $write_href) { ?>
     <div class="bo_fx">
         <?php if ($is_checkbox) { ?>
         <ul class="btn_bo_adm">
-            <li><button type="submit" name="btn_submit" value="선택삭제" onclick="document.pressed=this.value">선택삭제</button></li>
-            <li><button type="submit" name="btn_submit" value="선택복사" onclick="document.pressed=this.value">선택복사</button></li>
-            <li><button type="submit" name="btn_submit" value="선택이동" onclick="document.pressed=this.value">선택이동</button></li>
+            <li><button type="submit" name="btn_submit" value="<?php _e('choose-Delete', 'gnupress'); //선택삭제 ?>" onclick="document.pressed=this.value"><?php _e('choose-Delete', 'gnupress'); //선택삭제 ?></button></li>
+            <li><button type="submit" name="btn_submit" value="<?php _e('choose-Copy', 'gnupress'); //선택복사 ?>" onclick="document.pressed=this.value"><?php _e('choose-Copy', 'gnupress'); //선택복사 ?></button></li>
+            <li><button type="submit" name="btn_submit" value="<?php _e('choose-Move', 'gnupress'); //선택이동 ?>" onclick="document.pressed=this.value"><?php _e('choose-Move', 'gnupress'); //선택이동 ?></button></li>
         </ul>
         <?php } ?>
 
         <?php if ($list_href || $write_href) { ?>
         <ul class="btn_bo_user">
-            <?php if ($list_href) { ?><li><a href="<?php echo $list_href ?>" class="btn_b01">목록</a></li><?php } ?>
-            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02">글쓰기</a></li><?php } ?>
+            <?php if ($list_href) { ?><li><a href="<?php echo $list_href ?>" class="btn_b01"><?php _e('List', 'gnupress'); //목록 ?></a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02"><?php _e('Write', 'gnupress'); //글쓰기 ?></a></li><?php } ?>
         </ul>
         <?php } ?>
     </div>
@@ -174,7 +174,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 <?php if($is_checkbox) { ?>
 <noscript>
-<p>자바스크립트를 사용하지 않는 경우<br>별도의 확인 절차 없이 바로 선택삭제 처리하므로 주의하시기 바랍니다.</p>
+<p><?php _e('If you are not using JavaScript', 'gnupress'); //자바스크립트를 사용하지 않는 경우?><br><?php _e('without removal of the verification process, Deleted immediately, so please note that selection process', 'gnupress'); //별도의 확인 절차 없이 바로 선택삭제 처리하므로 주의하시기 바랍니다.?></p></p>
 </noscript>
 <?php } ?>
 
@@ -183,7 +183,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 <!-- 게시판 검색 시작 { -->
 <fieldset id="bo_sch">
-    <legend>게시물 검색</legend>
+    <legend><?php _e('Search Posts', 'gnupress');   //게시물 검색 ?></legend>
 
     <form name="fsearch" method="get" class="g5_list_search">
     <?php foreach( $search_form_var as $key => $v ){ ?>
@@ -191,17 +191,17 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
     <?php } ?>
     <input type="hidden" name="sca" value="<?php echo esc_attr( $sca ); ?>">
     <input type="hidden" name="sop" value="and">
-    <label for="sfl" class="sound_only">검색대상</label>
+    <label for="sfl" class="sound_only"><?php _e('Search for', 'gnupress'); //검색대상?></label>
     <select name="sfl" id="sfl">
-        <option value="wr_subject"<?php echo g5_get_selected($sfl, 'wr_subject', true); ?>>제목</option>
-        <option value="wr_content"<?php echo g5_get_selected($sfl, 'wr_content'); ?>>내용</option>
-        <option value="wr_subject||wr_content"<?php echo g5_get_selected($sfl, 'wr_subject||wr_content'); ?>>제목+내용</option>
-        <option value="user_id,1"<?php echo g5_get_selected($sfl, 'user_id,1'); ?>>회원아이디</option>
-        <option value="user_display_name,1"<?php echo g5_get_selected($sfl, 'user_display_name,1'); ?>>글쓴이</option>
+        <option value="wr_subject"<?php echo g5_get_selected($sfl, 'wr_subject', true); ?>><?php _e('subject', 'gnupress');?></option>
+        <option value="wr_content"<?php echo g5_get_selected($sfl, 'wr_content'); ?>><?php _e('Contents', 'gnupress');?></option>
+        <option value="wr_subject||wr_content"<?php echo g5_get_selected($sfl, 'wr_subject||wr_content'); ?>><?php _e('Subject+Contents', 'gnupress');?></option>
+        <option value="user_id,1"<?php echo g5_get_selected($sfl, 'user_id,1'); ?>><?php _e('User_id', 'gnupress');?></option>
+        <option value="user_display_name,1"<?php echo g5_get_selected($sfl, 'user_display_name,1'); ?>><?php _e('Author', 'gnupress');?></option>
     </select>
-    <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+    <label for="stx" class="sound_only"><?php _e('Search word', 'gnupress');?><strong class="sound_only"> <?php _e('required', 'gnupress');?></strong></label>
     <input type="text" name="stx" value="<?php echo stripslashes($stx) ?>" required id="stx" class="frm_input required" size="15" maxlength="15">
-    <input type="submit" value="검색" class="btn_submit">
+    <input type="submit" value="<?php _e('search', 'gnupress');?>" class="btn_submit">
     </form>
 </fieldset>
 <!-- } 게시판 검색 끝 -->
@@ -226,22 +226,22 @@ function fboardlist_submit(f) {
     }
 
     if (!chk_count) {
-        alert(document.pressed + "할 게시물을 하나 이상 선택하세요.");
+        alert(document.pressed + "<?php _e(' - Please select an item to operate.', 'gnupress');?>");
         return false;
     }
 
-    if(document.pressed == "선택복사") {
+    if(document.pressed == "<?php _e('choose-Copy', 'gnupress');?>") {
         select_copy("copy");
         return;
     }
 
-    if(document.pressed == "선택이동") {
+    if(document.pressed == "<?php _e('choose-Move', 'gnupress');?>") {
         select_copy("move");
         return;
     }
 
-    if(document.pressed == "선택삭제") {
-        if (!confirm("선택한 게시물을 정말 삭제하시겠습니까?\n\n한번 삭제한 자료는 복구할 수 없습니다\n\n답변글이 있는 게시글을 선택하신 경우\n답변글도 선택하셔야 게시글이 삭제됩니다."))
+    if(document.pressed == "<?php _e('choose-Delete', 'gnupress');?>") {
+        if (!confirm("<?php _e('Are you sure you want to delete the selected data?', 'gnupress');?>\n\n<?php _e('Deleted data can not be recovered once.', 'gnupress');?>\n\n<?php _e('If you choose to post in this reply,', 'gnupress')?>\n<?php _e('you can delete it when choose the replied', 'gnupress')?>"))
             return false;
 
         f.removeAttribute("target");
@@ -256,9 +256,9 @@ function select_copy(sw) {
     var f = document.fboardlist;
 
     if (sw == "copy")
-        str = "복사";
+        str = "<?php _e('copy', 'gnupress');?>";
     else
-        str = "이동";
+        str = "<?php _e('move', 'gnupress');?>";
 
     var sub_win = window.open("", "move", "left=50, top=50, width=500, height=550, scrollbars=1");
 

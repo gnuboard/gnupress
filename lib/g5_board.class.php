@@ -30,10 +30,9 @@ class G5_Board extends G5_common {
 
         $board_skin_url = G5_DIR_URL.'skin/board/'.$this->board['bo_skin'];
         wp_enqueue_style ( 'g5-board-'.$this->board['bo_table'].'-style' , $board_skin_url.'/style.css', '', G5_VERSION );
-
-        $load_skin_js = array();
-        $load_skin_js[] = array('handle'=>'g5-common-js', 'src'=>G5_DIR_URL.'js/common.js', 'deps'=>'', 'ver'=>G5_VERSION);
         
+        $load_skin_js = array();
+
         if( $this->request_action == 'write' && $this->board['bo_use_tag'] ){
             wp_enqueue_style ( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css', '', G5_VERSION );
             wp_enqueue_style ( 'jquery-tagit-css' , $board_skin_url.'/js/jquery.tagit.css', '', G5_VERSION );
@@ -50,11 +49,26 @@ class G5_Board extends G5_common {
         }
         
         $load_skin_js = apply_filters( 'g5_load_skin_js', $load_skin_js, $this );
+
         if( count($load_skin_js) ){
             foreach( $load_skin_js as $js){
                 wp_enqueue_script( $js['handle'], $js['src'], $js['deps'], $js['ver'] );
             }
         }
+
+        // Register the script
+        wp_register_script( 'g5-common-js', G5_DIR_URL.'js/common.js', '', G5_VERSION );
+
+        // Localize the script with new data
+        $translation_array = array(
+            'del1' => __( 'Deleted data can not be recovered once.', G5_NAME ),
+            'del2' => __( 'Are you sure you want to delete the selected data?', G5_NAME ),
+            'placeholderText' => __( 'Input tags', G5_NAME )
+        );
+        wp_localize_script( 'g5-common-js', 'g5_object', $translation_array );
+
+        // Enqueued script with localized data.
+        wp_enqueue_script( 'g5-common-js' );
 
         $this->is_board_load_script = true;
 
@@ -171,7 +185,7 @@ class G5_Board extends G5_common {
         global $wpdb, $post, $gnupress;
 
         if( ! isset($this->board['bo_table']) ){
-            $msg = __('게시판이 존재하지 않습니다.', G5_NAME);
+            $msg = __('The board does not exist.', G5_NAME);
 
             $this->error_display_print((array) $msg);
             return;
@@ -382,7 +396,7 @@ class G5_Board extends G5_common {
         }
 
         if (isset($list['file']['count']) && !empty($list['file']['count']))
-            $list['icon_file'] = '<img src="'.$skin_url.'/img/icon_file.gif" alt="첨부파일">';
+            $list['icon_file'] = '<img src="'.$skin_url.'/img/icon_file.gif" alt="'.__('Attachments', G5_NAME).'">';
 
         return $list;
 

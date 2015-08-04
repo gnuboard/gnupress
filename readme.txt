@@ -55,6 +55,10 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
 
 == Changelog ==
 
+= 0.2 =
+Gnupress plugin applies the language pack files.
+언어팩 파일을 적용해 놓았습니다.
+
 = 0.1.7 =
 게시판 관리자 지정 오류 및 jetpack 사용시 포인트 및 스크랩 등을 불러오지 못한 오류를 고쳤습니다.
 

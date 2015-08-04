@@ -3,7 +3,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );
 
     if (!isset($board['bo_table']) ) {
-        $this->errors[] = __('존재하지 않는 게시판입니다.', G5_NAME);
+        $this->errors[] = __('The board does not exist.', G5_NAME);
         return;
     }
 
@@ -11,17 +11,18 @@ include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );
     if (isset($wr_id) && $wr_id) {
         // 글이 없을 경우 해당 게시판 목록으로 이동
         if ( !isset($write['wr_id']) ) {
-            $this->errors[] = __('글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다.', G5_NAME);
+            $this->errors[] = __('This article does not exist.\\n\\nIf this article is moved or deleted.', G5_NAME);    //글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다.
             return;
         }
 
         // 로그인된 회원의 권한이 설정된 읽기 권한보다 작다면
         if ($member['user_level'] < $board['bo_read_level']) {
             if ($is_member){
-                $this->errors[] = __('글을 읽을 권한이 없습니다.', G5_NAME);
+                $this->errors[] = __('You do not have permission to read.', G5_NAME);    //글을 읽을 권한이 없습니다.
                 return;
             } else {
-                $this->errors[] = array( __('글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.', G5_NAME), wp_login_url( $current_url) );
+                $this->errors[] = array( __('You do not have permission to read.\\n\\nMember Login if you are after, try using.', G5_NAME), wp_login_url( $current_url) );
+                //글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.
                 return;
             }
         }
@@ -84,10 +85,12 @@ include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );
                 ;
             } else {
                 // 글읽기 포인트가 설정되어 있다면
-                if ($config['cf_use_point'] && $board['bo_read_point'] && $member['mb_point'] + $board['bo_read_point'] < 0)
-                    alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 글읽기('.number_format($board['bo_read_point']).')가 불가합니다.\\n\\n포인트를 모으신 후 다시 글읽기 해 주십시오.');
-
-                g5_insert_point($member['user_id'], $board['bo_read_point'], "{$board['bo_subject']} {$wr_id} 글읽기", $bo_table, $wr_id, '읽기');
+                if ($config['cf_use_point'] && $board['bo_read_point'] && $member['mb_point'] + $board['bo_read_point'] < 0){
+                    alert(
+                        sprintf(__('Because your point is %s points less or missing, not read ( %s points required ) the article.\\n\\nAfter a point collect, please read article again.', 'gnupress'), number_format($member['mb_point']), number_format($board['bo_read_point']) )
+                    );
+                }
+                g5_insert_point($member['user_id'], $board['bo_read_point'], "{$board['bo_subject']} {$wr_id} ".__('Read article', G5_NAME), $bo_table, $wr_id, __('READ', G5_NAME));
             }
 
             g5_set_session($ss_name, TRUE);
@@ -97,17 +100,17 @@ include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );
     } else {
         if ($member['user_level'] < $board['bo_list_level']) {
             if ($member['user_id']){
-                $this->errors[] = __('목록을 볼 권한이 없습니다.', G5_NAME);
+                $this->errors[] = __('You do not have permission to view the list.', G5_NAME);    //목록을 볼 권한이 없습니다.
                 return;
             } else {
-                $this->errors[] = array( __('목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.' , G5_NAME), wp_login_url( $current_url ) ) ;
+                $this->errors[] = array( __('You do not have permission to view the list.\\n\\nMember Login if you are after, try using.', G5_NAME), wp_login_url( $current_url ) ) ;
                 return;
             }
         }
 
         if (!isset($page) || (isset($page) && $page == 0)) $page = 1;
 
-        $g5['title'] = $board['bo_subject']." ".$page." 페이지";
+        $g5['title'] = $board['bo_subject']." ".$page." ".__('page', G5_NAME);
     }
 
     $width = $board['bo_table_width'];

@@ -3,7 +3,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 define('G5_CAPTCHA', true);
 
 if ( ! isset( $_POST['g5_nonce_field'] ) || ! wp_verify_nonce( $_POST['g5_nonce_field'], 'g5_comment_write' ) ) {
-    g5_alert(__('잘못된 접근입니다.', G5_NAME), get_permalink() );
+    g5_alert(__('Invalid Connection.', G5_NAME), get_permalink() );
 }
 
 include_once(G5_PLUGIN_PATH.'/kcaptcha/captcha.lib.php');
@@ -14,7 +14,7 @@ $cm_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_
 
 // 090710
 if (substr_count($cm_content, "&#") > 50) {
-    g5_alert('내용에 올바르지 않은 코드가 다수 포함되어 있습니다.');
+    g5_alert(__('It did the code is incorrect, the content contains multiple.', G5_NAME));    //내용에 올바르지 않은 코드가 다수 포함되어 있습니다.
     exit;
 }
 
@@ -34,22 +34,22 @@ if ( isset($_POST['user_email']) && !empty($_POST['user_email']) )
 // 비회원의 경우 이름이 누락되는 경우가 있음
 if ($is_guest) {
     if ($user_name == '')
-        g5_alert('이름은 필히 입력하셔야 합니다.');
+        g5_alert(__('The name required.', G5_NAME)); //이름은 필히 입력하셔야 합니다.
     if(!g5_chk_captcha())
-        g5_alert('자동등록방지 숫자가 틀렸습니다.');
+        g5_alert(__('Captcha incorrect.', G5_NAME));    //자동등록방지 숫자가 틀렸습니다.
 }
 
 if ($w == "c" || $w == "cu") {
     if ($member['user_level'] < $board['bo_comment_level'])
-        g5_alert( __('댓글을 쓸 권한이 없습니다.', G5_NAME) );
+        g5_alert( __('You do not have permission to write a comment.', G5_NAME) );  //댓글을 쓸 권한이 없습니다.
 }
 else
-    g5_alert('w 값이 제대로 넘어오지 않았습니다.');
+    g5_alert('w value is invalid.'); //w 값이 유효하지 않습니다.
 
 // 세션의 시간 검사
 // 4.00.15 - 댓글 수정시 연속 게시물 등록 메시지로 인한 오류 수정
 if ($w == 'c' && $_SESSION['ss_datetime'] >= (G5_SERVER_TIME - $config['cf_delay_sec']) && !$is_admin)
-    g5_alert( __('너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.', G5_NAME) );
+    g5_alert( __('Posts in too soon, you can not continuously post.', G5_NAME) );  //너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.
 
 g5_set_session('ss_datetime', G5_SERVER_TIME);
 
@@ -60,12 +60,12 @@ if( isset($write) && !empty($write) ){
 }
 
 if ( empty($wr['wr_id']) )
-    g5_alert("글이 존재하지 않습니다.\\n글이 삭제되었거나 이동하였을 수 있습니다.");
+    g5_alert(__('This article does not exist.\\nThe article may have been deleted or moved.', G5_NAME));    //글이 존재하지 않습니다.\\n글이 삭제되었거나 이동하였을 수 있습니다.
 
 
 // "인터넷옵션 > 보안 > 사용자정의수준 > 스크립팅 > Action 스크립팅 > 사용 안 함" 일 경우의 오류 처리
 // 이 옵션을 사용 안 함으로 설정할 경우 어떤 스크립트도 실행 되지 않습니다.
-if (!trim($_POST["cm_content"])) die ("내용을 입력하여 주십시오.");
+if (!trim($_POST["cm_content"])) die ("You must enter the contents"); //내용을 입력하여 주십시오.
 
 if ($is_member)
 {
@@ -86,18 +86,20 @@ if ($w == 'c') // 댓글 입력
     // 댓글쓰기 포인트설정시 회원의 포인트가 음수인 경우 댓글을 쓰지 못하던 버그를 수정 (곱슬최씨님)
     $tmp_point = ($member['mb_point'] > 0) ? $member['mb_point'] : 0;
     if ($tmp_point + $board['bo_comment_point'] < 0 && !$is_admin)
-        g5_alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 댓글쓰기('.number_format($board['bo_comment_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 댓글을 써 주십시오.');
+        g5_alert(
+        sprintf( __('Because your point is %s points less or missing, can not Comment ( %s points required ) the article.\n\nAfter a point collect, please comment article again.', G5_NAME), number_format($member['mb_point']), number_format($board['bo_comment_point']))
+        );
 
     // 댓글 답변
     if ($cm_id)
     {
         $reply_array = g5_get_write($g5['comment_table'], $cm_id, 'cm_id');
         if (!$reply_array['cm_id']){
-            g5_alert(__('답변할 댓글이 없습니다.\\n\\n답변하는 동안 댓글이 삭제되었을 수 있습니다.', G5_NAME));
+            g5_alert(__('There are no comments to answer.\\n\\nComments may be deleted during the response.', G5_NAME));     //답변할 댓글이 없습니다.\\n\\n답변하는 동안 댓글이 삭제되었을 수 있습니다.
         }
 
         if( $reply_array['cm_parent'] && $config['cf_parent_limit'] ){
-            g5_alert(__('더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다.', G5_NAME));
+            g5_alert(__('You can not answer anymore.\\n\\nThe answer can be only one step.', G5_NAME));    //더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다.
         }
 
         $cm_num = $reply_array['cm_num'];
@@ -159,18 +161,18 @@ if ($w == 'c') // 댓글 입력
     g5_sql_query(" update {$g5['board_table']} set bo_count_comment = bo_count_comment + 1 where bo_table = '$bo_table' ");
 
     // 포인트 부여
-    //g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 댓글쓰기", $bo_table, $comment_id, '댓글');
+    g5_insert_point($member['user_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} ".__('Write a comment', G5_NAME), $bo_table, $comment_id, __('comment', G5_NAME));
 
     // 메일발송 사용
     if ($config['cf_email_use'] && $board['bo_use_email'])
     {
 
-        $mail_content = nl2br(g5_get_text(stripslashes("원글\n{$wr['wr_subject']}\n\n\n댓글\n$cm_content")));
+        $mail_content = nl2br(g5_get_text(stripslashes(__('Post', G5_NAME)."\n{$wr['wr_subject']}\n\n\n".__('Comment', G5_NAME)."\n$cm_content")));
 
-        $warr = array( ''=>'입력', 'u'=>'수정', 'r'=>'답변', 'c'=>'댓글 ', 'cu'=>'댓글 수정' );
+        $warr = array( ''=>__('input', G5_NAME), 'u'=>__('modify', G5_NAME), 'r'=>__('reply', G5_NAME), 'c'=>__('comment', G5_NAME), 'cu'=>__('Comments modifiy', G5_NAME) );
         $str = $warr[$w];
 
-        $mail_subject = '['.get_bloginfo('name').'] '.$board['bo_subject'].' 게시판에 '.$str.'글이 올라왔습니다.';
+        $mail_subject = '['.get_bloginfo('name').'] '.$board['bo_subject'].' - '. sprintf(__('This article has been %s to the board.', G5_NAME), $str); //게시판에 %s글이 올라왔습니다.
         // 4.00.15 - 메일로 보내는 댓글의 바로가기 링크 수정
         $link_url = add_query_arg( array_merge( (array) $qstr, array('wr_id'=>$wr_id) ) , $default_href )."#c_".$comment_id;
 
@@ -238,22 +240,22 @@ else if ($w == 'cu') // 댓글 수정
             if ($member['user_level'] >= $mb['user_level']) // 자신의 레벨이 크거나 같다면 통과
                 ;
             else
-                g5_alert('게시판관리자의 권한보다 높은 회원의 댓글이므로 수정할 수 없습니다.');
+                g5_alert(__('Higher than the authority of the administrator of the board members commented and can not be modified.', G5_NAME));     //게시판관리자의 권한보다 높은 회원의 댓글이므로 수정할 수 없습니다.
         } else
-            g5_alert('자신이 관리하는 게시판이 아니므로 댓글을 수정할 수 없습니다.');
+            g5_alert(__('The board they manage to because you can not modify the comment.', G5_NAME));   //자신이 관리하는 게시판이 아니므로 댓글을 수정할 수 없습니다.
     } else if ($member['user_id']) {
         if ($member['user_id'] != $comment['user_id'])
-            g5_alert('자신의 글이 아니므로 수정할 수 없습니다.');
+            g5_alert(__('Because your posts is not then can not edit this posts.', G5_NAME));   //자신의 글이 아니므로 수정할 수 없습니다.
     } else {
         if($comment['user_pass'] != $user_pass)
-            g5_alert('댓글을 수정할 권한이 없습니다.');
+            g5_alert(__('You do not have permission to edit the comment.', G5_NAME)); //댓글을 수정할 권한이 없습니다.
     }
 
     $sql = $wpdb->prepare("select count(*) as cnt from`{$g5['comment_table']}` where cm_parent = %d and cm_id <> %d and wr_id = %d", $cm_id, $cm_id, $wr_id );
 
     $row_cnt = $wpdb->get_var($sql);
     if ($row_cnt && !$is_admin){
-        g5_alert(__('이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다.', G5_NAME));
+        g5_alert(__('Comments and responses can not be modified because it related to comments there.', G5_NAME));   //이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다.
     }
 
     $cm_data = array(

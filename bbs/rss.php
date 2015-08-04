@@ -23,13 +23,13 @@ $lines = $board['bo_page_rows'];
 // 비회원 읽기가 가능한 게시판만 RSS 지원
 
 if ((int) $board['bo_read_level'] > 0 ) {
-    echo '비회원 읽기가 가능한 게시판만 RSS 지원합니다.';
+    echo __('If guest can read posts then board supports RSS', G5_NAME);   //비회원 읽기가 가능한 게시판만 RSS 지원합니다.
     exit;
 }
 
 // RSS 사용 체크
 if (!$board['bo_use_rss_view']) {
-    echo 'RSS 보기가 금지되어 있습니다.';
+    echo __('View RSS is prohibited.', G5_NAME); //RSS 보기가 금지되어 있습니다.
     exit;
 }
 

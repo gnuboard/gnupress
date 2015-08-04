@@ -20,7 +20,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 <?php wp_nonce_field( 'g5_config_form_check' ); ?>
 <input type="hidden" name="g5_config_form" value="update" >
 
-<section id="anc_cf_basic">
+<section id="anc_cf_basic" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Site default setting', 'gnupress');?></h2>
     <?php echo $pg_anchor ?>
 
@@ -42,7 +42,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
         </tr>
         <tr>
             <th scope="row"><label for="cf_use_point"><?php _e('Using Points', 'gnupress' );?></label></th>
-            <td colspan="3"><input type="checkbox" name="cf_use_point" value="1" id="cf_use_point" <?php echo $config['cf_use_point']?'checked':''; ?>> <?php _e('use', 'gnupress' );?></td>
+            <td colspan="3"><input type="checkbox" name="cf_use_point" value="1" id="cf_use_point" <?php echo $config['cf_use_point']?'checked':''; ?>> <label for="cf_use_point"><?php _e('use', 'gnupress' );?></label></td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_login_point"><?php _e('Login point', 'gnupress' );?><strong class="sound_only"><?php _e('required', 'gnupress' ); ?></strong></label></th>
@@ -124,7 +124,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             <th scope="row"><label for="cf_use_copy_log"><?php _e('Log for copy and move', 'gnupress') ?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Show the direction of the copy, move from someone under the board', 'gnupress'));    //게시물 아래에 누구로 부터 복사, 이동됨 표시 ?>
-                <input type="checkbox" name="cf_use_copy_log" value="1" id="cf_use_copy_log" <?php echo $config['cf_use_copy_log']?'checked':''; ?>> <?php _e('display', 'gnupress');?>
+                <input type="checkbox" name="cf_use_copy_log" value="1" id="cf_use_copy_log" <?php echo $config['cf_use_copy_log']?'checked':''; ?>> <label for="cf_use_copy_log"><?php _e('display', 'gnupress');?></label>
             </td>
         </tr>
 
@@ -132,7 +132,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             <th scope="row"><label for="cf_use_search_include"><?php _e('Board whether or not to include the wp search', 'gnupress'); //전체 검색시 게시판 포함 여부?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Board contents to include the wp search', 'gnupress').' ( '.__('Please check off when there is a problem with the search.', 'gnupress').')') ?>
-                <input type="checkbox" name="cf_use_search_include" value="1" id="cf_use_search_include" <?php echo $config['cf_use_search_include']?'checked':''; ?>> <?php _e('include if check', 'gnupress');?>
+                <input type="checkbox" name="cf_use_search_include" value="1" id="cf_use_search_include" <?php echo $config['cf_use_search_include']?'checked':''; ?>> <label for="cf_use_search_include"><?php _e('include if check', 'gnupress');?></label>
             </td>
         </tr>
 
@@ -160,7 +160,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_cf_board">
+<section id="anc_cf_board" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('BBS default setting', 'gnupress'); ?></h2>
     <?php echo $pg_anchor ?>
     <div class="local_desc02 local_desc">
@@ -236,7 +236,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_cf_mail">
+<section id="anc_cf_mail" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Mail Default setting', 'gnupress');?></h2>
     <?php echo $pg_anchor ?>
 
@@ -252,14 +252,14 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             <th scope="row"><label for="cf_email_use"><?php _e('Using mailings', 'gnupress');?></label></th>
             <td>
                 <?php echo g5_help(__('If you do not check, The mailing does not use at all. No mail is also testing', 'gnupress')); ?>
-                <input type="checkbox" name="cf_email_use" value="1" id="cf_email_use" <?php echo $config['cf_email_use']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
+                <input type="checkbox" name="cf_email_use" value="1" id="cf_email_use" <?php echo $config['cf_email_use']?'checked':''; ?>> <label for="cf_email_use"><?php _e('use', 'gnupress' );?></label>
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_formmail_is_member"><?php _e('Whether using formmail', 'gnupress');?></label></th>
             <td>
                 <?php echo g5_help(__('If you do not check, guest can be use.', 'gnupress')); ?>
-                <input type="checkbox" name="cf_formmail_is_member" value="1" id="cf_formmail_is_member" <?php echo $config['cf_formmail_is_member']?'checked':''; ?>> <?php _e('Use only members', 'gnupress');?>
+                <input type="checkbox" name="cf_formmail_is_member" value="1" id="cf_formmail_is_member" <?php echo $config['cf_formmail_is_member']?'checked':''; ?>> <label for="cf_formmail_is_member"><?php _e('Use only members', 'gnupress');?></label>
             </td>
         </tr>
         </table>
@@ -268,7 +268,7 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_cf_article_mail">
+<section id="anc_cf_article_mail" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Mail setting when posts write', 'gnupress'); ?></h2>
     <?php echo $pg_anchor ?>
 
@@ -284,28 +284,28 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             <th scope="row"><label for="cf_email_wr_super_admin"><?php _e('Administrator', 'gnupress');?></label></th>
             <td>
                 <?php echo g5_help(__('Send email to the administrator.', 'gnupress')); //최고 관리자에게 메일을 발송합니다. ?>
-                <input type="checkbox" name="cf_email_wr_super_admin" value="1" id="cf_email_wr_super_admin" <?php echo $config['cf_email_wr_super_admin']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
+                <input type="checkbox" name="cf_email_wr_super_admin" value="1" id="cf_email_wr_super_admin" <?php echo $config['cf_email_wr_super_admin']?'checked':''; ?>> <label for="cf_email_wr_super_admin"><?php _e('use', 'gnupress' );?></label>
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_email_wr_board_admin"><?php _e('BBS manager', 'gnupress');?></label></th>
             <td>
                 <?php echo g5_help(__('Send email to the BBS manager.', 'gnupress')); //'게시판관리자에게 메일을 발송합니다.' ?>
-                <input type="checkbox" name="cf_email_wr_board_admin" value="1" id="cf_email_wr_board_admin" <?php echo $config['cf_email_wr_board_admin']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
+                <input type="checkbox" name="cf_email_wr_board_admin" value="1" id="cf_email_wr_board_admin" <?php echo $config['cf_email_wr_board_admin']?'checked':''; ?>> <label for="cf_email_wr_board_admin"><?php _e('use', 'gnupress' );?></label>
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_email_wr_write"><?php _e('Author', 'gnupress');?></label></th>
             <td>
                 <?php echo g5_help(__('Send email to the Author.', 'gnupress')); //게시자님께 메일을 발송합니다. ?>
-                <input type="checkbox" name="cf_email_wr_write" value="1" id="cf_email_wr_write" <?php echo $config['cf_email_wr_write']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
+                <input type="checkbox" name="cf_email_wr_write" value="1" id="cf_email_wr_write" <?php echo $config['cf_email_wr_write']?'checked':''; ?>> <label for="cf_email_wr_write"><?php _e('use', 'gnupress' );?></label>
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_email_wr_comment_all"><?php _e('Commenter', 'gnupress');?></label></th>
             <td>
                 <?php echo g5_help(__('If write a comment on original, will be sent mail to all those who wrote comments.', 'gnupress')); //원글에 댓글이 올라오는 경우 댓글 쓴 모든 분들께 메일을 발송합니다. ?>
-                <input type="checkbox" name="cf_email_wr_comment_all" value="1" id="cf_email_wr_comment_all" <?php echo $config['cf_email_wr_comment_all']?'checked':''; ?>> <?php _e('use', 'gnupress' );?>
+                <input type="checkbox" name="cf_email_wr_comment_all" value="1" id="cf_email_wr_comment_all" <?php echo $config['cf_email_wr_comment_all']?'checked':''; ?>> <label for="cf_email_wr_comment_all"><?php _e('use', 'gnupress' );?></label>
             </td>
         </tr>
         </tbody>

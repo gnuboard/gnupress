@@ -451,6 +451,7 @@ if( $bo_table ){
 <input type="hidden" name="screen" value="<?php echo esc_attr($current_screen->id); ?>" />
 <input type="hidden" name="taxonomy" value="<?php echo esc_attr($taxonomy); ?>" />
 <input type="hidden" name="post_type" value="<?php echo esc_attr($post_type); ?>" />
+<input type="hidden" name="page" value="<?php echo esc_attr($page); ?>" />
 <?php wp_nonce_field('add-tag', '_wpnonce_add-tag'); ?>
 
 <div class="form-field form-required">

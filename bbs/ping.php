@@ -2,16 +2,16 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if (!$write)
-    wp_die("게시글이 없습니다.");
+    wp_die(__('No posts', G5_NAME));   //게시글이 없습니다.
 
 if ($board['bo_read_level'])
-    wp_die("비회원 읽기가 가능한 게시판만 신디케이션을 지원합니다.");
+    wp_die(__('Guests can read the board that it supports Syndication.', G5_NAME));   //비회원 읽기가 가능한 게시판만 신디케이션을 지원합니다.
 
 if (strstr($write['wr_option'], 'secret'))
-    wp_die("비밀글은 신디케이션을 지원하지 않습니다.");
+    wp_die(__('Secret does not support syndication.', G5_NAME)); //비밀글은 신디케이션을 지원하지 않습니다.
 
 if (preg_match('#^('.$config['cf_syndi_except'].')$#', $bo_table))
-    wp_die("신디케이션에서 제외된 게시판입니다.");
+    wp_die(__('The board is excluded from the syndication.', G5_NAME));  //신디케이션에서 제외된 게시판입니다.
 
 $title        = htmlspecialchars($write['wr_subject']);
 $author       = htmlspecialchars($write['user_display_name']);

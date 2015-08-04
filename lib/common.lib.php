@@ -793,7 +793,7 @@ function g5_get_paging($write_pages, $cur_page, $total_page, $url, $add='', $nam
     }
 
     if ($cur_page > 1) {
-        $str .= '<a href="'.add_query_arg( array( $naming => 1), $url).'" class="pg_page pg_start">처음</a>'.PHP_EOL;
+        $str .= '<a href="'.add_query_arg( array( $naming => 1), $url).'" class="pg_page pg_start">'.__('First', G5_NAME).'</a>'.PHP_EOL;
     }
 
     $start_page = ( ( (int)( ($cur_page - 1 ) / $write_pages ) ) * $write_pages ) + 1;
@@ -801,21 +801,21 @@ function g5_get_paging($write_pages, $cur_page, $total_page, $url, $add='', $nam
 
     if ($end_page >= $total_page) $end_page = $total_page;
 
-    if ($start_page > 1) $str .= '<a href="'.add_query_arg( array( $naming => $start_page-1), $url).'" class="pg_page pg_prev">이전</a>'.PHP_EOL;
+    if ($start_page > 1) $str .= '<a href="'.add_query_arg( array( $naming => $start_page-1), $url).'" class="pg_page pg_prev">'.__('Prev', G5_NAME).'</a>'.PHP_EOL;
 
     if ($total_page > 1) {
         for ($k=$start_page;$k<=$end_page;$k++) {
             if ($cur_page != $k)
-                $str .= '<a href="'.add_query_arg( array( $naming =>$k ), $url).'" class="pg_page">'.$k.'<span class="sound_only">페이지</span></a>'.PHP_EOL;
+                $str .= '<a href="'.add_query_arg( array( $naming =>$k ), $url).'" class="pg_page">'.$k.'<span class="sound_only">'.__('page', G5_NAME).'</span></a>'.PHP_EOL;
             else
-                $str .= '<span class="sound_only">열린</span><strong class="pg_current">'.$k.'</strong><span class="sound_only">페이지</span>'.PHP_EOL;
+                $str .= '<span class="sound_only">'.__('open', G5_NAME).'</span><strong class="pg_current">'.$k.'</strong><span class="sound_only">'.__('page', G5_NAME).'</span>'.PHP_EOL;
         }
     }
 
-    if ($total_page > $end_page) $str .= '<a href="'.add_query_arg( array( $naming => $end_page+1), $url).'" class="pg_page pg_next">다음</a>'.PHP_EOL;
+    if ($total_page > $end_page) $str .= '<a href="'.add_query_arg( array( $naming => $end_page+1), $url).'" class="pg_page pg_next">'.__('Next', G5_NAME).'</a>'.PHP_EOL;
 
     if ($cur_page < $total_page) {
-        $str .= '<a href="'.add_query_arg( array( $naming => $total_page), $url).'" class="pg_page pg_end">맨끝</a>'.PHP_EOL;
+        $str .= '<a href="'.add_query_arg( array( $naming => $total_page), $url).'" class="pg_page pg_end">'.__('Last', G5_NAME).'</a>'.PHP_EOL;
     }
 
     
@@ -876,7 +876,7 @@ function g5_sql_password($value, $member='')
 // 경고메세지를 경고창으로
 function g5_alert($msg='', $url='')
 {
-    if (!$msg) $msg = __('올바른 방법으로 이용해 주십시오.', G5_NAME);
+    if (!$msg) $msg = __('Please use the right way.', G5_NAME);
 
     $html = '<meta charset="utf-8">';
     $html .= '<script type="text/javascript">alert("'.$msg.'");';
@@ -1277,7 +1277,7 @@ function g5_get_sideview($user_id, $name='', $email='', $homepage='', $default_h
     $g5_profile_url = apply_filters('g5_profile_url', add_query_arg( $profile_arr, G5_DIR_URL.'g5_new.php' ) , $profile_arr);
 
     if ($user_id) {
-        $tmp_name = '<a href="'.$g5_profile_url.'" class="sv_member" title="'.$name.' 자기소개" target="_blank" onclick="return false;">';
+        $tmp_name = '<a href="'.$g5_profile_url.'" class="sv_member" title="'.$name.' '.__('about me', G5_NAME).'" target="_blank" onclick="return false;">';
 
         $tmp_name .= ' '.$name;
 
@@ -1285,8 +1285,8 @@ function g5_get_sideview($user_id, $name='', $email='', $homepage='', $default_h
 
         $title_mb_id = '['.$user_id.']';
     } else {
-        $tmp_name = '<a href="'.add_query_arg( array('sca'=>$sca, 'sfl'=> 'user_sidname,1', 'stx' => $name ), $default_href ).'" title="'.$name.' 이름으로 검색" class="sv_guest" onclick="return false;">'.$name.'</a>';
-        $title_mb_id = '[비회원]';
+        $tmp_name = '<a href="'.add_query_arg( array('sca'=>$sca, 'sfl'=> 'user_sidname,1', 'stx' => $name ), $default_href ).'" title="'.$name.' '.__('Search by name', G5_NAME).'" class="sv_guest" onclick="return false;">'.$name.'</a>';
+        $title_mb_id = '['.__('Guest', G5_NAME).']';
     }
 
     $name     = $name ? g5_get_text($name) : '';
@@ -1301,20 +1301,20 @@ function g5_get_sideview($user_id, $name='', $email='', $homepage='', $default_h
     if($email){
         $formmail_arr = array('action' => 'formmail', 'user_id'=>$user_id, 'user_name'=> urlencode($name), 'email' => $email);
         $formmail_url = apply_filters('g5_formmail_url', add_query_arg( $formmail_arr, $gnupress->new_url ) , $formmail_arr);
-        $str2 .= "<a href=\"".$formmail_url."\" onclick=\"gnupress.win_email(this.href); return false;\">메일보내기</a>\n";
+        $str2 .= "<a href=\"".$formmail_url."\" onclick=\"gnupress.win_email(this.href); return false;\">".__('SendEmail', G5_NAME)."</a>\n";
     }
     if($homepage)
-        $str2 .= "<a href=\"".$homepage."\" target=\"_blank\">홈페이지</a>\n";
+        $str2 .= "<a href=\"".$homepage."\" target=\"_blank\">".__('Homepage', G5_NAME)."</a>\n";
 
     if($is_board_page) {
         if($user_id)
-            $str2 .= "<a href=\"".add_query_arg( array('sca'=>$sca, 'sfl'=> 'user_id,1', 'stx' => $user_id ), $default_href )."\">아이디로 검색</a>\n";
+            $str2 .= "<a href=\"".add_query_arg( array('sca'=>$sca, 'sfl'=> 'user_id,1', 'stx' => $user_id ), $default_href )."\">".__('Search by ID', G5_NAME)."</a>\n";
         else
-            $str2 .= "<a href=\"".add_query_arg( array('sca'=>$sca, 'sfl'=> 'user_display_name,1', 'stx' => $name ), $default_href )."\">이름으로 검색</a>\n";
+            $str2 .= "<a href=\"".add_query_arg( array('sca'=>$sca, 'sfl'=> 'user_display_name,1', 'stx' => $name ), $default_href )."\">".__('Search by NAME', G5_NAME)."</a>\n";
     }
 
     if($is_admin == "super" && $user_id) {
-        $str2 .= "<a href=\"".admin_url( 'admin.php?page=g5_point_list&amp;sfl=user_id&amp;stx='.$user_id )."\" target=\"_blank\">포인트내역</a>\n";
+        $str2 .= "<a href=\"".admin_url( 'admin.php?page=g5_point_list&amp;sfl=user_id&amp;stx='.$user_id )."\" target=\"_blank\">".__('Point History', G5_NAME)."</a>\n";
     }
 
     $str2 .= "</span>\n";

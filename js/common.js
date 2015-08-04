@@ -49,27 +49,6 @@ gnupress.win_email = function(href){
     new_win.focus();
 }
 
-// 삭제 검사 확인
-gnupress.del = function(href)
-{
-    if(confirm("한번 삭제한 자료는 복구할 방법이 없습니다.\n\n정말 삭제하시겠습니까?")) {
-        var iev = -1;
-        if (navigator.appName == 'Microsoft Internet Explorer') {
-            var ua = navigator.userAgent;
-            var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-            if (re.exec(ua) != null)
-                iev = parseFloat(RegExp.$1);
-        }
-
-        // IE6 이하에서 한글깨짐 방지
-        if (iev != -1 && iev < 7) {
-            document.location.href = encodeURI(href);
-        } else {
-            document.location.href = href;
-        }
-    }
-}
-
 // 자바스크립트로 PHP의 number_format 흉내를 냄
 // 숫자에 , 를 출력
 gnupress.number_format = function(data)
@@ -113,7 +92,7 @@ gnupress.number_format = function(data)
 // 삭제 검사 확인
 gnupress.del = function(href)
 {
-    if(confirm("한번 삭제한 자료는 복구할 방법이 없습니다.\n\n정말 삭제하시겠습니까?")) {
+    if(confirm(g5_object.del1+"\n\n"+g5_object.del2)) {
         var iev = -1;
         if (navigator.appName == 'Microsoft Internet Explorer') {
             var ua = navigator.userAgent;

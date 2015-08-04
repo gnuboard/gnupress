@@ -59,7 +59,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
             } else if ($act_buttion_title == __('choose-Delete', 'gnupress')) {
                 if ($is_admin != 'super')
-                    g5_alert(__('게시판 삭제는 최고관리자만 가능합니다.', G5_NAME));
+                    g5_alert(__('You can delete only the top management board.', G5_NAME));    //게시판 삭제는 최고관리자만 가능합니다.
 
                 $is_chage_option = false;
 
@@ -307,7 +307,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                 $row = $wpdb->get_row($sql, ARRAY_A);
 
                 if ($row['cnt']){
-                    $gnupress->add_err_msg = __($bo_table.' 은(는) 이미 존재하는 TABLE 입니다.', G5_NAME);
+                    $gnupress->add_err_msg = __($bo_table.' table already exist.', G5_NAME);  //은(는) 이미 존재하는 TABLE 입니다.
                     break;
                 }
                 
@@ -406,9 +406,9 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
                         }
                         
                         if( ! $result ){
-                            $gnupress->add_err_msg = __( '페이지 적용에 실패 했습니다.', G5_NAME );
+                            $gnupress->add_err_msg = __( 'Page application failed.', G5_NAME ); //페이지 적용에 실패 했습니다.
                         } else if( $result == '2' ){
-                            $gnupress->add_err_msg = __( '적용할 페이지에 이미 적용된 게시판이 있습니다.<br > 적용할 페이지에 게시판은 중복될수 없습니다.', G5_NAME );
+                            $gnupress->add_err_msg = __( 'There is a board that has already been applied to the page you want to apply.<br > Board can not be applied to the page to duplicate.', G5_NAME );  //적용할 페이지에 이미 적용된 게시판이 있습니다., 적용할 페이지에 게시판은 중복될수 없습니다.
                         }
                     }
 

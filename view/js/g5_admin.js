@@ -11,12 +11,12 @@ function g5_btn_check(f, act)
     if (act == "update") // 선택수정
     {
         f.action = list_update_php;
-        str = "수정";
+        str = g5_object.mtxt;   //수정
     }
     else if (act == "delete") // 선택삭제
     {
         f.action = list_delete_php;
-        str = "삭제";
+        str = g5_object.dtxt;   //삭제
     }
     else
         return;
@@ -32,13 +32,13 @@ function g5_btn_check(f, act)
 
     if (!bchk)
     {
-        alert(str + "할 자료를 하나 이상 선택하세요.");
+        alert(str + g5_object.bchkchk); //할 자료를 하나 이상 선택하세요.
         return;
     }
 
     if (act == "delete")
     {
-        if (!confirm("선택한 자료를 정말 삭제 하시겠습니까?"))
+        if (!confirm(g5_object.del2))    //선택한 자료를 정말 삭제 하시겠습니까?
             return;
     }
 
@@ -59,7 +59,7 @@ function g5_is_checked(elements_name)
 
 function g5_delete_confirm()
 {
-    if(confirm("한번 삭제한 자료는 복구할 방법이 없습니다.\n\n정말 삭제하시겠습니까?"))
+    if(confirm(g5_object.del1+"\n\n"+g5_object.del2)) //한번 삭제한 자료는 복구할 방법이 없습니다.\n\n정말 삭제하시겠습니까?
         return true;
     else
         return false;

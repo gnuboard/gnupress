@@ -1509,7 +1509,7 @@ function g5_get_edit_term_link( $term_id, $taxonomy, $object_type = '', $url='',
         if( $action == 'delete' ){
             $url = g5_get_current_page()."?page=".$page;
         } else {
-            $url = admin_url( g5_get_current_page()."?page=".$page );
+            $url = admin_url( "admin.php?page=".$page );
         }
     }
 	$location = add_query_arg( $args, $url);

@@ -17,11 +17,11 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
     </header>
 
     <section id="bo_v_info">
-        <h2>페이지 정보</h2>
-        작성자 <strong><?php echo $view['name'] ?><?php if ($is_ip_view) { echo "&nbsp;($ip)"; } ?></strong>
-        <span class="sound_only">작성일</span><strong><?php echo date("y-m-d H:i", strtotime($view['wr_datetime'])) ?></strong>
-        조회<strong><?php echo number_format($view['wr_hit']) ?>회</strong>
-        댓글<strong><?php echo number_format($view['wr_comment']) ?>건</strong>
+        <h2><?php _e('Page info', 'gnupress');?></h2>
+        <?php _e('author', 'gnupress');?> <strong><?php echo $view['name'] ?><?php if ($is_ip_view) { echo "&nbsp;($ip)"; } ?></strong>
+        <span class="sound_only"><?php _e('date', 'gnupress');?></span><strong><?php echo date("y-m-d H:i", strtotime($view['wr_datetime'])) ?></strong>
+        <?php _e('hit', 'gnupress');?><strong><?php echo number_format($view['wr_hit']) ?></strong>
+        <?php _e('comment', 'gnupress');?><strong><?php echo number_format($view['wr_comment']) ?></strong>
     </section>
 
     <?php
@@ -38,7 +38,7 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
     <?php if($cnt) { ?>
     <!-- 첨부파일 시작 { -->
     <section id="bo_v_file">
-        <h2>첨부파일</h2>
+        <h2><?php _e('Attachments', 'gnupress');?></h2>
         <ul>
         <?php
         // 가변 파일
@@ -51,7 +51,7 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
                     <strong><?php echo $view['file'][$i]['source'] ?></strong>
                     <?php echo $view['file'][$i]['content'] ?> (<?php echo $view['file'][$i]['size'] ?>)
                 </a>
-                <span class="bo_v_file_cnt"><?php echo $view['file'][$i]['download'] ?>회 다운로드</span>
+                <span class="bo_v_file_cnt"><?php echo $view['file'][$i]['download'] ?><?php _e('downloads', 'gnupress');    //회 다운로드?></span>
                 <span>DATE : <?php echo $view['file'][$i]['datetime'] ?></span>
             </li>
         <?php
@@ -68,7 +68,7 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
      ?>
      <!-- 관련링크 시작 { -->
     <section id="bo_v_link">
-        <h2>관련링크</h2>
+        <h2><?php _e('Related Links', 'gnupress'); //관련링크?></h2>
         <ul>
         <?php
         // 링크
@@ -80,10 +80,10 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
          ?>
             <li>
                 <a href="<?php echo esc_url( $view['link_href'][$i] ); ?>" target="_blank">
-                    <img src="<?php echo $board_skin_url ?>/img/icon_link.gif" alt="관련링크">
+                    <img src="<?php echo $board_skin_url ?>/img/icon_link.gif" alt="<?php _e('Related Links', 'gnupress'); //관련링크?>">
                     <strong><?php echo $link ?></strong>
                 </a>
-                <span class="bo_v_link_cnt"><?php echo $view['link_hit'][$i] ?>회 연결</span>
+                <span class="bo_v_link_cnt"><?php echo $view['link_hit'][$i] ?><?php _e('connected', 'gnupress'); //연결?></span>
             </li>
         <?php
             }
@@ -101,20 +101,20 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
          ?>
         <?php if ($prev_href || $next_href) { ?>
         <ul class="bo_v_nb">
-            <?php if ($prev_href) { ?><li><a href="<?php echo $prev_href ?>" class="btn_b01">이전글</a></li><?php } ?>
-            <?php if ($next_href) { ?><li><a href="<?php echo $next_href ?>" class="btn_b01">다음글</a></li><?php } ?>
+            <?php if ($prev_href) { ?><li><a href="<?php echo esc_url( $prev_href ); ?>" class="btn_b01"><?php _e('Prev', 'gnupress'); //이전?></a></li><?php } ?>
+            <?php if ($next_href) { ?><li><a href="<?php echo esc_url( $next_href ); ?>" class="btn_b01"><?php _e('Next', 'gnupress'); //이전?></a></li><?php } ?>
         </ul>
         <?php } ?>
 
         <ul class="bo_v_com">
-            <?php if ($update_href) { ?><li><a href="<?php echo esc_url( $update_href ); ?>" class="btn_b01">수정</a></li><?php } ?>
-            <?php if ($delete_href) { ?><li><a href="<?php echo esc_url( $delete_href ); ?>" class="btn_b01" onclick="gnupress.del(this.href); return false;">삭제</a></li><?php } ?>
-            <?php if ($copy_href) { ?><li><a href="<?php echo esc_url( $copy_href ); ?>" class="btn_admin no-ajaxy" onclick="board_move(this.href); return false;">복사</a></li><?php } ?>
-            <?php if ($move_href) { ?><li><a href="<?php echo esc_url( $move_href ); ?>" class="btn_admin no-ajaxy" onclick="board_move(this.href); return false;">이동</a></li><?php } ?>
-            <?php if ($search_href) { ?><li><a href="<?php echo esc_url( $search_href ); ?>" class="btn_b01">검색</a></li><?php } ?>
-            <li><a href="<?php echo $list_href ?>" class="btn_b01">목록</a></li>
-            <?php if ($reply_href) { ?><li><a href="<?php echo esc_url( $reply_href ); ?>" class="btn_b01">답변</a></li><?php } ?>
-            <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02">글쓰기</a></li><?php } ?>
+            <?php if ($update_href) { ?><li><a href="<?php echo esc_url( $update_href ); ?>" class="btn_b01"><?php _e('Modify', 'gnupress'); //수정?></a></li><?php } ?>
+            <?php if ($delete_href) { ?><li><a href="<?php echo esc_url( $delete_href ); ?>" class="btn_b01" onclick="gnupress.del(this.href); return false;"><?php _e('Delete', 'gnupress'); //삭제?></a></li><?php } ?>
+            <?php if ($copy_href) { ?><li><a href="<?php echo esc_url( $copy_href ); ?>" class="btn_admin no-ajaxy" onclick="board_move(this.href); return false;"><?php _e('Copy', 'gnupress'); //복사?></a></li><?php } ?>
+            <?php if ($move_href) { ?><li><a href="<?php echo esc_url( $move_href ); ?>" class="btn_admin no-ajaxy" onclick="board_move(this.href); return false;"><?php _e('Move', 'gnupress'); //이동?></a></li><?php } ?>
+            <?php if ($search_href) { ?><li><a href="<?php echo esc_url( $search_href ); ?>" class="btn_b01"><?php _e('Search', 'gnupress'); //검색?></a></li><?php } ?>
+            <li><a href="<?php echo $list_href ?>" class="btn_b01"><?php _e('List', 'gnupress'); //목록?></a></li>
+            <?php if ($reply_href) { ?><li><a href="<?php echo esc_url( $reply_href ); ?>" class="btn_b01"><?php _e('Reply', 'gnupress'); //목록?></a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo esc_url( $write_href ); ?>" class="btn_b02"><?php _e('Write', 'gnupress'); //목록?></a></li><?php } ?>
         </ul>
         <?php
         $link_buttons = ob_get_contents();
@@ -124,7 +124,7 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
     <!-- } 게시물 상단 버튼 끝 -->
 
     <section id="bo_v_atc">
-        <h2 id="bo_v_atc_title">본문</h2>
+        <h2 id="bo_v_atc_title"><?php _e('Article', 'gnupress'); //본문?></h2>
 
         <?php
 
@@ -154,16 +154,16 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
         <!-- 스크랩 추천 비추천 시작 { -->
         <?php if ($scrap_href || $good_href || $nogood_href) { ?>
         <div id="bo_v_act">
-            <?php if ($scrap_href) { ?><a href="<?php echo esc_url( $scrap_href ); ?>" target="_blank" class="btn_b01" onclick="gnupress.win_scrap(this.href); return false;">스크랩</a><?php } ?>
+            <?php if ($scrap_href) { ?><a href="<?php echo esc_url( $scrap_href ); ?>" target="_blank" class="btn_b01" onclick="gnupress.win_scrap(this.href); return false;"><?php _e('scrap', 'gnupress'); //스크랩?></a><?php } ?>
             <?php if ($good_href) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php echo esc_url( $good_href ); ?>" id="good_button" target="_blank" class="btn_b01">추천 <strong><?php echo number_format($view['wr_good']) ?></strong></a>
+                <a href="<?php echo esc_url( $good_href ) ?>" id="good_button" class="btn_b01" target="_blank"><?php _e('recommend', 'gnupress'); //추천?> <strong><?php echo number_format($view['wr_good']) ?></strong></a>
                 <b id="bo_v_act_good"></b>
             </span>
             <?php } ?>
             <?php if ($nogood_href) { ?>
             <span class="bo_v_act_gng">
-                <a href="<?php echo esc_url( $nogood_href ); ?>" id="nogood_button" target="_blank" class="btn_b01">비추천  <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
+                <a href="<?php echo esc_url( $nogood_href ) ?>" id="nogood_button" class="btn_b01" target="_blank"><?php _e('nonrecommend', 'gnupress'); //비추천?>  <strong><?php echo number_format($view['wr_nogood']) ?></strong></a>
                 <b id="bo_v_act_nogood"></b>
             </span>
             <?php } ?>
@@ -172,8 +172,8 @@ wp_enqueue_script( $bo_table.'-view-skin-js', $board_skin_url.'/js/view.skin.js'
             if($board['bo_use_good'] || $board['bo_use_nogood']) {
         ?>
         <div id="bo_v_act">
-            <?php if($board['bo_use_good']) { ?><span>추천 <strong><?php echo number_format($view['wr_good']) ?></strong></span><?php } ?>
-            <?php if($board['bo_use_nogood']) { ?><span>비추천 <strong><?php echo number_format($view['wr_nogood']) ?></strong></span><?php } ?>
+            <?php if($board['bo_use_good']) { ?><span><?php _e('recommend', 'gnupress'); //추천?> <strong><?php echo number_format($view['wr_good']) ?></strong></span><?php } ?>
+            <?php if($board['bo_use_nogood']) { ?><span><?php _e('nonrecommend', 'gnupress'); //비추천?> <strong><?php echo number_format($view['wr_nogood']) ?></strong></span><?php } ?>
         </div>
         <?php
             }
@@ -215,11 +215,11 @@ function view_file_download(){
     var othis = this;
     (function($){
         if(!gnupress.is_member) {
-            alert("다운로드 권한이 없습니다.\n회원이시라면 로그인 후 이용해 보십시오.");
+            alert("<?php _e('You are not allowed to download attachments.', 'gnupress');?>\n<?php _e('If you are a member, please login.', 'gnupress');?>");
             return false;
         }
 
-        var msg = "파일을 다운로드 하시면 포인트가 차감(<?php echo number_format($board['bo_download_point']) ?>점)됩니다.\n\n포인트는 게시물당 한번만 차감되며 다음에 다시 다운로드 하셔도 중복하여 차감하지 않습니다.\n\n그래도 다운로드 하시겠습니까?";
+        var msg = "<?php echo sprintf(__('Download attachments deducted %s Points) points.', 'gnupress'), number_format($board['bo_download_point']));?>\n\n<?php _e('Points are deducted only once per post and do not duplicate deducted download again the next bout', 'gnupress');?>\n\n<?php _e('Do you want to download anyway?', 'gnupress');?>";
 
         if(confirm(msg)) {
             var href = $(othis).attr("href")+"&js=on";
@@ -252,10 +252,10 @@ function excute_good($el, $tx)
                 if(data.count) {
                     $el.find("strong").text(gnupress.number_format(String(data.count)));
                     if($tx.attr("id").search("nogood") > -1) {
-                        $tx.text("이 글을 비추천하셨습니다.");
+                        $tx.text("<?php _e('Dislike this post.', 'gnupress');?>");
                         $tx.fadeIn(200).delay(2500).fadeOut(200);
                     } else {
-                        $tx.text("이 글을 추천하셨습니다.");
+                        $tx.text("<?php _e('Like this post.', 'gnupress');?>");
                         $tx.fadeIn(200).delay(2500).fadeOut(200);
                     }
                 }

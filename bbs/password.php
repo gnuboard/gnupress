@@ -45,7 +45,7 @@ switch ($w) {
         }
         break;
     default :
-        g5_alert('w 값이 제대로 넘어오지 않았습니다.');
+        g5_alert(__('w value is invalid.', G5_NAME));     //w 값이 제대로 넘어오지 않았습니다.
 }
 
 if( isset($write['wr_subject']) && "" != $write['wr_subject'] ) {

@@ -12,7 +12,7 @@ if ($w == 's') {
     }
 
     if (g5_sql_password(trim($_POST['user_pass'])) != $wr['user_pass']){
-        g5_alert('비밀번호가 틀립니다.');
+        g5_alert(__('Incorrect password.', G5_NAME));
         exit;
     }
     // 세션에 아래 정보를 저장. 하위번호는 비밀번호없이 보아야 하기 때문임.
@@ -23,7 +23,7 @@ if ($w == 's') {
     $cm = g5_get_write($g5['comment_table'], $cm_id, 'cm_id');
 
     if (g5_sql_password(trim($_POST['user_pass'])) != $cm['user_pass']){
-        g5_alert('비밀번호가 틀립니다.');
+        g5_alert(__('Incorrect password.', G5_NAME));
         exit;
     }
 
@@ -34,7 +34,7 @@ if ($w == 's') {
     $qstr = g5_null_array_check(array('sfl'=>$sfl, 'stx'=>$stx, 'sop' => $sop, 'wr_id' => $cm['wr_id'], 'cm_id' => $cm_id , 'page'=> $page));
     $add_hash = '#c_'.$cm_id;
 } else {
-    g5_alert('w 값이 제대로 넘어오지 않았습니다.');
+    g5_alert(__('w value is invalid.', G5_NAME));
 }
 
 $tmp_url = add_query_arg( (array) $qstr , $default_href ).$add_hash;

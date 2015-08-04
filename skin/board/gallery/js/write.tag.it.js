@@ -7,7 +7,7 @@
         $("#wr_tag_input").hide();
         $('#g5_singleFieldTags').tagit({
             availableTags: gnupress.wr_tags,
-            placeholderText : "태그를 입력해주세요.",
+            placeholderText : g5_object.placeholderText,
             autocomplete: {delay: 0, minLength: 1},
             singleField: true,
             singleFieldNode: $('#wr_tag_input'),

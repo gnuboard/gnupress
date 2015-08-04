@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if ( ! isset( $_POST['g5_nonce_field'] ) || ! wp_verify_nonce( $_POST['g5_nonce_field'], 'g5_list' ) ) {
-    g5_alert(__('잘못된 요청입니다.', G5_NAME));
+    g5_alert(__('Invalid request.', G5_NAME));    //잘못된 요청입니다.
 }
 
 include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );

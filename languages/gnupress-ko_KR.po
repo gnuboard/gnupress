@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnupress\n"
-"POT-Creation-Date: 2015-08-02 22:23+0900\n"
-"PO-Revision-Date: 2015-08-02 22:24+0900\n"
+"POT-Creation-Date: 2015-08-03 18:07+0900\n"
+"PO-Revision-Date: 2015-08-03 19:14+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ko_KR\n"
@@ -25,29 +25,70 @@ msgstr "— 선택 —"
 msgid "GNUPress"
 msgstr "GNUPress"
 
-#: adm/admin.php:72
-msgid "User ID does not exist."
-msgstr "회원 아이디가 존재하지 않습니다."
+#: adm/admin.php:11 lib/g5_board.class.php:64
+#: skin/board/default/list.skin.php:281
+msgid "Deleted data can not be recovered once."
+msgstr "한번 삭제한 자료는 복구할 수 없습니다"
 
-#: adm/admin.php:87 view/board_list.php:151 view/point_list.php:256
+#: adm/admin.php:12 lib/g5_board.class.php:65
+#: skin/board/default/list.skin.php:281 view/board_list.php:156
+#: view/point_list.php:261
+msgid "Are you sure you want to delete the selected data?"
+msgstr "선택한 자료를 정말 삭제하시겠습니까?"
+
+#: adm/admin.php:13 lib/g5_board.class.php:66
+msgid "Input tags"
+msgstr "태그를 입력해주세요."
+
+#: adm/admin.php:14 adm/admin.php:104 view/board_list.php:151
+#: view/point_list.php:256
 msgid "to be select least one item"
 msgstr "하실 항목을 하나 이상 선택하세요."
 
-#: adm/admin.php:252 adm/admin.php:331
-msgid "The board does not exist."
-msgstr "게시판이 존재하지 않습니다."
-
-#: adm/admin.php:262
-msgid "create"
-msgstr "생성"
-
-#: adm/admin.php:328
+#: adm/admin.php:15 adm/admin.php:345 bbs/write_comment_update.php:172
+#: bbs/write_update.php:619
 msgid "modify"
 msgstr "수정"
 
-#: adm/admin.php:376
-msgid "게시판관리"
-msgstr "게시판관리"
+#: adm/admin.php:16
+msgid "delete"
+msgstr "삭제"
+
+#: adm/admin.php:89
+msgid "User ID does not exist."
+msgstr "회원 아이디가 존재하지 않습니다."
+
+#: adm/admin.php:269 adm/admin.php:348 bbs/board.php:6
+#: lib/g5_board.class.php:188
+msgid "The board does not exist."
+msgstr "게시판이 존재하지 않습니다."
+
+#: adm/admin.php:279
+msgid "create"
+msgstr "생성"
+
+#: adm/admin.php:393
+msgid "Management Board"
+msgstr "게시판 관리"
+
+#: adm/board_copy_update.php:19
+msgid ""
+"Board table available only letters, numbers, _ with no spaces. (20 "
+"characters)"
+msgstr ""
+"게시판 TABLE명은 공백없이 영문자, 숫자, _ 만 사용 가능합니다. (20자 이내)"
+
+#: adm/board_copy_update.php:25
+msgid "is a board table names that already exist"
+msgstr "은(는) 이미 존재하는 게시판 테이블명 입니다."
+
+#: adm/board_copy_update.php:25
+msgid "You can not use a table name you want to copy."
+msgstr "복사할 테이블명으로 사용할 수 없습니다."
+
+#: adm/board_copy_update.php:243
+msgid "Copy succeeded."
+msgstr "복사에 성공 했습니다."
 
 #: adm/board_form_update.php:28 view/board_list.php:137
 msgid "choose-Modify"
@@ -60,7 +101,7 @@ msgid "choose-Delete"
 msgstr "선택삭제"
 
 #: adm/board_form_update.php:62
-msgid "게시판 삭제는 최고관리자만 가능합니다."
+msgid "You can delete only the top management board."
 msgstr "게시판 삭제는 최고관리자만 가능합니다."
 
 #: adm/board_form_update.php:143
@@ -68,18 +109,20 @@ msgid "bo_table 값을 입력하세요."
 msgstr "bo_table 값을 입력하세요."
 
 #: adm/board_form_update.php:310
-msgid " 은(는) 이미 존재하는 TABLE 입니다."
-msgstr " 은(는) 이미 존재하는 TABLE 입니다."
+msgid " table already exist."
+msgstr "은(는) 이미 존재하는 TABLE 입니다."
 
 #: adm/board_form_update.php:409
-msgid "페이지 적용에 실패 했습니다."
-msgstr ""
+msgid "Page application failed."
+msgstr "페이지 적용에 실패 했습니다."
 
 #: adm/board_form_update.php:411
 msgid ""
+"There is a board that has already been applied to the page you want to apply."
+"<br > Board can not be applied to the page to duplicate."
+msgstr ""
 "적용할 페이지에 이미 적용된 게시판이 있습니다.<br > 적용할 페이지에 게시판은 "
 "중복될수 없습니다."
-msgstr ""
 
 #: adm/includes/class-g5-terms-list-table.php:46 lib/g5_taxonomy.lib.php:60
 #: lib/g5_taxonomy.lib.php:172 lib/g5_taxonomy.lib.php:296
@@ -135,141 +178,665 @@ msgstr ""
 #: adm/includes/class-g5-terms-list-table.php:461
 #: skin/board/default/write.skin.php:178
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 #: ajax_function.php:66
 msgid "An error has occurred. Please reload the page and try again."
 msgstr ""
 
-#: bbs/board.php:6
-msgid "존재하지 않는 게시판입니다."
-msgstr "존재하지 않는 게시판입니다."
-
 #: bbs/board.php:14
-msgid "글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다."
-msgstr ""
+msgid "This article does not exist.\\n\\nIf this article is moved or deleted."
+msgstr "글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다."
 
 #: bbs/board.php:21
-msgid "글을 읽을 권한이 없습니다."
-msgstr ""
+msgid "You do not have permission to read."
+msgstr "글을 읽을 권한이 없습니다."
 
 #: bbs/board.php:24
-msgid "글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+msgid ""
+"You do not have permission to read.\\n\\nMember Login if you are after, try "
+"using."
 msgstr ""
+"글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
 
-#: bbs/board.php:100
-msgid "목록을 볼 권한이 없습니다."
+#: bbs/board.php:90
+#, php-format
+msgid ""
+"Because your point is %s points less or missing, not read ( %s points "
+"required ) the article.\\n\\nAfter a point collect, please read article "
+"again."
 msgstr ""
+"보유하신 포인트(%s)가 없거나 모자라서 글읽기(%s)가 불가합니다.\\n\\n포인트를 "
+"모으신 후 다시 글읽기 해 주십시오."
+
+#: bbs/board.php:93
+msgid "Read article"
+msgstr "글읽기"
+
+#: bbs/board.php:93
+msgid "READ"
+msgstr "읽기"
 
 #: bbs/board.php:103
-msgid "목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+msgid "You do not have permission to view the list."
+msgstr "목록을 볼 권한이 없습니다."
+
+#: bbs/board.php:106
+msgid ""
+"You do not have permission to view the list.\\n\\nMember Login if you are "
+"after, try using."
 msgstr ""
+"목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+
+#: bbs/board.php:113 lib/common.lib.php:809 lib/common.lib.php:811
+msgid "page"
+msgstr "페이지"
 
 #: bbs/delete.php:5 bbs/delete_all.php:5 bbs/delete_comment.php:5
 #: bbs/move_update.php:5
-msgid "잘못된 요청입니다."
+msgid "Invalid request."
+msgstr "잘못된 요청입니다."
+
+#: bbs/delete.php:18
+msgid "The board itself can not be deleted because you manage."
+msgstr "자신이 관리하는 게시판이 아니므로 삭제할 수 없습니다."
+
+#: bbs/delete.php:20
+msgid ""
+"Posts members of the higher authority than his written authority can not be "
+"deleted."
+msgstr "자신의 권한보다 높은 권한의 회원이 작성한 글은 삭제할 수 없습니다."
+
+#: bbs/delete.php:23 bbs/delete_comment.php:31
+msgid "You can not delete your posts in this because."
+msgstr "자신의 글이 아니므로 삭제할 수 없습니다."
+
+#: bbs/delete.php:26
+msgid "Delete after login."
+msgstr "로그인 후 삭제하세요."
+
+#: bbs/delete.php:28
+msgid "Because password is incorrect then can not be deleted."
+msgstr "비밀번호가 틀리므로 삭제할 수 없습니다."
+
+#: bbs/delete.php:38
+msgid ""
+"You can not delete this article, because there is related replies.\\n"
+"\\nFirst, delete from replies."
 msgstr ""
+"이 글과 관련된 답변글이 존재하므로 삭제 할 수 없습니다.\\n\\n우선 답변글부터 "
+"삭제하여 주십시오."
+
+#: bbs/delete.php:48
+#, php-format
+msgid ""
+"You can not delete this article, because there is related comments.You can "
+"not delete the comments posted a more than %d cases."
+msgstr ""
+"이 글과 관련된 코멘트가 존재하므로 삭제 할 수 없습니다.\\n\\n코멘트가 %d건 이"
+"상 달린 원글은 삭제할 수 없습니다."
 
 #: bbs/delete_comment.php:16
-msgid "등록된 코멘트가 없거나 코멘트 글이 아닙니다."
-msgstr ""
+msgid "No registered comments or not post comments."
+msgstr "등록된 코멘트가 없거나 코멘트 글이 아닙니다."
 
 #: bbs/delete_comment.php:26
-msgid "게시판관리자의 권한보다 높은 회원의 코멘트이므로 삭제할 수 없습니다."
-msgstr ""
+msgid ""
+"Because of the high board members over the rights of the administrator can "
+"not delete comments."
+msgstr "게시판관리자의 권한보다 높은 회원의 코멘트이므로 삭제할 수 없습니다."
 
 #: bbs/delete_comment.php:28
-msgid "자신이 관리하는 게시판이 아니므로 코멘트를 삭제할 수 없습니다."
-msgstr ""
+msgid "The Board they manage to because you can not delete the comments."
+msgstr "자신이 관리하는 게시판이 아니므로 코멘트를 삭제할 수 없습니다."
+
+#: bbs/delete_comment.php:34 bbs/password_check.php:15
+#: bbs/password_check.php:26 bbs/write.php:218
+msgid "Incorrect password."
+msgstr "비밀번호가 틀립니다."
 
 #: bbs/delete_comment.php:42
-msgid "이 코멘트와 관련된 답변코멘트가 존재하므로 삭제 할 수 없습니다."
-msgstr ""
+msgid ""
+"You can not delete comments because the comments and responses relating to "
+"exist."
+msgstr "이 코멘트와 관련된 답변코멘트가 존재하므로 삭제 할 수 없습니다."
 
-#: bbs/formmail_send.php:6 bbs/write_comment_update.php:6
-#: bbs/write_update.php:5
-msgid "잘못된 접근입니다."
+#: bbs/delete_comment.php:45 bbs/write_comment_update.php:170
+#: skin/board/default/password.skin.php:4
+#: skin/member/basic/scrap_popin.skin.php:24
+msgid "Comment"
+msgstr "댓글"
+
+#: bbs/download.php:23
+msgid ""
+"You do not have permission to download.\\nMember Login if you are after, try "
+"using."
+msgstr "다운로드 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오."
+
+#: bbs/download.php:27
+msgid "The file information does not exist."
+msgstr "파일 정보가 존재하지 않습니다."
+
+#: bbs/download.php:45
+msgid "You do not have permission to download."
+msgstr "다운로드 권한이 없습니다."
+
+#: bbs/download.php:49
+msgid "Member Login if you are after, try using"
+msgstr "회원이시라면 로그인 후 이용해 보십시오."
+
+#: bbs/download.php:78
+#, php-format
+msgid ""
+"Because your point is %s points less or missing, not download ( %s points "
+"required ) the file.\\n\\nAfter a point collect, please download again."
 msgstr ""
+"보유하신 포인트(%s)가 없거나 모자라서 다운로드(%s)가 불가합니다.\\n\\n포인트"
+"를 적립하신 후 다시 다운로드 해 주십시오."
+
+#: bbs/download.php:82
+msgid "file download"
+msgstr "파일 다운로드"
+
+#: bbs/download.php:82
+msgid "download"
+msgstr "다운로드"
+
+#: bbs/formmail.php:6 bbs/formmail_send.php:10
+msgid ""
+"You can send an e-mail should check the \\\"Use-mailing\\\" in the gnupress "
+"setting.\\n\\nPlease contact your administrator."
+msgstr ""
+"환경설정에서 \\\"메일발송 사용\\\"에 체크하셔야 메일을 발송할 수 있습니다.\\n"
+"\\n관리자에게 문의하시기 바랍니다."
+
+#: bbs/formmail.php:9 bbs/formmail_send.php:13
+msgid "Only members are available."
+msgstr "회원만 이용하실 수 있습니다."
+
+#: bbs/formmail.php:16
+msgid "Account does not exist."
+msgstr "회원정보가 존재하지 않습니다."
+
+#: bbs/formmail.php:22
+msgid ""
+"You can send mail only once after a certain number of connections.\\n"
+"\\nPlease continue to send us an e-mail to login again or connection."
+msgstr ""
+"한번 접속후 일정수의 메일만 발송할 수 있습니다.\\n\\n계속해서 메일을 보내시려"
+"면 다시 로그인 또는 접속하여 주십시오."
+
+#: bbs/formmail.php:24 bbs/formmail_send.php:51
+#: skin/member/basic/formmail.skin.php:69
+msgid "Send Email"
+msgstr "이메일 보내기"
+
+#: bbs/formmail_send.php:24
+msgid "Only one person at a time, you can send an e-mail."
+msgstr "한번에 한사람에게만 메일을 발송할 수 있습니다."
+
+#: bbs/formmail_send.php:27
+msgid "captcha invalid"
+msgstr "자동등록방지 숫자가 틀렸습니다."
+
+#: bbs/formmail_send.php:69
+msgid "The e-mail was sent successfully."
+msgstr "메일을 정상적으로 발송하였습니다."
+
+#: bbs/good.php:26
+msgid "Only available members."
+msgstr "회원만 가능합니다."
+
+#: bbs/good.php:31 bbs/link.php:9
+msgid "This value bo_table or wr_id is invalid"
+msgstr "값이 제대로 넘어오지 않았습니다."
+
+#: bbs/good.php:37
+msgid "You can only recommend or Dislike this post."
+msgstr "해당 게시물에서만 추천 또는 비추천 하실 수 있습니다."
+
+#: bbs/good.php:44 bbs/link.php:15
+msgid "The board dose not exist."
+msgstr "존재하는 게시판이 아닙니다."
+
+#: bbs/good.php:50
+msgid "Myself article it can not recommended or deprecated."
+msgstr "자신의 글에는 추천 또는 비추천 하실 수 없습니다."
+
+#: bbs/good.php:54
+msgid "The board does not use a recommend."
+msgstr "이 게시판은 추천 기능을 사용하지 않습니다."
+
+#: bbs/good.php:58
+msgid "The board does not use a nonrecommend."
+msgstr "이 게시판은 비추천 기능을 사용하지 않습니다."
+
+#: bbs/good.php:73 skin/board/default/list.skin.php:107
+#: skin/board/default/view.skin.php:160 skin/board/default/view.skin.php:175
+msgid "recommend"
+msgstr "추천"
+
+#: bbs/good.php:75 skin/board/default/list.skin.php:108
+#: skin/board/default/view.skin.php:166 skin/board/default/view.skin.php:176
+msgid "nonrecommend"
+msgstr "비추천"
+
+#: bbs/good.php:77
+#, php-format
+msgid "The articles have already %s."
+msgstr "이미 %s 하신 글 입니다."
+
+#: bbs/link.php:18
+msgid "No exist link"
+msgstr "링크가 없습니다."
 
 #: bbs/move.php:5 bbs/move_update.php:9
-msgid "bo_table값이 없습니다."
-msgstr ""
+msgid "No value bo_table"
+msgstr "bo_table값이 없습니다."
 
-#: bbs/move.php:19
-msgid "sw 값이 제대로 넘어오지 않았습니다."
-msgstr ""
+#: bbs/move.php:15 skin/board/default/list.skin.php:298
+msgid "move"
+msgstr "이동"
 
-#: bbs/move.php:23
-msgid "게시판 관리자 이상 접근이 가능합니다."
-msgstr ""
+#: bbs/move.php:17 skin/board/default/list.skin.php:296
+msgid "copy"
+msgstr "복사"
 
-#: bbs/point.php:7
-msgid "회원만 조회하실 수 있습니다."
-msgstr ""
+#: bbs/move.php:19 bbs/move_update.php:23
+msgid "sw value is invalid."
+msgstr "sw 값이 유효하지 않습니다."
 
-#: bbs/write.php:8
-msgid "w 값이 제대로 넘어오지 않았습니다."
-msgstr ""
+#: bbs/move.php:23 bbs/move_update.php:20
+msgid "Access is possible over the board manager."
+msgstr "게시판 관리자 이상 접근이 가능합니다."
+
+#: bbs/move.php:68 bbs/move_update.php:26
+#, php-format
+msgid "Select at least one board to %s."
+msgstr "%s 할 게시판을 한개 이상 선택하여 주십시오."
+
+#: bbs/move.php:72
+msgid "All board check"
+msgstr "전체게시판 체크"
+
+#: bbs/move.php:75 skin/member/basic/scrap.skin.php:15 view/board_form.php:132
+msgid "Board"
+msgstr "게시판"
+
+#: bbs/move.php:118
+msgid "close"
+msgstr "닫기"
+
+#: bbs/move.php:155
+#, php-format
+msgid "Choose a board to post at least one %s."
+msgstr "게시물을 %s 할 게시판을 한개 이상 선택해 주십시오."
+
+#: bbs/move_update.php:137
+#, php-format
+msgid "This post is %s to the selected board."
+msgstr "해당 게시물을 선택한 게시판으로 %s 하였습니다."
+
+#: bbs/password.php:48 bbs/password_check.php:37 bbs/write.php:8
+msgid "w value is invalid."
+msgstr "w 값이 유효하지 않습니다."
+
+#: bbs/ping.php:5
+msgid "No posts"
+msgstr "게시글이 없습니다."
+
+#: bbs/ping.php:8
+msgid "Guests can read the board that it supports Syndication."
+msgstr "비회원 읽기가 가능한 게시판만 신디케이션을 지원합니다."
+
+#: bbs/ping.php:11
+msgid "Secret does not support syndication."
+msgstr "비밀글은 신디케이션을 지원하지 않습니다."
+
+#: bbs/ping.php:14
+msgid "The board is excluded from the syndication."
+msgstr "신디케이션에서 제외된 게시판입니다."
+
+#: bbs/point.php:7 bbs/scrap.php:5
+msgid "Only members can view."
+msgstr "회원만 볼수 있습니다."
+
+#: bbs/point.php:16
+msgid "- point history"
+msgstr "님의 포인트 내역"
+
+#: bbs/rss.php:26
+msgid "If guest can read posts then board supports RSS"
+msgstr "비회원 읽기가 가능한 게시판만 RSS 지원합니다."
+
+#: bbs/rss.php:32
+msgid "View RSS is prohibited."
+msgstr "RSS 보기가 금지되어 있습니다."
+
+#: bbs/scrap.php:7
+msgid "'S scrap"
+msgstr "님의 스크랩"
+
+#: bbs/scrap_popin.php:15 bbs/scrap_popin_update.php:18
+msgid "Only registered members can access."
+msgstr "회원만 접근할수 있습니다."
+
+#: bbs/scrap_popin.php:49 bbs/scrap_popin_update.php:33
+msgid "Your article is already scrap.\\n\\nDo you want to scrap it now?"
+msgstr "이미 스크랩 하셨습니다.스크랩은 확인하시겠습니까?"
+
+#: bbs/scrap_popin_update.php:102 bbs/write_comment_update.php:164
+#: skin/board/default/view_comment.skin.php:83
+msgid "Write a comment"
+msgstr "댓글쓰기"
+
+#: bbs/scrap_popin_update.php:102 bbs/write_comment_update.php:164
+#: bbs/write_comment_update.php:172 bbs/write_update.php:619
+#: skin/board/default/list.skin.php:144 skin/board/default/view.skin.php:24
+#: view/board_form.php:299
+msgid "comment"
+msgstr "댓글"
+
+#: bbs/scrap_popin_update.php:126
+msgid "scrap this article.\\n\\nDo you want to scrap it now?"
+msgstr "이 글을 스크랩 하였습니다.\\n\\n스크랩을 확인 하시겠습니까?"
+
+#: bbs/view_comment.php:42
+msgid "This is a secret."
+msgstr "비밀글입니다."
+
+#: bbs/view_comment.php:55
+msgid "Comments Check"
+msgstr "댓글내용 확인"
 
 #: bbs/write.php:14
-msgid "글이 존재하지 않습니다.\\n\\n삭제되었거나 이동된 경우입니다."
-msgstr ""
+msgid "This article does not exist.\\n\\nThe case has been moved or deleted."
+msgstr "글이 존재하지 않습니다.\\n\\n삭제되었거나 이동된 경우입니다."
 
 #: bbs/write.php:22
-msgid "글쓰기에는 \\$wr_id 값을 사용하지 않습니다."
-msgstr ""
+msgid "The writing does not use the \\$wr_id value."
+msgstr "글쓰기에는 \\$wr_id 값을 사용하지 않습니다."
 
-#: bbs/write.php:29
-msgid "글을 쓸 권한이 없습니다."
-msgstr ""
+#: bbs/write.php:29 bbs/write_update.php:166
+msgid "You do not have permission to write."
+msgstr "글을 쓸 권한이 없습니다."
 
 #: bbs/write.php:31
-msgid "글을 쓸 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오."
-msgstr ""
+msgid ""
+"You do not have permission to write.\\nMember Login if you are after, try "
+"using."
+msgstr "글을 쓸 권한이 없습니다.\\\\n회원이시라면 로그인 후 이용해 보십시오."
 
 #: bbs/write.php:41
-msgid "보유하신 포인트("
+#, php-format
+msgid ""
+"Because your point is %s points less or missing, not write ( %s points "
+"required ) the article.\\n\\nAfter a point collect, please write article "
+"again."
 msgstr ""
+"보유하신 포인트(%s) 없거나 모자라서 글쓰기 (%s) 불가합니다.\\n\\n포인트를 적"
+"립하신 후 다시 글쓰기 해 주십시오."
+
+#: bbs/write.php:45 bbs/write_update.php:307
+#: skin/board/default/list.skin.php:62 skin/board/default/list.skin.php:203
+#: skin/board/default/view.skin.php:117
+msgid "Write"
+msgstr "글쓰기"
 
 #: bbs/write.php:53
-msgid "글을 수정할 권한이 없습니다."
-msgstr ""
+msgid "You do not have permission to edit."
+msgstr "글을 수정할 권한이 없습니다."
 
 #: bbs/write.php:55
 msgid ""
-"글을 수정할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+"You do not have permission to edit.\\nMember Login if you are after, try "
+"using."
 msgstr ""
+"글을 수정할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
 
 #: bbs/write.php:64
 msgid ""
-"이 글과 관련된 답변글이 존재하므로 수정 할 수 없습니다.\\n\\n답변글이 있는 원"
-"글은 수정할 수 없습니다."
+"Because replies are present related to this article then it can not be "
+"modified."
+msgstr "이 글과 관련된 답변글이 존재하므로 수정 할 수 없습니다."
+
+#: bbs/write.php:72
+#, php-format
+msgid ""
+"Because there are comments associated with this article it can not be "
+"modified.\\n\\nComments are at least %d cases with a post can not be "
+"modified."
 msgstr ""
+"이 글과 관련된 댓글이 존재하므로 수정 할 수 없습니다.\\\\n\\\\n댓글이 %d건 이"
+"상 달린 원글은 수정할 수 없습니다."
+
+#: bbs/write.php:80 bbs/write_update.php:181
+msgid "You do not have permission to reply to posts."
+msgstr "글을 답변할 권한이 없습니다."
+
+#: bbs/write.php:82
+msgid ""
+"You do not have permission to reply to posts.\\n\\nMember Login if you are "
+"after, try using."
+msgstr ""
+"답변글을 작성할 권한이 없습니다.\\\\n\\\\n회원이시라면 로그인 후 이용해 보십"
+"시오."
+
+#: bbs/write.php:90
+#, php-format
+msgid ""
+"Because your point is %s points less or missing, not reply ( %s points "
+"required ) the article.\\n\\nAfter a point collect, please reply article "
+"again."
+msgstr ""
+"보유하신 포인트(%s)가 없거나 모자라서 글답변(%s)가 불가합니다.\\n\\n포인트를 "
+"적립하신 후 다시 글답변 해 주십시오."
+
+#: bbs/write.php:93
+msgid "Notice can not be answered."
+msgstr "공지에는 답변 할 수 없습니다."
+
+#: bbs/write.php:100
+msgid "Secret, you can answer your own or managers."
+msgstr "비밀글에는 자신 또는 관리자만 답변이 가능합니다."
+
+#: bbs/write.php:104
+msgid "Guest of the Secret must not have answers."
+msgstr "비회원의 비밀글에는 답변이 불가합니다."
+
+#: bbs/write.php:109 bbs/write_update.php:311
+#: skin/board/default/view.skin.php:116
+#: skin/board/default/view_comment.skin.php:64
+msgid "Reply"
+msgstr "답변"
+
+#: bbs/write_comment_update.php:6 bbs/write_update.php:5
+msgid "Invalid Connection."
+msgstr "잘못된 접근입니다."
+
+#: bbs/write_comment_update.php:17 bbs/write_update.php:104
+msgid "It did the code is incorrect, the content contains multiple."
+msgstr "내용에 올바르지 않은 코드가 다수 포함되어 있습니다."
+
+#: bbs/write_comment_update.php:37 bbs/write_update.php:355
+msgid "The name required."
+msgstr "이름은 필히 입력하셔야 합니다."
+
+#: bbs/write_comment_update.php:39
+msgid "Captcha incorrect."
+msgstr "자동등록방지 숫자가 틀렸습니다."
 
 #: bbs/write_comment_update.php:44
-msgid "댓글을 쓸 권한이 없습니다."
-msgstr ""
+msgid "You do not have permission to write a comment."
+msgstr "댓글을 쓸 권한이 없습니다."
 
-#: bbs/write_comment_update.php:52
-msgid "너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다."
-msgstr ""
+#: bbs/write_comment_update.php:52 bbs/write_update.php:200
+msgid "Posts in too soon, you can not continuously post."
+msgstr "너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다."
 
-#: bbs/write_comment_update.php:96
+#: bbs/write_comment_update.php:63 bbs/write_update.php:126
 msgid ""
-"답변할 댓글이 없습니다.\\n\\n답변하는 동안 댓글이 삭제되었을 수 있습니다."
-msgstr ""
+"This article does not exist.\\nThe article may have been deleted or moved."
+msgstr "글이 존재하지 않습니다.\\n글이 삭제되었거나 이동하였을 수 있습니다."
 
-#: bbs/write_comment_update.php:100 bbs/write_update.php:183
-msgid "더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다."
+#: bbs/write_comment_update.php:90
+#, php-format
+msgid ""
+"Because your point is %s points less or missing, can not Comment ( %s points "
+"required ) the article.\\n\\nAfter a point collect, please comment article "
+"again."
 msgstr ""
+"보유하신 포인트(%s)가 없거나 모자라서 댓글쓰기(%s)가 불가합니다.\\n\\n포인트"
+"를 적립하신 후 다시 댓글을 써 주십시오."
 
-#: bbs/write_comment_update.php:256
-msgid "이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다."
+#: bbs/write_comment_update.php:98
+msgid ""
+"There are no comments to answer.\\n\\nComments may be deleted during the "
+"response."
 msgstr ""
+"답변할 댓글이 없습니다.\\\\n\\\\n답변하는 동안 댓글이 삭제되었을 수 있습니다."
 
-#: bbs/write_update.php:124
-msgid "글이 존재하지 않습니다.\\n글이 삭제되었거나 이동하였을 수 있습니다."
+#: bbs/write_comment_update.php:102 bbs/write_update.php:185
+msgid "You can not answer anymore.\\n\\nThe answer can be only one step."
+msgstr "더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다."
+
+#: bbs/write_comment_update.php:170 skin/board/default/password.skin.php:3
+msgid "Post"
+msgstr "글"
+
+#: bbs/write_comment_update.php:172 bbs/write_update.php:619
+msgid "input"
+msgstr "입력"
+
+#: bbs/write_comment_update.php:172 bbs/write_update.php:619
+msgid "reply"
+msgstr "답변"
+
+#: bbs/write_comment_update.php:172 bbs/write_update.php:619
+msgid "Comments modifiy"
+msgstr "댓글 수정"
+
+#: bbs/write_comment_update.php:175 bbs/write_update.php:622
+#, php-format
+msgid "This article has been %s to the board."
+msgstr "게시판에 %s글이 올라왔습니다."
+
+#: bbs/write_comment_update.php:243
+msgid ""
+"Higher than the authority of the administrator of the board members "
+"commented and can not be modified."
+msgstr "게시판관리자의 권한보다 높은 회원의 댓글이므로 수정할 수 없습니다."
+
+#: bbs/write_comment_update.php:245
+msgid "The board they manage to because you can not modify the comment."
+msgstr "자신이 관리하는 게시판이 아니므로 댓글을 수정할 수 없습니다."
+
+#: bbs/write_comment_update.php:248 bbs/write_update.php:328
+msgid "Because your posts is not then can not edit this posts."
+msgstr "자신의 글이 아니므로 수정할 수 없습니다."
+
+#: bbs/write_comment_update.php:251
+msgid "You do not have permission to edit the comment."
+msgstr "댓글을 수정할 권한이 없습니다."
+
+#: bbs/write_comment_update.php:258
+msgid ""
+"Comments and responses can not be modified because it related to comments "
+"there."
+msgstr "이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다."
+
+#: bbs/write_update.php:11
+msgid "Posts update"
+msgstr "글 업데이트"
+
+#: bbs/write_update.php:28
+msgid "enter a subject."
+msgstr "제목을 입력하세요."
+
+#: bbs/write_update.php:77
+msgid "enter a Contents."
+msgstr "내용을 입력하세요."
+
+#: bbs/write_update.php:112
+#, php-format
+msgid ""
+"The size of the file contents or writing over the value set in the server "
+"error has occurred.\\npost_max_size=%s ,upload_max_filesize=%s \\nPlease "
+"contact the board administrator or server administrator."
 msgstr ""
+"파일 또는 글내용의 크기가 서버에서 설정한 값을 넘어 오류가 발생하였습니다."
+"\\npost_max_size=%s , upload_max_filesize=%s\\n게시판관리자 또는 서버관리자에"
+"게 문의 바랍니다."
+
+#: bbs/write_update.php:132
+msgid "Secret unused because the board can not be registered as Secret."
+msgstr "비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다."
+
+#: bbs/write_update.php:171
+msgid "Only the administrator can be notified."
+msgstr "관리자만 공지할 수 있습니다."
+
+#: bbs/write_update.php:177
+msgid "Notice you can not answer."
+msgstr "공지에는 답변 할 수 없습니다."
+
+#: bbs/write_update.php:206
+msgid "Please enter the subject."
+msgstr "제목을 입력하세요."
+
+#: bbs/write_update.php:219
+msgid "The name require entered."
+msgstr "이름은 필히 입력하셔야 합니다."
+
+#: bbs/write_update.php:323
+msgid "The board itself can not be modified because you manage."
+msgstr "자신이 관리하는 게시판이 아니므로 수정할 수 없습니다."
+
+#: bbs/write_update.php:325
+msgid ""
+"Posts members of the higher authority than his written authority can not be "
+"modified."
+msgstr "자신의 권한보다 높은 권한의 회원이 작성한 글은 수정할 수 없습니다."
+
+#: bbs/write_update.php:331
+msgid "Please modify after login."
+msgstr "로그인 후 수정하세요."
+
+#: bbs/write_update.php:468
+#, php-format
+msgid ""
+"\\\"%s\\\" the capacity of a file on the server settings ( %s ) that can not "
+"be uploaded is larger than the value.\\n"
+msgstr ""
+"\\\"%s\\\" 파일의 용량이 서버에 설정( %s )된 값보다 크므로 업로드 할 수 없습"
+"니다.\\n"
+
+#: bbs/write_update.php:472
+#, php-format
+msgid "\\\"%s\\\" file has been upload failed.\\n"
+msgstr "\\\"%s\\\" 파일이 정상적으로 업로드 되지 않았습니다.\\n"
+
+#: bbs/write_update.php:480
+#, php-format
+msgid ""
+"Because the capacity of a file %s (%s byte) is set on the board ( %s byte) "
+"values are not uploaded to the greater than upload failed.\\n"
+msgstr ""
+"%s 파일의 용량( %s byte )이 게시판에 설정( %s byte )된 값보다 크므로 업로드 "
+"하지 않습니다.\\n"
+
+#: bbs/write_update_mail.php:8 skin/board/default/write.skin.php:78
+msgid "Email"
+msgstr "메일"
+
+#: bbs/write_update_mail.php:19 skin/board/default/list.skin.php:99
+#: skin/board/default/list.skin.php:236 view/config_form.php:298
+msgid "Author"
+msgstr "작성자"
+
+#: bbs/write_update_mail.php:24
+msgid "To check posts on the site"
+msgstr "사이트에서 게시물 확인하기"
 
 #: gnupress.php:171
 msgid "gnupress setting"
@@ -317,15 +884,69 @@ msgstr "자료가 없습니다."
 
 #: gnupress.php:558
 msgid "NOT EXISTS CLASS FILE"
-msgstr ""
+msgstr "클래스 파일이 존재하지 않습니다."
+
+#: lib/common.lib.php:796
+msgid "First"
+msgstr "처음"
+
+#: lib/common.lib.php:804 skin/board/default/view.skin.php:104
+msgid "Prev"
+msgstr "이전"
+
+#: lib/common.lib.php:811
+msgid "open"
+msgstr "열린"
+
+#: lib/common.lib.php:815 skin/board/default/view.skin.php:105
+msgid "Next"
+msgstr "다음"
+
+#: lib/common.lib.php:818
+msgid "Last"
+msgstr "맨끝"
 
 #: lib/common.lib.php:879
-msgid "올바른 방법으로 이용해 주십시오."
-msgstr ""
+msgid "Please use the right way."
+msgstr "올바른 방법으로 이용해 주십시오."
 
-#: lib/g5_board.class.php:174
-msgid "게시판이 존재하지 않습니다."
-msgstr ""
+#: lib/common.lib.php:1280
+msgid "about me"
+msgstr "자기소개"
+
+#: lib/common.lib.php:1288
+msgid "Search by name"
+msgstr "이름으로검색"
+
+#: lib/common.lib.php:1289
+msgid "Guest"
+msgstr "비회원"
+
+#: lib/common.lib.php:1304
+msgid "SendEmail"
+msgstr "이메일보내기"
+
+#: lib/common.lib.php:1307
+msgid "Homepage"
+msgstr "홈페이지"
+
+#: lib/common.lib.php:1311
+msgid "Search by ID"
+msgstr "아이디로검색"
+
+#: lib/common.lib.php:1313
+msgid "Search by NAME"
+msgstr "이름으로검색"
+
+#: lib/common.lib.php:1317
+msgid "Point History"
+msgstr "포인트 내역"
+
+#: lib/g5_board.class.php:399 skin/board/default/write.skin.php:137
+#: skin/member/basic/formmail.skin.php:50
+#: skin/member/basic/formmail.skin.php:57
+msgid "Attachments"
+msgstr "파일첨부"
 
 #: lib/g5_taxonomy.lib.php:147
 msgid "Could not insert term relationship into the database"
@@ -388,11 +1009,6 @@ msgstr "분류"
 msgid "Manage"
 msgstr "관리"
 
-#: skin/board/default/list.skin.php:62 skin/board/default/list.skin.php:203
-#: skin/board/default/view.skin.php:117
-msgid "Write"
-msgstr "글쓰기"
-
 #: skin/board/default/list.skin.php:89 skin/member/basic/scrap.skin.php:14
 msgid "Number"
 msgstr "번호"
@@ -408,11 +1024,6 @@ msgstr "현재 페이지 게시물 전체"
 msgid "Subject"
 msgstr "제목"
 
-#: skin/board/default/list.skin.php:99 skin/board/default/list.skin.php:236
-#: view/config_form.php:298
-msgid "Author"
-msgstr "작성자"
-
 #: skin/board/default/list.skin.php:102 skin/member/basic/scrap.skin.php:17
 msgid "Date"
 msgstr "날짜"
@@ -421,16 +1032,6 @@ msgstr "날짜"
 msgid "Hit"
 msgstr "조회"
 
-#: skin/board/default/list.skin.php:107 skin/board/default/view.skin.php:160
-#: skin/board/default/view.skin.php:175
-msgid "recommend"
-msgstr "추천"
-
-#: skin/board/default/list.skin.php:108 skin/board/default/view.skin.php:166
-#: skin/board/default/view.skin.php:176
-msgid "nonrecommend"
-msgstr "비추천"
-
 #: skin/board/default/list.skin.php:120 skin/board/default/write.skin.php:31
 msgid "notice"
 msgstr "공지"
@@ -438,11 +1039,6 @@ msgstr "공지"
 #: skin/board/default/list.skin.php:122
 msgid "Of reading"
 msgstr "열람중"
-
-#: skin/board/default/list.skin.php:144 skin/board/default/view.skin.php:24
-#: view/board_form.php:299
-msgid "comment"
-msgstr "댓글"
 
 #: skin/board/default/list.skin.php:185 view/board_list.php:130
 #: view/point_list.php:189
@@ -512,7 +1108,7 @@ msgstr "검색어"
 #: view/board_form.php:690 view/board_form.php:701 view/board_form.php:712
 #: view/board_form.php:723 view/board_form.php:734 view/board_form.php:745
 #: view/board_form.php:813 view/board_form.php:823 view/board_form.php:833
-#: view/board_form.php:843 view/board_form.php:932 view/board_form.php:936
+#: view/board_form.php:843 view/board_form.php:946 view/board_form.php:950
 #: view/board_list.php:25 view/board_list.php:101 view/board_list.php:211
 #: view/board_list.php:215 view/config_form.php:48 view/config_form.php:71
 #: view/config_form.php:73 view/config_form.php:93 view/config_form.php:109
@@ -529,15 +1125,6 @@ msgstr "검색"
 msgid " - Please select an item to operate."
 msgstr "할 게시물을 하나 이상 선택하세요."
 
-#: skin/board/default/list.skin.php:281 view/board_list.php:156
-#: view/point_list.php:261
-msgid "Are you sure you want to delete the selected data?"
-msgstr "선택한 자료를 정말 삭제하시겠습니까?"
-
-#: skin/board/default/list.skin.php:281
-msgid "Deleted data can not be recovered once."
-msgstr "한번 삭제한 자료는 복구할 수 없습니다"
-
 #: skin/board/default/list.skin.php:281
 msgid "If you choose to post in this reply,"
 msgstr "답변글이 있는 게시글을 선택하신 경우,"
@@ -545,23 +1132,6 @@ msgstr "답변글이 있는 게시글을 선택하신 경우,"
 #: skin/board/default/list.skin.php:281
 msgid "you can delete it when choose the replied"
 msgstr "답변글도 선택하셔야 게시글이 삭제됩니다."
-
-#: skin/board/default/list.skin.php:296
-msgid "copy"
-msgstr "복사"
-
-#: skin/board/default/list.skin.php:298
-msgid "move"
-msgstr "이동"
-
-#: skin/board/default/password.skin.php:3
-msgid "Post"
-msgstr "글"
-
-#: skin/board/default/password.skin.php:4
-#: skin/member/basic/scrap_popin.skin.php:24
-msgid "Comment"
-msgstr "댓글"
 
 #: skin/board/default/password.skin.php:5 skin/board/default/view.skin.php:110
 #: skin/board/default/view_comment.skin.php:65 view/board_list.php:71
@@ -639,16 +1209,8 @@ msgstr "관련링크"
 msgid "connected"
 msgstr "연결됨"
 
-#: skin/board/default/view.skin.php:104
-msgid "Prev"
-msgstr "이전"
-
-#: skin/board/default/view.skin.php:105
-msgid "Next"
-msgstr "다음"
-
 #: skin/board/default/view.skin.php:112 view/board_form.php:135
-#: view/board_form.php:143 view/board_form.php:952 view/board_list.php:72
+#: view/board_form.php:143 view/board_form.php:966 view/board_list.php:72
 #: view/board_list.php:231
 msgid "Copy"
 msgstr "복사"
@@ -660,11 +1222,6 @@ msgstr "이동"
 #: skin/board/default/view.skin.php:114 view/board_list.php:27
 msgid "Search"
 msgstr "검색"
-
-#: skin/board/default/view.skin.php:116
-#: skin/board/default/view_comment.skin.php:64
-msgid "Reply"
-msgstr "답변"
 
 #: skin/board/default/view.skin.php:127
 msgid "Article"
@@ -722,10 +1279,6 @@ msgstr "비밀"
 #: skin/board/default/view_comment.skin.php:72
 msgid "No comments"
 msgstr "등록된 댓글이 없습니다."
-
-#: skin/board/default/view_comment.skin.php:83
-msgid "Write a comment"
-msgstr "댓글쓰기"
 
 #: skin/board/default/view_comment.skin.php:104
 #: skin/board/default/write.skin.php:64 skin/member/basic/formmail.skin.php:25
@@ -800,10 +1353,6 @@ msgstr "비밀"
 msgid "Receive e-mail reply"
 msgstr "답변메일받기"
 
-#: skin/board/default/write.skin.php:78
-msgid "Email"
-msgstr "메일"
-
 #: skin/board/default/write.skin.php:85
 msgid "Option"
 msgstr "옵션"
@@ -823,11 +1372,6 @@ msgstr "링크"
 #: skin/board/default/write.skin.php:135
 msgid "File"
 msgstr "파일"
-
-#: skin/board/default/write.skin.php:137 skin/member/basic/formmail.skin.php:50
-#: skin/member/basic/formmail.skin.php:57
-msgid "Attachments"
-msgstr "파일첨부"
 
 #: skin/board/default/write.skin.php:137
 #, php-format
@@ -897,10 +1441,6 @@ msgstr ""
 "첨부 파일은 누락될 수 있으므로 메일을 보낸 후 파일이 첨부 되었는지 반드시 확"
 "인해 주시기 바랍니다."
 
-#: skin/member/basic/formmail.skin.php:69
-msgid "Send Email"
-msgstr "이메일 보내기"
-
 #: skin/member/basic/formmail.skin.php:70 skin/member/basic/point.skin.php:87
 #: skin/member/basic/scrap.skin.php:43
 msgid "Close"
@@ -955,10 +1495,6 @@ msgstr "보유포인트"
 #: skin/member/basic/scrap.skin.php:11
 msgid "Scrap List"
 msgstr "스크랩 목록"
-
-#: skin/member/basic/scrap.skin.php:15 view/board_form.php:132
-msgid "Board"
-msgstr "게시판"
 
 #: skin/member/basic/scrap_popin.skin.php:7
 msgid "To scrap"
@@ -1024,7 +1560,7 @@ msgid ""
 "characters limit )"
 msgstr "영문자, 숫자, _ 만 가능 (공백없이 20자 이내)"
 
-#: view/board_form.php:88 view/board_form.php:936 view/board_list.php:215
+#: view/board_form.php:88 view/board_form.php:950 view/board_list.php:215
 msgid "Board Subject"
 msgstr "게시판 제목"
 
@@ -1045,10 +1581,10 @@ msgstr ""
 #: view/board_form.php:108 view/board_form.php:310 view/board_form.php:339
 #: view/board_form.php:351 view/board_form.php:362 view/board_form.php:373
 #: view/board_form.php:384 view/board_form.php:396 view/board_form.php:408
-#: view/board_form.php:419 view/board_form.php:430 view/board_form.php:516
-#: view/board_form.php:527 view/config_form.php:45 view/config_form.php:255
-#: view/config_form.php:287 view/config_form.php:294 view/config_form.php:301
-#: view/config_form.php:308
+#: view/board_form.php:419 view/board_form.php:430 view/board_form.php:461
+#: view/board_form.php:516 view/board_form.php:527 view/config_form.php:45
+#: view/config_form.php:255 view/config_form.php:287 view/config_form.php:294
+#: view/config_form.php:301 view/config_form.php:308
 msgid "use"
 msgstr "사용"
 
@@ -1060,17 +1596,16 @@ msgstr "사용"
 #: view/board_form.php:366 view/board_form.php:377 view/board_form.php:388
 #: view/board_form.php:400 view/board_form.php:412 view/board_form.php:423
 #: view/board_form.php:434 view/board_form.php:445 view/board_form.php:455
-#: view/board_form.php:461 view/board_form.php:465 view/board_form.php:476
-#: view/board_form.php:487 view/board_form.php:498 view/board_form.php:509
-#: view/board_form.php:520 view/board_form.php:534 view/board_form.php:548
-#: view/board_form.php:579 view/board_form.php:590 view/board_form.php:600
-#: view/board_form.php:611 view/board_form.php:622 view/board_form.php:633
-#: view/board_form.php:643 view/board_form.php:653 view/board_form.php:664
-#: view/board_form.php:675 view/board_form.php:686 view/board_form.php:697
-#: view/board_form.php:708 view/board_form.php:719 view/board_form.php:730
-#: view/board_form.php:741 view/board_form.php:752 view/board_form.php:783
-#: view/board_form.php:819 view/board_form.php:829 view/board_form.php:839
-#: view/board_form.php:849
+#: view/board_form.php:465 view/board_form.php:476 view/board_form.php:487
+#: view/board_form.php:498 view/board_form.php:509 view/board_form.php:520
+#: view/board_form.php:534 view/board_form.php:548 view/board_form.php:579
+#: view/board_form.php:590 view/board_form.php:600 view/board_form.php:611
+#: view/board_form.php:622 view/board_form.php:633 view/board_form.php:643
+#: view/board_form.php:653 view/board_form.php:664 view/board_form.php:675
+#: view/board_form.php:686 view/board_form.php:697 view/board_form.php:708
+#: view/board_form.php:719 view/board_form.php:730 view/board_form.php:741
+#: view/board_form.php:752 view/board_form.php:783 view/board_form.php:819
+#: view/board_form.php:829 view/board_form.php:839 view/board_form.php:849
 msgid "all apply"
 msgstr "전체적용"
 
@@ -1662,35 +2197,35 @@ msgstr "다운로드 포인트"
 msgid "copy name must be different from original"
 msgstr "원본 테이블명과 복사할 테이블명이 달라야 합니다."
 
-#: view/board_form.php:911
+#: view/board_form.php:925
 msgid "Press Ctrl + C to copy the shortcode."
 msgstr "Ctrl+C를 눌러 shortcode를 복사해 주세요."
 
-#: view/board_form.php:928 view/board_list.php:207
+#: view/board_form.php:942 view/board_list.php:207
 msgid "Original table name"
 msgstr "원본 테이블명"
 
-#: view/board_form.php:932 view/board_list.php:211
+#: view/board_form.php:946 view/board_list.php:211
 msgid "Copy the table name"
 msgstr "복사할 테이블명"
 
-#: view/board_form.php:933 view/board_list.php:212
+#: view/board_form.php:947 view/board_list.php:212
 msgid "Allowed characters Alphabetic and Number and underbar( no whitespace )"
 msgstr "영문자, 숫자, _만 허용( 공백없이)"
 
-#: view/board_form.php:937 view/board_list.php:188
+#: view/board_form.php:951 view/board_list.php:188
 msgid "carbon copy"
 msgstr "복사본"
 
-#: view/board_form.php:940 view/board_list.php:219
+#: view/board_form.php:954 view/board_list.php:219
 msgid "Copy Type"
 msgstr "복사 유형"
 
-#: view/board_form.php:943 view/board_list.php:222
+#: view/board_form.php:957 view/board_list.php:222
 msgid "Only Structure"
 msgstr "구조만"
 
-#: view/board_form.php:945 view/board_list.php:224
+#: view/board_form.php:959 view/board_list.php:224
 msgid "Structure and Data"
 msgstr "구조와 데이터"
 
@@ -2115,11 +2650,11 @@ msgstr "합계"
 
 #: view/point_list.php:204
 msgid "Individual members set point increase or decrease"
-msgstr ""
+msgstr "개별회원 포인트 증감 설정"
 
 #: view/point_list.php:236
 msgid "point_expire_term"
-msgstr ""
+msgstr "포인트 유효기간"
 
 #: view/tag_form.php:29 view/tag_form.php:48 view/tag_form.php:80
 #: view/tag_form.php:93 view/tag_form.php:128
@@ -2372,6 +2907,21 @@ msgstr ""
 msgid "Please choose a board"
 msgstr "게시판을 선택해 주세요."
 
+#~ msgid "잘못된 접근입니다."
+#~ msgstr "Invalid Connection."
+
+#~ msgid "존재하지 않는 게시판입니다."
+#~ msgstr "존재하지 않는 게시판입니다."
+
+#~ msgid "게시판관리"
+#~ msgstr "게시판관리"
+
+#~ msgid "게시판 삭제는 최고관리자만 가능합니다."
+#~ msgstr "게시판 삭제는 최고관리자만 가능합니다."
+
+#~ msgid " 은(는) 이미 존재하는 TABLE 입니다."
+#~ msgstr " 은(는) 이미 존재하는 TABLE 입니다."
+
 #~ msgid "그누보드5"
 #~ msgstr "그누보드5"
 
@@ -2392,9 +2942,6 @@ msgstr "게시판을 선택해 주세요."
 
 #~ msgid "posts"
 #~ msgstr "글"
-
-#~ msgid "page"
-#~ msgstr "페이지"
 
 #~ msgid "Please press Ctrl + C to copy the shortcode."
 #~ msgstr "Ctrl+C를 눌러 shortcode를 복사해 주세요."

@@ -23,39 +23,39 @@ if ( !function_exists('g5_print_result'))
 $err = $count = '';
 
 if( !$err && !$is_member ){
-    $err = '회원만 가능합니다.';
+    $err = __('Only available members.', G5_NAME);    //회원만 가능합니다.
 }
 
 if ( !$err && !($bo_table && $wr_id))
 {
-    $err = '값이 제대로 넘어오지 않았습니다.';
+    $err = __('This value bo_table or wr_id is invalid', G5_NAME); //값이 제대로 넘어오지 않았습니다.
 }
 
 $ss_name = 'ss_view_'.$bo_table.'_'.$wr_id;
 
 if ( !$err && !g5_get_session($ss_name)) {
-    $err = '해당 게시물에서만 추천 또는 비추천 하실 수 있습니다.';
+    $err = __('You can only recommend or Dislike this post.', G5_NAME); //해당 게시물에서만 추천 또는 비추천 하실 수 있습니다.
 }
 
 if( !$err ){
     $row_cnt = $wpdb->get_var($wpdb->prepare(" select count(*) as cnt from {$g5['write_table']} where bo_table = '%s' ", $bo_table));
 
     if (!$row_cnt)
-        $err = '존재하는 게시판이 아닙니다.';
+        $err = __('The board dose not exist.', G5_NAME);   //존재하는 게시판이 아닙니다.
 }
 
 if ( !$err && ($good == 'good' || $good == 'nogood') ){
 
     if($write['user_id'] == $member['user_id']) {
-        $err = '자신의 글에는 추천 또는 비추천 하실 수 없습니다.';
+        $err = __('Myself article it can not recommended or deprecated.', G5_NAME);  //자신의 글에는 추천 또는 비추천 하실 수 없습니다.
     }
 
     if ( !$err && (!$board['bo_use_good'] && $good == 'good') ) {
-        $err = '이 게시판은 추천 기능을 사용하지 않습니다.';
+        $err = __('The board does not use a recommend.', G5_NAME);    //이 게시판은 추천 기능을 사용하지 않습니다.
     }
 
     if ( !$err && (!$board['bo_use_nogood'] && $good == 'nogood') ) {
-        $err = '이 게시판은 비추천 기능을 사용하지 않습니다.';
+        $err = __('The board does not use a nonrecommend.', G5_NAME);    //이 게시판은 비추천 기능을 사용하지 않습니다.
     }
 
     if( !$err ){
@@ -70,11 +70,11 @@ if ( !$err && ($good == 'good' || $good == 'nogood') ){
         if ($bg_flag)
         {
             if ($bg_flag == 'good')
-                $status = '추천';
+                $status = __('recommend', G5_NAME);
             else
-                $status = '비추천';
+                $status = __('nonrecommend', G5_NAME);
 
-            $err = "이미 $status 하신 글 입니다.";
+            $err = sprintf(__('The articles have already %s.', G5_NAME), $status);  //이미 $status 하신 글 입니다.
         } else {
             // 내역 생성
             $result = $wpdb->query(

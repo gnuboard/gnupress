@@ -256,7 +256,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 
 #bo_gall ul.gall_con {margin:0;padding:0;}
 #bo_gall .gall_con li {margin:0 0 4px;list-style:none}
-#bo_gall .gall_con .gall_subject {display:inline-block;width:50px}
+#bo_gall .gall_con .gall_subject {display:inline-block;width:50px;text-overflow: ellipsis;-o-text-overflow: ellipsis;overflow: hidden;white-space: nowrap}
 
 #bo_gall .gall_now .gall_text_href a {color:#ff3061}
 

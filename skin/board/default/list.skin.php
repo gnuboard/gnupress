@@ -52,7 +52,7 @@ if (!$is_show_field['wdate']) $colspan--;
     <div class="bo_fx">
         <div id="bo_list_total">
             <span>Total <?php echo number_format($total_count) ?> /</span>
-            <?php echo $page ?> page
+            <?php echo $page ?> <?php _e('page', 'gnupress'); ?>
         </div>
 
         <?php if ($rss_href || $write_href) { ?>
@@ -200,7 +200,7 @@ if (!$is_show_field['wdate']) $colspan--;
         <?php if ($list_href || $write_href) { ?>
         <ul class="btn_bo_user">
             <?php if ($list_href) { ?><li><a href="<?php echo $list_href ?>" class="btn_b01"><?php _e('List', 'gnupress'); //목록 ?></a></li><?php } ?>
-            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02"><?php _e('Write', 'gnupress'); //목록 ?></a></li><?php } ?>
+            <?php if ($write_href) { ?><li><a href="<?php echo $write_href ?>" class="btn_b02"><?php _e('Write', 'gnupress'); //글쓰기 ?></a></li><?php } ?>
         </ul>
         <?php } ?>
     </div>
@@ -263,21 +263,21 @@ function fboardlist_submit(f) {
     }
 
     if (!chk_count) {
-        alert(document.pressed + "<?php __(' - Please select an item to operate.', 'gnupress');?>");
+        alert(document.pressed + "<?php _e(' - Please select an item to operate.', 'gnupress');?>");
         return false;
     }
 
-    if(document.pressed == "<?php __('choose-Copy', 'gnupress');?>") {
+    if(document.pressed == "<?php _e('choose-Copy', 'gnupress');?>") {
         select_copy("copy");
         return;
     }
 
-    if(document.pressed == "<?php __('choose-Move', 'gnupress');?>") {
+    if(document.pressed == "<?php _e('choose-Move', 'gnupress');?>") {
         select_copy("move");
         return;
     }
 
-    if(document.pressed == "<?php __('choose-Delete', 'gnupress');?>") {
+    if(document.pressed == "<?php _e('choose-Delete', 'gnupress');?>") {
         if (!confirm("<?php _e('Are you sure you want to delete the selected data?', 'gnupress');?>\n\n<?php _e('Deleted data can not be recovered once.', 'gnupress');?>\n\n<?php _e('If you choose to post in this reply,', 'gnupress')?>\n<?php _e('you can delete it when choose the replied', 'gnupress')?>"))
             return false;
 

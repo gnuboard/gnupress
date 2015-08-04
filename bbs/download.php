@@ -15,16 +15,16 @@ $no = isset($_REQUEST['no']) ? (int) $_REQUEST['no'] : 0;
 // 쿠키에 저장된 ID값과 넘어온 ID값을 비교하여 같지 않을 경우 오류 발생
 // 다른곳에서 링크 거는것을 방지하기 위한 코드
 if (!g5_get_session('ss_view_'.$bo_table.'_'.$wr_id))
-    g5_alert('잘못된 접근입니다.');
+    g5_alert('Invalid Connection.'); //잘못된 접근입니다.
 
 // 다운로드 차감일 때 비회원은 다운로드 불가
 
 if($board['bo_download_point'] < 0 && $is_guest)
-    g5_alert('다운로드 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오.', wp_login_url( add_query_arg( array_merge( (array) $qstr, array('wr_id'=>$wr_id)), $default_href ) ) );
+    g5_alert(__('You do not have permission to download.\\nMember Login if you are after, try using.', G5_NAME), wp_login_url( add_query_arg( array_merge( (array) $qstr, array('wr_id'=>$wr_id)), $default_href ) ) );  //다운로드 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오.
 
 $file_meta_data = get_metadata(G5_META_TYPE, $wr_id, G5_FILE_META_KEY , true );
 if( !isset($file_meta_data[$no]['bf_file']) || empty($file_meta_data[$no]['bf_file']) )
-   g5_alert_close('파일 정보가 존재하지 않습니다.');
+   g5_alert_close(__('The file information does not exist.', 'gnupress'));    //파일 정보가 존재하지 않습니다.
 
 $file = $file_meta_data[$no];
 
@@ -42,11 +42,11 @@ if($js != 'on' && $board['bo_download_point'] < 0) {
 */
 
 if ($member['user_level'] < $board['bo_download_level']) {
-    $alert_msg = '다운로드 권한이 없습니다.';
+    $alert_msg = __('You do not have permission to download.', 'gnupress');   //다운로드 권한이 없습니다.
     if ($member['user_id']){
         g5_alert($alert_msg);
     } else {
-        g5_alert($alert_msg.'\\n회원이시라면 로그인 후 이용해 보십시오.');
+        g5_alert($alert_msg.'\\n'.__('Member Login if you are after, try using', G5_NAME));
     }
 }
 
@@ -74,10 +74,12 @@ if (!g5_get_session($ss_name))
     {
         // 다운로드 포인트가 음수이고 회원의 포인트가 0 이거나 작다면
         if ($member['mb_point'] + $board['bo_download_point'] < 0)
-            g5_alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 다운로드('.number_format($board['bo_download_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 다운로드 해 주십시오.');
+            g5_alert(
+            sprintf(__('Because your point is %s points less or missing, not download ( %s points required ) the file.\\n\\nAfter a point collect, please download again.', G5_NAME), number_format($member['mb_point']), number_format($board['bo_read_point']) )
+            );
 
         // 게시물당 한번만 차감하도록 수정
-        g5_insert_point($member['user_id'], $board['bo_download_point'], "{$board['bo_subject']} $wr_id 파일 다운로드", $bo_table, $wr_id, "다운로드");
+        g5_insert_point($member['user_id'], $board['bo_download_point'], "{$board['bo_subject']} $wr_id ".__('file download', G5_NAME), $bo_table, $wr_id, __('download', G5_NAME));
     }
 
     // 다운로드 카운트 증가

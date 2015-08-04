@@ -16,13 +16,15 @@ foreach($check_param as $v){
 }
 
 if (!preg_match('/[A-Za-z0-9_]{1,20}/', $target_table)) {
-    g5_alert('게시판 TABLE명은 공백없이 영문자, 숫자, _ 만 사용 가능합니다. (20자 이내)');
+    g5_alert(__('Board table available only letters, numbers, _ with no spaces. (20 characters)', 'gnupresss'));  //게시판 TABLE명은 공백없이 영문자, 숫자, _ 만 사용 가능합니다. (20자 이내)
 }
 
 $row_cnt = $wpdb->get_var($wpdb->prepare("select count(*) as cnt from {$g5['board_table']} where bo_table = %s ", $target_table));
 
 if ($row_cnt)
-    g5_alert($target_table.'은(는) 이미 존재하는 게시판 테이블명 입니다.\\n복사할 테이블명으로 사용할 수 없습니다.');
+    g5_alert($target_table.__('is a board table names that already exist', 'gnupress').'\\n'.__('You can not use a table name you want to copy.', 'gnupress'));
+
+//은(는) 이미 존재하는 게시판 테이블명 입니다.\\n복사할 테이블명으로 사용할 수 없습니다.
 
 $file_copy = array();
 
@@ -238,5 +240,5 @@ g5_delete_cache_latest($target_table);
 
 $go_url = admin_url( 'admin.php?page=g5_board_list' );
 
-g5_alert("복사에 성공 했습니다.", $go_url);
+g5_alert(__('Copy succeeded.', 'gnupress'), $go_url); //복사에 성공 했습니다.
 ?>

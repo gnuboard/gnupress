@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 global $gnupress;
 
 if ( $is_guest ){
-    $msg = __('회원만 조회하실 수 있습니다.', G5_NAME);
+    $msg = __('Only members can view.', G5_NAME);
     if( $gnupress->window_open ){
         g5_alert_close($msg);
     } else {
@@ -13,7 +13,7 @@ if ( $is_guest ){
     }
 }
 
-$g5['title'] = $member['user_display_name'].' 님의 포인트 내역';
+$g5['title'] = $member['user_display_name'].' '.__('- point history', G5_NAME);
 
 $list = array();
 

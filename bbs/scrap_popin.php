@@ -12,15 +12,16 @@ if ($is_guest) {
     $href = wp_login_url( $refer_page );
 
     $href2 = str_replace('&amp;', '&', $href);
+    $msg1 = __('Only registered members can access.', 'gnupress');
     echo <<<HEREDOC
     <script>
-        alert('회원만 접근 가능합니다.');
+        alert("$msg1");
         opener.location.href = '$href2';
         window.close();
     </script>
     <noscript>
-    <p>회원만 접근 가능합니다.</p>
-    <a href="$href">로그인하기</a>
+    <p>$msg1</p>
+    <a href="$href">Login</a>
     </noscript>
 HEREDOC;
     exit;
@@ -45,17 +46,18 @@ $row_cnt = $wpdb->get_var($sql);
 if ($row_cnt) {
     $esc_url = 'esc_url';
 
+    $msg1 = __('Your article is already scrap.\\n\\nDo you want to scrap it now?', G5_NAME);
     echo <<<HEREDOC
     <script>
-    if (confirm('이미 스크랩하신 글 입니다.\\n\\n지금 스크랩을 확인하시겠습니까?'))
+    if (confirm('$msg1'))
         document.location.href = '$scrap_href';
     else
         window.close();
     </script>
     <noscript>
-    <p>이미 스크랩하신 글 입니다.</p>
-    <a href="{$esc_url($scrap_href)}">스크랩 확인하기</a>
-    <a href="{$esc_url($refer_page)}">돌아가기</a>
+    <p>Your article is already scrap.</p>
+    <a href="{$esc_url($scrap_href)}">Confirm scrap</a>
+    <a href="{$esc_url($refer_page)}">Go back</a>
     </noscript>
 HEREDOC;
     exit;

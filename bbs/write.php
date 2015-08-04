@@ -5,13 +5,13 @@ include_once(G5_PLUGIN_PATH.'/kcaptcha/captcha.lib.php');
 $notice_array = explode(',', trim($board['bo_notice']));
 
 if (!($w == '' || $w == 'u' || $w == 'r')) {
-    $this->errors[] = __('w 값이 제대로 넘어오지 않았습니다.', G5_NAME);
+    $this->errors[] = __('w value is invalid.', G5_NAME);    //w값이 유효하지 않습니다.
     return;
 }
 
 if ($w == 'u' || $w == 'r') {
     if ( !$write['wr_id'] ){
-        $this->errors[] = __('글이 존재하지 않습니다.\\n\\n삭제되었거나 이동된 경우입니다.', G5_NAME);
+        $this->errors[] = __('This article does not exist.\\n\\nThe case has been moved or deleted.', G5_NAME);  //글이 존재하지 않습니다.\\n\\n삭제되었거나 이동된 경우입니다.
         return;
     }
 }
@@ -19,16 +19,16 @@ if ($w == 'u' || $w == 'r') {
 //글쓰기이면
 if ($w == '') {
     if ($wr_id) {
-        $this->errors[] = array(__('글쓰기에는 \$wr_id 값을 사용하지 않습니다.', G5_NAME), $default_href );
+        $this->errors[] = array(__('The writing does not use the \$wr_id value.', G5_NAME), $default_href ); //글쓰기에는 \$wr_id 값을 사용하지 않습니다.
         return;
     }
 
     //글을 쓸 권한이 없다면 
     if ($member['user_level'] < $board['bo_write_level']) {
         if ($member['user_id']) {
-            $this->errors[] = __('글을 쓸 권한이 없습니다.', G5_NAME);
+            $this->errors[] = __('You do not have permission to write.', G5_NAME);  //글을 쓸 권한이 없습니다.
         } else {
-            $this->errors[] = array( __("글을 쓸 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오." , G5_NAME), wp_login_url($default_href) );
+            $this->errors[] = array( __("You do not have permission to write.\\nMember Login if you are after, try using." , G5_NAME), wp_login_url($default_href) );     //글을 쓸 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오.
         }
         return;
     }
@@ -38,11 +38,11 @@ if ($w == '') {
         $tmp_point = ($member['mb_point'] > 0) ? $member['mb_point'] : 0;
         //관리자가 아니고 && 포인트가 부족하면
         if ($tmp_point + $board['bo_write_point'] < 0 && !$is_admin) {
-            $this->errors[] = __('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 글쓰기('.number_format($board['bo_write_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 글쓰기 해 주십시오.', G5_NAME);
+            $this->errors[] = sprintf(__('Because your point is %s points less or missing, not write ( %s points required ) the article.\n\nAfter a point collect, please write article again.', G5_NAME), number_format($member['mb_point']), number_format($board['bo_write_point']));
             return;
         }
     }
-    $title_msg = '글쓰기';
+    $title_msg = __('Write', G5_NAME);
 
 } else if ($w == 'u') {
 
@@ -50,9 +50,9 @@ if ($w == '') {
         ;
     } else if ($member['user_level'] < $board['bo_write_level']) {
         if ($member['user_id']) {
-            $this->errors[] = __('글을 수정할 권한이 없습니다.', G5_NAME);
+            $this->errors[] = __('You do not have permission to edit.', G5_NAME);
         } else {
-            $this->errors[] = array( __('글을 수정할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.', G5_NAME), wp_login_url($default_href) );
+            $this->errors[] = array( __('You do not have permission to edit.\\nMember Login if you are after, try using.', G5_NAME), wp_login_url($default_href) );   //글을 수정할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.
         }
         return;
     }
@@ -61,15 +61,15 @@ if ($w == '') {
     $row_cnt = $wpdb->get_var($wpdb->prepare(" select count(*) as cnt from {$write_table} where wr_parent = %d ", $wr_id));
 
     if ($row_cnt && !$is_admin){
-        $this->errors[] = __('이 글과 관련된 답변글이 존재하므로 수정 할 수 없습니다.\\n\\n답변글이 있는 원글은 수정할 수 없습니다.', G5_NAME);
+        $this->errors[] = __('Because replies are present related to this article then it can not be modified.', G5_NAME);   //이 글과 관련된 답변글이 존재하므로 수정 할 수 없습니다.
         return;
     }
 
     // 코멘트 달린 원글의 수정 여부
-    $row_cnt = $wpdb->get_var($wpdb->prepare(" select count(*) as cnt from `{$g5['comment_table']}` where wr_id = %d and user_id <> '{$member['user_id']}' ", $wr_id));;
+    $row_cnt = $wpdb->get_var($wpdb->prepare(" select count(*) as cnt from `{$g5['comment_table']}` where wr_id = %d and user_id <> '{$member['user_id']}' ", $wr_id));
 
     if ($board['bo_count_modify'] && $row_cnt >= $board['bo_count_modify'] && !$is_admin){
-        $this->errors[] = '이 글과 관련된 댓글이 존재하므로 수정 할 수 없습니다.\\n\\n댓글이 '.$board['bo_count_modify'].'건 이상 달린 원글은 수정할 수 없습니다.';
+        $this->errors[] = sprintf(__('Because there are comments associated with this article it can not be modified.\\n\\nComments are at least %d cases with a post can not be modified.', G5_NAME), $board['bo_count_modify']); //이 글과 관련된 댓글이 존재하므로 수정 할 수 없습니다.\\n\\n댓글이 %d건 이상 달린 원글은 수정할 수 없습니다.
         return;
     }
 
@@ -77,35 +77,36 @@ if ($w == '') {
 } else if ($w == 'r') {
     if ($member['user_level'] < $board['bo_reply_level']) {
         if ($member['user_id'])
-            $this->errors[] = '글을 답변할 권한이 없습니다.';
+            $this->errors[] = __('You do not have permission to reply to posts.', G5_NAME);     //글을 답변할 권한이 없습니다.
         else
-            $this->errors[] = array('답변글을 작성할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.', wp_login_url(add_query_arg((array) $qstr,$default_href)));
+            $this->errors[] = array( __('You do not have permission to reply to posts.\\n\\nMember Login if you are after, try using.', G5_NAME), wp_login_url(add_query_arg((array) $qstr,$default_href)));     //답변글을 작성할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.
 
         return;
     }
 
     $tmp_point = isset($member['mb_point']) ? $member['mb_point'] : 0;
-    if ($tmp_point + $board['bo_write_point'] < 0 && !$is_admin)
-        g5_alert('보유하신 포인트('.number_format($member['mb_point']).')가 없거나 모자라서 글답변('.number_format($board['bo_comment_point']).')가 불가합니다.\\n\\n포인트를 적립하신 후 다시 글답변 해 주십시오.');
 
+    if ($tmp_point + $board['bo_write_point'] < 0 && !$is_admin){
+        g5_alert( sprintf(__('Because your point is %s points less or missing, not reply ( %s points required ) the article.\\n\\nAfter a point collect, please reply article again.', G5_NAME), number_format($member['mb_point']), number_format($board['bo_comment_point'])) );
+    }
     if (in_array((int)$wr_id, $notice_array))
-        g5_alert('공지에는 답변 할 수 없습니다.');
+        g5_alert(__('Notice can not be answered.', G5_NAME));  //공지에는 답변 할 수 없습니다.
 
     // 비밀글인지를 검사
     if (strstr($write['wr_option'], 'secret')) {
         if ($write['user_id']) {
             // 회원의 경우는 해당 글쓴 회원 및 관리자
             if (!($write['user_id'] == $member['user_id'] || $is_admin))
-                g5_alert('비밀글에는 자신 또는 관리자만 답변이 가능합니다.');
+                g5_alert(__('Secret, you can answer your own or managers.', G5_NAME));   //비밀글에는 자신 또는 관리자만 답변이 가능합니다.
         } else {
             // 비회원의 경우는 비밀글에 답변이 불가함
             if (!$is_admin)
-                g5_alert('비회원의 비밀글에는 답변이 불가합니다.');
+                g5_alert(__('Guest of the Secret must not have answers.', G5_NAME)); //비회원의 비밀글에는 답변이 불가합니다.
         }
     }
     //----------
 
-    $title_msg = '글답변';
+    $title_msg = __('Reply', G5_NAME);
 
     $write['wr_subject'] = 'Re: '.$write['wr_subject'];
 }
@@ -214,7 +215,7 @@ if ($w == '') {
     if (!$is_admin) {
         if (!($is_member && $member['user_id'] == $write['user_id'])) {
             if (g5_sql_password(trim($_POST['user_pass'])) != $write['user_pass']) {
-                g5_alert('비밀번호가 틀립니다.');
+                g5_alert(__('Incorrect password.', G5_NAME));   //비밀번호가 틀립니다.
             }
         }
     }
@@ -284,7 +285,7 @@ if ($w == '') {
     
 }
 
-$upload_max_filesize = number_format($board['bo_upload_size']) . ' 바이트';
+$upload_max_filesize = number_format($board['bo_upload_size']) . ' Bytes';
 
 $width = $board['bo_table_width'];
 if ($width <= 100)

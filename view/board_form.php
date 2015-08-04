@@ -57,7 +57,7 @@ foreach( $chk_fields_array as $key=>$v ){
 <input type="hidden" name="sod" value="<?php echo esc_attr( $sod ); ?>">
 <input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>">
 
-<section id="anc_bo_basic">
+<section id="anc_bo_basic" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('BBS default setting', 'gnupress');?></h2>
     <?php echo $pg_anchor ?>
 
@@ -159,7 +159,7 @@ foreach( $chk_fields_array as $key=>$v ){
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_bo_auth">
+<section id="anc_bo_auth" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Board permissions setting', 'gnupress');   //게시판 권한 설정 ?></h2>
     <?php echo $pg_anchor ?>
 
@@ -269,7 +269,7 @@ foreach( $chk_fields_array as $key=>$v ){
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_bo_function">
+<section id="anc_bo_function" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Board functions setting', 'gnupress'); //게시판 기능 설정?></h2>
     <?php echo $pg_anchor ?>
 
@@ -307,7 +307,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_sideview"><?php _e('user sideview', 'gnupress'); //회원 사이드뷰?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_sideview" value="1" id="bo_use_sideview" <?php echo $board['bo_use_sideview']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_sideview"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_sideview" value="1" id="chk_all_use_sideview">
@@ -336,7 +336,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <td>
                 <?php echo g5_help(__('Set the paper to use when creating content as the editor functions. It may not be applied depending on the skin.', 'gnupress')) ?>
                 <input type="checkbox" name="bo_use_dhtml_editor" value="1" <?php echo $board['bo_use_dhtml_editor']?'checked':''; ?> id="bo_use_dhtml_editor">
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_dhtml_editor"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_dhtml_editor" value="1" id="chk_all_use_dhtml_editor">
@@ -348,7 +348,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <td>
                 <?php echo g5_help(__('Guest can read the article and must be checked using RSS to the RSS support.', 'gnupress')); ?>
                 <input type="checkbox" name="bo_use_rss_view" value="1" <?php echo $board['bo_use_rss_view']?'checked':''; ?> id="bo_use_rss_view">
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_rss_view"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_rss_view" value="1" id="chk_all_use_rss_view">
@@ -359,7 +359,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_good"><?php _e('Using the recommend', 'gnupress');    //추천 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_good" value="1" <?php echo $board['bo_use_good']?'checked':''; ?> id="bo_use_good">
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_good"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_good" value="1" id="chk_all_use_good">
@@ -370,7 +370,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_nogood"><?php _e('Using the nonrecommend', 'gnupress');    //비추천 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_nogood" value="1" id="bo_use_nogood" <?php echo $board['bo_use_nogood']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_nogood"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_nogood" value="1" id="chk_all_use_nogood">
@@ -381,7 +381,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_ip_view"><?php _e('Use IP show', 'gnupress');    //IP 보이기 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_ip_view" value="1" id="bo_use_ip_view" <?php echo $board['bo_use_ip_view']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_ip_view"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_ip_view" value="1" id="chk_all_use_ip_view">
@@ -393,7 +393,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <td>
                 <?php echo g5_help("List is the option to set when you need to read the contents. The default is not used."); ?>
                 <input type="checkbox" name="bo_use_list_content" value="1" id="bo_use_list_content" <?php echo $board['bo_use_list_content']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)
+                <label for="bo_use_list_content"><?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)</label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_list_content" value="1" id="chk_all_use_list_content">
@@ -405,7 +405,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <td>
                 <?php echo g5_help(__('The options you set when you need to read Upload files in the list. The default is not used.', 'gnupress')); ?>
                 <input type="checkbox" name="bo_use_list_file" value="1" id="bo_use_list_file" <?php echo $board['bo_use_list_file']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)
+                <label for="bo_use_list_file"><?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)</label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_list_file" value="1" id="chk_all_use_list_file">
@@ -416,7 +416,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_list_view"><?php _e('Use Show all list', 'gnupress'); //전체목록보이기 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_list_view" value="1" id="bo_use_list_view" <?php echo $board['bo_use_list_view']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_list_view"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_list_view" value="1" id="chk_all_use_list_view">
@@ -427,7 +427,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_email"><?php _e('Using mailings', 'gnupress'); //메일발송 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_email" value="1" id="bo_use_email" <?php echo $board['bo_use_email']?'checked':''; ?>>
-                <?php _e('use', 'gnupress'); //사용?>
+                <label for="bo_use_email"><?php _e('use', 'gnupress'); //사용?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_email" value="1" id="chk_all_use_email">
@@ -458,7 +458,7 @@ foreach( $chk_fields_array as $key=>$v ){
         <tr>
             <th scope="row"><label for="bo_use_file_content"><?php _e('Using uploads description', 'gnupress');  //파일 설명 사용?></label></th>
             <td>
-                <input type="checkbox" name="bo_use_file_content" value="1" id="bo_use_file_content" <?php echo $board['bo_use_file_content']?'checked':''; ?>><?php _e('all apply', 'gnupress');?>
+                <input type="checkbox" name="bo_use_file_content" value="1" id="bo_use_file_content" <?php echo $board['bo_use_file_content']?'checked':''; ?>><label for="bo_use_file_content"><?php _e('use', 'gnupress');?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_file_content" value="1" id="chk_all_use_file_content">
@@ -513,7 +513,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_search"><?php _e('Include WP Search', 'gnupress');  //전체 검색 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_search" value="1" id="bo_use_search" <?php echo $board['bo_use_search']?'checked':''; ?>>
-                <?php _e('use', 'gnupress');?>
+                <label for="bo_use_search"><?php _e('use', 'gnupress');?></label>
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_all_use_search" value="1" id="chk_all_use_search">
@@ -524,7 +524,7 @@ foreach( $chk_fields_array as $key=>$v ){
             <th scope="row"><label for="bo_use_search"><?php _e('Use tag', 'gnupress');  //태그 기능 사용?></label></th>
             <td>
                 <input type="checkbox" name="bo_use_tag" value="1" id="bo_use_tag" <?php echo $board['bo_use_tag']?'checked':''; ?>>
-                <?php _e('use', 'gnupress');?>
+                <label for="bo_use_tag"><?php _e('use', 'gnupress');?></label>
                 <?php if( isset($board['bo_use_tag']) && !empty($board['bo_use_tag']) ){ ?>
                 <a href="<?php echo admin_url('admin.php?page=g5_tag_form&amp;bo_table='.$board['bo_table']) ?>" class="button"><?php _e('Manage BBS tag', 'gnupress');    //게시판 태그 설정관리?></a>
                 <?php } ?>
@@ -556,7 +556,7 @@ foreach( $chk_fields_array as $key=>$v ){
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_bo_design">
+<section id="anc_bo_design" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Board design and pattern', 'gnupress');    //게시판 디자인/양식 ?></h2>
     <?php echo $pg_anchor ?>
 
@@ -789,7 +789,7 @@ foreach( $chk_fields_array as $key=>$v ){
 
 <?php echo $frm_submit; ?>
 
-<section id="anc_bo_point">
+<section id="anc_bo_point" class="g5_section_top">
     <h2 class="h2_frm"><?php _e('Board point setting', 'gnupress');   //게시판 포인트 설정?></h2>
     <?php echo $pg_anchor ?>
 
@@ -874,6 +874,20 @@ function fboardcopy_check(f)
     }
 
     return true;
+}
+
+function set_point(f) {
+    if (f.chk_grp_point.checked) {
+        f.bo_read_point.value = "<?php echo $config['cf_read_point'] ?>";
+        f.bo_write_point.value = "<?php echo $config['cf_write_point'] ?>";
+        f.bo_comment_point.value = "<?php echo $config['cf_comment_point'] ?>";
+        f.bo_download_point.value = "<?php echo $config['cf_download_point'] ?>";
+    } else {
+        f.bo_read_point.value     = f.bo_read_point.defaultValue;
+        f.bo_write_point.value    = f.bo_write_point.defaultValue;
+        f.bo_comment_point.value  = f.bo_comment_point.defaultValue;
+        f.bo_download_point.value = f.bo_download_point.defaultValue;
+    }
 }
 
 jQuery(document).ready(function($) {

@@ -39,7 +39,7 @@ foreach($rows as $row)
         $list[$i]['name'] = '<span class="'.($row['user_id']?'member':'guest').'">'.$tmp_name.'</span>';
 
 
-    $list[$i]['content'] = $list[$i]['content1']= '비밀글 입니다.';
+    $list[$i]['content'] = $list[$i]['content1']= __('This is a secret.', G5_NAME);
     if (!strstr($row['cm_option'], 'secret') ||
         $is_admin ||
         ($write['user_id']==$member['user_id'] && $member['user_id']) ||
@@ -52,7 +52,7 @@ foreach($rows as $row)
 
         if(!g5_get_session($ss_name)){
             $tmp_href = add_query_arg( array_merge((array) $qstr, array('action'=>'password', 'w' => 'sc', 'cm_id'=> $list[$i]['cm_id'])) , $default_href );
-            $list[$i]['content'] = '<a href="'.$tmp_href.'" class="s_cmt">댓글내용 확인</a>';
+            $list[$i]['content'] = '<a href="'.$tmp_href.'" class="s_cmt">'.__('Comments Check', G5_NAME).'</a>';
         } else {
             $list[$i]['content'] = g5_conv_content($row['cm_content'], 0, 'cm_content');
             $list[$i]['content'] = g5_search_font($stx, $list[$i]['content']);

@@ -2,7 +2,7 @@
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if( !isset($bo_table) ){
-    wp_die( __('bo_table값이 없습니다.', G5_NAME) );
+    wp_die( __('No value bo_table', G5_NAME) );    //bo_table값이 없습니다.
 }
 
 add_filter('show_admin_bar', '__return_false');
@@ -12,15 +12,15 @@ add_action('wp_enqueue_scripts', 'g5_new_style_script', 99);
 add_filter('wp_head','g5_remove_admin_bar_style', 99);
 
 if ($sw == 'move')
-    $act = '이동';
+    $act = __('move', G5_NAME);
 else if ($sw == 'copy')
-    $act = '복사';
+    $act = __('copy', G5_NAME);
 else
-    g5_alert( __('sw 값이 제대로 넘어오지 않았습니다.', G5_NAME) );
+    g5_alert( __('sw value is invalid.', G5_NAME) ); //sw 값이 제대로 넘어오지 않았습니다.
 
 // 게시판 관리자 이상 복사, 이동 가능
 if ($is_admin != 'board' && $is_admin != 'super')
-    wp_die( __('게시판 관리자 이상 접근이 가능합니다.', G5_NAME) );
+    wp_die( __('Access is possible over the board manager.', G5_NAME) );     //게시판 관리자 이상 접근이 가능합니다.
 
 $g5['title'] = '게시물 ' . $act;
 
@@ -65,14 +65,14 @@ $move_action_url = apply_filters('move_action_url', get_permalink() );
 
     <div class="tbl_head01 tbl_wrap">
         <table>
-        <caption><?php echo $act ?>할 게시판을 한개 이상 선택하여 주십시오.</caption>
+        <caption><?php echo sprintf(__('Select at least one board to %s.', G5_NAME), $act); // 할 게시판을 한개 이상 선택하여 주십시오.?></caption>
         <thead>
         <tr>
             <th scope="col">
-                <label for="chkall" class="sound_only">현재 페이지 게시판 전체</label>
+                <label for="chkall" class="sound_only"><?php _e('All board check', G5_NAME);?></label>
                 <input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);">
             </th>
-            <th scope="col">게시판</th>
+            <th scope="col"><?php _e('Board', G5_NAME);?></th>
         </tr>
         </thead>
         <tbody>
@@ -115,7 +115,7 @@ $move_action_url = apply_filters('move_action_url', get_permalink() );
 
 <script>
 (function($) {
-    $(".win_btn").append("<button type=\"button\" class=\"btn_cancel\">창닫기</button>");
+    $(".win_btn").append("<button type=\"button\" class=\"btn_cancel\"><?php _e('close', 'gnupress');?></button>");
 
     $(".win_btn button").click(function() {
         window.close();
@@ -152,7 +152,7 @@ function fboardmoveall_submit(f)
     }
 
     if (!check) {
-        alert('게시물을 '+f.act.value+'할 게시판을 한개 이상 선택해 주십시오.');
+        alert( gnupress.sprintf("<?php _e('Choose a board to post at least one %s.', 'gnupress');?>", f.act.value) );
         return false;
     }
 
