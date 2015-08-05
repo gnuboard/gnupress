@@ -25,6 +25,8 @@
 .tbl_head01 .wr_number{width:60px}
 .tbl_head01 .wr_checkbox{width:30px}
 .tbl_head01 .wr_subject{width:auto;text-align:left !important;}
+.tbl_head01 .wr_subject img{display:inline;vertical-align:middle}
+.tbl_head01 .wr_subject a{font-weight:normal}
 .tbl_head01 .wr_writer{width:100px}
 .tbl_head01 .wr_datetime{width:70px}
 .tbl_head01 .wr_hit{width:60px}

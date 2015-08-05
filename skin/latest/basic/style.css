@@ -5,7 +5,7 @@
 
 .g5_latest_lt ul {margin:0 0 10px;padding:0;list-style:none}
 .g5_latest_lt li {padding:3px 0}
-.g5_latest_lt li img{vertical-align:middle;margin:0}
+.g5_latest_lt li img{display:inline;vertical-align:middle;margin:0;margin-left:3px}
 .g5_latest_lt .lt_title {display:none}
 .g5_latest_lt .lt_more {position:absolute;top:-20px;right:0}
 .g5_latest_lt .cnt_cmt {display:inline-block;margin:0 0 0 3px;font-weight:bold}
