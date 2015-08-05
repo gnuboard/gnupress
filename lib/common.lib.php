@@ -2083,6 +2083,32 @@ function g5_delete_editor_thumbnail($contents)
     }
 }
 
+function g5_escape_post_content($filter_str, $content){
+
+    //wp-settings.php에서 wp_magic_quotes 함수 참고
+
+    $content = g5_sql_escape_string($content);
+
+    return $content;
+}
+
+// SQL Injection 대응 문자열 필터링
+function g5_sql_escape_string($str)
+{
+    $pattern = '';
+    $replace = '';
+
+    if(defined('G5_ESCAPE_PATTERN') && defined('G5_ESCAPE_REPLACE')) {
+        $pattern = G5_ESCAPE_PATTERN;
+        $replace = G5_ESCAPE_REPLACE;
+
+        if($pattern)
+            $str = preg_replace($pattern, $replace, $str);
+    }
+
+    return apply_filters('g5_sql_escape_string', $str, $pattern, $replace);
+}
+
 function g5_pre( $msg ){
     if( G5_DEBUG ){
         echo "<pre>";

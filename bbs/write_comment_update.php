@@ -10,7 +10,9 @@ include_once(G5_PLUGIN_PATH.'/kcaptcha/captcha.lib.php');
 
 $post_data = $_POST;
 
+add_filter( 'sanitize_text_field', 'g5_escape_post_content', 10, 2 );   //앵글브라켓(<, >) 이 문제되서...
 $cm_content = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $_POST['cm_content'] ) ) );
+remove_filter( 'sanitize_text_field', 'g5_escape_post_content', 10 );
 
 // 090710
 if (substr_count($cm_content, "&#") > 50) {

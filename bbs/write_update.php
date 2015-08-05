@@ -64,6 +64,7 @@ function g5_allow_tags($allow_tags, $context) {
     return $allow_tags;
 }
 
+add_filter( 'sanitize_text_field', 'g5_escape_post_content', 10, 2 );   //앵글브라켓(<, >) 이 문제되서...
 $wr_content = '';
 if (isset($_POST['wr_content'])) {
     if($html){
@@ -79,6 +80,7 @@ if (isset($_POST['wr_content'])) {
 }
 
 remove_filter('wp_kses_allowed_html', 'g5_allow_tags', 15);
+remove_filter( 'sanitize_text_field', 'g5_escape_post_content', 10 );
 
 $wr_link1 = '';
 if (isset($_POST['wr_link1'])) {
