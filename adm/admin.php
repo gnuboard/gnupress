@@ -173,6 +173,11 @@ function g5_board_admin(){
     $add_err_msg = $gnupress->add_err_msg;
     $g5_options = get_option(G5_OPTION_KEY);
 
+    //버젼이 틀리면 업데이트를 체크한다.
+    if( G5_VERSION != $g5_options['version'] ){
+        include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
+    }
+
     if( isset($_POST['_wpnonce']) && (isset($_POST['g5_config_form']) && 'update' == sanitize_key($_POST['g5_config_form']) ) ){
         g5_config_form_update();
     }
@@ -189,7 +194,6 @@ function g5_config_form_update(){
     global $wpdb, $gnupress;
 
     $g5 = $gnupress->g5;
-    $g5_options = get_option(G5_OPTION_KEY);
 
     $pages = $tmp_config = array();
 
@@ -215,11 +219,6 @@ function g5_config_form_update(){
         if( $page_id = g5_get_page_id(g5_page_get_by($b['bo_table'],'name')) ){
             $pages[$b['bo_table']] = $page_id;
         }
-    }
-
-    //버젼이 틀리면 업데이트를 체크한다.
-    if( G5_VERSION != $g5_options['version'] ){
-        include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
     }
 
     $options = array('version'=>G5_VERSION, 'board_page'=>$pages, 'config'=>$tmp_config);
