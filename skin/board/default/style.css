@@ -397,7 +397,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 #bo_vc p a {text-decoration:underline}
 #bo_vc_empty {margin:0;padding:20px !important;text-align:center}
 #bo_vc #bo_vc_winfo {float:left}
-#bo_vc footer {zoom:1}
+#bo_vc footer {zoom:1;float:none;width:100%}
 #bo_vc footer:after {display:block;visibility:hidden;clear:both;content:""}
 
 .bo_vc_act {float:right;margin:0;list-style:none;zoom:1}
