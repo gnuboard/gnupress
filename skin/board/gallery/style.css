@@ -49,7 +49,7 @@
 
 /* 캡챠 자동등록(입력)방지 기본 */
 #captcha {display:inline-block;position:relative}
-#captcha legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
+#captcha legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden;border:0}
 #captcha legend label{font-size:0 !important;}
 #captcha #captcha_img {border:1px solid #e9e9e9;width:100px;height:41px;vertical-align:top}
 
@@ -299,7 +299,8 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none;border:1px solid #e81
 #bo_sch legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden;border:0;}
 /* 리스트 검색 폼 */
 #bo_sch select{margin:0;height:auto !important;vertical-align:middle;font-size:1em;width:auto;}
-#bo_sch input[type="text"].frm_input{margin:0;padding:2px !important;width:98px;height:auto;vertical-align:middle;font-size:1em}
+#bo_sch select[name="sfl"]{display:inline-block}
+#bo_sch input[type="text"].frm_input{display:inline-block;margin:0;padding:2px !important;width:98px;height:auto;vertical-align:middle;font-size:1em}
 #bo_sch input[type="submit"].btn_submit{margin:0;vertical-align:middle;padding:.5em .8em !important;font-size:1em;height:auto;line-height:1em}
 
 /* 게시판 쓰기 */
@@ -456,10 +457,12 @@ box-sizing: border-box;
     .col-gn-1, .col-gn-2, .col-gn-3, .col-gn-4, .col-gn-5, .col-gn-6, .col-gn-7, .col-gn-8, .col-xs-9, .col-xs-10{
         width:50%;
     }
+    #bo_sch select[name="sfl"] {width:120px}
 }
 
 @media (max-width: 321px) {
     .col-gn-1, .col-gn-2, .col-gn-3, .col-gn-4, .col-gn-5, .col-gn-6, .col-gn-7, .col-gn-8, .col-xs-9, .col-xs-10{
         width:100%;
     }
+    #bo_sch select[name="sfl"] {width:100px}
 }
