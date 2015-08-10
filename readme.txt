@@ -37,7 +37,7 @@ This section describes how to install the plugin and get it working.
 
 = 개발이유 =
 
-워드프레스에 한국형 게시판이 부족하다는 것을 알고 그누보드의 대부분 기능을 포함하여 개발하게 되었습니다.
+워드프레스에 한국형 게시판이 부족하다는 것을 느껴 그누보드의 대부분 기능을 포함하여 개발하게 되었습니다.
 
 = Development reasons =
 
