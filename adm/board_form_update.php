@@ -556,5 +556,6 @@ if( $all_fields ){
 if( $gnupress->bo_table ){
     g5_delete_cache_latest($gnupress->bo_table);
 }
+g5_check_super_cache();
 
 ?>

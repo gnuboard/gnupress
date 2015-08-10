@@ -237,7 +237,7 @@ if ($copy_case == 'schema_data_both') {
 }
 g5_delete_cache_latest($bo_table);
 g5_delete_cache_latest($target_table);
-
+g5_check_super_cache();
 $go_url = admin_url( 'admin.php?page=g5_board_list' );
 
 g5_alert(__('Copy succeeded.', 'gnupress'), $go_url); //복사에 성공 했습니다.

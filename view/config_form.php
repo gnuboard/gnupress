@@ -142,14 +142,24 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
                 <?php if (!function_exists('curl_init')) echo g5_help('<b>warning) Need to install or enable CURL support for php.</b>'); ?>
                 <?php echo g5_help(__('If you enter a key interlock Naver syndication (token) it can be use to Naver syndication.', 'gnupress').'<br>'.
                             sprintf( __('keys must be issued by naver syndication of %s.', 'gnupress'), '<a href="http://webmastertool.naver.com/" target="_blank"><u>webmastertool.naver.com</u></a>')) ?>
-                <input type="text" name="cf_syndi_token" value="<?php echo $config['cf_syndi_token'] ?>" id="cf_syndi_token" class="frm_input" size="70">
+                <input type="text" name="cf_syndi_token" value="<?php echo $config['cf_syndi_token'] ?>" id="cf_syndi_token" class="frm_input response_input">
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_syndi_except"><?php _e('Set board excluded from Naver syndication', 'gnupress'); //네이버 신디케이션 제외게시판?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Please enter separated by | the board ID to be excluded from the Naver collection syndication.', 'gnupress').' '.__('example :) notice|adult', 'gnupress').'<br>'.__('For your information, the boards whose permission is -1 are collected and secret writtings are excluded from the syndication collecting.', 'gnupress')); ?>
-                <input type="text" name="cf_syndi_except" value="<?php echo $config['cf_syndi_except'] ?>" id="cf_syndi_except" class="frm_input" size="70">
+                <input type="text" name="cf_syndi_except" value="<?php echo $config['cf_syndi_except'] ?>" id="cf_syndi_except" class="frm_input response_input">
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="cf_recaptcha_site_key"><?php _e('Use google recaptcha', 'gnupress'); //구글 리캡챠 사용?></label></th>
+            <td colspan="3">
+                <?php echo g5_help(__('If you use recaptcha, issued a key and then enter in the fields below.', 'gnupress').'<br><a href="https://www.google.com/recaptcha/" target="_blank"><u>www.google.com/recaptcha/</u></a>'); ?>
+                <label for="cf_recaptcha_site_key"><?php _e('Site_key', G5_NAME); ?></label>
+                <p><input type="text" name="cf_recaptcha_site_key" value="<?php echo $config['cf_recaptcha_site_key'] ?>" id="cf_recaptcha_site_key" class="frm_input response_input"></p>
+                <label for="cf_recaptcha_secret_key"><?php _e('Secret_key', G5_NAME); ?></label>
+                <p><input type="text" name="cf_recaptcha_secret_key" value="<?php echo $config['cf_recaptcha_secret_key'] ?>" id="cf_recaptcha_secret_key" class="frm_input response_input"></p>
             </td>
         </tr>
 
@@ -211,21 +221,21 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             <th scope="row"><label for="cf_image_extension"><?php _e('Allowed image extensions', 'gnupress');?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Allowed image extensions separated by( period or vertical bar )', 'gnupress')); ?>
-                <input type="text" name="cf_image_extension" value="<?php echo $config['cf_image_extension'] ?>" id="cf_image_extension" class="frm_input" size="70">
+                <input type="text" name="cf_image_extension" value="<?php echo $config['cf_image_extension'] ?>" id="cf_image_extension" class="frm_input response_input">
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_flash_extension"><?php _e('Allowed flash extensions', 'gnupress');?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Allowed flash extensions separated by( period or vertical bar )', 'gnupress')); ?>
-                <input type="text" name="cf_flash_extension" value="<?php echo $config['cf_flash_extension'] ?>" id="cf_flash_extension" class="frm_input" size="70">
+                <input type="text" name="cf_flash_extension" value="<?php echo $config['cf_flash_extension'] ?>" id="cf_flash_extension" class="frm_input response_input">
             </td>
         </tr>
         <tr>
             <th scope="row"><label for="cf_movie_extension"><?php _e('Allowed movie extensions', 'gnupress');   //동영상 업로드 확장자?></label></th>
             <td colspan="3">
                 <?php echo g5_help(__('Allowed movie extensions separated by( period or vertical bar )', 'gnupress')); ?>
-                <input type="text" name="cf_movie_extension" value="<?php echo $config['cf_movie_extension'] ?>" id="cf_movie_extension" class="frm_input" size="70">
+                <input type="text" name="cf_movie_extension" value="<?php echo $config['cf_movie_extension'] ?>" id="cf_movie_extension" class="frm_input response_input">
             </td>
         </tr>
         <tr>

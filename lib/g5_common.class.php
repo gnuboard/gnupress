@@ -54,6 +54,12 @@ class G5_common {
         }
 
         $this->request_action = isset( $_REQUEST['action'] ) ? sanitize_key( $_REQUEST['action'] ) : '';
+
+        include_once(G5_DIR_PATH.'lib/g5_board_hook.php');
+
+        if( !empty($this->config['cf_recaptcha_site_key']) && !empty($this->config['cf_recaptcha_secret_key']) ){
+            include_once(G5_DIR_PATH.'lib/recaptcha_hook.php');
+        }
     }
 
     public function header_script($attr){

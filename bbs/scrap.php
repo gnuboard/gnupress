@@ -1,6 +1,11 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
+//wp-super-cache 사용시 이 페이지는 cache하지 않음
+if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+    define( 'DONOTCACHEPAGE', true );
+}
+
 if (!$is_member)
     g5_alert_close(__('Only members can view.', G5_NAME)); //회원만 조회하실 수 있습니다.
 

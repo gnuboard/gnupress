@@ -2109,6 +2109,14 @@ function g5_sql_escape_string($str)
     return apply_filters('g5_sql_escape_string', $str, $pattern, $replace);
 }
 
+function g5_check_super_cache(){
+    global $cache_path;
+    if( function_exists('prune_super_cache') ){
+        prune_super_cache( $cache_path . 'supercache/', true );
+        prune_super_cache( $cache_path, true );
+    }
+}
+
 function g5_pre( $msg ){
     if( G5_DEBUG ){
         echo "<pre>";

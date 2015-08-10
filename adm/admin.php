@@ -71,6 +71,7 @@ if ( ! function_exists('g5_point_action'))
         $location = admin_url('admin.php?page=g5_point_list');
 
         check_admin_referer( 'g5_point_plus', '_wpnonce_g5_field' );
+        g5_check_super_cache();
 
         switch( $action ) {
             case( 'point_update' ) :
@@ -228,6 +229,7 @@ function g5_config_form_update(){
     }
 
     g5_update_options_by($options, 'all');
+    g5_check_super_cache();
 
     $location = admin_url('admin.php?page=g5_board_admin');
 

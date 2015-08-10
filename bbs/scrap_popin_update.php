@@ -123,6 +123,8 @@ if ( $result !== 'false') {
     g5_delete_cache_latest($bo_table);
 }
 
+g5_check_super_cache();
+
 $msg1 = __('scrap this article.\\n\\nDo you want to scrap it now?', G5_NAME);
 echo <<<HEREDOC
 <script>

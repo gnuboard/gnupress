@@ -601,6 +601,8 @@ if( $old_meta_data !== $file_meta_data ){
     }
 }
 
+do_action( 'write_update_metadata', $wr_id, $w );
+
 // 비밀글이라면 세션에 비밀글의 아이디를 저장한다. 자신의 글은 다시 비밀번호를 묻지 않기 위함
 if ($secret)
     g5_set_session("ss_secret_{$bo_table}_{$wr_num}", TRUE);

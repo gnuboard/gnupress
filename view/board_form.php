@@ -389,9 +389,9 @@ foreach( $chk_fields_array as $key=>$v ){
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="bo_use_list_content"><?php _e('Use IP show', 'gnupress');    //IP 보이기 사용?></label></th>
+            <th scope="row"><label for="bo_use_list_content"><?php _e('Use load content from the list', 'gnupress');    //목록에서 내용 사용?></label></th>
             <td>
-                <?php echo g5_help("List is the option to set when you need to read the contents. The default is not used."); ?>
+                <?php echo g5_help(__("List is the option to set when you need to read the contents. The default is not used.", G5_NAME)); ?>
                 <input type="checkbox" name="bo_use_list_content" value="1" id="bo_use_list_content" <?php echo $board['bo_use_list_content']?'checked':''; ?>>
                 <label for="bo_use_list_content"><?php _e('use', 'gnupress'); //사용?> (<?php _e('Can be slow', 'gnupress'); //속도가 느려질수 있음?>)</label>
             </td>
