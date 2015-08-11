@@ -8,9 +8,8 @@ if( !function_exists('g5_pre_get_posts') ){
         global $gnupress;
         
         //워드프레스 전체 검색시 게시판 내용을 포함 설정이 되어 있다면
-        if( isset($gnupress->config['cf_use_search_include']) && $gnupress->config['cf_use_search_include'] && $q->is_main_query() && $q->is_search() )
+        if( isset($gnupress->config['cf_use_search_include']) && $gnupress->config['cf_use_search_include'] && $q->is_main_query() && $q->is_search() && !is_admin() )
         {
-            $q->set( 'nopaging', true );
             $c = new G5_Add_Search_Data;
             $c->init($q);
         }
@@ -24,12 +23,17 @@ add_action( 'pre_get_posts', 'g5_pre_get_posts' );
 class G5_Add_Search_Data
 {
     protected $search_where = '';
+    protected $limits    = '';
+    protected $sublimit  = 1000;
+    protected $sub_sql = array();
+    protected $args    = array();
 
     public function init($q)
     {
-        add_filter( 'posts_search',  array( $this, 'posts_search'  ) );
-        add_filter( 'posts_fields',  array( $this, 'posts_fields'  ) );
-        add_filter( 'posts_request', array( $this, 'posts_request' ), 10, 2 );
+        add_filter( 'posts_search',  array( $this, 'posts_search'  ), PHP_INT_MAX );
+        add_filter( 'posts_fields',  array( $this, 'posts_fields'  ), PHP_INT_MAX );
+        add_filter( 'posts_clauses',  array( $this, 'posts_clauses' ), PHP_INT_MAX  );
+        add_filter( 'posts_request', array( $this, 'posts_request' ), PHP_INT_MAX, 2 );
         add_filter( 'posts_orderby', '__return_null' );
     }
 
@@ -41,6 +45,7 @@ class G5_Add_Search_Data
 
     public function posts_fields( $fields )
     {
+        remove_filter( current_filter(), array( $this, __FUNCTION__ ), PHP_INT_MAX  );
         $search_fileds = apply_filters( 'g5_search_wp_fileds', array(
                             'ID', 
                             'post_author', 
@@ -69,9 +74,30 @@ class G5_Add_Search_Data
         return implode(',' , $search_fileds);
     }
 
+    public function posts_clauses( $clauses )
+    {
+        remove_filter( current_filter(), array( $this, __FUNCTION__ ), PHP_INT_MAX  );
+        $this->limits = $clauses['limits'];
+        return $clauses;
+    }
+
+    protected function modify( $request )
+    {
+        $request = str_ireplace( 'SQL_CALC_FOUND_ROWS', '', $request );
+
+        if( $this->sublimit > 0 )
+            return str_ireplace( $this->limits, sprintf( 'LIMIT %d', $this->sublimit ), $request );
+        else
+            return $request;
+    }
+
     public function posts_request( $request, $query )
     {
-        global $wpdb, $gnupress;
+        remove_filter( current_filter(), array( $this, __FUNCTION__ ), PHP_INT_MAX  );
+
+        global $wpdb, $gnupress, $wp_post_types;
+        
+        $this->args = $query->query_vars;
         
         $g5 = $gnupress->g5;
 
@@ -79,11 +105,14 @@ class G5_Add_Search_Data
             return $request;
         }
         
+        if( !isset($query->query_vars['post_type']) || $query->query_vars['post_type'] != 'any' ){
+            return $request;
+        }
+
 		register_post_type( G5_NAME , array(
 			'labels' => array('name'=>'GNUpress'),
 			'show_ui'=> true,
-			'show_in_menu'=> true,
-			'rewrite' => false,
+			'rewrite' => array( 'slug' => G5_NAME ),
 			'query_var' => 'g5_bbs_redirect',
 			'public'=> true
 		));
@@ -123,10 +152,25 @@ class G5_Add_Search_Data
                         ));
         $sql = "SELECT ".implode(',' , $select_fields )." FROM `{$g5['write_table']}` where 1=1 {$search_where}";
 
-        // Append the external data with custom order:
+        $this->sub_sql[] = $this->modify( $request );
+        $this->sub_sql[] = apply_filters( 'g5_search_all_sql', $sql );
 
+        // Append the external data with custom order:
         $orderby = 'ORDER BY post_date DESC';
-        $return_sql = apply_filters( 'g5_request_sql_return' , "({$request}) UNION ({$sql}) $orderby", $request, $sql, $orderby, $select_fields, $search_where );
+
+        if ( count( $this->sub_sql ) > 1 )
+        {
+            $s = '(' . join( ') UNION (', $this->sub_sql ) . ' ) ';
+            
+            $paged = $this->args['paged'] ? $this->args['paged'] : 1;
+
+            $return_sql = "SELECT SQL_CALC_FOUND_ROWS * FROM ( $s ) as combined".sprintf(" LIMIT %s,%s",
+                $this->args['posts_per_page'] * ( $paged-1 ),
+                $this->args['posts_per_page']
+            );          
+        }
+
+        $return_sql = apply_filters( 'g5_request_sql_return' , $return_sql, $request, $sql, $orderby, $select_fields, $search_where );
 
         //echo $return_sql;
 
