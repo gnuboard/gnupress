@@ -123,6 +123,7 @@ class G5_Add_Search_Data
             $this->search_where 
         );
 
+        $search_where = $search_where." and ".$g5['write_table'].".wr_option not like '%secret%'";
         $search_where = apply_filters( 'g5_search_where', $search_where, $this->search_where );
 
         $select_fields = apply_filters( 'g5_search_as_fileds', array(
