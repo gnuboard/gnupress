@@ -27,6 +27,10 @@ if(version_compare($g5_options['version'], "0.1.1", "<=")){
     }
 }
 
+if(version_compare($g5_options['version'], "0.2.3", "<=")){
+    g5_delete_cache_latest();
+}
+
 //버젼 업데이트
 $g5_options['version'] = G5_VERSION;
 update_option( G5_OPTION_KEY, $g5_options );

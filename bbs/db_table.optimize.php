@@ -11,7 +11,7 @@ if( $g5_data_path = g5_get_upload_path() ){
     $captcha_mp3 = glob($g5_data_path.'/cache/kcaptcha-*.mp3');
     if($captcha_mp3 && is_array($captcha_mp3)) {
         foreach ($captcha_mp3 as $file) {
-            if (filemtime($file) + 86400 < G5_SERVER_TIME) {
+            if (filemtime($file) + 86400 < time()) {
                 @unlink($file);
             }
         }

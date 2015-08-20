@@ -34,8 +34,6 @@ class G5_var {
             'scrap_table' => $wpdb->prefix.'g5_scrap',
             'board_good_table' => $wpdb->prefix.'g5_board_good'
         ));
-
-        $wpdb->{G5_META_TYPE.'meta'} = $this->db_tables['meta_table'];
     }
 
     public function get_config_js() {

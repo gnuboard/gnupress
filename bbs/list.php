@@ -236,6 +236,9 @@ if($page_rows > 0) {
             $row = $wpdb->get_row(" select * from {$write_table} where wr_id = '{$row['wr_id']}' ");
         */
 
+        //thumbnail.lib.php 함수에서 쿼리를 돌리지 않도록 wp_cache_set 함수를 쓴다.
+        wp_cache_set( 'g5_'.$write_table.'_'.$row['wr_id'] , $row );
+
         $row = $this->get_list($row, $board, $board_skin_url, G5_IS_MOBILE ? $board['bo_mobile_subject_len'] : $board['bo_subject_len'], $default_href);
 
         if (strstr($sfl, 'subject')) {

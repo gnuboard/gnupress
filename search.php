@@ -40,6 +40,13 @@ class G5_Add_Search_Data
     public function posts_search( $search )
     {
         $this->search_where = $search;
+
+        $g5_options = get_option(G5_OPTION_KEY);
+        if( isset($g5_options['board_page']) ){
+            $not_contain_pages = implode(', ', $g5_options['board_page']);
+            $search .= ' AND ID not in ('.$not_contain_pages.')';
+        }
+
         return $search;
     }
 

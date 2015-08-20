@@ -21,7 +21,7 @@ class G5_Board extends G5_common {
         add_action('wp_enqueue_scripts', array( &$this, 'g5_style_script' ), 99 );
         add_action('g5_error_display', array( &$this, 'error_display_print' ), 10 ) ;
         
-        add_filter( 'g5_get_list_array', array( &$this, 'bbs_list_sort' ), 10, 2 ) ; 
+        add_filter( 'g5_get_list_array', array( &$this, 'bbs_list_sort' ), 10, 2 ) ;
     }
 
     public function g5_style_script(){

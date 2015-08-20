@@ -1,12 +1,13 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
+if( !is_array($list) ) return;
 // $g5_page_url 이 빈값으로 나올 경우 숏코드에 해당 url을 입력, 또는 게시판 기본 설정에서 적용할 페이지을 설정해 주시면 됩니다.
 ?>
 <div class="g5_latest_lt">
     <strong class="lt_title"><a href="<?php echo esc_url( $g5_page_url ); ?>"><?php echo $bo_subject; ?></a></strong>
     <ul>
-    <?php 
+    <?php
     foreach($list as $row) {
         if( !isset($row['wr_id']) ) continue;
     ?>

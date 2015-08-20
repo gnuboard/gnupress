@@ -37,8 +37,6 @@ function g5_plugin_load_textdomain() {
 
 include_once( G5_DIR_PATH.'lib/g5_var.class.php' );
 include_once( G5_DIR_PATH.'lib/common.lib.php' );
-include_once( G5_DIR_PATH.'ajax_function.php' );
-include_once( G5_DIR_PATH.'search.php' );
 
 Class GnuPress {
     public $bo_table;
@@ -70,6 +68,27 @@ Class GnuPress {
         if (!headers_sent())
             @session_start();
 
+        if ( is_admin() ) {
+            if ( defined('DOING_AJAX') && DOING_AJAX ){
+                include_once( G5_DIR_PATH.'ajax_function.php' );
+            }
+        } else {
+            include_once( G5_DIR_PATH.'search.php' );
+            include_once( G5_DIR_PATH.'lib/g5_search.class.php');
+
+            $redirect_id = isset( $_GET['g5_bbs_redirect'] ) ? (int) $_GET['g5_bbs_redirect'] : '';
+
+            if( $redirect_id ){
+                $this->board_redirect($redirect_id);
+            }
+
+            add_action('the_posts', array( $this, 'check_g5_page') );
+            add_shortcode( G5_NAME, array( $this, 'g5_shortcode' ) );
+            add_shortcode( G5_NAME.'_latest', array( $this, 'g5_latest_shortcode' ) );
+
+            add_filter( 'widget_text' , 'do_shortcode' );
+        }
+
         define( 'G5_IS_MOBILE', wp_is_mobile() );
 
         define('G5_SERVER_TIME',    current_time( 'timestamp' ) );
@@ -82,12 +101,6 @@ Class GnuPress {
 
         $this->config = G5_var::getInstance()->get_options('config');
         $this->g5 = G5_var::getInstance()->get_options();
-
-        $redirect_id = isset( $_GET['g5_bbs_redirect'] ) ? (int) $_GET['g5_bbs_redirect'] : '';
-
-        if( $redirect_id ){
-            $this->board_redirect($redirect_id);
-        }
         
         $this->member_page_array = apply_filters('g5_get_member_page', array('point', 'scrap', 'scrap_popin', 'formmail', 'kcaptcha_image'));
 
@@ -99,11 +112,6 @@ Class GnuPress {
         if( in_array($action, $this->member_page_array) ){
             $this->member_page_action = $action;
         }
-
-        add_action('the_posts', array( $this, 'check_g5_page') );
-        add_shortcode( G5_NAME, array( $this, 'g5_shortcode' ) );
-        add_shortcode( G5_NAME.'_latest', array( $this, 'g5_latest_shortcode' ) );
-        add_filter( 'widget_text' , 'do_shortcode' );
 
         add_action( 'admin_init', array( $this, 'g5_chk_admin' ) );
         add_action( 'admin_menu', array( $this, 'g5_admin_menu' ) );
@@ -288,6 +296,8 @@ Class GnuPress {
             include_once( G5_DIR_PATH.'lib/g5_update_check.php' );
         }
 
+        if( is_search() ) return $posts;    //search 페이지는 포함이 되지 않게 한다.
+
         $is_g5_page = false;
 
         if( $is_g5_page = $this->g5_member_page_check($posts) ){
@@ -326,6 +336,8 @@ Class GnuPress {
         }
 
         if( $this->is_g5_page ){
+            global $wpdb;
+            $wpdb->{G5_META_TYPE.'meta'} = $this->g5['meta_table'];
             $this->load($attr);
         }
 
@@ -395,6 +407,8 @@ Class GnuPress {
     // 게시판 관련 숏코드 실행
     public function g5_shortcode($attr='', $is_setup_page=false){
 
+        if( is_search() ) return;   //search 페이지는 포함이 되지 않게 한다.
+
         if( isset($attr['page_mode']) && in_array($attr['page_mode'], $this->member_page_array) ){
             return $this->g5_member_action( $attr );
         }
@@ -458,18 +472,21 @@ Class GnuPress {
                 $cache_fwrite = true;
             } else {
                 if($cache_time > 0) {
+                    $system_time = time();
                     $filetime = filemtime($cache_file);
-                    if($filetime && $filetime < (G5_SERVER_TIME - 3600 * $cache_time)) {
+
+                    if($filetime && $filetime < ($system_time - 3600 * $cache_time)) {
                         @unlink($cache_file);
                         $cache_fwrite = true;
                     }
                 }
 
-                if(!$cache_fwrite)
-                    include($cache_file);
+                if(!$cache_fwrite){
+                    $list = maybe_unserialize(@file_get_contents($cache_file));
+                }
             }
         }
-        
+
         if( !$use_latest_cache || $cache_fwrite){
             $list = array();
 
@@ -509,13 +526,18 @@ Class GnuPress {
                         $list[$i]['href'] = "#no_value_link";
                     }
                 }
+                $list[$i]['bo_subject'] = $bo_subject;
                 $i++;
+                $list[$i]['user_pass'] = '';    //유저 패스워드는 저장하지 않음
             }
 
             if($cache_fwrite) {
                 $handle = fopen($cache_file, 'w');
-                $cache_content = "<?php\nif (!defined('_GNUBOARD_')) exit;\n\$bo_subject='".$bo_subject."';\n\$list=".var_export($list, true)."?>";
-                fwrite($handle, $cache_content);
+                $cache_content = maybe_serialize($list, true);
+                if (flock($handle, LOCK_EX)) { // do an exclusive lock
+                    fwrite($handle, $cache_content);
+                    flock($handle, LOCK_UN); // release the lock
+                }
                 fclose($handle);
             }
         }
@@ -526,6 +548,11 @@ Class GnuPress {
                 wp_enqueue_style ( G5_NAME.'_latest_'.$bo_table , $latest_skin_url.'/style.css', '', G5_VERSION );
             }
             $this->latest_skin[$bo_table.'_css'] = true;
+        }
+
+        $bo_subject = isset($bo_subject) ? $bo_subject : '';
+        if( !$bo_subject ){
+            $bo_subject = isset($list[0]['bo_subject']) ? $list[0]['bo_subject'] : '';
         }
 
         $g5_page_url = g5_page_get_by($bo_table, 'url' );

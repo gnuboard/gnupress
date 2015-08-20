@@ -1852,9 +1852,13 @@ function g5_board_tail_print($board, $wr_id=0){
     do_action('g5_board_tail_action', $board, $wr_id );
 }
 
-function g5_delete_cache_latest($bo_table){
+function g5_delete_cache_latest($bo_table=''){
     if( $datapath = g5_get_upload_path() ){
-        $files = glob($datapath.'/cache/latest-'.$bo_table.'-*');
+        if($bo_table){
+            $files = glob($datapath.'/cache/latest-'.$bo_table.'-*');
+        } else {
+            $files = glob($datapath.'/cache/latest-*');
+        }
         if (is_array($files)) {
             foreach ($files as $filename)
                 @unlink($filename);
