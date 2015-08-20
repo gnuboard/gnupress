@@ -27,7 +27,8 @@ class G5_Board extends G5_common {
     public function g5_style_script(){
 
         if( $this->is_board_load_script || ! isset($this->board['bo_table']) ) return;
-
+        
+        wp_enqueue_script( 'jquery' );
         $board_skin_url = G5_DIR_URL.'skin/board/'.$this->board['bo_skin'];
         wp_enqueue_style ( 'g5-board-'.$this->board['bo_table'].'-style' , $board_skin_url.'/style.css', '', G5_VERSION );
         

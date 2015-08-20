@@ -4,7 +4,7 @@ Donate link: http://sir.co.kr/main/gnupress/
 Tags: gnupress, gnu, gnuboard, korea, korean, bulletin, board, bbs, community, forum, 그누프레스, 그누보드, 게시판, 한국형게시판
 Requires at least: 4.0
 Tested up to: 4.2
-Stable tag: 0.2.3
+Stable tag: 0.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
    /wp-content/plugins/gnupress/screenshot-2.jpg  
 
 == Changelog ==
+
+= 0.2.4 =
+Search query and gnupress query has improved.
+
+검색 query과 그누프레스 query문을 일부 수정했습니다.
 
 = 0.2.3 =
 Fixed error Search.
