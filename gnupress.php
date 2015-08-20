@@ -68,6 +68,19 @@ Class GnuPress {
         if (!headers_sent())
             @session_start();
 
+        define( 'G5_IS_MOBILE', wp_is_mobile() );
+
+        define('G5_SERVER_TIME',    current_time( 'timestamp' ) );
+        define('G5_TIME_YMDHIS',    date('Y-m-d H:i:s', G5_SERVER_TIME));
+        define('G5_TIME_YMD',       substr(G5_TIME_YMDHIS, 0, 10));
+        define('G5_TIME_HIS',       substr(G5_TIME_YMDHIS, 11, 8));
+
+        //extend 폴더에서 파일들을 include한다.
+        $this->load_extend_file();
+
+        $this->config = G5_var::getInstance()->get_options('config');
+        $this->g5 = G5_var::getInstance()->get_options();
+        
         if ( is_admin() ) {
             if ( defined('DOING_AJAX') && DOING_AJAX ){
                 include_once( G5_DIR_PATH.'ajax_function.php' );
@@ -89,19 +102,6 @@ Class GnuPress {
             add_filter( 'widget_text' , 'do_shortcode' );
         }
 
-        define( 'G5_IS_MOBILE', wp_is_mobile() );
-
-        define('G5_SERVER_TIME',    current_time( 'timestamp' ) );
-        define('G5_TIME_YMDHIS',    date('Y-m-d H:i:s', G5_SERVER_TIME));
-        define('G5_TIME_YMD',       substr(G5_TIME_YMDHIS, 0, 10));
-        define('G5_TIME_HIS',       substr(G5_TIME_YMDHIS, 11, 8));
-
-        //extend 폴더에서 파일들을 include한다.
-        $this->load_extend_file();
-
-        $this->config = G5_var::getInstance()->get_options('config');
-        $this->g5 = G5_var::getInstance()->get_options();
-        
         $this->member_page_array = apply_filters('g5_get_member_page', array('point', 'scrap', 'scrap_popin', 'formmail', 'kcaptcha_image'));
 
         $check_arr = array('g5_new', 'action');
