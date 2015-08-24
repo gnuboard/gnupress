@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnupress\n"
 "POT-Creation-Date: 2015-08-10 14:01+0900\n"
-"PO-Revision-Date: 2015-08-10 14:04+0900\n"
+"PO-Revision-Date: 2015-08-20 15:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: SIR Soft\n"
 "Language: ko_KR\n"
@@ -2257,7 +2257,7 @@ msgstr "분류명 내림차순"
 
 #: view/board_form.php:793 view/board_form.php:798
 msgid "Board point setting"
-msgstr "분류명 오름차순"
+msgstr "게시판 포인트 설정"
 
 #: view/board_form.php:806
 msgid "Set as Default"

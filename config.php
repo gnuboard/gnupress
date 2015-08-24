@@ -1,5 +1,5 @@
 <?php
-define( 'G5_VERSION', '0.2.4' );
+define( 'G5_VERSION', '0.2.5' );
 define( 'G5_NAME', 'gnupress' );
 define( 'G5_DEBUG', false );
 define( 'G5_OPTION_KEY', 'g5_options' );

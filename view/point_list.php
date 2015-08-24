@@ -9,14 +9,20 @@ $chk_request = array('stx', 'sfl', 'sst', 'sod', 'gpage');
 $qstr = g5_get_qstr();
 
 foreach( $chk_request as $v ){
-    $$v = isset( $qstr[$v] ) ? $qstr[$v] : '';
+    $$v = isset( $qstr[$v] ) ? urldecode($qstr[$v]) : '';
 }
 
 if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
         case 'user_id' :
-            $sql_search .= " ({$sfl} = '{$stx}') ";
+            $user_id = $stx;
+            if( !preg_match('/^\d+$/', $stx) ){
+                if( $tmp = get_user_by( 'login', $stx ) ){
+                    $user_id = $tmp->ID;
+                }
+            }
+            $sql_search .= " ({$sfl} = '{$user_id}') ";
             break;
         default :
             $sql_search .= " ({$sfl} like '%{$stx}%') ";
@@ -89,6 +95,7 @@ else
 </div>
 
 <form name="fsearch" id="fsearch" class="local_sch01 local_sch" method="get">
+<input type="hidden" name="page" value="<?php echo isset($_REQUEST['page']) ? sanitize_text_field($_REQUEST['page']) : '' ?>">
 <label for="sfl" class="sound_only"><?php _e('Search for', 'gnupress')?></label>
 <select name="sfl" id="sfl">
     <option value="user_id"<?php echo g5_get_selected($sfl, "user_id"); ?>><?php _e('User_id', 'gnupress')?></option>
@@ -115,7 +122,7 @@ else
     <tr>
         <th scope="col">
             <label for="chkall" class="sound_only"><?php _e('Points Full Record', 'gnupress');    //포인트 내역 전체?></label>
-            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="g5_check_all(this.form)">
         </th>
         <th scope="col"><?php echo g5_subject_sort_link('user_id', $qstr) ?><?php _e('user_id', 'gnupress'); //회원아이디?></a></th>
         <th scope="col"><?php _e('name', 'gnupress'); //이름?></th>
