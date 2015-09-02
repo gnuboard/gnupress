@@ -9,7 +9,7 @@ if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 if (!$is_member)
     g5_alert_close(__('Only members can view.', G5_NAME)); //회원만 조회하실 수 있습니다.
 
-$g5['title'] = $member['user_display_name'].__('\'S scrap');
+$g5['title'] = $member['user_display_name'].__('\'s scrap');
 
 $sql_common = $wpdb->prepare(" from {$g5['scrap_table']} where user_id = '%s' ", $member['user_id']);
 $sql_order = " order by ms_id desc ";

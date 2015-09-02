@@ -85,7 +85,7 @@ else
     <?php _e('All', 'gnupress');?> <?php echo number_format($total_count) ?> <?php _e('number', 'gnupress');?>
     <?php
     if (isset($mb['user_id']) && $mb['user_id']) {
-        echo '&nbsp;(' . $mb['user_display_name'] .' '.__('\'S Point totals', 'gnupress').' : ' . number_format($mb['mb_point']) .__('point', 'gnupress').')';
+        echo '&nbsp;(' . $mb['user_display_name'] .' '.__('\'s Point totals', 'gnupress').' : ' . number_format($mb['mb_point']) .__('point', 'gnupress').')';
     } else {
         $sum_point = $wpdb->get_var(" select sum(po_point) as sum_point from {$g5['point_table']} ");
         echo '&nbsp;('.__('Point totals', 'gnupress').' '.number_format($sum_point).' '.__('point', 'gnupress').')';

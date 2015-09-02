@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnupress\n"
-"POT-Creation-Date: 2015-08-10 14:01+0900\n"
-"PO-Revision-Date: 2015-08-20 15:48+0900\n"
+"POT-Creation-Date: 2015-09-02 14:28+0900\n"
+"PO-Revision-Date: 2015-09-02 14:29+0900\n"
 "Last-Translator: \n"
 "Language-Team: SIR Soft\n"
 "Language: ko_KR\n"
@@ -25,23 +25,23 @@ msgstr "— 선택 —"
 msgid "GNUPress"
 msgstr "GNUPress"
 
-#: adm/admin.php:11 lib/g5_board.class.php:64
+#: adm/admin.php:11 lib/g5_board.class.php:65
 #: skin/board/default/list.skin.php:281 skin/board/gallery/list.skin.php:244
 msgid "Deleted data can not be recovered once."
 msgstr "한번 삭제한 자료는 복구할 수 없습니다"
 
-#: adm/admin.php:12 lib/g5_board.class.php:65
+#: adm/admin.php:12 lib/g5_board.class.php:66
 #: skin/board/default/list.skin.php:281 skin/board/gallery/list.skin.php:244
-#: view/board_list.php:156 view/point_list.php:261
+#: view/board_list.php:156 view/point_list.php:268
 msgid "Are you sure you want to delete the selected data?"
 msgstr "선택한 자료를 정말 삭제하시겠습니까?"
 
-#: adm/admin.php:13 lib/g5_board.class.php:66
+#: adm/admin.php:13 lib/g5_board.class.php:67
 msgid "Input tags"
 msgstr "태그를 입력해주세요."
 
 #: adm/admin.php:14 adm/admin.php:105 view/board_list.php:151
-#: view/point_list.php:256
+#: view/point_list.php:263
 msgid "to be select least one item"
 msgstr "하실 항목을 하나 이상 선택하세요."
 
@@ -59,7 +59,7 @@ msgid "User ID does not exist."
 msgstr "회원 아이디가 존재하지 않습니다."
 
 #: adm/admin.php:270 adm/admin.php:349 bbs/board.php:6
-#: lib/g5_board.class.php:188
+#: lib/g5_board.class.php:189
 msgid "The board does not exist."
 msgstr "게시판이 존재하지 않습니다."
 
@@ -97,7 +97,7 @@ msgstr "선택수정"
 #: adm/board_form_update.php:60 skin/board/default/list.skin.php:194
 #: skin/board/default/list.skin.php:280 skin/board/gallery/list.skin.php:158
 #: skin/board/gallery/list.skin.php:243 view/board_list.php:139
-#: view/board_list.php:155 view/point_list.php:196 view/point_list.php:260
+#: view/board_list.php:155 view/point_list.php:203 view/point_list.php:267
 msgid "choose-Delete"
 msgstr "선택삭제"
 
@@ -143,7 +143,7 @@ msgid "Delete"
 msgstr "삭제"
 
 #: adm/includes/class-g5-terms-list-table.php:108 view/edit_tag_form.php:115
-#: view/point_list.php:95
+#: view/point_list.php:102
 msgid "Description"
 msgstr ""
 
@@ -525,7 +525,7 @@ msgid "View RSS is prohibited."
 msgstr "RSS 보기가 금지되어 있습니다."
 
 #: bbs/scrap.php:12
-msgid "'S scrap"
+msgid "'s scrap"
 msgstr "님의 스크랩"
 
 #: bbs/scrap_popin.php:15 bbs/scrap_popin_update.php:18
@@ -857,51 +857,51 @@ msgstr "작성자"
 msgid "To check posts on the site"
 msgstr "사이트에서 게시물 확인하기"
 
-#: gnupress.php:171
+#: gnupress.php:179
 msgid "gnupress setting"
 msgstr "환경설정"
 
-#: gnupress.php:172
+#: gnupress.php:180
 msgid "Manage board"
 msgstr "게시판 관리"
 
-#: gnupress.php:173
+#: gnupress.php:181
 msgid "Add board"
 msgstr "게시판 추가"
 
-#: gnupress.php:174
+#: gnupress.php:182
 msgid "Manage board tag"
 msgstr "게시판 태그 관리"
 
-#: gnupress.php:175
+#: gnupress.php:183
 msgid "Manage user points"
 msgstr "회원 포인트 관리"
 
-#: gnupress.php:203
+#: gnupress.php:211
 msgid "First Login"
 msgstr "첫 로그인"
 
-#: gnupress.php:233
+#: gnupress.php:241
 msgid "My Account"
 msgstr "내 계정"
 
-#: gnupress.php:236
+#: gnupress.php:244
 msgid "My point"
 msgstr "내 포인트"
 
-#: gnupress.php:240
+#: gnupress.php:248
 msgid "My scrap"
 msgstr "내 스크랩"
 
-#: gnupress.php:403 gnupress.php:430
+#: gnupress.php:417 gnupress.php:444
 msgid "Please enter a value bo_table on the shortcode."
 msgstr "shortcode에 bo_table 값을 입력해 주세요."
 
-#: gnupress.php:487
+#: gnupress.php:504
 msgid "No data."
 msgstr "자료가 없습니다."
 
-#: gnupress.php:558
+#: gnupress.php:585
 msgid "NOT EXISTS CLASS FILE"
 msgstr "클래스 파일이 존재하지 않습니다."
 
@@ -963,7 +963,7 @@ msgstr "이름으로검색"
 msgid "Point History"
 msgstr "포인트 내역"
 
-#: lib/g5_board.class.php:399 skin/board/default/view.skin.php:41
+#: lib/g5_board.class.php:400 skin/board/default/view.skin.php:41
 #: skin/board/default/write.skin.php:137 skin/board/gallery/view.skin.php:41
 #: skin/board/gallery/write.skin.php:137 skin/member/basic/formmail.skin.php:50
 #: skin/member/basic/formmail.skin.php:57
@@ -1019,7 +1019,7 @@ msgstr ""
 #: skin/board/default/list.skin.php:18 skin/board/default/list.skin.php:85
 #: skin/board/default/list.skin.php:202 skin/board/default/view.skin.php:115
 #: skin/board/gallery/list.skin.php:6 skin/board/gallery/list.skin.php:166
-#: skin/board/gallery/view.skin.php:115 view/point_list.php:113
+#: skin/board/gallery/view.skin.php:115 view/point_list.php:120
 msgid "List"
 msgstr "목록"
 
@@ -1069,7 +1069,7 @@ msgid "Of reading"
 msgstr "열람중"
 
 #: skin/board/default/list.skin.php:185 skin/board/gallery/list.skin.php:151
-#: view/board_list.php:130 view/point_list.php:189
+#: view/board_list.php:130 view/point_list.php:196
 msgid "Empty data"
 msgstr "자료가 없습니다"
 
@@ -1098,7 +1098,7 @@ msgid "Search Posts"
 msgstr "게시물 검색"
 
 #: skin/board/default/list.skin.php:230 skin/board/gallery/list.skin.php:194
-#: view/point_list.php:92
+#: view/point_list.php:99
 msgid "Search for"
 msgstr "검색대상"
 
@@ -1115,12 +1115,12 @@ msgid "Subject+Contents"
 msgstr "제목+내용"
 
 #: skin/board/default/list.skin.php:235 skin/board/gallery/list.skin.php:199
-#: view/point_list.php:94
+#: view/point_list.php:101
 msgid "User_id"
 msgstr "회원아이디"
 
 #: skin/board/default/list.skin.php:238 skin/board/gallery/list.skin.php:202
-#: view/board_list.php:25 view/point_list.php:97
+#: view/board_list.php:25 view/point_list.php:104
 msgid "Search word"
 msgstr "검색어"
 
@@ -1150,8 +1150,8 @@ msgstr "검색어"
 #: view/board_list.php:25 view/board_list.php:101 view/board_list.php:211
 #: view/board_list.php:215 view/config_form.php:48 view/config_form.php:71
 #: view/config_form.php:73 view/config_form.php:93 view/config_form.php:109
-#: view/config_form.php:191 view/config_form.php:205 view/point_list.php:97
-#: view/point_list.php:223 view/point_list.php:227 view/point_list.php:231
+#: view/config_form.php:191 view/config_form.php:205 view/point_list.php:104
+#: view/point_list.php:230 view/point_list.php:234 view/point_list.php:238
 msgid "required"
 msgstr "필수"
 
@@ -1237,7 +1237,7 @@ msgid "author"
 msgstr "글쓴이"
 
 #: skin/board/default/view.skin.php:22 skin/board/gallery/view.skin.php:22
-#: skin/member/basic/point.skin.php:13 view/point_list.php:124
+#: skin/member/basic/point.skin.php:13 view/point_list.php:131
 msgid "date"
 msgstr "날짜"
 
@@ -1321,8 +1321,8 @@ msgstr "댓글목록"
 
 #: skin/board/default/view_comment.skin.php:28
 #: skin/board/gallery/view_comment.skin.php:28
-msgid "'S comments"
-msgstr "님의 댓글"
+msgid "'s comments"
+msgstr "님의 코멘트"
 
 #: skin/board/default/view_comment.skin.php:41
 #: skin/board/gallery/view_comment.skin.php:41
@@ -1378,7 +1378,7 @@ msgstr "길이"
 #: skin/board/default/write.skin.php:177
 #: skin/board/gallery/view_comment.skin.php:148
 #: skin/board/gallery/write.skin.php:177 view/board_form.php:21
-#: view/config_form.php:14 view/point_list.php:99 view/point_list.php:245
+#: view/config_form.php:14 view/point_list.php:106 view/point_list.php:252
 msgid "Submit"
 msgstr "확인"
 
@@ -1499,11 +1499,11 @@ msgstr "내용은 %d 글자 이하로 쓰셔야 합니다."
 msgid "noticie"
 msgstr ""
 
-#: skin/latest/basic/latest.skin.php:38
+#: skin/latest/basic/latest.skin.php:39
 msgid "No Content."
 msgstr "게시물이 없습니다."
 
-#: skin/latest/basic/latest.skin.php:41
+#: skin/latest/basic/latest.skin.php:42
 msgid "more"
 msgstr "더보기"
 
@@ -1542,7 +1542,7 @@ msgstr "포인트 사용내역 목록"
 msgid "description"
 msgstr "설명"
 
-#: skin/member/basic/point.skin.php:15 view/point_list.php:125
+#: skin/member/basic/point.skin.php:15 view/point_list.php:132
 msgid "expire date"
 msgstr "만료일"
 
@@ -1554,7 +1554,7 @@ msgstr "지급포인트"
 msgid "using Points"
 msgstr "사용포인트"
 
-#: skin/member/basic/point.skin.php:45 view/point_list.php:178
+#: skin/member/basic/point.skin.php:45 view/point_list.php:185
 msgid "expire"
 msgstr "만료"
 
@@ -2413,8 +2413,8 @@ msgid "Members saving point only once a day at login"
 msgstr "회원이 로그인시 하루에 한번만 적립"
 
 #: view/config_form.php:51 view/config_form.php:206 view/config_form.php:208
-#: view/config_form.php:212 view/config_form.php:214 view/point_list.php:82
-#: view/point_list.php:85 view/point_list.php:123 view/point_list.php:231
+#: view/config_form.php:212 view/config_form.php:214 view/point_list.php:88
+#: view/point_list.php:91 view/point_list.php:130 view/point_list.php:238
 msgid "point"
 msgstr "점"
 
@@ -2436,7 +2436,7 @@ msgid ""
 "0"
 msgstr "기간을 0으로 설정시 포인트 유효기간이 적용되지 않습니다."
 
-#: view/config_form.php:66 view/point_list.php:237
+#: view/config_form.php:66 view/point_list.php:244
 msgid "days"
 msgstr "일"
 
@@ -2722,55 +2722,55 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: view/point_list.php:54
+#: view/point_list.php:60
 msgid "All lists"
 msgstr "전체목록"
 
-#: view/point_list.php:62
+#: view/point_list.php:68
 msgid "Points management"
 msgstr "포인트 관리"
 
-#: view/point_list.php:79
+#: view/point_list.php:85
 msgid "All"
 msgstr "전체"
 
-#: view/point_list.php:79
+#: view/point_list.php:85
 msgid "number"
 msgstr "개( 수 )"
 
-#: view/point_list.php:82
-msgid "'S Point totals"
+#: view/point_list.php:88
+msgid "'s Point totals"
 msgstr "님의 포인트 합계"
 
-#: view/point_list.php:85
+#: view/point_list.php:91
 msgid "Point totals"
 msgstr "포인트 합계"
 
-#: view/point_list.php:117
+#: view/point_list.php:124
 msgid "Points Full Record"
 msgstr "포인트 기록 전체"
 
-#: view/point_list.php:120 view/point_list.php:223
+#: view/point_list.php:127 view/point_list.php:230
 msgid "user_id"
 msgstr "회원아이디"
 
-#: view/point_list.php:121
+#: view/point_list.php:128
 msgid "name"
 msgstr "이름"
 
-#: view/point_list.php:122 view/point_list.php:227
+#: view/point_list.php:129 view/point_list.php:234
 msgid "point description"
 msgstr "포인트 설명"
 
-#: view/point_list.php:126
+#: view/point_list.php:133
 msgid "totals"
 msgstr "합계"
 
-#: view/point_list.php:204
+#: view/point_list.php:211
 msgid "Individual members set point increase or decrease"
 msgstr "개별회원 포인트 증감 설정"
 
-#: view/point_list.php:236
+#: view/point_list.php:243
 msgid "point_expire_term"
 msgstr "포인트 유효기간"
 
@@ -3024,6 +3024,15 @@ msgstr ""
 #: view/tag_form.php:586
 msgid "Please choose a board"
 msgstr "게시판을 선택해 주세요."
+
+#~ msgid "'S Point totals"
+#~ msgstr "님의 포인트 합계"
+
+#~ msgid "'S scrap"
+#~ msgstr "님의 스크랩"
+
+#~ msgid "'S comments"
+#~ msgstr "님의 댓글"
 
 #~ msgid "bo_table 값을 입력하세요."
 #~ msgstr "bo_table 값을 입력하세요."
