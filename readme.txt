@@ -3,8 +3,8 @@ Contributors: kagla
 Donate link: http://sir.co.kr/main/gnupress/
 Tags: gnupress, gnu, gnuboard, korea, korean, bulletin, board, bbs, community, forum, 그누프레스, 그누보드, 게시판, 한국형게시판
 Requires at least: 4.0
-Tested up to: 4.2
-Stable tag: 0.2.5
+Tested up to: 4.3.1
+Stable tag: 0.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,13 +47,17 @@ I feel that the lack of Korean Bulletin Board WORDPRESS has developed a plugin f
 
 1. This is the first screen shot
 
-   /wp-content/plugins/gnupress/screenshot-1.jpg
-
 2. This is the second screen shot
 
-   /wp-content/plugins/gnupress/screenshot-2.jpg  
-
 == Changelog ==
+
+= 0.2.8 =
+환경설정에서 플러그인 삭제시 체크유무로 데이터를 삭제하게금 변경되었습니다.
+
+= 0.2.7 =
+Add japanese lenguage packs.
+
+일본어 번역 파일을 추가했습니다.
 
 = 0.2.5 =
 Fixed an error in the point management page.

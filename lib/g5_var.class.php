@@ -51,6 +51,14 @@ class G5_var {
         ));
     }
 
+    public function need_value_load(){
+        global $wpdb;
+
+        if( !isset($wpdb->{G5_META_TYPE.'meta'}) ){     //중복 방지
+            $wpdb->{G5_META_TYPE.'meta'} = $this->db_tables['meta_table'];
+        }
+    }
+
     protected function get_config() {
         
         $g5_options = get_option(G5_OPTION_KEY);
@@ -94,6 +102,7 @@ class G5_var {
             'cf_new_page_name' =>   'g5member', //새창 페이지 이름 등
             'cf_recaptcha_site_key'   =>  '', //리캡챠 공개키
             'cf_recaptcha_secret_key'   =>  '', //리캡챠 보호키
+            'cf_delete_data_ask' =>  '', //플러그인삭제시 데이터를 삭제할건지 여부
         );
 
         $this->config = apply_filters( 'g5_config_add', wp_parse_args($g5_options['config'], $config_default) );

@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnupress\n"
-"POT-Creation-Date: 2015-09-02 15:36+0900\n"
-"PO-Revision-Date: 2015-09-02 15:36+0900\n"
+"POT-Creation-Date: 2015-09-02 15:37+0900\n"
+"PO-Revision-Date: 2015-09-02 16:10+0900\n"
 "Last-Translator: \n"
-"Language-Team: SIR Soft\n"
-"Language: ko_KR\n"
+"Language-Team: Steano, nanati, SIR Soft\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: adm/admin.lib.php:33 skin/board/default/write.skin.php:95
 #: skin/board/gallery/write.skin.php:95 view/config_form.php:100
 msgid "— Select —"
-msgstr "— 선택 —"
+msgstr "— 選択 —"
 
 #: adm/admin.lib.php:88
 msgid "GNUPress"
@@ -28,102 +28,102 @@ msgstr "GNUPress"
 #: adm/admin.php:11 lib/g5_board.class.php:65
 #: skin/board/default/list.skin.php:281 skin/board/gallery/list.skin.php:244
 msgid "Deleted data can not be recovered once."
-msgstr "한번 삭제한 자료는 복구할 수 없습니다"
+msgstr "一度削除したデータは復活できません。"
 
 #: adm/admin.php:12 lib/g5_board.class.php:66
 #: skin/board/default/list.skin.php:281 skin/board/gallery/list.skin.php:244
 #: view/board_list.php:156 view/point_list.php:268
 msgid "Are you sure you want to delete the selected data?"
-msgstr "선택한 자료를 정말 삭제하시겠습니까?"
+msgstr "選択したデータを削除しますか"
 
 #: adm/admin.php:13 lib/g5_board.class.php:67
 msgid "Input tags"
-msgstr "태그를 입력해주세요."
+msgstr "タグを入力してください。"
 
 #: adm/admin.php:14 adm/admin.php:105 view/board_list.php:151
 #: view/point_list.php:263
 msgid "to be select least one item"
-msgstr "하실 항목을 하나 이상 선택하세요."
+msgstr "する項目を一つ以上選択してください。"
 
 #: adm/admin.php:15 adm/admin.php:346 bbs/write_comment_update.php:174
 #: bbs/write_update.php:623
 msgid "modify"
-msgstr "수정"
+msgstr "修正"
 
 #: adm/admin.php:16
 msgid "delete"
-msgstr "삭제"
+msgstr "削除"
 
 #: adm/admin.php:90
 msgid "User ID does not exist."
-msgstr "회원 아이디가 존재하지 않습니다."
+msgstr "会員のIDが存在しません。"
 
 #: adm/admin.php:270 adm/admin.php:349 bbs/board.php:6
 #: lib/g5_board.class.php:189
 msgid "The board does not exist."
-msgstr "게시판이 존재하지 않습니다."
+msgstr "掲示板が存在しません。"
 
 #: adm/admin.php:280
 msgid "create"
-msgstr "생성"
+msgstr "生成"
 
 #: adm/admin.php:394
 msgid "Management Board"
-msgstr "게시판 관리"
+msgstr "掲示板の管理"
 
 #: adm/board_copy_update.php:19
 msgid ""
 "Board table available only letters, numbers, _ with no spaces. (20 "
 "characters)"
 msgstr ""
-"게시판 TABLE명은 공백없이 영문자, 숫자, _ 만 사용 가능합니다. (20자 이내)"
+"掲示板のテーブル名は空白なし、英文字、数字、_のみ使用可能です。(20文字内)"
 
 #: adm/board_copy_update.php:25
 msgid "is a board table names that already exist"
-msgstr "은(는) 이미 존재하는 게시판 테이블명 입니다."
+msgstr "はすでに存在する掲示板テーブル名です。"
 
 #: adm/board_copy_update.php:25
 msgid "You can not use a table name you want to copy."
-msgstr "복사할 테이블명으로 사용할 수 없습니다."
+msgstr "コピーするテーブル名として使用できません。"
 
 #: adm/board_copy_update.php:243
 msgid "Copy succeeded."
-msgstr "복사에 성공 했습니다."
+msgstr "コピーしました。"
 
 #: adm/board_form_update.php:28 view/board_list.php:137
 msgid "choose-Modify"
-msgstr "선택수정"
+msgstr "選択修正"
 
 #: adm/board_form_update.php:60 skin/board/default/list.skin.php:194
 #: skin/board/default/list.skin.php:280 skin/board/gallery/list.skin.php:158
 #: skin/board/gallery/list.skin.php:243 view/board_list.php:139
 #: view/board_list.php:155 view/point_list.php:203 view/point_list.php:267
 msgid "choose-Delete"
-msgstr "선택삭제"
+msgstr "選択削除"
 
 #: adm/board_form_update.php:62
 msgid "You can delete only the top management board."
-msgstr "게시판 삭제는 최고관리자만 가능합니다."
+msgstr "掲示板の削除は最高管理者のみ可能です。"
 
 #: adm/board_form_update.php:143
 msgid "Enter your \\\"bo_table\\\" value."
-msgstr "bo_table 값을 입력하세요."
+msgstr "bo_table 値を入力してください。"
 
 #: adm/board_form_update.php:310
 msgid " table already exist."
-msgstr "은(는) 이미 존재하는 TABLE 입니다."
+msgstr "はすでに存在するテーブルです。"
 
 #: adm/board_form_update.php:409
 msgid "Page application failed."
-msgstr "페이지 적용에 실패 했습니다."
+msgstr "ページ適用に失敗しました。"
 
 #: adm/board_form_update.php:411
 msgid ""
 "There is a board that has already been applied to the page you want to apply."
 "<br > Board can not be applied to the page to duplicate."
 msgstr ""
-"적용할 페이지에 이미 적용된 게시판이 있습니다.<br > 적용할 페이지에 게시판은 "
-"중복될수 없습니다."
+"適用するページにはすでに適用した掲示板があります。<br > 適用するページの掲示"
+"板は重複できません。"
 
 #: adm/includes/class-g5-terms-list-table.php:46 lib/g5_taxonomy.lib.php:60
 #: lib/g5_taxonomy.lib.php:172 lib/g5_taxonomy.lib.php:296
@@ -140,7 +140,7 @@ msgstr ""
 #: skin/board/gallery/view_comment.skin.php:66
 #: skin/member/basic/scrap.skin.php:18 skin/member/basic/scrap.skin.php:28
 msgid "Delete"
-msgstr "삭제"
+msgstr "削除"
 
 #: adm/includes/class-g5-terms-list-table.php:108 view/edit_tag_form.php:115
 #: view/point_list.php:102
@@ -181,7 +181,7 @@ msgstr ""
 #: adm/includes/class-g5-terms-list-table.php:461
 #: skin/board/default/write.skin.php:178 skin/board/gallery/write.skin.php:178
 msgid "Cancel"
-msgstr "취소"
+msgstr "キャンセル"
 
 #: ajax_function.php:66
 msgid "An error has occurred. Please reload the page and try again."
@@ -189,18 +189,18 @@ msgstr ""
 
 #: bbs/board.php:14
 msgid "This article does not exist.\\n\\nIf this article is moved or deleted."
-msgstr "글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다."
+msgstr "記事が存在しません。\\n\\n記事が削除または移動された可能性があります。"
 
 #: bbs/board.php:21
 msgid "You do not have permission to read."
-msgstr "글을 읽을 권한이 없습니다."
+msgstr "記事を閲覧する権限がありません。"
 
 #: bbs/board.php:24
 msgid ""
 "You do not have permission to read.\\n\\nMember Login if you are after, try "
 "using."
 msgstr ""
-"글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+"記事を閲覧する権限がありません。\\n\\n会員ならログイン後お試しください。"
 
 #: bbs/board.php:90
 #, php-format
@@ -209,67 +209,67 @@ msgid ""
 "required ) the article.\\n\\nAfter a point collect, please read article "
 "again."
 msgstr ""
-"보유하신 포인트(%s)가 없거나 모자라서 글읽기(%s)가 불가합니다.\\n\\n포인트를 "
-"모으신 후 다시 글읽기 해 주십시오."
+"保有のポイント(%s)がない、または不足のため閲覧(%s)ができません。\n"
+"\n"
+"ポイントを集めてからお試しください。"
 
 #: bbs/board.php:93
 msgid "Read article"
-msgstr "글읽기"
+msgstr "記事を閲覧"
 
 #: bbs/board.php:93
 msgid "READ"
-msgstr "읽기"
+msgstr "閲覧"
 
 #: bbs/board.php:103
 msgid "You do not have permission to view the list."
-msgstr "목록을 볼 권한이 없습니다."
+msgstr "リストの閲覧権限がありません。"
 
 #: bbs/board.php:106
 msgid ""
 "You do not have permission to view the list.\\n\\nMember Login if you are "
 "after, try using."
-msgstr ""
-"목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+msgstr "リストの閲覧権限がありません。\\n\\n会員ならログイン後お試しください。"
 
 #: bbs/board.php:113 lib/common.lib.php:809 lib/common.lib.php:811
 #: skin/board/default/list.skin.php:55 skin/board/gallery/list.skin.php:43
 msgid "page"
-msgstr "페이지"
+msgstr "ページ"
 
 #: bbs/delete.php:5 bbs/delete_all.php:5 bbs/delete_comment.php:5
 #: bbs/move_update.php:5
 msgid "Invalid request."
-msgstr "잘못된 요청입니다."
+msgstr "間違えたリクエストです。"
 
 #: bbs/delete.php:18
 msgid "The board itself can not be deleted because you manage."
-msgstr "자신이 관리하는 게시판이 아니므로 삭제할 수 없습니다."
+msgstr "ご自分が管理している掲示板ではないため削除できません。"
 
 #: bbs/delete.php:20
 msgid ""
 "Posts members of the higher authority than his written authority can not be "
 "deleted."
-msgstr "자신의 권한보다 높은 권한의 회원이 작성한 글은 삭제할 수 없습니다."
+msgstr "ご自分の権限より高いレベルの会員の記事は削除できません。"
 
 #: bbs/delete.php:23 bbs/delete_comment.php:31
 msgid "You can not delete your posts in this because."
-msgstr "자신의 글이 아니므로 삭제할 수 없습니다."
+msgstr "ご自分の記事ではないため、削除できません。"
 
 #: bbs/delete.php:26
 msgid "Delete after login."
-msgstr "로그인 후 삭제하세요."
+msgstr "ログイン後、削除してください。"
 
 #: bbs/delete.php:28
 msgid "Because password is incorrect then can not be deleted."
-msgstr "비밀번호가 틀리므로 삭제할 수 없습니다."
+msgstr "パスワードが間違えたため削除できません。"
 
 #: bbs/delete.php:38
 msgid ""
 "You can not delete this article, because there is related replies.\\n"
 "\\nFirst, delete from replies."
 msgstr ""
-"이 글과 관련된 답변글이 존재하므로 삭제 할 수 없습니다.\\n\\n우선 답변글부터 "
-"삭제하여 주십시오."
+"この記事は返信のコメントがあるため削除できません。\\n\\nまずは返信コメントか"
+"ら削除してください。"
 
 #: bbs/delete.php:48
 #, php-format
@@ -277,58 +277,58 @@ msgid ""
 "You can not delete this article, because there is related comments.You can "
 "not delete the comments posted a more than %d cases."
 msgstr ""
-"이 글과 관련된 코멘트가 존재하므로 삭제 할 수 없습니다.\\n\\n코멘트가 %d건 이"
-"상 달린 원글은 삭제할 수 없습니다."
+"この記事にはコメントがあるため削除できません。\\n\\nコメントが%d件ある投稿は"
+"削除できません。"
 
 #: bbs/delete_comment.php:16
 msgid "No registered comments or not post comments."
-msgstr "등록된 코멘트가 없거나 코멘트 글이 아닙니다."
+msgstr "登録されたコメントがないか、コメントではありません。"
 
 #: bbs/delete_comment.php:26
 msgid ""
 "Because of the high board members over the rights of the administrator can "
 "not delete comments."
-msgstr "게시판관리자의 권한보다 높은 회원의 코멘트이므로 삭제할 수 없습니다."
+msgstr "掲示板の権利者の権限より高いレベルの会員のコメントは削除できません。"
 
 #: bbs/delete_comment.php:28
 msgid "The Board they manage to because you can not delete the comments."
-msgstr "자신이 관리하는 게시판이 아니므로 코멘트를 삭제할 수 없습니다."
+msgstr "ご自分が管理している掲示板ではないためコメント削除はできません。"
 
 #: bbs/delete_comment.php:34 bbs/password_check.php:15
 #: bbs/password_check.php:26 bbs/write.php:218
 msgid "Incorrect password."
-msgstr "비밀번호가 틀립니다."
+msgstr "間違えたパスワードです。"
 
 #: bbs/delete_comment.php:42
 msgid ""
 "You can not delete comments because the comments and responses relating to "
 "exist."
-msgstr "이 코멘트와 관련된 답변코멘트가 존재하므로 삭제 할 수 없습니다."
+msgstr "このコメントには返信のコメントがあるため削除できません。"
 
 #: bbs/delete_comment.php:45 bbs/write_comment_update.php:172
 #: skin/board/default/password.skin.php:4
 #: skin/board/gallery/password.skin.php:4
 #: skin/member/basic/scrap_popin.skin.php:24
 msgid "Comment"
-msgstr "댓글"
+msgstr "コメント"
 
 #: bbs/download.php:23
 msgid ""
 "You do not have permission to download.\\nMember Login if you are after, try "
 "using."
-msgstr "다운로드 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오."
+msgstr "ダウンロード権限がありません。\\n会員ならログイン後、お試しください。"
 
 #: bbs/download.php:27
 msgid "The file information does not exist."
-msgstr "파일 정보가 존재하지 않습니다."
+msgstr "ファイル情報がありません。"
 
 #: bbs/download.php:45
 msgid "You do not have permission to download."
-msgstr "다운로드 권한이 없습니다."
+msgstr "ダウンロード権限がありません。"
 
 #: bbs/download.php:49
 msgid "Member Login if you are after, try using"
-msgstr "회원이시라면 로그인 후 이용해 보십시오."
+msgstr "会員ならログイン後お試しください。"
 
 #: bbs/download.php:78
 #, php-format
@@ -336,211 +336,211 @@ msgid ""
 "Because your point is %s points less or missing, not download ( %s points "
 "required ) the file.\\n\\nAfter a point collect, please download again."
 msgstr ""
-"보유하신 포인트(%s)가 없거나 모자라서 다운로드(%s)가 불가합니다.\\n\\n포인트"
-"를 적립하신 후 다시 다운로드 해 주십시오."
+"保有のポイント(%s)がない、または不足のためダウンロード(%s)ができません。\\n"
+"\\nポイントを集めてからお試しください。 "
 
 #: bbs/download.php:82
 msgid "file download"
-msgstr "파일 다운로드"
+msgstr "ファイルダウンロード"
 
 #: bbs/download.php:82
 msgid "download"
-msgstr "다운로드"
+msgstr "タウンロード"
 
 #: bbs/formmail.php:6 bbs/formmail_send.php:10
 msgid ""
 "You can send an e-mail should check the \\\"Use-mailing\\\" in the gnupress "
 "setting.\\n\\nPlease contact your administrator."
 msgstr ""
-"환경설정에서 \\\"메일발송 사용\\\"에 체크하셔야 메일을 발송할 수 있습니다.\\n"
-"\\n관리자에게 문의하시기 바랍니다."
+"環境設定にて \\\"メール発送を使用\\\"チェックする事でメールを発送ができま"
+"す。\\n\\n管理者へ問い合わせください。"
 
 #: bbs/formmail.php:9 bbs/formmail_send.php:13
 msgid "Only members are available."
-msgstr "회원만 이용하실 수 있습니다."
+msgstr "会員のみご利用できます。"
 
 #: bbs/formmail.php:16
 msgid "Account does not exist."
-msgstr "회원정보가 존재하지 않습니다."
+msgstr "会員情報がありません。"
 
 #: bbs/formmail.php:22
 msgid ""
 "You can send mail only once after a certain number of connections.\\n"
 "\\nPlease continue to send us an e-mail to login again or connection."
 msgstr ""
-"한번 접속후 일정수의 메일만 발송할 수 있습니다.\\n\\n계속해서 메일을 보내시려"
-"면 다시 로그인 또는 접속하여 주십시오."
+"一度接続後、一定のメールしか発送できます。\\n\\n連続でメールを発送する場合は"
+"再度ログインしてください。"
 
 #: bbs/formmail.php:24 bbs/formmail_send.php:51
 #: skin/member/basic/formmail.skin.php:69
 msgid "Send Email"
-msgstr "이메일 보내기"
+msgstr "メール送信"
 
 #: bbs/formmail_send.php:24
 msgid "Only one person at a time, you can send an e-mail."
-msgstr "한번에 한사람에게만 메일을 발송할 수 있습니다."
+msgstr "一度にお一人様のみメールを発送するのができます。"
 
 #: bbs/formmail_send.php:27
 msgid "captcha invalid"
-msgstr "자동등록방지 숫자가 틀렸습니다."
+msgstr "自動登録防止の数値が間違えました。"
 
 #: bbs/formmail_send.php:69
 msgid "The e-mail was sent successfully."
-msgstr "메일을 정상적으로 발송하였습니다."
+msgstr "メールを正常に発送しました。"
 
 #: bbs/good.php:26
 msgid "Only available members."
-msgstr "회원만 가능합니다."
+msgstr "会員のみ可能です。"
 
 #: bbs/good.php:31 bbs/link.php:9
 msgid "This value bo_table or wr_id is invalid"
-msgstr "값이 제대로 넘어오지 않았습니다."
+msgstr "値が正常ではありません。"
 
 #: bbs/good.php:37
 msgid "You can only recommend or Dislike this post."
-msgstr "해당 게시물에서만 추천 또는 비추천 하실 수 있습니다."
+msgstr "該当の投稿のみお勧めまたは非推奨することができます。"
 
 #: bbs/good.php:44 bbs/link.php:15
 msgid "The board dose not exist."
-msgstr "존재하는 게시판이 아닙니다."
+msgstr "存在しない掲示板です。"
 
 #: bbs/good.php:50
 msgid "Myself article it can not recommended or deprecated."
-msgstr "자신의 글에는 추천 또는 비추천 하실 수 없습니다."
+msgstr "ご自分が作成した記事にはお勧めまたは非推奨することができません。"
 
 #: bbs/good.php:54
 msgid "The board does not use a recommend."
-msgstr "이 게시판은 추천 기능을 사용하지 않습니다."
+msgstr "この掲示板はお勧め機能を使用しません。"
 
 #: bbs/good.php:58
 msgid "The board does not use a nonrecommend."
-msgstr "이 게시판은 비추천 기능을 사용하지 않습니다."
+msgstr "この掲示板は非推奨機能を使用しません。"
 
 #: bbs/good.php:73 skin/board/default/list.skin.php:107
 #: skin/board/default/view.skin.php:160 skin/board/default/view.skin.php:175
 #: skin/board/gallery/list.skin.php:146 skin/board/gallery/view.skin.php:160
 #: skin/board/gallery/view.skin.php:175
 msgid "recommend"
-msgstr "추천"
+msgstr "お勧め"
 
 #: bbs/good.php:75 skin/board/default/list.skin.php:108
 #: skin/board/default/view.skin.php:166 skin/board/default/view.skin.php:176
 #: skin/board/gallery/list.skin.php:147 skin/board/gallery/view.skin.php:166
 #: skin/board/gallery/view.skin.php:176
 msgid "nonrecommend"
-msgstr "비추천"
+msgstr "非推奨"
 
 #: bbs/good.php:77
 #, php-format
 msgid "The articles have already %s."
-msgstr "이미 %s 하신 글 입니다."
+msgstr "すでに %s した記事です。"
 
 #: bbs/link.php:18
 msgid "No exist link"
-msgstr "링크가 없습니다."
+msgstr "リンクがありません。"
 
 #: bbs/move.php:5 bbs/move_update.php:9
 msgid "No value bo_table"
-msgstr "bo_table값이 없습니다."
+msgstr "bo_table値がありません。"
 
 #: bbs/move.php:15 skin/board/default/list.skin.php:298
 #: skin/board/gallery/list.skin.php:261
 msgid "move"
-msgstr "이동"
+msgstr "移動 "
 
 #: bbs/move.php:17 skin/board/default/list.skin.php:296
 #: skin/board/gallery/list.skin.php:259
 msgid "copy"
-msgstr "복사"
+msgstr "コピー "
 
 #: bbs/move.php:19 bbs/move_update.php:23
 msgid "sw value is invalid."
-msgstr "sw 값이 유효하지 않습니다."
+msgstr "sw 値が有効ではありません。"
 
 #: bbs/move.php:23 bbs/move_update.php:20
 msgid "Access is possible over the board manager."
-msgstr "게시판 관리자 이상 접근이 가능합니다."
+msgstr "掲示板の管理者レベルからアクセスできます。"
 
 #: bbs/move.php:68 bbs/move_update.php:26
 #, php-format
 msgid "Select at least one board to %s."
-msgstr "%s 할 게시판을 한개 이상 선택하여 주십시오."
+msgstr "%s する掲示板を一つ以上、選択してください。"
 
 #: bbs/move.php:72
 msgid "All board check"
-msgstr "전체게시판 체크"
+msgstr "掲示板の全体チェック"
 
 #: bbs/move.php:75 skin/member/basic/scrap.skin.php:15 view/board_form.php:132
 msgid "Board"
-msgstr "게시판"
+msgstr "掲示板"
 
 #: bbs/move.php:118
 msgid "close"
-msgstr "닫기"
+msgstr "閉じる"
 
 #: bbs/move.php:155
 #, php-format
 msgid "Choose a board to post at least one %s."
-msgstr "게시물을 %s 할 게시판을 한개 이상 선택해 주십시오."
+msgstr "投稿を  %s する掲示板を一つ以上選択してください。 "
 
 #: bbs/move_update.php:137
 #, php-format
 msgid "This post is %s to the selected board."
-msgstr "해당 게시물을 선택한 게시판으로 %s 하였습니다."
+msgstr "該当の投稿を選択した掲示板へ %s しました。"
 
 #: bbs/password.php:48 bbs/password_check.php:37 bbs/write.php:8
 msgid "w value is invalid."
-msgstr "w 값이 유효하지 않습니다."
+msgstr "w 値が有効ではありません。"
 
 #: bbs/ping.php:5
 msgid "No posts"
-msgstr "게시글이 없습니다."
+msgstr "記事がありません。"
 
 #: bbs/ping.php:8
 msgid "Guests can read the board that it supports Syndication."
-msgstr "비회원 읽기가 가능한 게시판만 신디케이션을 지원합니다."
+msgstr "非会員が閲覧可能な掲示板のみシンジケーションを支援します。"
 
 #: bbs/ping.php:11
 msgid "Secret does not support syndication."
-msgstr "비밀글은 신디케이션을 지원하지 않습니다."
+msgstr "非公開の記事はシンジケーションを支援しません。"
 
 #: bbs/ping.php:14
 msgid "The board is excluded from the syndication."
-msgstr "신디케이션에서 제외된 게시판입니다."
+msgstr "シンジケーションから外された掲示板です。"
 
 #: bbs/point.php:12 bbs/scrap.php:10
 msgid "Only members can view."
-msgstr "회원만 볼수 있습니다."
+msgstr "会員のみ閲覧できます。"
 
 #: bbs/point.php:21
 msgid "- point history"
-msgstr "님의 포인트 내역"
+msgstr "様のポイント内容"
 
 #: bbs/rss.php:26
 msgid "If guest can read posts then board supports RSS"
-msgstr "비회원 읽기가 가능한 게시판만 RSS 지원합니다."
+msgstr "非会員が閲覧できる掲示板のみRSSを支援します。"
 
 #: bbs/rss.php:32
 msgid "View RSS is prohibited."
-msgstr "RSS 보기가 금지되어 있습니다."
+msgstr "RSSの閲覧が禁止されています。"
 
 #: bbs/scrap.php:12
 msgid "'s scrap"
-msgstr "님의 스크랩"
+msgstr "様のスクラップ"
 
 #: bbs/scrap_popin.php:15 bbs/scrap_popin_update.php:18
 msgid "Only registered members can access."
-msgstr "회원만 접근할수 있습니다."
+msgstr "会員のみアクセスできます。"
 
 #: bbs/scrap_popin.php:49 bbs/scrap_popin_update.php:33
 msgid "Your article is already scrap.\\n\\nDo you want to scrap it now?"
-msgstr "이미 스크랩 하셨습니다.스크랩은 확인하시겠습니까?"
+msgstr "すでにスクラップしました。スクラップを確認しますか"
 
 #: bbs/scrap_popin_update.php:102 bbs/write_comment_update.php:166
 #: skin/board/default/view_comment.skin.php:83
 #: skin/board/gallery/view_comment.skin.php:83
 msgid "Write a comment"
-msgstr "댓글쓰기"
+msgstr "返信を書く"
 
 #: bbs/scrap_popin_update.php:102 bbs/write_comment_update.php:166
 #: bbs/write_comment_update.php:174 bbs/write_update.php:623
@@ -548,37 +548,37 @@ msgstr "댓글쓰기"
 #: skin/board/gallery/list.skin.php:124 skin/board/gallery/view.skin.php:24
 #: view/board_form.php:299
 msgid "comment"
-msgstr "댓글"
+msgstr "返信"
 
 #: bbs/scrap_popin_update.php:128
 msgid "scrap this article.\\n\\nDo you want to scrap it now?"
-msgstr "이 글을 스크랩 하였습니다.\\n\\n스크랩을 확인 하시겠습니까?"
+msgstr "この記事をスクラップしました。\\n\\nスクラップを確認しますか"
 
 #: bbs/view_comment.php:42
 msgid "This is a secret."
-msgstr "비밀글입니다."
+msgstr "非公開の記事です。"
 
 #: bbs/view_comment.php:55
 msgid "Comments Check"
-msgstr "댓글내용 확인"
+msgstr "返信を確認する"
 
 #: bbs/write.php:14
 msgid "This article does not exist.\\n\\nThe case has been moved or deleted."
-msgstr "글이 존재하지 않습니다.\\n\\n삭제되었거나 이동된 경우입니다."
+msgstr "記事が存在しません。\\n\\n削除または移動された可能性があります。"
 
 #: bbs/write.php:22
 msgid "The writing does not use the \\$wr_id value."
-msgstr "글쓰기에는 \\$wr_id 값을 사용하지 않습니다."
+msgstr "記事を書く時 \\$wr_id 値は使用しません。"
 
 #: bbs/write.php:29 bbs/write_update.php:168
 msgid "You do not have permission to write."
-msgstr "글을 쓸 권한이 없습니다."
+msgstr "記事を書く権限がありません。"
 
 #: bbs/write.php:31
 msgid ""
 "You do not have permission to write.\\nMember Login if you are after, try "
 "using."
-msgstr "글을 쓸 권한이 없습니다.\\\\n회원이시라면 로그인 후 이용해 보십시오."
+msgstr "記事を書く権限がありません。\\n会員ならログイン後お試しください。"
 
 #: bbs/write.php:41
 #, php-format
@@ -587,32 +587,32 @@ msgid ""
 "required ) the article.\\n\\nAfter a point collect, please write article "
 "again."
 msgstr ""
-"보유하신 포인트(%s) 없거나 모자라서 글쓰기 (%s) 불가합니다.\\n\\n포인트를 적"
-"립하신 후 다시 글쓰기 해 주십시오."
+"保有のポイント(%s) ない、または不足のため記事を書く(%s) できません。\\n\\nポ"
+"イントを集めてからお試しください。 "
 
 #: bbs/write.php:45 bbs/write_update.php:309
 #: skin/board/default/list.skin.php:62 skin/board/default/list.skin.php:203
 #: skin/board/default/view.skin.php:117 skin/board/gallery/list.skin.php:50
 #: skin/board/gallery/list.skin.php:167 skin/board/gallery/view.skin.php:117
 msgid "Write"
-msgstr "글쓰기"
+msgstr "記事を書く"
 
 #: bbs/write.php:53
 msgid "You do not have permission to edit."
-msgstr "글을 수정할 권한이 없습니다."
+msgstr "記事を修正する権限がありません。"
 
 #: bbs/write.php:55
 msgid ""
 "You do not have permission to edit.\\nMember Login if you are after, try "
 "using."
 msgstr ""
-"글을 수정할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오."
+"記事を修正する権限がありません。\\n\\n会員ならログイン後お試しください。"
 
 #: bbs/write.php:64
 msgid ""
 "Because replies are present related to this article then it can not be "
 "modified."
-msgstr "이 글과 관련된 답변글이 존재하므로 수정 할 수 없습니다."
+msgstr "この記事には返信のコメントがあるため修正できません。"
 
 #: bbs/write.php:72
 #, php-format
@@ -621,20 +621,20 @@ msgid ""
 "modified.\\n\\nComments are at least %d cases with a post can not be "
 "modified."
 msgstr ""
-"이 글과 관련된 댓글이 존재하므로 수정 할 수 없습니다.\\\\n\\\\n댓글이 %d건 이"
-"상 달린 원글은 수정할 수 없습니다."
+"この記事には返信のコメントがあるため修正できません。\\n\\nコメントが %d件以上"
+"なら修正できません。"
 
 #: bbs/write.php:80 bbs/write_update.php:183
 msgid "You do not have permission to reply to posts."
-msgstr "글을 답변할 권한이 없습니다."
+msgstr "記事に返信を書く権限がありません。"
 
 #: bbs/write.php:82
 msgid ""
 "You do not have permission to reply to posts.\\n\\nMember Login if you are "
 "after, try using."
 msgstr ""
-"답변글을 작성할 권한이 없습니다.\\\\n\\\\n회원이시라면 로그인 후 이용해 보십"
-"시오."
+"返信のコメントを削除する権限がありません。\\n\\n会員ならログイン後お試しくだ"
+"さい。"
 
 #: bbs/write.php:90
 #, php-format
@@ -643,20 +643,20 @@ msgid ""
 "required ) the article.\\n\\nAfter a point collect, please reply article "
 "again."
 msgstr ""
-"보유하신 포인트(%s)가 없거나 모자라서 글답변(%s)가 불가합니다.\\n\\n포인트를 "
-"적립하신 후 다시 글답변 해 주십시오."
+"保有のポイント(%s) ない、または不足のため返信を書く (%s)かできません。\\n\\n"
+"ポイントを集めてからお試しください。"
 
 #: bbs/write.php:93
 msgid "Notice can not be answered."
-msgstr "공지에는 답변 할 수 없습니다."
+msgstr "お知らせに返信を書くのはできません。"
 
 #: bbs/write.php:100
 msgid "Secret, you can answer your own or managers."
-msgstr "비밀글에는 자신 또는 관리자만 답변이 가능합니다."
+msgstr "非公開の記事に返信を書くのはご自分または管理者のみ可能です。"
 
 #: bbs/write.php:104
 msgid "Guest of the Secret must not have answers."
-msgstr "비회원의 비밀글에는 답변이 불가합니다."
+msgstr "非会員が書いた非公開の記事には返信はできません。"
 
 #: bbs/write.php:109 bbs/write_update.php:313
 #: skin/board/default/view.skin.php:116
@@ -664,36 +664,36 @@ msgstr "비회원의 비밀글에는 답변이 불가합니다."
 #: skin/board/gallery/view.skin.php:116
 #: skin/board/gallery/view_comment.skin.php:64
 msgid "Reply"
-msgstr "답변"
+msgstr "返信"
 
 #: bbs/write_comment_update.php:6 bbs/write_update.php:5
 msgid "Invalid Connection."
-msgstr "잘못된 접근입니다."
+msgstr "間違えたアクセスです。"
 
 #: bbs/write_comment_update.php:19 bbs/write_update.php:106
 msgid "It did the code is incorrect, the content contains multiple."
-msgstr "내용에 올바르지 않은 코드가 다수 포함되어 있습니다."
+msgstr "内容に異常のコードが複数含まれています。 "
 
 #: bbs/write_comment_update.php:39 bbs/write_update.php:357
 msgid "The name required."
-msgstr "이름은 필히 입력하셔야 합니다."
+msgstr "お名前は必ず記入してください。"
 
 #: bbs/write_comment_update.php:41
 msgid "Captcha incorrect."
-msgstr "자동등록방지 숫자가 틀렸습니다."
+msgstr "自動登録防止の数値が間違えいています。"
 
 #: bbs/write_comment_update.php:46
 msgid "You do not have permission to write a comment."
-msgstr "댓글을 쓸 권한이 없습니다."
+msgstr "返信を書く権限がありません。"
 
 #: bbs/write_comment_update.php:54 bbs/write_update.php:202
 msgid "Posts in too soon, you can not continuously post."
-msgstr "너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다."
+msgstr "短期間の間、連続で記事を投稿するのはできません。"
 
 #: bbs/write_comment_update.php:65 bbs/write_update.php:128
 msgid ""
 "This article does not exist.\\nThe article may have been deleted or moved."
-msgstr "글이 존재하지 않습니다.\\n글이 삭제되었거나 이동하였을 수 있습니다."
+msgstr "記事が存在しません。\\n削除または移動された可能性があります。"
 
 #: bbs/write_comment_update.php:92
 #, php-format
@@ -702,77 +702,79 @@ msgid ""
 "required ) the article.\\n\\nAfter a point collect, please comment article "
 "again."
 msgstr ""
-"보유하신 포인트(%s)가 없거나 모자라서 댓글쓰기(%s)가 불가합니다.\\n\\n포인트"
-"를 적립하신 후 다시 댓글을 써 주십시오."
+"保有のポイント(%s) がない、または不足のため返信を書く (%s)はできません。\\n"
+"\\nポイントを集めてからお試しください。"
 
 #: bbs/write_comment_update.php:100
 msgid ""
 "There are no comments to answer.\\n\\nComments may be deleted during the "
 "response."
 msgstr ""
-"답변할 댓글이 없습니다.\\\\n\\\\n답변하는 동안 댓글이 삭제되었을 수 있습니다."
+"返信するコメントがありません。\\n\\n返信を書く間、削除された可能性がありま"
+"す。"
 
 #: bbs/write_comment_update.php:104 bbs/write_update.php:187
 msgid "You can not answer anymore.\\n\\nThe answer can be only one step."
-msgstr "더 이상 답변하실 수 없습니다.\\n\\n답변은 1단계 까지만 가능합니다."
+msgstr "これ以上返信できません。\\n\\n返信は1段階のみ可能です。"
 
 #: bbs/write_comment_update.php:172 skin/board/default/password.skin.php:3
 #: skin/board/gallery/password.skin.php:3
 msgid "Post"
-msgstr "글"
+msgstr "記事"
 
 #: bbs/write_comment_update.php:174 bbs/write_update.php:623
 msgid "input"
-msgstr "입력"
+msgstr "入力"
 
 #: bbs/write_comment_update.php:174 bbs/write_update.php:623
 msgid "reply"
-msgstr "답변"
+msgstr "返信"
 
 #: bbs/write_comment_update.php:174 bbs/write_update.php:623
 msgid "Comments modifiy"
-msgstr "댓글 수정"
+msgstr "返信を修正"
 
 #: bbs/write_comment_update.php:177 bbs/write_update.php:626
 #, php-format
 msgid "This article has been %s to the board."
-msgstr "게시판에 %s글이 올라왔습니다."
+msgstr "掲示板に %s投稿された記事があります。"
 
 #: bbs/write_comment_update.php:245
 msgid ""
 "Higher than the authority of the administrator of the board members "
 "commented and can not be modified."
-msgstr "게시판관리자의 권한보다 높은 회원의 댓글이므로 수정할 수 없습니다."
+msgstr ""
+"掲示板の管理者権限より高いレベルの会員が返信したコメントは修正できません。"
 
 #: bbs/write_comment_update.php:247
 msgid "The board they manage to because you can not modify the comment."
-msgstr "자신이 관리하는 게시판이 아니므로 댓글을 수정할 수 없습니다."
+msgstr "ご自分が管理している掲示板ではないためコメントの修正は不可です。"
 
 #: bbs/write_comment_update.php:250 bbs/write_update.php:330
 msgid "Because your posts is not then can not edit this posts."
-msgstr "자신의 글이 아니므로 수정할 수 없습니다."
+msgstr "ご自分の記事ではないため修正できません。"
 
 #: bbs/write_comment_update.php:253
 msgid "You do not have permission to edit the comment."
-msgstr "댓글을 수정할 권한이 없습니다."
+msgstr "コメントを修正する権限がありません。"
 
 #: bbs/write_comment_update.php:260
 msgid ""
 "Comments and responses can not be modified because it related to comments "
 "there."
-msgstr "이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다."
+msgstr "このコメントには返信のコメントがあるため修正できません。"
 
 #: bbs/write_update.php:11
 msgid "Posts update"
-msgstr "글 업데이트"
+msgstr "記事のアップデート"
 
 #: bbs/write_update.php:28
 msgid "enter a subject."
-msgstr "제목을 입력하세요."
+msgstr "タイトルを記入してください。"
 
 #: bbs/write_update.php:78
 msgid "enter a Contents."
-msgstr "내용을 입력하세요."
+msgstr "内容を記入してください 。"
 
 #: bbs/write_update.php:114
 #, php-format
@@ -781,43 +783,43 @@ msgid ""
 "error has occurred.\\npost_max_size=%s ,upload_max_filesize=%s \\nPlease "
 "contact the board administrator or server administrator."
 msgstr ""
-"파일 또는 글내용의 크기가 서버에서 설정한 값을 넘어 오류가 발생하였습니다."
-"\\npost_max_size=%s , upload_max_filesize=%s\\n게시판관리자 또는 서버관리자에"
-"게 문의 바랍니다."
+"ファイル又は、投稿のサイズがサーバの設定値を超え、エラーが発生していま"
+"す。\\npost_max_size=%s , upload_max_filesize=%s\\n掲示板の管理者または、サー"
+"バ管理者へお問い合わせください。"
 
 #: bbs/write_update.php:134
 msgid "Secret unused because the board can not be registered as Secret."
-msgstr "비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다."
+msgstr "非公開の投稿ができない掲示板です。"
 
 #: bbs/write_update.php:173
 msgid "Only the administrator can be notified."
-msgstr "관리자만 공지할 수 있습니다."
+msgstr "管理者のみがお知らせの投稿をすることができます。"
 
 #: bbs/write_update.php:179
 msgid "Notice you can not answer."
-msgstr "공지에는 답변 할 수 없습니다."
+msgstr "お知らせにはコメントできません。"
 
 #: bbs/write_update.php:208
 msgid "Please enter the subject."
-msgstr "제목을 입력하세요."
+msgstr "タイトルを記入してください。"
 
 #: bbs/write_update.php:221
 msgid "The name require entered."
-msgstr "이름은 필히 입력하셔야 합니다."
+msgstr "お名前は必須入力項目です。"
 
 #: bbs/write_update.php:325
 msgid "The board itself can not be modified because you manage."
-msgstr "자신이 관리하는 게시판이 아니므로 수정할 수 없습니다."
+msgstr "掲示板の管理者ではない為、修正できません。"
 
 #: bbs/write_update.php:327
 msgid ""
 "Posts members of the higher authority than his written authority can not be "
 "modified."
-msgstr "자신의 권한보다 높은 권한의 회원이 작성한 글은 수정할 수 없습니다."
+msgstr "ご自分の権限より上の権限の会員の投稿は修正できません。"
 
 #: bbs/write_update.php:333
 msgid "Please modify after login."
-msgstr "로그인 후 수정하세요."
+msgstr "ログイン後、修正してください。"
 
 #: bbs/write_update.php:470
 #, php-format
@@ -825,13 +827,13 @@ msgid ""
 "\\\"%s\\\" the capacity of a file on the server settings ( %s ) that can not "
 "be uploaded is larger than the value.\\n"
 msgstr ""
-"\\\"%s\\\" 파일의 용량이 서버에 설정( %s )된 값보다 크므로 업로드 할 수 없습"
-"니다.\\n"
+"\\\"%s\\\" ファイル容量がサーバの設定( %s )値を超えた為、アップロードできませ"
+"ん。\\n"
 
 #: bbs/write_update.php:474
 #, php-format
 msgid "\\\"%s\\\" file has been upload failed.\\n"
-msgstr "\\\"%s\\\" 파일이 정상적으로 업로드 되지 않았습니다.\\n"
+msgstr "\\\"%s\\\" ファイルのアップロードが正常に行えませんでした。\\n"
 
 #: bbs/write_update.php:482
 #, php-format
@@ -839,136 +841,136 @@ msgid ""
 "Because the capacity of a file %s (%s byte) is set on the board ( %s byte) "
 "values are not uploaded to the greater than upload failed.\\n"
 msgstr ""
-"%s 파일의 용량( %s byte )이 게시판에 설정( %s byte )된 값보다 크므로 업로드 "
-"하지 않습니다.\\n"
+"%s ファイル容量( %s byte )が掲示板の設定値( %s byte )を超えた為、アップロード"
+"できません。\\n"
 
 #: bbs/write_update_mail.php:8 skin/board/default/write.skin.php:78
 #: skin/board/gallery/write.skin.php:78
 msgid "Email"
-msgstr "메일"
+msgstr "メール"
 
 #: bbs/write_update_mail.php:19 skin/board/default/list.skin.php:99
 #: skin/board/default/list.skin.php:236 skin/board/gallery/list.skin.php:138
 #: skin/board/gallery/list.skin.php:200 view/config_form.php:315
 msgid "Author"
-msgstr "작성자"
+msgstr "投稿者"
 
 #: bbs/write_update_mail.php:24
 msgid "To check posts on the site"
-msgstr "사이트에서 게시물 확인하기"
+msgstr "サイトで投稿を確認する"
 
 #: gnupress.php:179
 msgid "gnupress setting"
-msgstr "환경설정"
+msgstr "環境設定"
 
 #: gnupress.php:180
 msgid "Manage board"
-msgstr "게시판 관리"
+msgstr "掲示板の管理"
 
 #: gnupress.php:181
 msgid "Add board"
-msgstr "게시판 추가"
+msgstr "掲示板の追加"
 
 #: gnupress.php:182
 msgid "Manage board tag"
-msgstr "게시판 태그 관리"
+msgstr "掲示板のタグ管理"
 
 #: gnupress.php:183
 msgid "Manage user points"
-msgstr "회원 포인트 관리"
+msgstr "会員ポイント管理"
 
 #: gnupress.php:211
 msgid "First Login"
-msgstr "첫 로그인"
+msgstr "初ログイン"
 
 #: gnupress.php:241
 msgid "My Account"
-msgstr "내 계정"
+msgstr "マイアカウント"
 
 #: gnupress.php:244
 msgid "My point"
-msgstr "내 포인트"
+msgstr "マイポイント"
 
 #: gnupress.php:248
 msgid "My scrap"
-msgstr "내 스크랩"
+msgstr "マイスクラップ"
 
 #: gnupress.php:417 gnupress.php:444
 msgid "Please enter a value bo_table on the shortcode."
-msgstr "shortcode에 bo_table 값을 입력해 주세요."
+msgstr "shortcodeに bo_table 値を入力してください。"
 
 #: gnupress.php:504
 msgid "No data."
-msgstr "자료가 없습니다."
+msgstr "データがありません。"
 
 #: gnupress.php:585
 msgid "NOT EXISTS CLASS FILE"
-msgstr "클래스 파일이 존재하지 않습니다."
+msgstr "クラスファイルが存在しません。"
 
 #: lib/common.lib.php:796
 msgid "First"
-msgstr "처음"
+msgstr "最初"
 
 #: lib/common.lib.php:804 skin/board/default/view.skin.php:104
 #: skin/board/gallery/view.skin.php:104
 msgid "Prev"
-msgstr "이전"
+msgstr "前へ"
 
 #: lib/common.lib.php:811
 msgid "open"
-msgstr "열린"
+msgstr "開いた"
 
 #: lib/common.lib.php:815 skin/board/default/view.skin.php:105
 #: skin/board/gallery/view.skin.php:105
 msgid "Next"
-msgstr "다음"
+msgstr "次へ"
 
 #: lib/common.lib.php:818
 msgid "Last"
-msgstr "맨끝"
+msgstr "最後"
 
 #: lib/common.lib.php:879
 msgid "Please use the right way."
-msgstr "올바른 방법으로 이용해 주십시오."
+msgstr "正しい方法でご利用ください。"
 
 #: lib/common.lib.php:1280
 msgid "about me"
-msgstr "자기소개"
+msgstr "自己紹介"
 
 #: lib/common.lib.php:1288
 msgid "Search by name"
-msgstr "이름으로검색"
+msgstr "お名前で検索"
 
 #: lib/common.lib.php:1289
 msgid "Guest"
-msgstr "비회원"
+msgstr "非会員"
 
 #: lib/common.lib.php:1304
 msgid "SendEmail"
-msgstr "이메일보내기"
+msgstr "メール送信"
 
 #: lib/common.lib.php:1307
 msgid "Homepage"
-msgstr "홈페이지"
+msgstr "ウェブサイト"
 
 #: lib/common.lib.php:1311
 msgid "Search by ID"
-msgstr "아이디로검색"
+msgstr "IDで検索"
 
 #: lib/common.lib.php:1313
 msgid "Search by NAME"
-msgstr "이름으로검색"
+msgstr "お名前で検索"
 
 #: lib/common.lib.php:1317
 msgid "Point History"
-msgstr "포인트 내역"
+msgstr "ポイント内容"
 
 #: lib/g5_board.class.php:400 skin/board/default/view.skin.php:41
 #: skin/board/default/write.skin.php:137 skin/board/gallery/view.skin.php:41
 #: skin/board/gallery/write.skin.php:137 skin/member/basic/formmail.skin.php:50
 #: skin/member/basic/formmail.skin.php:57
 msgid "Attachments"
-msgstr "파일첨부"
+msgstr "ファイル添付"
 
 #: lib/g5_taxonomy.lib.php:147
 msgid "Could not insert term relationship into the database"
@@ -1021,26 +1023,26 @@ msgstr ""
 #: skin/board/gallery/list.skin.php:6 skin/board/gallery/list.skin.php:166
 #: skin/board/gallery/view.skin.php:115 view/point_list.php:120
 msgid "List"
-msgstr "목록"
+msgstr "リスト"
 
 #: skin/board/default/list.skin.php:26 skin/board/default/write.skin.php:92
 #: skin/board/gallery/list.skin.php:14 skin/board/gallery/write.skin.php:92
 #: view/board_form.php:103
 msgid "Category"
-msgstr "분류"
+msgstr "分類 "
 
 #: skin/board/default/list.skin.php:61 skin/board/gallery/list.skin.php:49
 #: view/board_list.php:63
 msgid "Manage"
-msgstr "관리"
+msgstr "管理 "
 
 #: skin/board/default/list.skin.php:89 skin/member/basic/scrap.skin.php:14
 msgid "Number"
-msgstr "번호"
+msgstr "番号"
 
 #: skin/board/default/list.skin.php:93 skin/board/gallery/list.skin.php:73
 msgid "All current page Posts"
-msgstr "현재 페이지 게시물 전체"
+msgstr "今のページの投稿全体"
 
 #: skin/board/default/list.skin.php:97 skin/board/default/write.skin.php:103
 #: skin/board/gallery/write.skin.php:103 skin/member/basic/formmail.skin.php:34
@@ -1048,81 +1050,81 @@ msgstr "현재 페이지 게시물 전체"
 #: skin/member/basic/scrap_popin.skin.php:20 view/board_list.php:23
 #: view/board_list.php:58
 msgid "Subject"
-msgstr "제목"
+msgstr "タイトル"
 
 #: skin/board/default/list.skin.php:102 skin/board/gallery/list.skin.php:141
 #: skin/member/basic/scrap.skin.php:17
 msgid "Date"
-msgstr "날짜"
+msgstr "日付"
 
 #: skin/board/default/list.skin.php:105 skin/board/gallery/list.skin.php:144
 msgid "Hit"
-msgstr "조회"
+msgstr "検索"
 
 #: skin/board/default/list.skin.php:120 skin/board/default/write.skin.php:31
 #: skin/board/gallery/write.skin.php:31
 msgid "notice"
-msgstr "공지"
+msgstr "お知らせ"
 
 #: skin/board/default/list.skin.php:122 skin/board/gallery/list.skin.php:90
 msgid "Of reading"
-msgstr "열람중"
+msgstr "閲覧中"
 
 #: skin/board/default/list.skin.php:185 skin/board/gallery/list.skin.php:151
 #: view/board_list.php:130 view/point_list.php:196
 msgid "Empty data"
-msgstr "자료가 없습니다"
+msgstr "データがありません。"
 
 #: skin/board/default/list.skin.php:195 skin/board/default/list.skin.php:270
 #: skin/board/gallery/list.skin.php:159 skin/board/gallery/list.skin.php:233
 msgid "choose-Copy"
-msgstr "선택수정"
+msgstr "選択修正"
 
 #: skin/board/default/list.skin.php:196 skin/board/default/list.skin.php:275
 #: skin/board/gallery/list.skin.php:160 skin/board/gallery/list.skin.php:238
 msgid "choose-Move"
-msgstr "선택이동"
+msgstr "選択移動"
 
 #: skin/board/default/list.skin.php:213 skin/board/gallery/list.skin.php:177
 msgid "If you are not using JavaScript"
-msgstr "자바스크립트를 사용하지 않는 경우"
+msgstr "JavsScriptを使用しない場合"
 
 #: skin/board/default/list.skin.php:213 skin/board/gallery/list.skin.php:177
 msgid ""
 "without removal of the verification process, Deleted immediately, so please "
 "note that selection process"
-msgstr "별도의 확인 절차 없이 바로 선택삭제 처리하므로 주의하시기 바랍니다."
+msgstr "別の確認なく選択削除するので、ご注意ください。"
 
 #: skin/board/default/list.skin.php:222 skin/board/gallery/list.skin.php:186
 msgid "Search Posts"
-msgstr "게시물 검색"
+msgstr "投稿検索"
 
 #: skin/board/default/list.skin.php:230 skin/board/gallery/list.skin.php:194
 #: view/point_list.php:99
 msgid "Search for"
-msgstr "검색대상"
+msgstr "検索対象"
 
 #: skin/board/default/list.skin.php:232 skin/board/gallery/list.skin.php:196
 msgid "subject"
-msgstr "제목"
+msgstr "タイトル"
 
 #: skin/board/default/list.skin.php:233 skin/board/gallery/list.skin.php:197
 msgid "Contents"
-msgstr "내용"
+msgstr "内容"
 
 #: skin/board/default/list.skin.php:234 skin/board/gallery/list.skin.php:198
 msgid "Subject+Contents"
-msgstr "제목+내용"
+msgstr "タイトル+内容"
 
 #: skin/board/default/list.skin.php:235 skin/board/gallery/list.skin.php:199
 #: view/point_list.php:101
 msgid "User_id"
-msgstr "회원아이디"
+msgstr "会員ID"
 
 #: skin/board/default/list.skin.php:238 skin/board/gallery/list.skin.php:202
 #: view/board_list.php:25 view/point_list.php:104
 msgid "Search word"
-msgstr "검색어"
+msgstr "キーワード"
 
 #: skin/board/default/list.skin.php:238 skin/board/default/password.skin.php:39
 #: skin/board/default/view_comment.skin.php:104
@@ -1153,226 +1155,222 @@ msgstr "검색어"
 #: view/config_form.php:191 view/config_form.php:205 view/point_list.php:104
 #: view/point_list.php:230 view/point_list.php:234 view/point_list.php:238
 msgid "required"
-msgstr "필수"
+msgstr "必須"
 
 #: skin/board/default/list.skin.php:240 skin/board/gallery/list.skin.php:204
 msgid "search"
-msgstr "검색"
+msgstr "検索"
 
 #: skin/board/default/list.skin.php:266 skin/board/gallery/list.skin.php:229
 msgid " - Please select an item to operate."
-msgstr "할 게시물을 하나 이상 선택하세요."
+msgstr "する投稿を一つ以上選択してください。"
 
 #: skin/board/default/list.skin.php:281 skin/board/gallery/list.skin.php:244
 msgid "If you choose to post in this reply,"
-msgstr "답변글이 있는 게시글을 선택하신 경우,"
+msgstr "コメントがある投稿を選択した場合、"
 
 #: skin/board/default/list.skin.php:281 skin/board/gallery/list.skin.php:244
 msgid "you can delete it when choose the replied"
-msgstr "답변글도 선택하셔야 게시글이 삭제됩니다."
+msgstr "コメントも選択したら投稿削除できます。"
 
 #: skin/board/default/password.skin.php:5 skin/board/default/view.skin.php:110
 #: skin/board/default/view_comment.skin.php:65
 #: skin/board/gallery/password.skin.php:5 skin/board/gallery/view.skin.php:110
 #: skin/board/gallery/view_comment.skin.php:65 view/board_list.php:71
 msgid "Modify"
-msgstr "수정"
+msgstr "修正"
 
 #: skin/board/default/password.skin.php:15
 #: skin/board/gallery/password.skin.php:15
 msgid "Only the author can modify the text."
-msgstr "작성자만 글을 수정할 수 있습니다."
+msgstr "投稿者のみ記事の修正できます。"
 
 #: skin/board/default/password.skin.php:16
 #: skin/board/gallery/password.skin.php:16
 msgid ""
 "If the author himself, by entering the password you entered when creating a "
 "post, you can modify the text."
-msgstr ""
-"작성자 본인이라면, 글 작성시 입력한 비밀번호를 입력하여 글을 수정할 수 있습니"
-"다."
+msgstr "投稿者なら投稿時のパスワードを入力すれば修正できます。"
 
 #: skin/board/default/password.skin.php:18
 #: skin/board/gallery/password.skin.php:18
 msgid "Author can only delete the article."
-msgstr "작성자만 글을 삭제할 수 있습니다."
+msgstr "投稿者のみ投稿の削除できます。"
 
 #: skin/board/default/password.skin.php:19
 #: skin/board/gallery/password.skin.php:19
 msgid ""
 "If the author himself, by entering the password you entered when creating "
 "the article, you can delete the post."
-msgstr ""
-"작성자 본인이라면, 글 작성시 입력한 비밀번호를 입력하여 글을 삭제할 수 있습니"
-"다."
+msgstr "投稿者なら投稿削除時のパスワードを入力すれば削除できます。"
 
 #: skin/board/default/password.skin.php:21
 #: skin/board/gallery/password.skin.php:21
 msgid "It protected by Secret feature articles."
-msgstr "비밀글 기능으로 보호된 글입니다."
+msgstr "公開しない機能によって保護された投稿です。"
 
 #: skin/board/default/password.skin.php:22
 #: skin/board/gallery/password.skin.php:22
 msgid ""
 "Creator and administrator can only view. If you enter your own password."
 msgstr ""
-"작성자와 관리자만 열람하실 수 있습니다. 본인이라면 비밀번호를 입력하세요."
+"投稿者と管理者のみ閲覧できます。投稿者ならパスワードを入力してください。"
 
 #: skin/board/default/password.skin.php:39
 #: skin/board/gallery/password.skin.php:39
 msgid "password"
-msgstr "비밀번호"
+msgstr "パスワード"
 
 #: skin/board/default/password.skin.php:46
 #: skin/board/gallery/password.skin.php:46
 msgid "Go back"
-msgstr "돌아가기"
+msgstr "前へ戻る"
 
 #: skin/board/default/view.skin.php:20 skin/board/gallery/view.skin.php:20
 msgid "Page info"
-msgstr "페이지정보"
+msgstr "ページ情報"
 
 #: skin/board/default/view.skin.php:21 skin/board/gallery/view.skin.php:21
 msgid "author"
-msgstr "글쓴이"
+msgstr "投稿者"
 
 #: skin/board/default/view.skin.php:22 skin/board/gallery/view.skin.php:22
 #: skin/member/basic/point.skin.php:13 view/point_list.php:131
 msgid "date"
-msgstr "날짜"
+msgstr "日付"
 
 #: skin/board/default/view.skin.php:23 skin/board/gallery/view.skin.php:23
 msgid "hit"
-msgstr "조회"
+msgstr "検索"
 
 #: skin/board/default/view.skin.php:54 skin/board/gallery/view.skin.php:54
 msgid "downloads"
-msgstr "다운로드수"
+msgstr "ダウンロード数"
 
 #: skin/board/default/view.skin.php:71 skin/board/default/view.skin.php:83
 #: skin/board/gallery/view.skin.php:71 skin/board/gallery/view.skin.php:83
 msgid "Related Links"
-msgstr "관련링크"
+msgstr "関連リンク"
 
 #: skin/board/default/view.skin.php:86 skin/board/gallery/view.skin.php:86
 msgid "connected"
-msgstr "연결됨"
+msgstr "接続中"
 
 #: skin/board/default/view.skin.php:112 skin/board/gallery/view.skin.php:112
 #: view/board_form.php:135 view/board_form.php:143 view/board_form.php:966
 #: view/board_list.php:72 view/board_list.php:231
 msgid "Copy"
-msgstr "복사"
+msgstr "コピー"
 
 #: skin/board/default/view.skin.php:113 skin/board/gallery/view.skin.php:113
 msgid "Move"
-msgstr "이동"
+msgstr "移動"
 
 #: skin/board/default/view.skin.php:114 skin/board/gallery/view.skin.php:114
 #: view/board_list.php:27
 msgid "Search"
-msgstr "검색"
+msgstr "検索"
 
 #: skin/board/default/view.skin.php:127 skin/board/gallery/view.skin.php:127
 msgid "Article"
-msgstr "본문"
+msgstr "本文"
 
 #: skin/board/default/view.skin.php:157 skin/board/gallery/view.skin.php:157
 msgid "scrap"
-msgstr "스크랩"
+msgstr "スクラップ"
 
 #: skin/board/default/view.skin.php:218 skin/board/gallery/view.skin.php:218
 msgid "You are not allowed to download attachments."
-msgstr "다운로드 권한이 없습니다."
+msgstr "ダウンロード権限がありません。"
 
 #: skin/board/default/view.skin.php:218 skin/board/gallery/view.skin.php:218
 msgid "If you are a member, please login."
-msgstr "회원이시라면 로그인 후 이용해 보십시오."
+msgstr "会員ならログイン後ご利用ください。"
 
 #: skin/board/default/view.skin.php:222 skin/board/gallery/view.skin.php:222
 #, php-format
 msgid "Download attachments deducted %s Points) points."
-msgstr "파일을 다운로드 하시면 포인트가 차감(%s점)됩니다."
+msgstr "ファイルをダウンロードするとポイントが (%s点)になります。"
 
 #: skin/board/default/view.skin.php:222 skin/board/gallery/view.skin.php:222
 msgid ""
 "Points are deducted only once per post and do not duplicate deducted "
 "download again the next bout"
 msgstr ""
-"포인트는 게시물당 한번만 차감되며 다음에 다시 다운로드 하셔도 중복하여 차감하"
-"지 않습니다."
+"ポイントは投稿するたび差引きされるが、再びダウンロードしても重複して差引きさ"
+"れません。"
 
 #: skin/board/default/view.skin.php:222 skin/board/gallery/view.skin.php:222
 msgid "Do you want to download anyway?"
-msgstr "그래도 다운로드 하시겠습니까?"
+msgstr "それでもダウンロードしますか。"
 
 #: skin/board/default/view.skin.php:255 skin/board/gallery/view.skin.php:255
 msgid "Dislike this post."
-msgstr "이 글을 비추천하셨습니다."
+msgstr "この投稿を非推奨しました。"
 
 #: skin/board/default/view.skin.php:258 skin/board/gallery/view.skin.php:258
 msgid "Like this post."
-msgstr "이 글을 추천하셨습니다."
+msgstr "この投稿をお勧めしました。"
 
 #: skin/board/default/view_comment.skin.php:14
 #: skin/board/gallery/view_comment.skin.php:14
 msgid "Comment List"
-msgstr "댓글목록"
+msgstr "コメントリスト"
 
 #: skin/board/default/view_comment.skin.php:28
 #: skin/board/gallery/view_comment.skin.php:28
 msgid "'s comments"
-msgstr "님의 코멘트"
+msgstr "様のコメント"
 
 #: skin/board/default/view_comment.skin.php:41
 #: skin/board/gallery/view_comment.skin.php:41
 msgid "Secret"
-msgstr "비밀"
+msgstr "シークレット"
 
 #: skin/board/default/view_comment.skin.php:72
 #: skin/board/gallery/view_comment.skin.php:72
 msgid "No comments"
-msgstr "등록된 댓글이 없습니다."
+msgstr "登録のコメントがありません。"
 
 #: skin/board/default/view_comment.skin.php:104
 #: skin/board/default/write.skin.php:64
 #: skin/board/gallery/view_comment.skin.php:104
 #: skin/board/gallery/write.skin.php:64 skin/member/basic/formmail.skin.php:25
 msgid "Name"
-msgstr "이름"
+msgstr "お名前"
 
 #: skin/board/default/view_comment.skin.php:108
 #: skin/board/default/write.skin.php:71
 #: skin/board/gallery/view_comment.skin.php:108
 #: skin/board/gallery/write.skin.php:71
 msgid "Password"
-msgstr "비밀번호"
+msgstr "パスワード"
 
 #: skin/board/default/view_comment.skin.php:113
 #: skin/board/gallery/view_comment.skin.php:113
 msgid "Use secret"
-msgstr "비밀글사용"
+msgstr "公開しない機能の使用"
 
 #: skin/board/default/view_comment.skin.php:118
 #: skin/board/default/write.skin.php:150
 #: skin/board/gallery/view_comment.skin.php:118
 #: skin/board/gallery/write.skin.php:150 skin/member/basic/formmail.skin.php:61
 msgid "Captcha"
-msgstr "자동등록방지"
+msgstr "自動登録防止"
 
 #: skin/board/default/view_comment.skin.php:123
 #: skin/board/default/write.skin.php:113
 #: skin/board/gallery/view_comment.skin.php:123
 #: skin/board/gallery/write.skin.php:113 skin/member/basic/formmail.skin.php:46
 msgid "Content"
-msgstr "내용"
+msgstr "内容"
 
 #: skin/board/default/view_comment.skin.php:125
 #: skin/board/default/write.skin.php:121
 #: skin/board/gallery/view_comment.skin.php:125
 #: skin/board/gallery/write.skin.php:121
 msgid "Length"
-msgstr "길이"
+msgstr "長さ"
 
 #: skin/board/default/view_comment.skin.php:148
 #: skin/board/default/write.skin.php:177
@@ -1380,120 +1378,120 @@ msgstr "길이"
 #: skin/board/gallery/write.skin.php:177 view/board_form.php:21
 #: view/config_form.php:14 view/point_list.php:106 view/point_list.php:252
 msgid "Submit"
-msgstr "확인"
+msgstr "確認"
 
 #: skin/board/default/view_comment.skin.php:199
 #: skin/board/gallery/view_comment.skin.php:199
 msgid "Content contains forbidden words : "
-msgstr "내용에 금지 단어가 포함되어 있습니다 :"
+msgstr "内容に禁止された単語があります。"
 
 #: skin/board/default/view_comment.skin.php:213
 #: skin/board/gallery/view_comment.skin.php:213
 #, php-format
 msgid "You must write at least %d words"
-msgstr "%d 글자 이상 쓰셔야 합니다."
+msgstr "%d 文字以上を書いてください。"
 
 #: skin/board/default/view_comment.skin.php:217
 #: skin/board/gallery/view_comment.skin.php:217
 #, php-format
 msgid "You must write %d letters or less."
-msgstr "%d 글자 이하로 쓰셔야 합니다."
+msgstr "%d 文字以下に書いてください。"
 
 #: skin/board/default/view_comment.skin.php:223
 #: skin/board/gallery/view_comment.skin.php:223
 msgid "Please Enter a Comment."
-msgstr "댓글을 입력하여 주십시오."
+msgstr "コメントを入力してください。"
 
 #: skin/board/default/view_comment.skin.php:232
 #: skin/board/gallery/view_comment.skin.php:232
 msgid "Please enter your name."
-msgstr "이름을 입력하세요."
+msgstr "お名前を入力してください。"
 
 #: skin/board/default/view_comment.skin.php:243
 #: skin/board/gallery/view_comment.skin.php:243
 msgid "Please enter a password."
-msgstr "비밀번호를 입력하세요."
+msgstr "パスワードを入力してください。"
 
 #: skin/board/default/view_comment.skin.php:309
 #: skin/board/gallery/view_comment.skin.php:309
 msgid "Are you want to delete this comment?"
-msgstr "댓글을 삭제하시겠습니까?"
+msgstr "コメントを削除しますか。"
 
 #: skin/board/default/write.skin.php:45 skin/board/gallery/write.skin.php:45
 msgid "secret"
-msgstr "비밀"
+msgstr "シークレット"
 
 #: skin/board/default/write.skin.php:52 skin/board/gallery/write.skin.php:52
 msgid "Receive e-mail reply"
-msgstr "답변메일받기"
+msgstr "回答メールの受信"
 
 #: skin/board/default/write.skin.php:85 skin/board/gallery/write.skin.php:85
 msgid "Option"
-msgstr "옵션"
+msgstr "オプション"
 
 #: skin/board/default/write.skin.php:116 skin/board/gallery/write.skin.php:116
 #, php-format
 msgid ""
 "This board is write at least %s characters long, posts up to %s characters "
 "or less."
-msgstr ""
-"이 게시판은 최소 %s 글자 이상, 최대 %s 글자 이하까지 글을 쓸수 있습니다."
+msgstr "この掲示板を最小 %s 文字以上、最大 %s 文字数まで書けます。"
 
 #: skin/board/default/write.skin.php:128 skin/board/gallery/write.skin.php:128
 msgid "Link"
-msgstr "링크"
+msgstr "リンク"
 
 #: skin/board/default/write.skin.php:135 skin/board/gallery/write.skin.php:135
 msgid "File"
-msgstr "파일"
+msgstr "ファイル"
 
 #: skin/board/default/write.skin.php:137 skin/board/gallery/write.skin.php:137
 #, php-format
 msgid "%s bytes or less capacity can be uploaded"
-msgstr "용량 %s 바이트 이하만 업로드 가능"
+msgstr "容量 %s バイト以下までアップロード可"
 
 #: skin/board/default/write.skin.php:139 skin/board/gallery/write.skin.php:139
 msgid "enter a file description."
-msgstr "파일 내용을 입력하세요."
+msgstr "ファイルの内容を入力してください。"
 
 #: skin/board/default/write.skin.php:142 skin/board/gallery/write.skin.php:142
 msgid "Delete File"
-msgstr "파일 삭제"
+msgstr "ファイルを削除"
 
 #: skin/board/default/write.skin.php:163 skin/board/default/write.skin.php:167
 #: skin/board/gallery/write.skin.php:163 skin/board/gallery/write.skin.php:167
 msgid "Tags"
-msgstr "태그들"
+msgstr "タグ"
 
 #: skin/board/default/write.skin.php:201 skin/board/gallery/write.skin.php:201
 msgid "Enable wrap it?"
-msgstr "자동 줄바꿈을 하시겠습니까?"
+msgstr "自動改行しますか。"
 
 #: skin/board/default/write.skin.php:201 skin/board/gallery/write.skin.php:201
 msgid ""
 "Word wrap is a feature that converts contents of the posts where the line "
 "changes to <br> tags"
-msgstr "자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다"
+msgstr ""
+"自動改行は投稿の内容にラインが変わったところを<br>タグに変更する機能です。"
 
 #: skin/board/default/write.skin.php:236 skin/board/gallery/write.skin.php:236
 #, php-format
 msgid "It contains a banned word in the subject %s"
-msgstr "제목에 금지단어 %s 가 포함되어있습니다"
+msgstr "タイトルに使用禁止の文字 %s が含まれてます。"
 
 #: skin/board/default/write.skin.php:242 skin/board/gallery/write.skin.php:242
 #, php-format
 msgid "It contains a banned word in the content %s"
-msgstr "내용에 금지단어 %s 가 포함되어있습니다"
+msgstr "内容に使用禁止の文字 %s が含まれてます。"
 
 #: skin/board/default/write.skin.php:254 skin/board/gallery/write.skin.php:254
 #, php-format
 msgid "Contents, you must write at least %d words."
-msgstr "내용은 %d 글자 이상 쓰셔야 합니다."
+msgstr "内容は %d 文字以上を入力してください。"
 
 #: skin/board/default/write.skin.php:258 skin/board/gallery/write.skin.php:258
 #, php-format
 msgid "Contents, you must write in %d words or less."
-msgstr "내용은 %d 글자 이하로 쓰셔야 합니다."
+msgstr "内容は %d 文字以下まで入力できます。"
 
 #: skin/board/gallery/list.skin.php:100
 msgid "noticie"
@@ -1501,160 +1499,161 @@ msgstr ""
 
 #: skin/latest/basic/latest.skin.php:39
 msgid "No Content."
-msgstr "게시물이 없습니다."
+msgstr "投稿がありません。"
 
 #: skin/latest/basic/latest.skin.php:42
 msgid "more"
-msgstr "더보기"
+msgstr "もっと見る"
 
 #: skin/member/basic/formmail.skin.php:7
 msgid " - Send Email"
-msgstr "님께 이메일 보내기"
+msgstr "様へEメールを送る"
 
 #: skin/member/basic/formmail.skin.php:53
 msgid ""
 "Please make sure that the attachments may be missing after sending the email "
 "file attachment."
 msgstr ""
-"첨부 파일은 누락될 수 있으므로 메일을 보낸 후 파일이 첨부 되었는지 반드시 확"
-"인해 주시기 바랍니다."
+"添付ファイルは欠落の可能性があるので、ファイルの送付後は必ずご確認ください。"
 
 #: skin/member/basic/formmail.skin.php:70 skin/member/basic/point.skin.php:87
 #: skin/member/basic/scrap.skin.php:43
 msgid "Close"
-msgstr "닫기"
+msgstr "閉じる"
 
 #: skin/member/basic/formmail.skin.php:90
 msgid ""
 "If the capacity of the attachment larger the longer the transmission time "
 "required."
-msgstr "첨부파일의 용량이 큰경우 전송시간이 오래 걸립니다."
+msgstr "添付ファイルのサイズが多き場合はお時間が係る場合があります。"
 
 #: skin/member/basic/formmail.skin.php:90
 msgid "Email close the window before it finishes Do not refresh."
-msgstr "메일보내기가 완료되기 전에 창을 닫거나 새로고침 하지 마십시오."
+msgstr ""
+"メールの送信が完了するまで、ウィンドウを閉じるまたはリフレッシュをしないでく"
+"ださい。"
 
 #: skin/member/basic/point.skin.php:10
 msgid "Point History List"
-msgstr "포인트 사용내역 목록"
+msgstr "ポイントの仕様内容のリスト"
 
 #: skin/member/basic/point.skin.php:14
 msgid "description"
-msgstr "설명"
+msgstr "説明"
 
 #: skin/member/basic/point.skin.php:15 view/point_list.php:132
 msgid "expire date"
-msgstr "만료일"
+msgstr "満了日"
 
 #: skin/member/basic/point.skin.php:16
 msgid "payments Point"
-msgstr "지급포인트"
+msgstr "支給ポイント"
 
 #: skin/member/basic/point.skin.php:17
 msgid "using Points"
-msgstr "사용포인트"
+msgstr "仕様ポイント"
 
 #: skin/member/basic/point.skin.php:45 view/point_list.php:185
 msgid "expire"
-msgstr "만료"
+msgstr "満了"
 
 #: skin/member/basic/point.skin.php:55 skin/member/basic/scrap.skin.php:32
 msgid "No Contents."
-msgstr "자료가 없습니다."
+msgstr "データがありません。"
 
 #: skin/member/basic/point.skin.php:65
 msgid "Subtotal"
-msgstr "소계"
+msgstr "小計 "
 
 #: skin/member/basic/point.skin.php:70
 msgid "Hold point"
-msgstr "보유포인트"
+msgstr "保有ポイント"
 
 #: skin/member/basic/scrap.skin.php:11
 msgid "Scrap List"
-msgstr "스크랩 목록"
+msgstr "スクラップリスト"
 
 #: skin/member/basic/scrap_popin.skin.php:7
 msgid "To scrap"
-msgstr "스크랩하기"
+msgstr "スクラップする"
 
 #: skin/member/basic/scrap_popin.skin.php:17
 msgid "Write a title confirmation and comments"
-msgstr "제목 확인 및 댓글 쓰기"
+msgstr "タイトル確認及びコメント投稿"
 
 #: skin/member/basic/scrap_popin.skin.php:32
 msgid ""
 "You can leave some comments of appreciation or encouragement to use scrap."
-msgstr "스크랩을 하시면서 감사 혹은 격려의 댓글을 남기실 수 있습니다."
+msgstr "スクラップをして感謝または励ましのコメントを投稿できます。"
 
 #: view/board_form.php:13
 msgid "Defalut Setting"
-msgstr "기본설정"
+msgstr "基本設定"
 
 #: view/board_form.php:14
 msgid "Setting authority"
-msgstr "권한설정"
+msgstr "権限設定"
 
 #: view/board_form.php:15
 msgid "Setting Function"
-msgstr "기능설정"
+msgstr "機能設定"
 
 #: view/board_form.php:16
 msgid "Design and style"
-msgstr "디자인/양식"
+msgstr "デザイン/フォーム"
 
 #: view/board_form.php:17
 msgid "Setting Point"
-msgstr "포인트설정"
+msgstr "ポイント設定"
 
 #: view/board_form.php:22 view/board_form.php:83
 msgid "Go List"
-msgstr "목록으로"
+msgstr "リストへ"
 
 #: view/board_form.php:25 view/board_list.php:72
 msgid "Copy board"
-msgstr "게시판복사"
+msgstr "掲示板コピー"
 
 #: view/board_form.php:27 view/board_form.php:81
 msgid "Go direct bbs"
-msgstr "게시판 바로가기"
+msgstr "掲示板へショートカット"
 
 #: view/board_form.php:29
 msgid "Are you sure you want to delete the thumbnail files?"
-msgstr "게시판 썸네일 파일을 삭제하시겠습니까?"
+msgstr "掲示板のサムネイルファイルを削除しますか"
 
 #: view/board_form.php:29
 msgid "Thumbnail delete"
-msgstr "썸네일 삭제"
+msgstr "サムネイルを削除"
 
 #: view/board_form.php:61 view/board_form.php:66 view/config_form.php:174
 #: view/config_form.php:181
 msgid "BBS default setting"
-msgstr "게시판 기본 설정"
+msgstr "掲示板の基本設定"
 
 #: view/board_form.php:78
 msgid ""
 "Allowed characters Alphabetic and Number and underbar( no whitespace with 20 "
 "characters limit )"
-msgstr "영문자, 숫자, _ 만 가능 (공백없이 20자 이내)"
+msgstr "英文、数字、_のみ可能(空欄なしの20文字以内)"
 
 #: view/board_form.php:88 view/board_form.php:950 view/board_list.php:215
 msgid "Board Subject"
-msgstr "게시판 제목"
+msgstr "掲示板タイトル"
 
 #: view/board_form.php:95
 msgid "Check in page creation"
-msgstr "페이지생성여부"
+msgstr "ページ生成 するのか"
 
 #: view/board_form.php:98
 msgid "Automatically generates a page at the check-Bulletin"
-msgstr "체크시 게시판 페이지를 자동으로 생성합니다."
+msgstr "チェックしたら掲示板のページを自動生成します。"
 
 #: view/board_form.php:105
 msgid "divide by vertical bar character( example : question|answer )"
 msgstr ""
-"분류와 분류 사이는 | 로 구분하세요. (예: 질문|답변) 첫자로 #은 입력하지 마세"
-"요. (예: #질문|#답변 [X])"
+"分類と分類の空いたには | で区別してください。(例：質問：回答)文字の初めに #は"
+"入力しないでください。"
 
 #: view/board_form.php:108 view/board_form.php:310 view/board_form.php:339
 #: view/board_form.php:351 view/board_form.php:362 view/board_form.php:373
@@ -1664,7 +1663,7 @@ msgstr ""
 #: view/config_form.php:272 view/config_form.php:304 view/config_form.php:311
 #: view/config_form.php:318 view/config_form.php:325
 msgid "use"
-msgstr "사용"
+msgstr "使用"
 
 #: view/board_form.php:112 view/board_form.php:182 view/board_form.php:202
 #: view/board_form.php:212 view/board_form.php:222 view/board_form.php:232
@@ -1685,160 +1684,160 @@ msgstr "사용"
 #: view/board_form.php:752 view/board_form.php:783 view/board_form.php:819
 #: view/board_form.php:829 view/board_form.php:839 view/board_form.php:849
 msgid "all apply"
-msgstr "전체적용"
+msgstr "全体適用"
 
 #: view/board_form.php:117
 msgid "Page to apply"
-msgstr "페이지적용"
+msgstr "ページ適用"
 
 #: view/board_form.php:119
 msgid ""
 "Please select the page you want to apply the Bulletin. you can apply only "
 "one per page."
 msgstr ""
-"게시판을 적용할 페이지를 선택해 주세요. 게시판 적용은 페이지당 1개만 적용할"
-"수 있습니다."
+"掲示板を適用するページを選択してください。掲示板の適用は一つのページに一つの"
+"み可能です。"
 
 #: view/board_form.php:132 view/board_form.php:140
 msgid "Fix"
-msgstr "고정"
+msgstr "固定"
 
 #: view/board_form.php:134
 msgid "You apply the bulletin board in the post or page."
-msgstr "글 또는 페이지에 게시판을 적용시킬수 있습니다."
+msgstr "投稿またはページに掲示板を適用できます。"
 
 #: view/board_form.php:140
 msgid "Latest"
-msgstr "최신글"
+msgstr "最新の投稿"
 
 #: view/board_form.php:142
 msgid ""
 "If you set the page to apply the above is acceptable to omit 'url=page_url'. "
 "rows is post number."
 msgstr ""
-"위의 적용할 페이지를 설정하였다면 url=페이지주소를 생략하셔도 됩니다. rows는 "
-"게시물갯수입니다."
+"上の適用するページを設定完了なら url=ページアドレスを書かなくても問題ありませ"
+"ん。rowsは投稿数です。"
 
 #: view/board_form.php:143
 msgid "url=page_url"
-msgstr "url=페이지주소"
+msgstr "url=ページアドレス"
 
 #: view/board_form.php:148
 msgid "Count Adjustment"
-msgstr "카운트 조정"
+msgstr "カウント調整"
 
 #: view/board_form.php:150
 #, php-format
 msgid "Current Posts number : %s, Current Comments number : %s"
-msgstr "현재 원글수 : %s, 현재 댓글수 : %s"
+msgstr "現在の投稿数： %s, 現在のコメント数 : %s"
 
 #: view/board_form.php:150
 msgid "Check the list on the board if the number of the article does not fit."
-msgstr "게시판 목록에서 글의 번호가 맞지 않을 경우에 체크하십시오."
+msgstr "掲示板のリストで投稿番号が一致しない場合にチェックしてください。"
 
 #: view/board_form.php:163 view/board_form.php:168
 msgid "Board permissions setting"
-msgstr "게시판 권한 설정"
+msgstr "掲示板の権限設定"
 
 #: view/board_form.php:176
 msgid "board administrator"
-msgstr "게시판 관리자"
+msgstr "リスト管理者"
 
 #: view/board_form.php:186
 msgid "List permissions"
-msgstr "목록 권한"
+msgstr "リスト権限"
 
 #: view/board_form.php:189
 msgid "WordPress default permission levels are as follows:"
-msgstr "워드프레스 레벨 기본권한은 다음과 같습니다. "
+msgstr "WordPressの内でレベル基本権限は以下の通りです。"
 
 #: view/board_form.php:190
 msgid "level -1 : Guest"
-msgstr "레벨 -1 : 비회원"
+msgstr "レベル -1 : 非会員"
 
 #: view/board_form.php:191
 msgid "level 0 : Subscriber"
-msgstr "레벨 0 : 구독자 (Subscriber)"
+msgstr "レベル 0 : 加入者 (Subscriber)"
 
 #: view/board_form.php:192
 msgid "level 1 : Contributor"
-msgstr "레벨 1 : 기여자 (Contributor)"
+msgstr "レベル 1 : 寄与者 (Contributor)"
 
 #: view/board_form.php:193
 msgid "level 2 : Author"
-msgstr "레벨 2 : 글쓴이 (Author)"
+msgstr "レベル 2 : 投稿者 (Author)"
 
 #: view/board_form.php:194
 msgid "level 7 : Editor"
-msgstr "레벨 7 : 편집자 (Editor)"
+msgstr "レベル 7 : 編集者 (Editor)"
 
 #: view/board_form.php:195
 msgid "level 10 : Administrator"
-msgstr "레벨 10 : 관리자 (Administrator)"
+msgstr "レベル 10 : 管理者 (Administrator)"
 
 #: view/board_form.php:206
 msgid "Read permissions"
-msgstr "글읽기 권한"
+msgstr "閲覧権限"
 
 #: view/board_form.php:216
 msgid "Write permissions"
-msgstr "글쓰기 권한"
+msgstr "投稿権限"
 
 #: view/board_form.php:226
 msgid "Comment permissions"
-msgstr "댓글쓰기 권한"
+msgstr "コメントの投稿権限"
 
 #: view/board_form.php:236
 msgid "Link permissions"
-msgstr "링크 권한"
+msgstr "リンク権限"
 
 #: view/board_form.php:246
 msgid "Upload permissions"
-msgstr "업로드 권한"
+msgstr "アップロード権限"
 
 #: view/board_form.php:256
 msgid "Download permissions"
-msgstr "다운로드 권한"
+msgstr "ダウンロード権限"
 
 #: view/board_form.php:273 view/board_form.php:278
 msgid "Board functions setting"
-msgstr "게시판 기능 설정"
+msgstr "掲示板の機能設設定"
 
 #: view/board_form.php:286
 msgid "No modifications original"
-msgstr "원글 수정 불가"
+msgstr "元投稿の修正不可"
 
 #: view/board_form.php:288
 msgid ""
 "If more than the set number of comments can not be modified original. If you "
 "set to 0, you can modify any number of comments."
 msgstr ""
-"댓글의 수가 설정 수 이상이면 원글을 수정할 수 없습니다. 0으로 설정하시면 댓"
-"글 수에 관계없이 수정할 수있습니다."
+"コメント数が設置値以上なら元投稿の修正はできません。 0で設定するとコメント数"
+"と関係なく修正できます。"
 
 #: view/board_form.php:289
 msgid "comments"
-msgstr "댓글"
+msgstr "コメント"
 
 #: view/board_form.php:289
 msgid "items over it can't modification"
-msgstr "개 이상 달리면 수정불가"
+msgstr "個以上あれば修正不可"
 
 #: view/board_form.php:297
 msgid "No delete original"
-msgstr "원글 삭제 불가"
+msgstr "元投稿の削除不可"
 
 #: view/board_form.php:299
 msgid "items over it can't delete"
-msgstr "개 이상 달리면 삭제불가"
+msgstr "個以上あれば削除不可"
 
 #: view/board_form.php:307
 msgid "user sideview"
-msgstr "글쓴이 사이드뷰"
+msgstr "投稿者の"
 
 #: view/board_form.php:318
 msgid "Use Secret"
-msgstr "비밀글 사용"
+msgstr "公開しない機能を使用"
 
 #: view/board_form.php:321
 msgid ""
@@ -1846,717 +1845,712 @@ msgid ""
 "\"Compulsion\" is written into all of that Secret. (Administrators output "
 "checkbox.) It may not be applied depending on the skin."
 msgstr ""
-"\"체크박스\"는 글작성시 비밀글 체크가 가능합니다. \"무조건\"은 작성되는 모든"
-"글을 비밀글로 작성합니다. (관리자는 체크박스로 출력합니다.) 스킨에 따라 적용"
-"되지 않을 수 있습니다."
+"\"チェックボックス\"は投稿時に公開しないの選択できます。\"条件なし\"はすべて"
+"の投稿を公開しないまま投稿します。 (管理者のみチェックボックスで出力しま"
+"す。) "
 
 #: view/board_form.php:324
 msgid "Not use"
-msgstr "사용안함"
+msgstr "使用しない"
 
 #: view/board_form.php:325
 msgid "Checkbox"
-msgstr "체크박스"
+msgstr "チェックボックス"
 
 #: view/board_form.php:326
 msgid "Compulsion"
-msgstr "무조건"
+msgstr "条件なし"
 
 #: view/board_form.php:335
 msgid "Using the DHTML editor"
-msgstr "DHTML 에디터 사용"
+msgstr "DHTMLエディタ使用"
 
 #: view/board_form.php:337
 msgid ""
 "Set the paper to use when creating content as the editor functions. It may "
 "not be applied depending on the skin."
 msgstr ""
-"글작성시 내용을 DHTML 에디터 기능으로 사용할 것인지 설정합니다. 스킨에 따라 "
-"적용되지 않을 수 있습니다."
+"投稿時、内容をDHTMLエディタとして表示するかを設定します。スキンによっては適用"
+"されない場合があります。"
 
 #: view/board_form.php:347
 msgid "Using the RSS"
-msgstr "RSS 보이기 사용"
+msgstr "RSS表示を使用"
 
 #: view/board_form.php:349
 msgid ""
 "Guest can read the article and must be checked using RSS to the RSS support."
-msgstr ""
-"비회원 글읽기가 가능하고 RSS 보이기 사용에 체크가 되어야만 RSS 지원을 합니다."
+msgstr "非会員の閲覧が可能とRSS表示を使用にチェックすればRSSを支援します。"
 
 #: view/board_form.php:359
 msgid "Using the recommend"
-msgstr "추천 사용"
+msgstr "お奨めの使用"
 
 #: view/board_form.php:370
 msgid "Using the nonrecommend"
-msgstr "비추천 사용"
+msgstr "非推奨の使用"
 
 #: view/board_form.php:381
 msgid "Use IP show"
-msgstr "IP 보이기 사용"
+msgstr "IP表示の使用"
 
 #: view/board_form.php:392
 msgid "Use load content from the list"
-msgstr "목록에서 내용 사용"
+msgstr "リストにて内容の使用"
 
 #: view/board_form.php:394
 msgid ""
 "List is the option to set when you need to read the contents. The default is "
 "not used."
 msgstr ""
-"목록에서 게시판 제목외에 내용도 읽어와야 할 경우에 설정하는 옵션입니다. 기본"
-"은 사용하지 않습니다."
+"リストにて掲示板のタイトルと内容まで読み込む必要がある時の設定オプションで"
+"す。基本は使用しません。"
 
 #: view/board_form.php:396 view/board_form.php:408
 msgid "Can be slow"
-msgstr "느려질수 있습니다"
+msgstr "遅くなる可能性があります。"
 
 #: view/board_form.php:404
 msgid "Load uploads in List"
-msgstr "목록에서 파일 사용"
+msgstr "リストにてファイル使用"
 
 #: view/board_form.php:406
 msgid ""
 "The options you set when you need to read Upload files in the list. The "
 "default is not used."
 msgstr ""
-"목록에서 게시판 첨부파일을 읽어와야 할 경우에 설정하는 옵션입니다. 기본은 사"
-"용하지 않습니다."
+"リストにて掲示板の添付ファイルを読み込む必要がある時の設定オプションです。基"
+"本は使用しません。"
 
 #: view/board_form.php:416
 msgid "Use Show all list"
-msgstr "전체목록보이기 사용"
+msgstr "全リスト表示の使用"
 
 #: view/board_form.php:427 view/config_form.php:269
 msgid "Using mailings"
-msgstr "메일발송 사용"
+msgstr "メール発送の使用"
 
 #: view/board_form.php:438
 msgid "Upload File Number"
-msgstr "파일 업로드 개수"
+msgstr "ファイルアップロード数"
 
 #: view/board_form.php:440
 msgid ""
 "The maximum number of files that can be uploaded one posts (0 is not used "
 "attachments)"
 msgstr ""
-"게시물 한건당 업로드 할 수 있는 파일의 최대 개수 (0 은 파일첨부 사용하지 않"
-"음)"
+"一つの投稿にアップロード可能なファイルの最大数 (0 は添付ファイルをしない)"
 
 #: view/board_form.php:449
 msgid "uploads max_size"
-msgstr "파일 업로드 용량"
+msgstr "ファイルアップロード容量"
 
 #: view/board_form.php:451
 #, php-format
 msgid "Max_filesize is %s"
-msgstr "최대 용량은 %s 입니다."
+msgstr "最大容量は %s です。"
 
 #: view/board_form.php:452
 msgid "a uploads max_size"
-msgstr "업로드 파일 한개당"
+msgstr "アップロードファイルの一つに"
 
 #: view/board_form.php:452
 msgid "less then or equal to"
-msgstr "이하"
+msgstr "以下"
 
 #: view/board_form.php:459
 msgid "Using uploads description"
-msgstr "파일 설명 사용"
+msgstr "ファイル説明の使用"
 
 #: view/board_form.php:469
 msgid "Limit minimum text"
-msgstr "최소 글수 제한"
+msgstr "最少文字数の制限"
 
 #: view/board_form.php:471
 msgid ""
 "Setting a minimum length text input. Enter 0 or top managers, DHTML editor "
 "does not check when using include"
 msgstr ""
-"글 입력시 최소 글자수를 설정. 0을 입력하거나 최고관리자, DHTML 에디터 사용시"
-"에는 검사하지 않음"
+"投稿時、最少文字数を設定、0を入力または最高管理者、DHTMエディタの使用には"
+"チェックしない"
 
 #: view/board_form.php:480
 msgid "Limit maximum text"
-msgstr "최대 글수 제한"
+msgstr "最大文字数の制限"
 
 #: view/board_form.php:482
 msgid ""
 "Setting a maximum length text input. Enter 0 or top managers, DHTML editor "
 "does not check when using include"
 msgstr ""
-"글 입력시 최대 글자수를 설정. 0을 입력하거나 최고관리자, DHTML 에디터 사용시"
-"에는 검사하지 않음"
+"投稿時、最大文字数を設定、0を入力または最高管理者、DHTMエディタの使用には"
+"チェックしない"
 
 #: view/board_form.php:491
 msgid "Limit minimum Comments"
-msgstr "최소 댓글수 제한"
+msgstr "最少コメントの制限"
 
 #: view/board_form.php:493
 msgid "Comments Enter setting a minimum length. No inspection Entering 0"
-msgstr "댓글 입력시 최소 글자수를 설정. 0을 입력하면 검사하지 않음"
+msgstr "コメント入力時、最少コメントを設定し、0を入力すればチェックしない"
 
 #: view/board_form.php:502
 msgid "Limit maximum Comments"
-msgstr "최대 댓글수 제한"
+msgstr "最大コメントの制限"
 
 #: view/board_form.php:504
 msgid "Comments Enter setting a maximum length. No inspection Entering 0"
-msgstr "댓글 입력시 최대 글자수를 설정. 0을 입력하면 검사하지 않음"
+msgstr "コメント入力時、最大コメントを設定し、0を入力すればチェックしない"
 
 #: view/board_form.php:513
 msgid "Include WP Search"
-msgstr "WP검색에 포함"
+msgstr "WP検索へ含む"
 
 #: view/board_form.php:524
 msgid "Use tag"
-msgstr "태그 사용"
+msgstr "タグ使用"
 
 #: view/board_form.php:529
 msgid "Manage BBS tag"
-msgstr "게시판 태그 관리"
+msgstr "掲示板タグの管理"
 
 #: view/board_form.php:538
 msgid "Show Number, author, hit, date"
-msgstr "번호, 작성자, 조회, 작성일 등 표시"
+msgstr "番号、投稿者、検索、作成日などを表示"
 
 #: view/board_form.php:541
 msgid "Show Number"
-msgstr "번호 표시"
+msgstr "番号を表示"
 
 #: view/board_form.php:542
 msgid "Show author"
-msgstr "작성자 표시"
+msgstr "投稿者を表示"
 
 #: view/board_form.php:543
 msgid "Show hit"
-msgstr "조회 표시"
+msgstr "検索を表示"
 
 #: view/board_form.php:544
 msgid "Show date"
-msgstr "작성일 표시"
+msgstr "作成日を表示"
 
 #: view/board_form.php:560 view/board_form.php:565
 msgid "Board design and pattern"
-msgstr "게시판 디자인/양식"
+msgstr "掲示板のデザイン/フォーム"
 
 #: view/board_form.php:573
 msgid "Skin directory"
-msgstr "스킨 디렉토리"
+msgstr "スキンディレクトリ"
 
 #: view/board_form.php:584
 msgid "Add Before contents"
-msgstr "상단 내용 추가"
+msgstr "上部の内容を追加"
 
 #: view/board_form.php:594
 msgid "Add After contents"
-msgstr "하단 내용 추가"
+msgstr "下部の内容を追加"
 
 #: view/board_form.php:605
 msgid "Writing basic information"
-msgstr "글쓰기 기본 내용"
+msgstr "投稿の基本内容"
 
 #: view/board_form.php:615
 msgid "Subject length"
-msgstr "제목 길이"
+msgstr "タイトル文字数"
 
 #: view/board_form.php:617 view/board_form.php:628
 msgid "Cut text are displayed in '...' when overflow"
-msgstr "목록에서의 제목 글자수. 잘리는 글은 … 로 표시"
+msgstr "リストにてタイトルの表示文字数。未表示の文字は … で表示"
 
 #: view/board_form.php:626
 msgid "Mobile Subject length"
-msgstr "모바일 제목 길이"
+msgstr "モバイルのタイトルの文字数"
 
 #: view/board_form.php:637
 msgid "Lists per page"
-msgstr "페이지당 목록 수"
+msgstr "1ページのリスト数"
 
 #: view/board_form.php:647
 msgid "Mobile Lists per page"
-msgstr "모바일 페이지당 목록 수"
+msgstr "モバイルで1ページのリスト数"
 
 #: view/board_form.php:657
 msgid "Gallery images per line"
-msgstr "갤러리 이미지 수필수"
+msgstr "ギャラリーイメージ数"
 
 #: view/board_form.php:659
 msgid ""
 "The values which set how many pages to be displayed in the list of the "
 "gallery types"
-msgstr ""
-"갤러리 형식의 게시판 목록에서 이미지를 한줄에 몇장씩 보여 줄 것인지를 설정하"
-"는 값"
+msgstr "ギャラリー形式の掲示板リストで一行に表示するイメージ数を設定"
 
 #: view/board_form.php:668
 msgid "Set gallery width"
-msgstr "갤러리 이미지 폭"
+msgstr "ギャラリーイメージの幅"
 
 #: view/board_form.php:670
 msgid ""
 "The values which set the width of thumb nale images in the board list of the "
 "gallery types"
-msgstr "갤러리 형식의 게시판 목록에서 썸네일 이미지의 폭을 설정하는 값"
+msgstr "ギャラリー形式の掲示板のリストでサムネイルのイメージの幅を設定する値"
 
 #: view/board_form.php:679
 msgid "Set gallery height"
-msgstr "갤러리 이미지 높이"
+msgstr "ギャラリーイメージの高さ"
 
 #: view/board_form.php:681
 msgid ""
 "The  values which set the heighth of thumb nale images in the board list of "
 "the gallery types"
-msgstr "갤러리 형식의 게시판 목록에서 썸네일 이미지의 높이를 설정하는 값"
+msgstr "ギャラリー形式の掲示板のリストでサムネイルのイメージの高さを設定する値"
 
 #: view/board_form.php:690
 msgid "Set Mobile gallery width"
-msgstr "모바일 겔러리 이미지 폭"
+msgstr "モバイルギャラリーのイメージの幅"
 
 #: view/board_form.php:692
 msgid ""
 "The values which set the width of thumbnale images in the board list of the "
 "gallery types when you connect on a mobile"
 msgstr ""
-"모바일로 접속시 갤러리 형식의 게시판 목록에서 썸네일 이미지의 폭을 설정하는 "
-"값"
+"モバイルから接続時、ギャラリー形式の掲示板リストでサムネイルのイメージの幅を"
+"設定する値"
 
 #: view/board_form.php:701
 msgid "Set Mobile gallery height"
-msgstr "모바일 갤러리 이미지 높이"
+msgstr "モバイルのギャラリーイメージの高さ"
 
 #: view/board_form.php:703
 msgid ""
 "The values which set the height of thumbnale images in the board list of the "
 "gallery types when you connect on a mobile"
 msgstr ""
-"모바일로 접속시 갤러리 형식의 게시판 목록에서 썸네일 이미지의 높이를 설정하"
-"는 값"
+"モバイルから接続時、ギャラリー形式の掲示板リストでサムネイルのイメージの高さ"
+"を設定する値"
 
 #: view/board_form.php:712
 msgid "SET Board Width"
-msgstr "게시판 폭"
+msgstr "掲示板の幅"
 
 #: view/board_form.php:714
 msgid "If less than 100, set it by %"
-msgstr "100 이하는 %"
+msgstr "100 以下は %"
 
 #: view/board_form.php:723
 msgid "SET image_view width"
-msgstr "이미지 폭 크기"
+msgstr "イメージの幅の大きさ"
 
 #: view/board_form.php:725
 msgid "Width size of the image outputted from the board"
-msgstr "게시판에서 출력되는 이미지의 폭 크기"
+msgstr "掲示板で出力されるイメージの幅の大きさ"
 
 #: view/board_form.php:734
 msgid "Set new icon"
-msgstr "새글 아이콘"
+msgstr "新投稿のアイコン"
 
 #: view/board_form.php:736
 msgid ""
 "Time to output the new image and text input. If you enter 0, no output icons."
 msgstr ""
-"글 입력후 new 이미지를 출력하는 시간. 0을 입력하시면 아이콘을 출력하지 않습니"
-"다."
+"投稿後、newイメージを出力するまでの時間。0を入力すればアイコンは出力されませ"
+"ん。"
 
 #: view/board_form.php:745
 msgid "Set hit icon"
-msgstr "인기글 아이콘"
+msgstr "人気投稿のアイコン"
 
 #: view/board_form.php:747
 msgid ""
 "If Hits is setting over hot image outputs. If you enter 0, no output icons."
 msgstr ""
-"조회수가 설정값 이상이면 hot 이미지 출력. 0을 입력하시면 아이콘을 출력하지 않"
-"습니다."
+"閲覧数が設定値より以上ならhotイメージを出力。0を入力すればアイコンは出力され"
+"ません。"
 
 #: view/board_form.php:756
 msgid "Set order by filed"
-msgstr "리스트 정렬 필드"
+msgstr "リストのソートフィールド"
 
 #: view/board_form.php:758
 msgid ""
 "Select the field you want to sort the list by default. If you are not used "
 "as a \"Default\" it may be slow."
 msgstr ""
-"리스트에서 기본으로 정렬에 사용할 필드를 선택합니다. \"기본\"으로 사용하지 않"
-"으시는 경우 속도가 느려질 수 있습니다."
+"リストで基本ソートのため使うフィールドを選択します。\"基本\"ではない時は遅く"
+"なる場合があります。"
 
 #: view/board_form.php:760 view/config_form.php:7
 msgid "Default"
-msgstr "기본환경"
+msgstr "基本環境"
 
 #: view/board_form.php:761
 msgid "Ascending order date"
-msgstr "날짜 이전것부터"
+msgstr "日付以前の投稿から"
 
 #: view/board_form.php:762
 msgid "Descending order date"
-msgstr "날짜 최근것부터"
+msgstr "日付最近の投稿から"
 
 #: view/board_form.php:763
 msgid "Ascending order hit"
-msgstr "조회수 낮은것부터"
+msgstr "閲覧数が低い投稿から"
 
 #: view/board_form.php:764
 msgid "Descending order hit"
-msgstr "조회수 높은것부터"
+msgstr "閲覧数が高い投稿から"
 
 #: view/board_form.php:765
 msgid "Ascending order last"
-msgstr "최근글 이전것부터"
+msgstr "最新投稿の以前投稿から"
 
 #: view/board_form.php:766
 msgid "Descending order last"
-msgstr "최근글 최근것부터"
+msgstr "最新投稿の最新から"
 
 #: view/board_form.php:767
 msgid "Ascending order Comments"
-msgstr "댓글수 낮은것부터"
+msgstr "コメント数が少ない投稿から"
 
 #: view/board_form.php:768
 msgid "Descending order Comments"
-msgstr "댓글수 높은것부터"
+msgstr "コメントが多い投稿から"
 
 #: view/board_form.php:769
 msgid "Ascending order recommend"
-msgstr "추천수 낮은것부터"
+msgstr "お奨め数が少ない投稿から"
 
 #: view/board_form.php:770
 msgid "Descending order recommend"
-msgstr "추천수 높은것부터"
+msgstr "お奨め数が多い投稿から"
 
 #: view/board_form.php:771
 msgid "Ascending order nonrecommend"
-msgstr "비추천수 낮은것 부터"
+msgstr "非推奨数が少ない投稿から"
 
 #: view/board_form.php:772 view/board_form.php:774
 msgid "Descending order nonrecommend"
-msgstr "비추천수 높은것 부터"
+msgstr "非推奨数が多い投稿から"
 
 #: view/board_form.php:773
 msgid "Ascending order subject"
-msgstr "제목 내림차순"
+msgstr "タイトルの降順"
 
 #: view/board_form.php:775
 msgid "Ascending order Author"
-msgstr "제목 오름차순"
+msgstr "タイトルの昇順"
 
 #: view/board_form.php:776
 msgid "Descending order Author"
-msgstr "글쓴이 내림차순"
+msgstr "投稿者の降順"
 
 #: view/board_form.php:777
 msgid "Ascending order Category"
-msgstr "글쓴이 오름차순"
+msgstr "投稿者の昇順"
 
 #: view/board_form.php:778
 msgid "Descending order Category"
-msgstr "분류명 내림차순"
+msgstr "分類名の降順"
 
 #: view/board_form.php:793 view/board_form.php:798
 msgid "Board point setting"
-msgstr "게시판 포인트 설정"
+msgstr "分類名の昇順"
 
 #: view/board_form.php:806
 msgid "Set as Default"
-msgstr "기본값으로 설정"
+msgstr "基本値として設定"
 
 #: view/board_form.php:808
 msgid "Set point input to the gnupress config"
-msgstr "환경설정에 입력된 포인트로 설정"
+msgstr "環境設定で入力されたポイントで設定"
 
 #: view/board_form.php:813 view/config_form.php:205
 msgid "Read points"
-msgstr "글읽기 포인트"
+msgstr "投稿の閲覧ポイント"
 
 #: view/board_form.php:823 view/config_form.php:207
 msgid "Write points"
-msgstr "글쓰기 포인트"
+msgstr "投稿ポイント"
 
 #: view/board_form.php:833 view/config_form.php:211
 msgid "Comment points"
-msgstr "댓글쓰기 포인트"
+msgstr "コメントポイント"
 
 #: view/board_form.php:843 view/config_form.php:213
 msgid "Download points"
-msgstr "다운로드 포인트"
+msgstr "ダウンロードポイント"
 
 #: view/board_form.php:872
 msgid "copy name must be different from original"
-msgstr "원본 테이블명과 복사할 테이블명이 달라야 합니다."
+msgstr "元テーブル名とコピーするテーブル名は異なるようにします。"
 
 #: view/board_form.php:925
 msgid "Press Ctrl + C to copy the shortcode."
-msgstr "Ctrl+C를 눌러 shortcode를 복사해 주세요."
+msgstr "Ctrl+Cを押してshortcodeをコピーしてください。"
 
 #: view/board_form.php:942 view/board_list.php:207
 msgid "Original table name"
-msgstr "원본 테이블명"
+msgstr "元のテーブル名"
 
 #: view/board_form.php:946 view/board_list.php:211
 msgid "Copy the table name"
-msgstr "복사할 테이블명"
+msgstr "コピーするテーブル名"
 
 #: view/board_form.php:947 view/board_list.php:212
 msgid "Allowed characters Alphabetic and Number and underbar( no whitespace )"
-msgstr "영문자, 숫자, _만 허용( 공백없이)"
+msgstr "英文字、数値、_のみ可(空白なし)"
 
 #: view/board_form.php:951 view/board_list.php:188
 msgid "carbon copy"
-msgstr "복사본"
+msgstr "コピーした投稿"
 
 #: view/board_form.php:954 view/board_list.php:219
 msgid "Copy Type"
-msgstr "복사 유형"
+msgstr "コピータイプ"
 
 #: view/board_form.php:957 view/board_list.php:222
 msgid "Only Structure"
-msgstr "구조만"
+msgstr "ディレクトリのみ"
 
 #: view/board_form.php:959 view/board_list.php:224
 msgid "Structure and Data"
-msgstr "구조와 데이터"
+msgstr "ディレクトリとデータ"
 
 #: view/board_list.php:14
 msgid "Created board items"
-msgstr "생성된 게시판 수"
+msgstr "生成された掲示板数"
 
 #: view/board_list.php:14
 msgid "item"
-msgstr "개"
+msgstr "個"
 
 #: view/board_list.php:33
 msgid "New board add"
-msgstr "새 게시판 추가"
+msgstr "新掲示板の追加"
 
 #: view/board_list.php:57 view/board_list.php:97
 msgid "Skin"
-msgstr "스킨"
+msgstr "スキン"
 
 #: view/board_list.php:59
 msgid "Read P"
-msgstr "읽기P"
+msgstr "閲覧P"
 
 #: view/board_list.php:59 view/board_list.php:60 view/board_list.php:61
 #: view/board_list.php:62
 msgid "Point"
-msgstr "포인트"
+msgstr "ポイント"
 
 #: view/board_list.php:60
 msgid "Write P"
-msgstr "쓰기P"
+msgstr "投稿P"
 
 #: view/board_list.php:61
 msgid "Comment P"
-msgstr "댓글P"
+msgstr "コメントP"
 
 #: view/board_list.php:62
 msgid "Download P"
-msgstr "다운P"
+msgstr "ダウンロードP"
 
 #: view/board_list.php:101
 msgid "Board subject"
-msgstr "게시판 제목"
+msgstr "掲示板タイトル"
 
 #: view/board_list.php:105
 msgid "Read Point"
-msgstr "읽기 포인트"
+msgstr "閲覧ポイント"
 
 #: view/board_list.php:109
 msgid "Write a Point"
-msgstr "쓰기 포인트"
+msgstr "投稿ポイント"
 
 #: view/board_list.php:113
 msgid "Comments Point"
-msgstr "댓글 포인트"
+msgstr "コメントポイント"
 
 #: view/board_list.php:117
 msgid "Download Point"
-msgstr "다운로드 포인트"
+msgstr "ダウンロードポイント"
 
 #: view/config_form.php:8
 msgid "BBS default"
-msgstr "게시판기본"
+msgstr "掲示板基本"
 
 #: view/config_form.php:9
 msgid "Mail setting"
-msgstr "기본메일환경"
+msgstr "基本メールの環境"
 
 #: view/config_form.php:10
 msgid "Email posts"
-msgstr "글메일설정"
+msgstr "メール設定"
 
 #: view/config_form.php:15
 msgid "Go Main"
-msgstr "메인으로"
+msgstr "メインへ"
 
 #: view/config_form.php:24 view/config_form.php:29
 msgid "Site default setting"
-msgstr "홈페이지 기본환경 설정"
+msgstr "ホームページ基本環境設定"
 
 #: view/config_form.php:38
 msgid "Current Version"
-msgstr "현재버전"
+msgstr "現在バジョン"
 
 #: view/config_form.php:44
 msgid "Using Points"
-msgstr "포인트 사용"
+msgstr "ポイント使用"
 
 #: view/config_form.php:48
 msgid "Login point"
-msgstr "로그인시 포인트"
+msgstr "ログインポイント"
 
 #: view/config_form.php:50
 msgid "Members saving point only once a day at login"
-msgstr "회원이 로그인시 하루에 한번만 적립"
+msgstr "会員ログインは一日一回のみポイントが貯まる"
 
 #: view/config_form.php:51 view/config_form.php:206 view/config_form.php:208
 #: view/config_form.php:212 view/config_form.php:214 view/point_list.php:88
 #: view/point_list.php:91 view/point_list.php:130 view/point_list.php:238
 msgid "point"
-msgstr "점"
+msgstr "点"
 
 #: view/config_form.php:56
 msgid "Display Name"
-msgstr "이름(닉네임) 표시"
+msgstr "お名前(ニックネーム)表示"
 
 #: view/config_form.php:58
 msgid "Display Cut string"
-msgstr "자리만 표시"
+msgstr "桁のみ表示"
 
 #: view/config_form.php:63
 msgid "Point expiry date"
-msgstr "포인트 유효기간"
+msgstr "ポイント有効期間"
 
 #: view/config_form.php:65
 msgid ""
 "This point does not apply during the period of the validity period is set to "
 "0"
-msgstr "기간을 0으로 설정시 포인트 유효기간이 적용되지 않습니다."
+msgstr "間を0に設定すればポイント有効期間の適用されません。"
 
 #: view/config_form.php:66 view/point_list.php:244
 msgid "days"
-msgstr "일"
+msgstr "日"
 
 #: view/config_form.php:71
 msgid "Display setting for page number"
-msgstr "페이지 표시 수"
+msgstr "ページ表示数"
 
 #: view/config_form.php:72 view/config_form.php:74
 msgid "Show per page"
-msgstr "페이지씩 표시"
+msgstr "ページずつ表示"
 
 #: view/config_form.php:73
 msgid "Display setting for page number( MOBILE )"
-msgstr "모바일 페이지 표시 수"
+msgstr "モバイルページの表示数"
 
 #: view/config_form.php:78
 msgid "Select editor"
-msgstr "에디터 선택"
+msgstr "エディター選択"
 
 #: view/config_form.php:80
 msgid "For in that editor folder please select"
-msgstr "밑의 DHTML 에디터 폴더를 선택합니다."
+msgstr "下のDHTMLエディタのフォルダを選択します。"
 
 #: view/config_form.php:85
 msgid "not use"
-msgstr "사용하지않음"
+msgstr "使用しない"
 
 #: view/config_form.php:93
 msgid "Select captcha sound"
-msgstr "음성캡챠 선택"
+msgstr "音声キャプチャー選択"
 
 #: view/config_form.php:95
 msgid "/mp3 For in that sound folder please select."
-msgstr "/mp3 밑의 음성 폴더를 선택합니다."
+msgstr "/mp3内の音声フォルダを選択します。"
 
 #: view/config_form.php:109
 msgid "Select scrap and point page( open )"
-msgstr "스크랩 및 포인트 적용페이지(새창)"
+msgstr "スクラップやポイントの適用ページ（別ウィンドウ）"
 
 #: view/config_form.php:111
 msgid ""
 "Please select the page you want to apply, such as scrap and points in a new "
 "window."
-msgstr "스크랩 및 포인트 등을 새창으로 적용할 페이지를 선택해 주세요."
+msgstr "スクラップやポイントの適用ページ（別ウィンドウ）"
 
 #: view/config_form.php:124
 msgid "Log for copy and move"
-msgstr "복사, 이동시 로그"
+msgstr "コピー、移動時のログ"
 
 #: view/config_form.php:126
 msgid "Show the direction of the copy, move from someone under the board"
-msgstr "게시물 아래에 누구로 부터 복사, 이동됨 표시"
+msgstr "投稿の下に誰からコピー、移動されたかを表示"
 
 #: view/config_form.php:127
 msgid "display"
-msgstr "표시"
+msgstr "表示"
 
 #: view/config_form.php:132
 msgid "Board whether or not to include the wp search"
-msgstr "전체 검색시 게시판 포함 여부"
+msgstr "全体を検索時、掲示板を含むか"
 
 #: view/config_form.php:134
 msgid "Board contents to include the wp search"
-msgstr "워드프레스 전체 검색시 게시판 내용을 검색에 포함시킵니다."
+msgstr "WordPressの全体を検索時、掲示板の内容を検索に含みます。"
 
 #: view/config_form.php:134
 msgid "Please check off when there is a problem with the search."
-msgstr "검색에 문제가 있을시 체크 해제해 주세요."
+msgstr "検索時、問題がある場合はチェックを外してください。"
 
 #: view/config_form.php:135
 msgid "include if check"
-msgstr "체크시 포함"
+msgstr "チェックすると含む"
 
 #: view/config_form.php:140
 msgid "Naver syndication key"
-msgstr "네이버 신디케이션 키"
+msgstr "NAVER　Syndicationキー"
 
 #: view/config_form.php:143
 msgid ""
 "If you enter a key interlock Naver syndication (token) it can be use to "
 "Naver syndication."
 msgstr ""
-"네이버 신디케이션 연동키(token)을 입력하면 네이버 신디케이션을 사용할 수 있습"
-"니다."
+"NAVER Syndication連動キー(token)を入力すればNAVER Syndicationを使用できます。"
 
 #: view/config_form.php:144
 #, php-format
 msgid "keys must be issued by naver syndication of %s."
-msgstr "연동키는 %s의 네이버 신디케이션에서 발급할 수 있습니다."
+msgstr "連動キーは %sのNAVER　Syndicationにて発行できます。"
 
 #: view/config_form.php:149
 msgid "Set board excluded from Naver syndication"
-msgstr "네이버 신디케이션 제외게시판"
+msgstr "NAVER　Syndicationを含まない掲示板"
 
 #: view/config_form.php:151
 msgid ""
 "Please enter separated by | the board ID to be excluded from the Naver "
 "collection syndication."
-msgstr ""
-"네이버 신디케이션 수집에서 제외할 게시판 아이디를 | 로 구분하여 입력하십시오."
+msgstr "NAVER　Syndication収集に含まない掲示板IDを | で区別して入力します。"
 
 #: view/config_form.php:151
 msgid "example :) notice|adult"
-msgstr "예) notice|adult"
+msgstr "例) notice|adult"
 
 #: view/config_form.php:151
 msgid ""
 "For your information, the boards whose permission is -1 are collected and "
 "secret writtings are excluded from the syndication collecting."
 msgstr ""
-"참고로 글읽기 권한이 -1 인 게시판만 수집되며, 비밀글은 신디케이션 수집에서 제"
-"외됩니다.0"
+"参考です。閲覧権限が -1 の掲示板のみ収集されますし、公開しない投稿は"
+"Syndication収集から外されます。"
 
 #: view/config_form.php:156
 msgid "Use google recaptcha"
-msgstr "구글 리캡챠 사용"
+msgstr "グーグルリキャプチャー使用"
 
 #: view/config_form.php:158
 msgid "If you use recaptcha, issued a key and then enter in the fields below."
-msgstr "리캡챠를 사용하시려면, 키를 발급받으신후 아래 입력란에 입력해 주세요."
+msgstr ""
+"リキャプチャーを使用すると、キーを発行して下記の入力欄に入力してください。"
 
 #: view/config_form.php:159
 msgid "Site_key"
@@ -2568,123 +2562,121 @@ msgstr "Secret_key"
 
 #: view/config_form.php:177
 msgid "It can be set individually for each management board."
-msgstr "각 게시판 관리에서 개별적으로 설정 가능합니다."
+msgstr "各掲示板の管理で個別に設定可能です。"
 
 #: view/config_form.php:191
 msgid "Intervals during for writing"
-msgstr "글쓰기 간격"
+msgstr "投稿の間隔"
 
 #: view/config_form.php:192
 msgid "Intervals after"
-msgstr "초 지난후 가능"
+msgstr "秒以降に可能"
 
 #: view/config_form.php:193
 msgid "Link for target"
-msgstr "새창 링크"
+msgstr "別ウィンドウをリンク"
 
 #: view/config_form.php:195
 msgid "Specifies the target of the link is automatically posts content."
-msgstr "글내용중 자동 링크되는 타켓을 지정합니다."
+msgstr "投稿の内容中に自動リンクされるタゲットを指定します。"
 
 #: view/config_form.php:217
 msgid "Search Units"
-msgstr "검색 단위"
+msgstr "検索単位"
 
 #: view/config_form.php:218
 msgid "Units use Search"
-msgstr "건 단위로 검색"
+msgstr "件単位で検索"
 
 #: view/config_form.php:221
 msgid "Allowed image extensions"
-msgstr "이미지 업로드 확장자"
+msgstr "イメージアップロードの拡張子"
 
 #: view/config_form.php:223
 msgid "Allowed image extensions separated by( period or vertical bar )"
-msgstr "게시판 글작성시 이미지 파일 업로드 가능 확장자. | 로 구분"
+msgstr "掲示板へ投稿時、イメージファイルアップロード可の拡張子| で区別"
 
 #: view/config_form.php:228
 msgid "Allowed flash extensions"
-msgstr "플래쉬 업로드 확장자"
+msgstr "Flashアップロードの拡張子"
 
 #: view/config_form.php:230
 msgid "Allowed flash extensions separated by( period or vertical bar )"
-msgstr "게시판 글작성시 플래쉬 파일 업로드 가능 확장자. | 로 구분"
+msgstr "掲示板へ投稿時、Flashファイルのアップロード可の拡張子| で区別"
 
 #: view/config_form.php:235
 msgid "Allowed movie extensions"
-msgstr "동영상 업로드 확장자"
+msgstr "動画アップロードの拡張子"
 
 #: view/config_form.php:237
 msgid "Allowed movie extensions separated by( period or vertical bar )"
-msgstr "게시판 글작성시 동영상 파일 업로드 가능 확장자. | 로 구분"
+msgstr "掲示板へ投稿時、動画ファイルのアップロード可の拡張子| で区別"
 
 #: view/config_form.php:242
 msgid "Filter words"
-msgstr "단어 필터링"
+msgstr "単語のフィルタリング"
 
 #: view/config_form.php:244
 msgid ""
 "The Contents contained is entered word can not published. The words between "
 "words, separated by commas."
-msgstr ""
-"입력된 단어가 포함된 내용은 게시할 수 없습니다. 단어와 단어 사이는 ,로 구분합"
-"니다."
+msgstr "入力の単語が含まれた内容は投稿できません。単語の間は,で区別します。"
 
 #: view/config_form.php:257 view/config_form.php:262
 msgid "Mail Default setting"
-msgstr "기본 메일 환경 설정"
+msgstr "基本メールの環境設定"
 
 #: view/config_form.php:271
 msgid ""
 "If you do not check, The mailing does not use at all. No mail is also testing"
-msgstr ""
-"체크하지 않으면 메일발송을 아예 사용하지 않습니다. 메일 테스트도 불가합니다"
+msgstr "チェックをしないとメール発行を使えません。メールのテストも不可です。"
 
 #: view/config_form.php:276
 msgid "Whether using formmail"
-msgstr "폼메일 사용 여부"
+msgstr "フォームメールを使用するか"
 
 #: view/config_form.php:278
 msgid "If you do not check, guest can be use."
-msgstr "체크하지 않으면 비회원도 사용 할 수 있습니다."
+msgstr "チェックを外すと非会員も使用できます。"
 
 #: view/config_form.php:279
 msgid "Use only members"
-msgstr "회원만 사용"
+msgstr "会員のみ使用"
 
 #: view/config_form.php:289 view/config_form.php:294
 msgid "Mail setting when posts write"
-msgstr "게시판 글 작성 시 메일 설정"
+msgstr "掲示板へ投稿時、メールの設定"
 
 #: view/config_form.php:301
 msgid "Administrator"
-msgstr "최고관리자"
+msgstr "最高管理者"
 
 #: view/config_form.php:303
 msgid "Send email to the administrator."
-msgstr "최고 관리자에게 메일을 발송합니다."
+msgstr "最高管理者へメールを送ります。"
 
 #: view/config_form.php:308
 msgid "BBS manager"
-msgstr "게시판관리자"
+msgstr "掲示板の管理者"
 
 #: view/config_form.php:310
 msgid "Send email to the BBS manager."
-msgstr "게시판관리자에게 메일을 발송합니다."
+msgstr "掲示板の管理者へメールを送ります。"
 
 #: view/config_form.php:317
 msgid "Send email to the Author."
-msgstr "게시자님께 메일을 발송합니다."
+msgstr "投稿者へメールを送ります。"
 
 #: view/config_form.php:322
 msgid "Commenter"
-msgstr "댓글작성자"
+msgstr "コメント投稿者"
 
 #: view/config_form.php:324
 msgid ""
 "If write a comment on original, will be sent mail to all those who wrote "
 "comments."
-msgstr "원글에 댓글이 올라오는 경우 댓글 쓴 모든 분들께 메일을 발송합니다."
+msgstr ""
+"元投稿にコメントが投稿される時はコメントの投稿者全員にメールを送ります。"
 
 #: view/edit_tag_form.php:12
 msgid "You did not select an item for editing."
@@ -2715,8 +2707,7 @@ msgstr ""
 msgid ""
 "* If exists same name on the tag or category of WordPress, It will be "
 "modified equally."
-msgstr ""
-"워드프레스 의 태그와 카테고리에 동일한 이름이 있을 경우 똑같이 수정됩니다."
+msgstr "WordPressのタグとカテゴリーに同じ名前がある場合、同じく修正されます。"
 
 #: view/edit_tag_form.php:200
 msgid "Update"
@@ -2724,55 +2715,55 @@ msgstr ""
 
 #: view/point_list.php:60
 msgid "All lists"
-msgstr "전체목록"
+msgstr "全体リスト"
 
 #: view/point_list.php:68
 msgid "Points management"
-msgstr "포인트 관리"
+msgstr "ポイント管理"
 
 #: view/point_list.php:85
 msgid "All"
-msgstr "전체"
+msgstr "全体"
 
 #: view/point_list.php:85
 msgid "number"
-msgstr "개( 수 )"
+msgstr "個(数)"
 
 #: view/point_list.php:88
 msgid "'s Point totals"
-msgstr "님의 포인트 합계"
+msgstr "様のポイント合計"
 
 #: view/point_list.php:91
 msgid "Point totals"
-msgstr "포인트 합계"
+msgstr "ポイント合計"
 
 #: view/point_list.php:124
 msgid "Points Full Record"
-msgstr "포인트 기록 전체"
+msgstr "ポイント記録の全体"
 
 #: view/point_list.php:127 view/point_list.php:230
 msgid "user_id"
-msgstr "회원아이디"
+msgstr "会員ID"
 
 #: view/point_list.php:128
 msgid "name"
-msgstr "이름"
+msgstr "お名前"
 
 #: view/point_list.php:129 view/point_list.php:234
 msgid "point description"
-msgstr "포인트 설명"
+msgstr "ポイント説明"
 
 #: view/point_list.php:133
 msgid "totals"
-msgstr "합계"
+msgstr "合計"
 
 #: view/point_list.php:211
 msgid "Individual members set point increase or decrease"
-msgstr "개별회원 포인트 증감 설정"
+msgstr "会員ずつポイント増減の設定"
 
 #: view/point_list.php:243
 msgid "point_expire_term"
-msgstr "포인트 유효기간"
+msgstr "ポイントの有効期間"
 
 #: view/tag_form.php:29 view/tag_form.php:48 view/tag_form.php:80
 #: view/tag_form.php:93 view/tag_form.php:128
@@ -2991,7 +2982,7 @@ msgstr ""
 
 #: view/tag_form.php:301
 msgid "Please select"
-msgstr "선택해주세요."
+msgstr "選択してください。"
 
 #: view/tag_form.php:342
 #, php-format
@@ -3023,16 +3014,16 @@ msgstr ""
 
 #: view/tag_form.php:586
 msgid "Please choose a board"
-msgstr "게시판을 선택해 주세요."
-
-#~ msgid "'S Point totals"
-#~ msgstr "님의 포인트 합계"
+msgstr "掲示板を選択してください。"
 
 #~ msgid "'S scrap"
-#~ msgstr "님의 스크랩"
+#~ msgstr "様のスクラップ"
 
 #~ msgid "'S comments"
-#~ msgstr "님의 댓글"
+#~ msgstr "様のコメント"
+
+#~ msgid "'S Point totals"
+#~ msgstr "様のポイント合計"
 
 #~ msgid "bo_table 값을 입력하세요."
 #~ msgstr "bo_table 값을 입력하세요."

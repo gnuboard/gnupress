@@ -1,5 +1,6 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+//include_once( G5_DIR_PATH.'lib/thumbnail.lib.php' );  //리스트에서 이미지를 사용할시 사용
 
 if( !is_array($list) ) return;
 // $g5_page_url 이 빈값으로 나올 경우 숏코드에 해당 url을 입력, 또는 게시판 기본 설정에서 적용할 페이지을 설정해 주시면 됩니다.
@@ -10,6 +11,15 @@ if( !is_array($list) ) return;
     <?php
     foreach($list as $row) {
         if( !isset($row['wr_id']) ) continue;
+        /*
+        $thumb = g5_get_list_thumbnail($bo_table, $row['wr_id'], 100, 100);
+
+        if($thumb['src']) {     //이미지가 있을때
+            $img_content = '<img src="'.$thumb['src'].'" alt="'.$thumb['alt'].'" style="height:100px; width: 100px; display: block;"  >';
+        } else {    //이미지가 없을때
+            $img_content = '<span style="height:100px">no image</span>';
+        }
+        */
     ?>
         <li>
             <?php

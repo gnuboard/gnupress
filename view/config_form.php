@@ -163,6 +163,14 @@ $frm_submit = '<div class="btn_confirm01 btn_confirm">
             </td>
         </tr>
 
+        <tr>
+            <th scope="row"><label for="cf_recaptcha_site_key">플러그인 삭제시 데이터를 삭제</label></th>
+            <td colspan="3">
+                <?php echo g5_help('체크하시면 플러그인 삭제시 Gnupress에 관한 모든 데이터를 삭제합니다.'); ?>
+                <input type="checkbox" name="cf_delete_data_ask" value="1" id="cf_delete_data_ask" <?php echo $config['cf_delete_data_ask']?'checked':''; ?>> <label for="cf_delete_data_ask">체크하기</label>
+            </td>
+        </tr>
+
         </tbody>
         </table>
     </div>

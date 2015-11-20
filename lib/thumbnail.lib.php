@@ -4,12 +4,14 @@ if (!defined('_GNUBOARD_')) exit;
 // 게시글리스트 썸네일 생성
 function g5_get_list_thumbnail($bo_table, $wr_id, $thumb_width, $thumb_height, $is_create=false, $is_crop=true, $crop_mode='center', $is_sharpen=false, $um_value='80/0.5/3')
 {
-    global $gnupress;
+    global $gnupress, $wpdb;
 
     if( !$wr_id || !g5_get_upload_path() ) return;
 
     $g5 = $gnupress->g5;
     $config = $gnupress->config;
+
+    G5_var::getInstance()->need_value_load();
 
     $filename = $alt = "";
     $edt = false;

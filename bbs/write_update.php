@@ -1,6 +1,8 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
+do_action('gnupress_write_update', $board, $is_admin);
+
 if ( ! isset( $_POST['g5_nonce_field'] ) || ! wp_verify_nonce( $_POST['g5_nonce_field'], 'g5_write' ) ) {
     g5_alert(__('Invalid Connection.', G5_NAME), get_permalink() );
 }
@@ -671,7 +673,7 @@ if (!($w == 'u' || $w == 'cu') && $config['cf_email_use'] && $board['bo_use_emai
     add_filter( 'wp_mail_content_type', 'g5_set_html_content_type' );
     foreach( $unique_email as $email ){
         if( empty($email) ) continue;
-        wp_mail($unique_email, $subject, $content, $headers, $attachments );
+        wp_mail($email, $subject, $content, $headers, $attachments );
     }
     remove_filter( 'wp_mail_content_type', 'g5_set_html_content_type' );
 }

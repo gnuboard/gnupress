@@ -1,5 +1,8 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+
+do_action('gnupress_write_page', $board, $wr_id);
+
 include_once(G5_PLUGIN_PATH.'/kcaptcha/captcha.lib.php');
 
 $notice_array = explode(',', trim($board['bo_notice']));
@@ -334,11 +337,15 @@ $editor_js = '';
 $editor_js .= g5_get_editor_js('wr_content', $is_dhtml_editor);
 $editor_js .= g5_chk_editor_js('wr_content', $is_dhtml_editor);
 
-@include_once ($board_skin_path.'/write.head.skin.php');
+if(file_exists($board_skin_path.'/write.head.skin.php')){
+    include_once ($board_skin_path.'/write.head.skin.php');
+}
 
 $action_url = apply_filters('g5_write_action_url', get_permalink() );
 
 include_once ($board_skin_path.'/write.skin.php');
 
-@include_once ($board_skin_path.'/write.tail.skin.php');
+if(file_exists($board_skin_path.'/write.tail.skin.php')){
+    include_once ($board_skin_path.'/write.tail.skin.php');
+}
 ?>

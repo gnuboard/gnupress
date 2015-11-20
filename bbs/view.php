@@ -170,7 +170,7 @@ if($html && strstr($view['wr_option'], 'wp_html') ){    //워드프레스 에디
     add_filter('g5_view_content', 'g5_hook_conv_wp' , 1 , 2 );
 }
 
-$view['content'] = apply_filters('g5_view_content', g5_conv_content($view['wr_content'], $html) , $view['wr_content'] );
+$view['content'] = apply_filters('g5_view_content', g5_conv_content($view['wr_content'], $html) , $view['wr_content'], $board, $view);
 
 if (strstr($sfl, 'content'))
     $view['content'] = g5_search_font($stx, $view['content']);

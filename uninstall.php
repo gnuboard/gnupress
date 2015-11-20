@@ -12,6 +12,11 @@ global $wpdb;
 include_once( G5_DIR_PATH.'lib/g5_var.class.php' );
 
 $g5 = G5_var::getInstance()->get_options();
+$config = G5_var::getInstance()->get_options('config');
+
+if( !$config['cf_delete_data_ask'] ){   //플러그인 삭제시 데이터 삭제에 포함이 안되어 있으면
+    return;
+}
 
 $sql = "DROP TABLE IF EXISTS ".$g5['taxonomy_table'];
 $wpdb->query($sql);

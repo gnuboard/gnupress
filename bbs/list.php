@@ -86,20 +86,10 @@ if ($sca || $stx || count($search_tag)) {
         if( $sql_tag_text ){
             $sql_search .= " and ( $sql_tag_text ) ";
         }
-        if( !$sql_search_add_sql ){
-            $sql = "select count(wr_id) as cnt from {$write_table} wr left join {$g5['relation_table']} t on wr.wr_id = t.object_id where {$sql_search}";
-        } else {    //group by 절이 들어가므로...
-            $sql = " select count( t.total ) as cnt from (select count(wr_id) as total from $write_table wr left join {$g5['relation_table']} t on wr.wr_id = t.object_id where $sql_search $sql_search_add_sql) t ";
-        }
     }
 
-    $sql = apply_filters('g5_list_search_total', $sql, $board, $sql_search, $search_tag, $sca, $stx );
-
-    $total_count = $wpdb->get_var($sql);
 } else {
     $sql_search = "";
-
-    $total_count = $board['bo_count_write'];
 }
 
 if(G5_IS_MOBILE) {
@@ -153,7 +143,8 @@ if (!$sca && !$stx && !count($search_tag)) {
     }
 }
 
-$total_page  = ceil($total_count / $page_rows);  // 전체 페이지 계산
+$total_count = 0;   //전체 카운트 초기화
+$total_page  = 0;  // 전체 페이지 초기화
 $from_record = ($page - 1) * $page_rows; // 시작 열을 구함
 
 // 공지글이 있으면 변수에 반영
@@ -207,15 +198,15 @@ if ($sca || $stx || count($search_tag)) {
     $sql = $wpdb->prepare(" select * from {$write_table} where {$sql_search} {$sql_order} limit %d, %d ", $from_record, $page_rows);
 
     if( count($search_tag) && $board['bo_use_tag'] ){  //태그 검색이 들어가 있다면...
-        $sql = $wpdb->prepare(" select * from $write_table wr left join `{$g5['relation_table']}` t on wr.wr_id = t.object_id where $sql_search $sql_search_add_sql $sql_order limit %d, %d", $from_record, $page_rows);
+        $sql = $wpdb->prepare(" select SQL_CALC_FOUND_ROWS * from $write_table wr left join `{$g5['relation_table']}` t on wr.wr_id = t.object_id where $sql_search $sql_search_add_sql $sql_order limit %d, %d", $from_record, $page_rows);
     }
     $sql = apply_filters('g5_list_search_sql', $sql, $board, $sql_search, $sql_order, $search_tag, $from_record, $page_rows );
 
 } else {
-    $sql = $wpdb->prepare(" select * from {$write_table} where bo_table = '%s' ", $bo_table);
+    $sql = $wpdb->prepare(" select SQL_CALC_FOUND_ROWS * from {$write_table} where bo_table = '%s' ", $bo_table);
     if(!empty($notice_array))
         $sql .= " and wr_id not in (".implode(', ', $notice_array).") ";
-    $sql .= " {$sql_order} limit {$from_record}, $page_rows ";
+    $sql .= apply_filters('g5_list_nosearch_sql', " {$sql_order} limit {$from_record}, $page_rows ", $board, '', $sql_order, '', $from_record, $page_rows);
 }
 
 $tag_ids = array();
@@ -224,6 +215,15 @@ $tag_ids = array();
 if($page_rows > 0) {
 
     $list = $wpdb->get_results($sql, ARRAY_A);
+
+    $total_count = $wpdb->get_var('SELECT FOUND_ROWS()');
+
+    if( count($notice_array) > 0 ){
+        $total_count = $total_count + count($notice_array);
+    }
+
+    $total_page  = ceil($total_count / $page_rows);  // 전체 페이지 계산
+
     $list = apply_filters('g5_get_list_array', $list, $sql);
 
     $list_num = $total_count - ($page - 1) * $list_page_rows - $notice_count;

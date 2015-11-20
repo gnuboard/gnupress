@@ -4,7 +4,7 @@
  *  Description: 워드프레스 게시판 플러그인
  *  Author: SIR Soft
  *  Author URI: http://sir.co.kr
- *  Version: 0.2.5
+ *  Version: 0.2.8
  *  Text Domain: SIR Soft
  */
 
@@ -335,9 +335,10 @@ Class GnuPress {
             }
         }
 
-        if( $this->is_g5_page ){
+        if( $this->is_g5_page && !(isset($attr['page_mode']) && in_array($attr['page_mode'], $this->member_page_array)) ){
+            //글쓰기 페이지 일때만 아래구문 실행
             global $wpdb;
-            $wpdb->{G5_META_TYPE.'meta'} = $this->g5['meta_table'];
+            G5_var::getInstance()->need_value_load();
             $this->load($attr);
         }
 
@@ -491,6 +492,7 @@ Class GnuPress {
             $list = array();
 
             if( $this->latest === null ){
+                G5_var::getInstance()->need_value_load();
                 include_once( G5_DIR_PATH.'lib/g5_common.class.php' );
                 include_once( G5_DIR_PATH.'lib/g5_board.class.php' );
                 include_once( G5_DIR_PATH.'lib/g5_taxonomy.lib.php' );
